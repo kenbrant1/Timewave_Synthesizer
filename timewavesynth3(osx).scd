@@ -4183,9 +4183,9 @@ case
 			n8 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(60*1),Window.screenBounds.height-52,60,60/1.61803398875)).states_([["s8",Color.white,Color.black],["8set",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 1, {~r1=fp1h;~r2=fp2h;~r3=fp3h;~r4h=fp4h;~r5h=fp5h;~r6h=fp6h;~r7h=fp7h;~r8h=fp8h;~r9h=fp9h;~r10h=fp10h;~r11h=fp11h;~r12h=fp12h; #fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h/*,fp13h,fp14h,fp15h,fp16h,fp17h,fp18h,fp19h,fp20h,fp21h,fp22h,fp23h,fp24h*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1h=~f1;~u2h=~f2;~u3h=~f3;~u4h=~f4;~u5h=~f5;~u6h=~f6;~u7h=~f7;~u8h=~f8;~u9h=~f9;~u10h=~f10;~u11g=~f11;~u12h=~f12;}, {nil});});
 
 
-			~undo = PopUpMenu(w, Rect(Window.screenBounds.width-(Window.screenBounds.width/3),Window.screenBounds.height-52+19.777087639995-34,40,40/1.61803398875)).items_(["u","u1","u2","u3","u4","u5","u6","u7","u8"]).background_(Color.black).stringColor_(Color.white).action_({arg button;});
+			~undo = PopUpMenu(w, Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+39,Window.screenBounds.height-52+19.777087639995-(40/1.61803398875)-8,40,40/1.61803398875)).items_(["u","u1","u2","u3","u4","u5","u6","u7","u8"]).background_(Color.black).stringColor_(Color.white).action_({arg button;});
 
-			set2 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+40,Window.screenBounds.height-52+19.777087639995-34,40,40/1.61803398875)).states_([["set",Color.white,Color.black]]).action_({arg button;
+			set2 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+40+39,Window.screenBounds.height-52+19.777087639995-(40/1.61803398875)-8,40,40/1.61803398875)).states_([["set",Color.white,Color.black]]).action_({arg button;
 				case
 				{~undo.value == 1}{if(([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12] == [~r1,~r2,~r3,~r4,~r5,~r6,~r7,~r8,~r9,~r10,~r11,~r12]).postln, {#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12 = [~u1,~u2,~u3,~u4,~u5,~u6,~u7,~u8,~u9,~u10,~u11,~u12]},{#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12 = [~r1,~r2,~r3,~r4,~r5,~r6,~r7,~r8,~r9,~r10,~r11,~r12]});~undo.value = 0;}
 				{~undo.value == 2}{if([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b] == [~r1b,~r2b,~r3b,~r4b,~r5b,~r6b,~r7b,~r8b,~r9b,~r10b,~r11b,~r12b], {#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b = [~u1b,~u2b,~u3b,~u4b,~u5b,~u6b,~u7b,~u8b,~u9b,~u10b,~u11b,~u12b]},{#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b = [~r1b,~r2b,~r3b,~r4b,~r5b,~r6b,~r7b,~r8b,~r9b,~r10b,~r11b,~r12b]});~undo.value = 0;}
@@ -4216,11 +4216,11 @@ case
 			~bfreqstart = ~basefreq;
 			~bfreq = PopUpMenu(w, Rect(20+60*2+16,Window.screenBounds.height-52+(16/1.61803398875*0),180,60/1.61803398875)).items_(~bfreqv = (-1); [~basefreq.asString++" hz"]++Array.fill(128, {~freqmap.at(~bfreqv=~bfreqv+1).asString++" hz"})).background_(Color.black).stringColor_(Color.white).action_({arg button;});
 
-			~startrecord = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3),Window.screenBounds.height-52+19.777087639995,28,28/1.61803398875)).states_([["rc",Color.white,Color.black],["rc",Color.black,Color.red]]).action_({arg button; Server.default.record; if(button.value == 0, {button.value = 1});});
+			~startrecord = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+39,Window.screenBounds.height-52+19.777087639995,28,28/1.61803398875)).states_([["rc",Color.white,Color.black],["rc",Color.black,Color.red]]).action_({arg button; Server.default.record; if(button.value == 0, {button.value = 1});});
 
-			~pauserecord = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+28,Window.screenBounds.height-52+19.777087639995,28,28/1.61803398875)).states_([["prc",Color.white,Color.black],["/prc",Color.black,Color.blue]]).action_({arg button; if(button == 1, {Server.default.pauseRecording;}, {Server.default.record});});
+			~pauserecord = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+28+39,Window.screenBounds.height-52+19.777087639995,28,28/1.61803398875)).states_([["prc",Color.white,Color.black],["/prc",Color.black,Color.blue]]).action_({arg button; if(button == 1, {Server.default.pauseRecording;}, {Server.default.record});});
 
-			~stoprecord = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+28+28,Window.screenBounds.height-52+19.777087639995,28,28/1.61803398875)).states_([["/rc",Color.white,Color.black]]).action_({arg button; Server.default.stopRecording; ~startrecord.value = 0; ~pauserecord.value = 0;});
+			~stoprecord = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+28+28+39,Window.screenBounds.height-52+19.777087639995,28,28/1.61803398875)).states_([["/rc",Color.white,Color.black]]).action_({arg button; Server.default.stopRecording; ~startrecord.value = 0; ~pauserecord.value = 0;});
 
 			/*~free = Button.new(w,Rect(Window.screenBounds.width-20-20-20,~bpt+69,20,20/1.61803398875)).states_([["fs",Color.white,Color.black]]).action_({arg button;
 			~synthfree.value;
@@ -4233,7 +4233,7 @@ case
 				~close = Button.new(w,Rect(Window.screenBounds.width-20,~bpt+69,20,20/1.61803398875)).states_([["c",Color.white,Color.black]]).action_({arg button; w.close; ~numsynths.stop;});
 
 
-				w.front; w.fullScreen;
+			w.front; w.fullScreen;
 
 		//Developed by Ken Brant
 
