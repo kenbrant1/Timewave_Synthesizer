@@ -1,4 +1,6 @@
 # Timewave Synthesizer
+  This synthesizer was developed based upon the Timewave theory, by Terence McKenna. His theory is that time is a complex wave, and the King Wen sequence of the I Ching is a 64 hexagram model from which the timewave is derived; that the King Wen sequence maps the linear progression of the human states of mind - which ultimately substantiates the timewave. This theory is the basis for the well-known novelty computer program he and others had developed. 
+
 The seven-stringed synthesizer can be found in the "timewavesynth7" files
 
 The three-stringed synthesizer can be found in the "timewavesynth3" files
