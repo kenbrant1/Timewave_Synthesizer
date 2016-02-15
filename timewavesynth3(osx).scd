@@ -1,4 +1,4 @@
-//To run the synth, simply click anywhere within the parenthesis of the main function below and press "ctrl - enter" or "cmd - return".
+/To run the synth, simply click anywhere within the parenthesis of the main function below and press "ctrl - enter" or "cmd - return".
 //A guide to using the instrument is available by clicking on the "i" button in the bottom right corner of the GUI.
 //Several lines down, where it says "//VARIABLES YOU MAY WISH TO CHANGE", are variables that you can change for various things,
 //including key codes for keyboard functions - which is recommended.
