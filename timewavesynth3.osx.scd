@@ -139,10 +139,10 @@ AppClock.sched((case
 
 		//key codes for keyboard functions - either unicode or keycode. to find key codes, see below
 
-		~rightarrow_keycode = 114;
-		~leftarrow_keycode = 113;
-		~uparrow_keycode = 111;
-		~downarrow_keycode = 116;
+		~rightarrow_keycode = 124;
+		~leftarrow_keycode = 123;
+		~uparrow_keycode = 126;
+		~downarrow_keycode = 125;
 		~enter_unicode = 13;
 		~s_unicode = 115;
 		~m_unicode = 109;
@@ -244,7 +244,7 @@ AppClock.sched((case
 			#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g = [];
 			#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h = [];
 
-			[];*/
+			7.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([].at(x-1))});*/
 
 			~gsine = {
 						SynthDef(\gsineicfld, {arg graindur = 0.04, dur = 2000, atk = 0.007, rel = 0.01, gate = 1, amp = 1, i = 1, vol = ~vol, rate = 20, tune = 0,dseqval,
@@ -321,20 +321,21 @@ AppClock.sched((case
 		~b1 = Window.screenBounds.width/(12*4);
 		54.do({CompositeView(w, Rect(~b1 = ~b1+(Window.screenBounds.width/(12*4)), ~btd, ~bw, ~bh)).background = ~bcolor;});*/
 
-			~nh = 2;
+
+~nh = 2;
 			~nw = ~nh*1.6180339887499;
 
-			8.do(x=20;{CompositeView(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
-			8.do(x=330;{CompositeView(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
+			4.do(x=20;{CompositeView(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
+			4.do(x=330;{CompositeView(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
 
 		~z1 = (CompositeView(w, Rect((if(~f1 == nil, {f1.value},{~f1.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 40, ~nw, 2)).background = Color.white;);
 		~z2 = (CompositeView(w, Rect((if(~f2 == nil, {f2.value},{~f2.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 50, ~nw, 2)).background = Color.white;);
 		~z3 = (CompositeView(w, Rect((if(~f3 == nil, {f3.value},{~f3.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 60, ~nw, 2)).background = Color.white;);
-		~z4 = (CompositeView(w, Rect((if(~f4 == nil, {f4.value},{~f4.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 70, ~nw, 2)).background = Color.white;);
+		/*~z4 = (CompositeView(w, Rect((if(~f4 == nil, {f4.value},{~f4.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 70, ~nw, 2)).background = Color.white;);
 		~z5 = (CompositeView(w, Rect((if(~f5 == nil, {f5.value},{~f5.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 80, ~nw, 2)).background = Color.white;);
 		~z6 = (CompositeView(w, Rect((if(~f6 == nil, {f6.value},{~f6.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 90, ~nw, 2)).background = Color.white;);
 		~z7 = (CompositeView(w, Rect((if(~f7 == nil, {f7.value},{~f7.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 100, ~nw, 2)).background = Color.white;);
-		/*~z8 = (CompositeView(w, Rect((if(~f8 == nil, {f8.value},{~f8.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 110, ~nw, 2)).background = Color.white;);
+	*/	/*~z8 = (CompositeView(w, Rect((if(~f8 == nil, {f8.value},{~f8.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 110, ~nw, 2)).background = Color.white;);
 		~z9 = (CompositeView(w, Rect((if(~f9 == nil, {f9.value},{~f9.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 120, ~nw, 2)).background = Color.white;);
 		~z10 = (CompositeView(w, Rect((if(~f10 == nil, {f10.value},{~f10.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 130, ~nw, 2)).background = Color.white;);
 		~z11 = (CompositeView(w, Rect((if(~f11 == nil, {f11.value},{~f11.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), 140, ~nw, 2)).background = Color.white;);
@@ -355,11 +356,11 @@ AppClock.sched((case
 		~z25 = (CompositeView(w, Rect((if(~f1 == nil, {f1.value},{~f1.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 350, ~nw, 2)).background = Color.white;);
 		~z26 = (CompositeView(w, Rect((if(~f2 == nil, {f2.value},{~f2.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 360, ~nw, 2)).background = Color.white;);
 		~z27 = (CompositeView(w, Rect((if(~f3 == nil, {f3.value},{~f3.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 370, ~nw, 2)).background = Color.white;);
-		~z28 = (CompositeView(w, Rect((if(~f4 == nil, {f4.value},{~f4.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 380, ~nw, 2)).background = Color.white;);
+		/*~z28 = (CompositeView(w, Rect((if(~f4 == nil, {f4.value},{~f4.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 380, ~nw, 2)).background = Color.white;);
 		~z29 = (CompositeView(w, Rect((if(~f5 == nil, {f5.value},{~f5.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 390, ~nw, 2)).background = Color.white;);
 		~z30 = (CompositeView(w, Rect((if(~f6 == nil, {f6.value},{~f6.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 400, ~nw, 2)).background = Color.white;);
 		~z31 = (CompositeView(w, Rect((if(~f7 == nil, {f7.value},{~f7.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 410, ~nw, 2)).background = Color.white;);
-		/*~z32 = (CompositeView(w, Rect((if(~f8 == nil, {f8.value},{~f8.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 420, ~nw, 2)).background = Color.white;);
+	*/	/*~z32 = (CompositeView(w, Rect((if(~f8 == nil, {f8.value},{~f8.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 420, ~nw, 2)).background = Color.white;);
 		~z33 = (CompositeView(w, Rect((if(~f9 == nil, {f9.value},{~f9.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 430, ~nw, 2)).background = Color.white;);
 		~z34 = (CompositeView(w, Rect((if(~f10 == nil, {f10.value},{~f10.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 440, ~nw, 2)).background = Color.white;);
 		~z35 = (CompositeView(w, Rect((if(~f11 == nil, {f11.value},{~f11.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 450, ~nw, 2)).background = Color.white;);
@@ -378,7 +379,6 @@ AppClock.sched((case
 		~z48 = (CompositeView(w, Rect((if(~f1 == nil, {f1.value},{~f1.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), 580, ~nw, 2)).background = Color.white;);
 		*/
 
-
 ~synthopen = {
 				case
 				{((~l1a.isRunning == false) and: (~l1a1.isRunning == false)) or: ~l1a1.isRunning == true}{
@@ -394,7 +394,7 @@ AppClock.sched((case
 				~l3a1.set(\dur, f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,    \vol, vol3, \tune, tune);          ~l3b1.set(\dur, f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3c1.set(\dur, f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3d1.set(\dur, f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3e1.set(\dur, f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3f1.set(\dur, f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
-				~l4a1.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b1.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
+				/*~l4a1.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b1.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4c1.set(\dur, f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4d1.set(\dur, f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4e1.set(\dur, f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4f1.set(\dur, f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l5a1.set(\dur, f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol5, \tune, tune);           ~l5b1.set(\dur, f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol5, \tune, tune);
@@ -406,7 +406,7 @@ AppClock.sched((case
 				~l7a1.set(\dur, f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol7, \tune, tune);           ~l7b1.set(\dur, f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7c1.set(\dur, f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7d1.set(\dur, f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7e1.set(\dur, f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7f1.set(\dur, f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
-				/*~l8a1.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b1.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
+			*/	/*~l8a1.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b1.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8c1.set(\dur, f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8d1.set(\dur, f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8e1.set(\dur, f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8f1.set(\dur, f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l9a1.set(\dur, f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol9,  \tune, tune);          ~l9b1.set(\dur, f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol9, \tune, tune);
@@ -436,7 +436,7 @@ AppClock.sched((case
 					~l3a = Synth(s1, [\dur, ~f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol3, \tune, tune],~icl6);    ~l3b = Synth(s2, [\dur, ~f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol3, \tune, tune],~icl6);
 					~l3c = Synth(s1, [\dur, ~f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune], ~icl6);   ~l3d = Synth(s2, [\dur, ~f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol3, \tune, tune],~icl6);
 					~l3e = Synth(s1, [\dur, ~f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune], ~icl6);   ~l3f = Synth(s2, [\dur, ~f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol3, \tune, tune],~icl6);
-					~l4a = Synth(s1, [\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune],~icl61);   ~l4b = Synth(s2, [\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol4, \tune, tune],~icl61);
+					/*~l4a = Synth(s1, [\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune],~icl61);   ~l4b = Synth(s2, [\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol4, \tune, tune],~icl61);
 					~l4c = Synth(s1, [\dur, ~f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune], ~icl61);  ~l4d = Synth(s2, [\dur, ~f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol4, \tune, tune],~icl61);
 					~l4e = Synth(s1, [\dur, ~f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune],~icl61);   ~l4f = Synth(s2, [\dur, ~f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol4, \tune, tune],~icl61);
 					~l5a = Synth(s1, [\dur, ~f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol5, \tune, tune],~icl61);   ~l5b = Synth(s2, [\dur, ~f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol5, \tune, tune],~icl61);
@@ -448,7 +448,7 @@ AppClock.sched((case
 					~l7a = Synth(s1, [\dur, ~f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol7, \tune, tune],~icl62);   ~l7b = Synth(s2, [\dur, ~f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol7, \tune, tune],~icl62);
 					~l7c = Synth(s1, [\dur, ~f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune],~icl62);   ~l7d = Synth(s2, [\dur, ~f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol7, \tune, tune],~icl62);
 					~l7e = Synth(s1, [\dur, ~f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune],~icl62);   ~l7f = Synth(s2, [\dur, ~f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol7, \tune, tune],~icl62);
-					/*~l8a = Synth(s1, [\dur, ~f8=f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune],~icl62);  ~l8b = Synth(s2, [\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol8, \tune, tune],~icl62);
+			*/		/*~l8a = Synth(s1, [\dur, ~f8=f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune],~icl62);  ~l8b = Synth(s2, [\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol8, \tune, tune],~icl62);
 					~l8c = Synth(s1, [\dur, ~f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune],~icl62);   ~l8d = Synth(s2, [\dur, ~f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol8, \tune, tune],~icl62);
 					~l8e = Synth(s1, [\dur, ~f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune],~icl62);   ~l8f = Synth(s2, [\dur, ~f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol8, \tune, tune],~icl62);
 					~l9a = Synth(s1, [\dur, ~f9=f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol9, \tune, tune],~icl62);  ~l9b = Synth(s2, [\dur, ~f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol9, \tune, tune],~icl62);
@@ -467,7 +467,7 @@ AppClock.sched((case
 						});
 					);
 					AppClock.sched(0.161803398875,{
-						([~l1a1,~l1b1,~l1c1,~l1d1,~l1e1,~l1f1,~l2a1,~l2b1,~l2c1,~l2d1,~l2e1,~l2f1,~l3a1,~l3b1,~l3c1,~l3d1,~l3e1,~l3f1,~l4a1,~l4b1,~l4c1,~l4d1,~l4e1,~l4f1,~l5a1,~l5b1,~l5c1,~l5d1,~l5e1,~l5f1,~l6a1,~l6b1,~l6c1,~l6d1,~l6e1,~l6f1,~l7a1,~l7b1,~l7c1,~l7d1,~l7e1,~l7f1/*1,~l8a1,~l8b1,~l8c1,~l8d1,~l8e1,~l8f1,~l9a1,~l9b1,~l9c1,~l9d1,~l9e1,~l9f1,~l10a1,~l10b1,~l10c1,~l10d1,~l10e1,~l10f1,~l11a1,~l11b1,~l11c1,~l11d1,~l11e1,~l11f1,~l12a1,~l12b1,~l12c1,~l12d1,~l12e1,~l12f*/ ].do(_.free)); ~slideroutine.stop;
+						([~l1a1,~l1b1,~l1c1,~l1d1,~l1e1,~l1f1,~l2a1,~l2b1,~l2c1,~l2d1,~l2e1,~l2f1,~l3a1,~l3b1,~l3c1,~l3d1,~l3e1,~l3f1/*,~l4a1,~l4b1,~l4c1,~l4d1,~l4e1,~l4f1,~l5a1,~l5b1,~l5c1,~l5d1,~l5e1,~l5f1,~l6a1,~l6b1,~l6c1,~l6d1,~l6e1,~l6f1,~l7a1,~l7b1,~l7c1,~l7d1,~l7e1,~l7f1*//*1,~l8a1,~l8b1,~l8c1,~l8d1,~l8e1,~l8f1,~l9a1,~l9b1,~l9c1,~l9d1,~l9e1,~l9f1,~l10a1,~l10b1,~l10c1,~l10d1,~l10e1,~l10f1,~l11a1,~l11b1,~l11c1,~l11d1,~l11e1,~l11f1,~l12a1,~l12b1,~l12c1,~l12d1,~l12e1,~l12f*/ ].do(_.free)); ~slideroutine.stop;
 					});
 				}
 				{~l1a.isRunning == true}{
@@ -483,7 +483,7 @@ AppClock.sched((case
 				~l3a.set(\dur, f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,    \vol, vol3, \tune, tune);          ~l3b.set(\dur, f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3c.set(\dur, f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3d.set(\dur, f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3e.set(\dur, f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3f.set(\dur, f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
-				~l4a.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
+				/*~l4a.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4c.set(\dur, f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4d.set(\dur, f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4e.set(\dur, f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4f.set(\dur, f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l5a.set(\dur, f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol5, \tune, tune);           ~l5b.set(\dur, f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol5, \tune, tune);
@@ -495,7 +495,7 @@ AppClock.sched((case
 				~l7a.set(\dur, f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol7, \tune, tune);           ~l7b.set(\dur, f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7c.set(\dur, f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7d.set(\dur, f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7e.set(\dur, f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7f.set(\dur, f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
-				/*~l8a.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
+			*/	/*~l8a.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8c.set(\dur, f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8d.set(\dur, f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8e.set(\dur, f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8f.set(\dur, f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l9a.set(\dur, f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol9,  \tune, tune);          ~l9b.set(\dur, f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol9, \tune, tune);
@@ -525,7 +525,7 @@ AppClock.sched((case
 					~l3a1 = Synth(s1, [\dur, ~f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol3, \tune, tune],~icl6);    ~l3b1 = Synth(s2, [\dur, ~f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol3, \tune, tune],~icl6);
 					~l3c1 = Synth(s1, [\dur, ~f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune], ~icl6);   ~l3d1 = Synth(s2, [\dur, ~f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol3, \tune, tune],~icl6);
 					~l3e1 = Synth(s1, [\dur, ~f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune], ~icl6);   ~l3f1 = Synth(s2, [\dur, ~f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol3, \tune, tune],~icl6);
-					~l4a1 = Synth(s1, [\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune],~icl61);   ~l4b1 = Synth(s2, [\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol4, \tune, tune],~icl61);
+					/*~l4a1 = Synth(s1, [\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune],~icl61);   ~l4b1 = Synth(s2, [\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol4, \tune, tune],~icl61);
 					~l4c1 = Synth(s1, [\dur, ~f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune], ~icl61);  ~l4d1 = Synth(s2, [\dur, ~f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol4, \tune, tune],~icl61);
 					~l4e1 = Synth(s1, [\dur, ~f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune],~icl61);   ~l4f1 = Synth(s2, [\dur, ~f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol4, \tune, tune],~icl61);
 					~l5a1 = Synth(s1, [\dur, ~f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol5, \tune, tune],~icl61);   ~l5b1 = Synth(s2, [\dur, ~f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol5, \tune, tune],~icl61);
@@ -537,7 +537,7 @@ AppClock.sched((case
 					~l7a1 = Synth(s1, [\dur, ~f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol7, \tune, tune],~icl62);   ~l7b1 = Synth(s2, [\dur, ~f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol7, \tune, tune],~icl62);
 					~l7c1 = Synth(s1, [\dur, ~f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune],~icl62);   ~l7d1 = Synth(s2, [\dur, ~f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol7, \tune, tune],~icl62);
 					~l7e1 = Synth(s1, [\dur, ~f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune],~icl62);   ~l7f1 = Synth(s2, [\dur, ~f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol7, \tune, tune],~icl62);
-					/*~l8a1 = Synth(s1, [\dur, ~f8=f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune],~icl62);  ~l8b1 = Synth(s2, [\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol8, \tune, tune],~icl62);
+				*/	/*~l8a1 = Synth(s1, [\dur, ~f8=f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune],~icl62);  ~l8b1 = Synth(s2, [\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol8, \tune, tune],~icl62);
 					~l8c1 = Synth(s1, [\dur, ~f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune],~icl62);   ~l8d1 = Synth(s2, [\dur, ~f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol8, \tune, tune],~icl62);
 					~l8e1 = Synth(s1, [\dur, ~f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune],~icl62);   ~l8f1 = Synth(s2, [\dur, ~f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,\vol, vol8, \tune, tune],~icl62);
 					~l9a1 = Synth(s1, [\dur, ~f9=f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol9, \tune, tune],~icl62);  ~l9b1 = Synth(s2, [\dur, ~f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,  \vol, vol9, \tune, tune],~icl62);
@@ -556,18 +556,18 @@ AppClock.sched((case
 						});
 			);
 					AppClock.sched(0.161803398875,{
-					([~l1a,~l1b,~l1c,~l1d,~l1e,~l1f,~l2a,~l2b,~l2c,~l2d,~l2e,~l2f,~l3a,~l3b,~l3c,~l3d,~l3e,~l3f,~l4a,~l4b,~l4c,~l4d,~l4e,~l4f,~l5a,~l5b,~l5c,~l5d,~l5e,~l5f,~l6a,~l6b,~l6c,~l6d,~l6e,~l6f,~l7a,~l7b,~l7c,~l7d,~l7e,~l7f/*,~l8a,~l8b,~l8c,~l8d,~l8e,~l8f,~l9a,~l9b,~l9c,~l9d,~l9e,~l9f,~l10a,~l10b,~l10c,~l10d,~l10e,~l10f,~l11a,~l11b,~l11c,~l11d,~l11e,~l11f,~l12a,~l12b,~l12c,~l12d,~l12e,~l12f*/].do(_.free)); ~slideroutine.stop;
+					([~l1a,~l1b,~l1c,~l1d,~l1e,~l1f,~l2a,~l2b,~l2c,~l2d,~l2e,~l2f,~l3a,~l3b,~l3c,~l3d,~l3e,~l3f/*,~l4a,~l4b,~l4c,~l4d,~l4e,~l4f,~l5a,~l5b,~l5c,~l5d,~l5e,~l5f,~l6a,~l6b,~l6c,~l6d,~l6e,~l6f,~l7a,~l7b,~l7c,~l7d,~l7e,~l7f*//*,~l8a,~l8b,~l8c,~l8d,~l8e,~l8f,~l9a,~l9b,~l9c,~l9d,~l9e,~l9f,~l10a,~l10b,~l10c,~l10d,~l10e,~l10f,~l11a,~l11b,~l11c,~l11d,~l11e,~l11f,~l12a,~l12b,~l12c,~l12d,~l12e,~l12f*/].do(_.free)); ~slideroutine.stop;
 					});
 						};
 
 					if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (CompositeView(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2, ~nw, 2)).background = Color.white;);});
 					if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (CompositeView(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 					if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
-					if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+					/*if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
 					if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (CompositeView(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
 					if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (CompositeView(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
 					if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-					/*if((f8 > ~outmaxa) or: (f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+				*/	/*if((f8 > ~outmaxa) or: (f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
 					if((f9 > ~outmaxa) or: (f9 < ~outmina), {~z33.close;~z9.close;~z33 = (CompositeView(w, Rect((f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (CompositeView(w, Rect((f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 					if((f10 > ~outmaxa) or: (f10 < ~outmina), {~z34.close;~z10.close;~z34 = (CompositeView(w, Rect((f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (CompositeView(w, Rect((f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
 					if((f11 > ~outmaxa) or: (f11 < ~outmina), {~z35.close;~z11.close;~z35 = (CompositeView(w, Rect((f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (CompositeView(w, Rect((f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
@@ -602,7 +602,7 @@ AppClock.sched((case
 				~l3a1.set(\dur, ~f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,    \vol, vol3, \tune, tune);          ~l3b1.set(\dur, ~f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3c1.set(\dur, ~f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3d1.set(\dur, ~f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3e1.set(\dur, ~f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3f1.set(\dur, ~f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
-				~l4a1.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b1.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
+				/*~l4a1.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b1.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4c1.set(\dur, ~f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4d1.set(\dur, ~f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4e1.set(\dur, ~f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4f1.set(\dur, ~f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l5a1.set(\dur, ~f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol5, \tune, tune);           ~l5b1.set(\dur, ~f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol5, \tune, tune);
@@ -614,7 +614,7 @@ AppClock.sched((case
 				~l7a1.set(\dur, ~f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol7, \tune, tune);           ~l7b1.set(\dur, ~f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7c1.set(\dur, ~f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7d1.set(\dur, ~f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7e1.set(\dur, ~f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7f1.set(\dur, ~f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
-				/*~l8a1.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b1.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
+		*/		/*~l8a1.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b1.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8c1.set(\dur, ~f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8d1.set(\dur, ~f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8e1.set(\dur, ~f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8f1.set(\dur, ~f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l9a1.set(\dur, ~f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol9,  \tune, tune);          ~l9b1.set(\dur, ~f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol9, \tune, tune);
@@ -643,7 +643,7 @@ AppClock.sched((case
 				~l3a.set(\dur, ~f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,    \vol, vol3, \tune, tune);          ~l3b.set(\dur, ~f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3c.set(\dur, ~f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3d.set(\dur, ~f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3e.set(\dur, ~f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3f.set(\dur, ~f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
-				~l4a.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
+				/*~l4a.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4c.set(\dur, ~f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4d.set(\dur, ~f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4e.set(\dur, ~f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4f.set(\dur, ~f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l5a.set(\dur, ~f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol5, \tune, tune);           ~l5b.set(\dur, ~f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol5, \tune, tune);
@@ -655,7 +655,7 @@ AppClock.sched((case
 				~l7a.set(\dur, ~f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol7, \tune, tune);           ~l7b.set(\dur, ~f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7c.set(\dur, ~f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7d.set(\dur, ~f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7e.set(\dur, ~f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7f.set(\dur, ~f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
-				/*~l8a.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
+		*/		/*~l8a.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8c.set(\dur, ~f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8d.set(\dur, ~f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8e.set(\dur, ~f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8f.set(\dur, ~f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l9a.set(\dur, ~f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol9,  \tune, tune);          ~l9b.set(\dur, ~f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol9, \tune, tune);
@@ -677,11 +677,11 @@ AppClock.sched((case
 					if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (CompositeView(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2, ~nw, 2)).background = Color.white;);});
 					if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (CompositeView(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 					if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
-					if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+					/*if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
 					if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (CompositeView(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
 					if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (CompositeView(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
 					if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-					/*if((f8 > ~outmaxa) or: (f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+				*/	/*if((f8 > ~outmaxa) or: (f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
 					if((f9 > ~outmaxa) or: (f9 < ~outmina), {~z33.close;~z9.close;~z33 = (CompositeView(w, Rect((f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (CompositeView(w, Rect((f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 					if((f10 > ~outmaxa) or: (f10 < ~outmina), {~z34.close;~z10.close;~z34 = (CompositeView(w, Rect((f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (CompositeView(w, Rect((f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
 					if((f11 > ~outmaxa) or: (f11 < ~outmina), {~z35.close;~z11.close;~z35 = (CompositeView(w, Rect((f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (CompositeView(w, Rect((f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
@@ -718,7 +718,7 @@ AppClock.sched((case
 				~l3a1.set(\dur, ~f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,    \vol, vol3, \tune, tune);          ~l3b1.set(\dur, ~f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3c1.set(\dur, ~f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3d1.set(\dur, ~f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3e1.set(\dur, ~f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3f1.set(\dur, ~f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
-				~l4a1.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b1.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
+				/*~l4a1.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b1.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4c1.set(\dur, ~f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4d1.set(\dur, ~f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4e1.set(\dur, ~f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4f1.set(\dur, ~f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l5a1.set(\dur, ~f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol5, \tune, tune);           ~l5b1.set(\dur, ~f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol5, \tune, tune);
@@ -730,7 +730,7 @@ AppClock.sched((case
 				~l7a1.set(\dur, ~f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol7, \tune, tune);           ~l7b1.set(\dur, ~f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7c1.set(\dur, ~f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7d1.set(\dur, ~f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7e1.set(\dur, ~f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7f1.set(\dur, ~f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
-				/*~l8a1.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b1.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
+			*/	/*~l8a1.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b1.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8c1.set(\dur, ~f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8d1.set(\dur, ~f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8e1.set(\dur, ~f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8f1.set(\dur, ~f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l9a1.set(\dur, ~f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol9,  \tune, tune);          ~l9b1.set(\dur, ~f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol9, \tune, tune);
@@ -751,11 +751,11 @@ AppClock.sched((case
 						{if(~slidecount==0,{if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (CompositeView(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2, ~nw, 2)).background = Color.white;);});
 					if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (CompositeView(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 					if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
-					if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+					/*if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
 					if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (CompositeView(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
 					if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (CompositeView(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
 					if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-					/*if((f8 > ~outmaxa) or: (f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+				*/	/*if((f8 > ~outmaxa) or: (f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
 					if((f9 > ~outmaxa) or: (f9 < ~outmina), {~z33.close;~z9.close;~z33 = (CompositeView(w, Rect((f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (CompositeView(w, Rect((f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 					if((f10 > ~outmaxa) or: (f10 < ~outmina), {~z34.close;~z10.close;~z34 = (CompositeView(w, Rect((f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (CompositeView(w, Rect((f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
 					if((f11 > ~outmaxa) or: (f11 < ~outmina), {~z35.close;~z11.close;~z35 = (CompositeView(w, Rect((f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (CompositeView(w, Rect((f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
@@ -790,7 +790,7 @@ AppClock.sched((case
 				~l3a.set(\dur, ~f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,    \vol, vol3, \tune, tune);          ~l3b.set(\dur, ~f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3c.set(\dur, ~f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3d.set(\dur, ~f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3e.set(\dur, ~f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3f.set(\dur, ~f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
-				~l4a.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
+				/*~l4a.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b.set(\dur, ~f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4c.set(\dur, ~f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4d.set(\dur, ~f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4e.set(\dur, ~f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4f.set(\dur, ~f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l5a.set(\dur, ~f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol5, \tune, tune);           ~l5b.set(\dur, ~f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol5, \tune, tune);
@@ -802,7 +802,7 @@ AppClock.sched((case
 				~l7a.set(\dur, ~f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol7, \tune, tune);           ~l7b.set(\dur, ~f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7c.set(\dur, ~f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7d.set(\dur, ~f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7e.set(\dur, ~f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7f.set(\dur, ~f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
-				/*~l8a.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
+			*/	/*~l8a.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b.set(\dur, ~f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8c.set(\dur, ~f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8d.set(\dur, ~f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8e.set(\dur, ~f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8f.set(\dur, ~f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l9a.set(\dur, ~f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol9,  \tune, tune);          ~l9b.set(\dur, ~f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol9, \tune, tune);
@@ -824,11 +824,11 @@ AppClock.sched((case
 							{if(~slidecount==0,{if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (CompositeView(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2, ~nw, 2)).background = Color.white;);});
 					if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (CompositeView(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 					if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
-					if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+					/*if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
 					if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (CompositeView(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
 					if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (CompositeView(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
 					if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-					/*if((f8 > ~outmaxa) or: (f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+				*/	/*if((f8 > ~outmaxa) or: (f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
 					if((f9 > ~outmaxa) or: (f9 < ~outmina), {~z33.close;~z9.close;~z33 = (CompositeView(w, Rect((f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (CompositeView(w, Rect((f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 					if((f10 > ~outmaxa) or: (f10 < ~outmina), {~z34.close;~z10.close;~z34 = (CompositeView(w, Rect((f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (CompositeView(w, Rect((f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
 					if((f11 > ~outmaxa) or: (f11 < ~outmina), {~z35.close;~z11.close;~z35 = (CompositeView(w, Rect((f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (CompositeView(w, Rect((f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
@@ -865,7 +865,7 @@ AppClock.sched((case
 				~l3a1.set(\dur, f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,    \vol, vol3, \tune, tune);          ~l3b1.set(\dur, f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3c1.set(\dur, f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3d1.set(\dur, f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3e1.set(\dur, f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3f1.set(\dur, f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
-				~l4a1.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b1.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
+				/*~l4a1.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b1.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4c1.set(\dur, f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4d1.set(\dur, f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4e1.set(\dur, f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4f1.set(\dur, f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l5a1.set(\dur, f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol5, \tune, tune);           ~l5b1.set(\dur, f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol5, \tune, tune);
@@ -877,7 +877,7 @@ AppClock.sched((case
 				~l7a1.set(\dur, f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol7, \tune, tune);           ~l7b1.set(\dur, f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7c1.set(\dur, f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7d1.set(\dur, f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7e1.set(\dur, f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7f1.set(\dur, f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
-				/*~l8a1.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b1.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
+			*/	/*~l8a1.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b1.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8c1.set(\dur, f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8d1.set(\dur, f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8e1.set(\dur, f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8f1.set(\dur, f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l9a1.set(\dur, f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol9,  \tune, tune);          ~l9b1.set(\dur, f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol9, \tune, tune);
@@ -907,7 +907,7 @@ AppClock.sched((case
 				~l3a.set(\dur, f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,    \vol, vol3, \tune, tune);          ~l3b.set(\dur, f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3c.set(\dur, f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3d.set(\dur, f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3e.set(\dur, f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3f.set(\dur, f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
-				~l4a.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
+				/*~l4a.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4c.set(\dur, f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4d.set(\dur, f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4e.set(\dur, f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4f.set(\dur, f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l5a.set(\dur, f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol5, \tune, tune);           ~l5b.set(\dur, f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol5, \tune, tune);
@@ -919,7 +919,7 @@ AppClock.sched((case
 				~l7a.set(\dur, f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol7, \tune, tune);           ~l7b.set(\dur, f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7c.set(\dur, f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7d.set(\dur, f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7e.set(\dur, f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7f.set(\dur, f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
-				/*~l8a.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
+			*/	/*~l8a.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8c.set(\dur, f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8d.set(\dur, f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8e.set(\dur, f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8f.set(\dur, f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l9a.set(\dur, f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol9,  \tune, tune);          ~l9b.set(\dur, f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol9, \tune, tune);
@@ -956,7 +956,7 @@ AppClock.sched((case
 				~l3a1.set(\dur, f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,    \vol, vol3, \tune, tune);          ~l3b1.set(\dur, f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3c1.set(\dur, f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3d1.set(\dur, f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3e1.set(\dur, f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3f1.set(\dur, f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
-				~l4a1.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b1.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
+				/*~l4a1.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b1.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4c1.set(\dur, f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4d1.set(\dur, f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4e1.set(\dur, f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4f1.set(\dur, f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l5a1.set(\dur, f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol5, \tune, tune);           ~l5b1.set(\dur, f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol5, \tune, tune);
@@ -968,7 +968,7 @@ AppClock.sched((case
 				~l7a1.set(\dur, f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol7, \tune, tune);           ~l7b1.set(\dur, f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7c1.set(\dur, f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7d1.set(\dur, f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7e1.set(\dur, f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7f1.set(\dur, f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
-				/*~l8a1.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b1.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
+		*/		/*~l8a1.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b1.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8c1.set(\dur, f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8d1.set(\dur, f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8e1.set(\dur, f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8f1.set(\dur, f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l9a1.set(\dur, f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol9,  \tune, tune);          ~l9b1.set(\dur, f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol9, \tune, tune);
@@ -985,7 +985,7 @@ AppClock.sched((case
 				~l12e1.set(\dur, f12/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,    \vol, vol12,  \tune, tune);~l12f1.set(\dur, f12/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol12, \tune, tune);
 			*/	}););
 					AppClock.sched(0.161803398875,{
-						([~l1a1,~l1b1,~l1c1,~l1d1,~l1e1,~l1f1,~l2a1,~l2b1,~l2c1,~l2d1,~l2e1,~l2f1,~l3a1,~l3b1,~l3c1,~l3d1,~l3e1,~l3f1,~l4a1,~l4b1,~l4c1,~l4d1,~l4e1,~l4f1,~l5a1,~l5b1,~l5c1,~l5d1,~l5e1,~l5f1,~l6a1,~l6b1,~l6c1,~l6d1,~l6e1,~l6f1,~l7a1,~l7b1,~l7c1,~l7d1,~l7e1,~l7f1/*1,~l8a1,~l8b1,~l8c1,~l8d1,~l8e1,~l8f1,~l9a1,~l9b1,~l9c1,~l9d1,~l9e1,~l9f1,~l10a1,~l10b1,~l10c1,~l10d1,~l10e1,~l10f1,~l11a1,~l11b1,~l11c1,~l11d1,~l11e1,~l11f1,~l12a1,~l12b1,~l12c1,~l12d1,~l12e1,~l12f*/ ].do(_.free)); ~slideroutine.stop;
+						([~l1a1,~l1b1,~l1c1,~l1d1,~l1e1,~l1f1,~l2a1,~l2b1,~l2c1,~l2d1,~l2e1,~l2f1,~l3a1,~l3b1,~l3c1,~l3d1,~l3e1,~l3f1/*,~l4a1,~l4b1,~l4c1,~l4d1,~l4e1,~l4f1,~l5a1,~l5b1,~l5c1,~l5d1,~l5e1,~l5f1,~l6a1,~l6b1,~l6c1,~l6d1,~l6e1,~l6f1,~l7a1,~l7b1,~l7c1,~l7d1,~l7e1,~l7f1*//*1,~l8a1,~l8b1,~l8c1,~l8d1,~l8e1,~l8f1,~l9a1,~l9b1,~l9c1,~l9d1,~l9e1,~l9f1,~l10a1,~l10b1,~l10c1,~l10d1,~l10e1,~l10f1,~l11a1,~l11b1,~l11c1,~l11d1,~l11e1,~l11f1,~l12a1,~l12b1,~l12c1,~l12d1,~l12e1,~l12f*/ ].do(_.free)); ~slideroutine.stop;
 					});
 				}
 				{~l1a.isRunning == true}{
@@ -1001,7 +1001,7 @@ AppClock.sched((case
 				~l3a.set(\dur, f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,    \vol, vol3, \tune, tune);          ~l3b.set(\dur, f3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3c.set(\dur, f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3d.set(\dur, f3/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
 				~l3e.set(\dur, f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol3, \tune, tune);  ~l3f.set(\dur, f3/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol3, \tune, tune);
-				~l4a.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
+				/*~l4a.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol4, \tune, tune);           ~l4b.set(\dur, f4, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4c.set(\dur, f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4d.set(\dur, f4/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l4e.set(\dur, f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol4, \tune, tune);  ~l4f.set(\dur, f4/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol4, \tune, tune);
 				~l5a.set(\dur, f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol5, \tune, tune);           ~l5b.set(\dur, f5, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol5, \tune, tune);
@@ -1013,7 +1013,7 @@ AppClock.sched((case
 				~l7a.set(\dur, f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol7, \tune, tune);           ~l7b.set(\dur, f7, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7c.set(\dur, f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7d.set(\dur, f7/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
 				~l7e.set(\dur, f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol7, \tune, tune);  ~l7f.set(\dur, f7/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol7, \tune, tune);
-				/*~l8a.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
+			*/	/*~l8a.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol8, \tune, tune);           ~l8b.set(\dur, f8, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8c.set(\dur, f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8d.set(\dur, f8/~icd3, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l8e.set(\dur, f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,      \vol, vol8, \tune, tune);  ~l8f.set(\dur, f8/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol8, \tune, tune);
 				~l9a.set(\dur, f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,   \vol, vol9,  \tune, tune);          ~l9b.set(\dur, f9, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol9, \tune, tune);
@@ -1030,13 +1030,13 @@ AppClock.sched((case
 				~l12e.set(\dur, f12/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f,    \vol, vol12,  \tune, tune);~l12f.set(\dur, f12/~icd6, \a, a, \b, b, \c, c, \d, d, \e, e, \f, f, \vol, vol12, \tune, tune);
 			*/	}););
 					AppClock.sched(0.161803398875,{
-					([~l1a,~l1b,~l1c,~l1d,~l1e,~l1f,~l2a,~l2b,~l2c,~l2d,~l2e,~l2f,~l3a,~l3b,~l3c,~l3d,~l3e,~l3f,~l4a,~l4b,~l4c,~l4d,~l4e,~l4f,~l5a,~l5b,~l5c,~l5d,~l5e,~l5f,~l6a,~l6b,~l6c,~l6d,~l6e,~l6f,~l7a,~l7b,~l7c,~l7d,~l7e,~l7f/*,~l8a,~l8b,~l8c,~l8d,~l8e,~l8f,~l9a,~l9b,~l9c,~l9d,~l9e,~l9f,~l10a,~l10b,~l10c,~l10d,~l10e,~l10f,~l11a,~l11b,~l11c,~l11d,~l11e,~l11f,~l12a,~l12b,~l12c,~l12d,~l12e,~l12f*/].do(_.free)); ~slideroutine.stop;
+					([~l1a,~l1b,~l1c,~l1d,~l1e,~l1f,~l2a,~l2b,~l2c,~l2d,~l2e,~l2f,~l3a,~l3b,~l3c,~l3d,~l3e,~l3f/*,~l4a,~l4b,~l4c,~l4d,~l4e,~l4f,~l5a,~l5b,~l5c,~l5d,~l5e,~l5f,~l6a,~l6b,~l6c,~l6d,~l6e,~l6f,~l7a,~l7b,~l7c,~l7d,~l7e,~l7f*//*,~l8a,~l8b,~l8c,~l8d,~l8e,~l8f,~l9a,~l9b,~l9c,~l9d,~l9e,~l9f,~l10a,~l10b,~l10c,~l10d,~l10e,~l10f,~l11a,~l11b,~l11c,~l11d,~l11e,~l11f,~l12a,~l12b,~l12c,~l12d,~l12e,~l12f*/].do(_.free)); ~slideroutine.stop;
 					});
 						};
 				);
 			};
 
-			case
+case
 			{~slot1 == nil}{""}
 			{~slot2 == nil}{""}
 			{~slot3 == nil}{""}
@@ -1071,7 +1071,7 @@ AppClock.sched((case
 
 ~numsynthsfunc = {
 				if((~numsynths != nil) or: (~numsynths.isPlaying == true), {~numsynths.stop;});
-				~numsynths = Routine({inf.do({if((s.numSynths > 42) and: (3.wait; s.numSynths > 42) and: (6.wait; s.numSynths > 42), {
+				~numsynths = Routine({inf.do({if((s.numSynths > 18) and: (3.wait; s.numSynths > 18) and: (6.wait; s.numSynths > 18), {
 
 						AppClock.sched(0, {
 						if(~numsynthmessage != nil, {~numsynthmessage.close;});
@@ -1099,18 +1099,10 @@ AppClock.sched((case
 				{y>=30 and: y<=40}  {~z1.close;~z1 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 				{y>=40 and: y<=50}  {~z2.close;~z2 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 				{y>=50 and: y<=60}  {~z3.close;~z3 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-				{y>=60 and: y<=70}  {~z4.close;~z4 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-				{y>=70 and: y<=80}  {~z5.close;~z5 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-				{y>=80 and: y<=90}  {~z6.close;~z6 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-				{y>=90 and: y<=100} {~z7.close;~z7 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-				{y>100 and: y<340} {nil}
+				{y>60 and: y<340} {nil}
 				{y>=340 and: y<=350} {~z1.close;~z1 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 				{y>=350 and: y<=360} {~z2.close;~z2 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 				{y>=360 and: y<=370} {~z3.close;~z3 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-				{y>=370 and: y<=380} {~z4.close;~z4 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-				{y>=380 and: y<=390} {~z5.close;~z5 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-				{y>=390 and: y<=400} {~z6.close;~z6 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-				{y>=400 and: y<=410} {~z7.close;~z7 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 			}, {});
 
 			case
@@ -1138,35 +1130,7 @@ AppClock.sched((case
 					~l3d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
 					~l3e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
 					~l3f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=60 and: y<=70} {
-					~l4a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l4b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f4=q.value;
-					~l4c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l4d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l4e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l4f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=70 and: y<=80} {
-					~l5a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l5b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f5=q.value;
-					~l5c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l5d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l5e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l5f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=80 and: y<=90} {
-					~l6a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l6b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f6=q.value;
-					~l6c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l6d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l6e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l6f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=90 and: y<=100} {
-					~l7a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l7b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f7=q.value;
-					~l7c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l7d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l7e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l7f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>100 and: y<340} {nil}
+				{y>60 and: y<340} {nil}
 				{y>=340 and: y<=350} {
 					~l1a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
 					~l1b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f1=q.value;
@@ -1187,35 +1151,7 @@ AppClock.sched((case
 					~l3c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
 					~l3d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
 					~l3e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l3f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=370 and: y<=380} {
-					~l4a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l4b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f4=q.value;
-					~l4c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l4d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l4e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l4f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=380 and: y<=390} {
-					~l5a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l5b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f5=q.value;
-					~l5c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l5d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l5e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l5f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=390 and: y<=400} {
-					~l6a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l6b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f6=q.value;
-					~l6c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l6d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l6e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l6f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=400 and: y<=410} {
-					~l7a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l7b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f7=q.value;
-					~l7c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l7d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l7e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l7f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
+					~l3f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
 					}
 					{~l1a1.isRunning == true}{
 				case
@@ -1241,35 +1177,7 @@ AppClock.sched((case
 					~l3d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
 					~l3e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
 					~l3f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=60 and: y<=70} {
-					~l4a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l4b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f4=q.value;
-					~l4c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l4d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l4e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l4f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=70 and: y<=80} {
-					~l5a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l5b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f5=q.value;
-					~l5c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l5d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l5e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l5f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=80 and: y<=90} {
-					~l6a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l6b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f6=q.value;
-					~l6c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l6d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l6e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l6f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=90 and: y<=100} {
-					~l7a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l7b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f7=q.value;
-					~l7c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l7d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l7e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l7f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>100 and: y<340} {nil}
+				{y>60 and: y<340} {nil}
 				{y>=340 and: y<=350} {
 					~l1a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
 					~l1b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f1=q.value;
@@ -1290,35 +1198,7 @@ AppClock.sched((case
 					~l3c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
 					~l3d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
 					~l3e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l3f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=370 and: y<=380} {
-					~l4a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l4b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f4=q.value;
-					~l4c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l4d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l4e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l4f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=380 and: y<=390} {
-					~l5a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l5b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f5=q.value;
-					~l5c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l5d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l5e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l5f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=390 and: y<=400} {
-					~l6a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l6b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f6=q.value;
-					~l6c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l6d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l6e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l6f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=400 and: y<=410} {
-					~l7a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l7b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f7=q.value;
-					~l7c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l7d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l7e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l7f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
+					~l3f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
 			};
 		};
 
@@ -1333,18 +1213,10 @@ AppClock.sched((case
 			{y>=30 and: y<=40}  {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 			{y>=40 and: y<=50}  {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 			{y>=50 and: y<=60}  {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=60 and: y<=70}  {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=70 and: y<=80}  {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=80 and: y<=90}  {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=90 and: y<=100} {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>100 and: y<340} {nil}
+			{y>60 and: y<340} {nil}
 			{y>=340 and: y<=350} {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 			{y>=350 and: y<=360} {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=360 and: y<=370} {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=370 and: y<=380} {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=380 and: y<=390} {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=390 and: y<=400} {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=400 and: y<=410} {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)};
+			{y>=360 and: y<=370} {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)};
 			w.refresh;
 
 			case
@@ -1372,35 +1244,7 @@ AppClock.sched((case
 					~l3d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
 					~l3e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
 					~l3f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=60 and: y<=70} {
-					~l4a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l4b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f4=q.value;
-					~l4c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l4d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l4e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l4f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=70 and: y<=80} {
-					~l5a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l5b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f5=q.value;
-					~l5c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l5d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l5e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l5f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=80 and: y<=90} {
-					~l6a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l6b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f6=q.value;
-					~l6c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l6d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l6e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l6f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=90 and: y<=100} {
-					~l7a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l7b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f7=q.value;
-					~l7c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l7d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l7e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l7f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>100 and: y<340} {nil}
+				{y>60 and: y<340} {nil}
 				{y>=340 and: y<=350} {
 					~l1a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
 					~l1b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f1=q.value;
@@ -1421,35 +1265,7 @@ AppClock.sched((case
 					~l3c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
 					~l3d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
 					~l3e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l3f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=370 and: y<=380} {
-					~l4a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l4b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f4=q.value;
-					~l4c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l4d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l4e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l4f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=380 and: y<=390} {
-					~l5a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l5b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f5=q.value;
-					~l5c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l5d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l5e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l5f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=390 and: y<=400} {
-					~l6a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l6b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f6=q.value;
-					~l6c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l6d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l6e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l6f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=400 and: y<=410} {
-					~l7a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l7b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f7=q.value;
-					~l7c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l7d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l7e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l7f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
+					~l3f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
 					}
 					{~l1a1.isRunning == true}{
 				case
@@ -1475,35 +1291,7 @@ AppClock.sched((case
 					~l3d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
 					~l3e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
 					~l3f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=60 and: y<=70} {
-					~l4a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l4b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f4=q.value;
-					~l4c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l4d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l4e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l4f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=70 and: y<=80} {
-					~l5a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l5b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f5=q.value;
-					~l5c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l5d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l5e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l5f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=80 and: y<=90} {
-					~l6a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l6b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f6=q.value;
-					~l6c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l6d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l6e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l6f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>=90 and: y<=100} {
-					~l7a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-					~l7b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value);~f7=q.value;
-					~l7c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-					~l7d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-					~l7e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-					~l7f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-				{y>100 and: y<340} {nil}
+				{y>60 and: y<340} {nil}
 				{y>=340 and: y<=350} {
 					~l1a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
 					~l1b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f1=q.value;
@@ -1524,35 +1312,7 @@ AppClock.sched((case
 					~l3c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
 					~l3d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
 					~l3e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l3f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=370 and: y<=380} {
-					~l4a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l4b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f4=q.value;
-					~l4c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l4d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l4e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l4f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=380 and: y<=390} {
-					~l5a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l5b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f5=q.value;
-					~l5c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l5d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l5e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l5f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=390 and: y<=400} {
-					~l6a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l6b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f6=q.value;
-					~l6c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l6d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l6e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l6f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-				{y>=400 and: y<=410} {
-					~l7a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-					~l7b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value);~f7=q.value;
-					~l7c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-					~l7d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-					~l7e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-					~l7f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
+					~l3f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
 			};
 		};
 
@@ -1567,22 +1327,22 @@ AppClock.sched((case
 				~tsc = TextView(w, Rect(0,0, 1600*2, 354)).background_(Color.black);
 				(~tsc.string =
 					"saved: "++"\n"++
-					"1: "++"\n"++"[~f1="++fp1.asString++",~f2="++fp2.asString++",~f3="++fp3.asString++",~f4="++fp4.asString++",~f5="++fp5.asString++",~f6="++fp6.asString++",~f7="++fp7.asString++"]"++"\n"++
-					"2: "++"\n"++"[~f1="++fp1b.asString++",~f2="++fp2b.asString++",~f3="++fp3b.asString++",~f4="++fp4b.asString++",~f5="++fp5b.asString++",~f6="++fp6b.asString++",~f7="++fp7b.asString++"]"++"\n"++
-					"3: "++"\n"++"[~f1="++fp1c.asString++",~f2="++fp2c.asString++",~f3="++fp3c.asString++",~f4="++fp4c.asString++",~f5="++fp5c.asString++",~f6="++fp6c.asString++",~f7="++fp7c.asString++"]"++"\n"++
-					"4: "++"\n"++"[~f1="++fp1d.asString++",~f2="++fp2d.asString++",~f3="++fp3d.asString++",~f4="++fp4d.asString++",~f5="++fp5d.asString++",~f6="++fp6d.asString++",~f7="++fp7d.asString++"]"++"\n"++
-					"5: "++"\n"++"[~f1="++fp1e.asString++",~f2="++fp2e.asString++",~f3="++fp3e.asString++",~f4="++fp4e.asString++",~f5="++fp5e.asString++",~f6="++fp6e.asString++",~f7="++fp7e.asString++"]"++"\n"++
-					"6: "++"\n"++"[~f1="++fp1f.asString++",~f2="++fp2f.asString++",~f3="++fp3f.asString++",~f4="++fp4f.asString++",~f5="++fp5f.asString++",~f6="++fp6f.asString++",~f7="++fp7f.asString++"]"++"\n"++
-					"7: "++"\n"++"[~f1="++fp1g.asString++",~f2="++fp2g.asString++",~f3="++fp3g.asString++",~f4="++fp4g.asString++",~f5="++fp5g.asString++",~f6="++fp6g.asString++",~f7="++fp7g.asString++"]"++"\n"++
-					"8: "++"\n"++"[~f1="++fp1h.asString++",~f2="++fp2h.asString++",~f3="++fp3h.asString++",~f4="++fp4h.asString++",~f5="++fp5h.asString++",~f6="++fp6h.asString++",~f7="++fp7h.asString++"]"++"\n"++"\n"++
+					"1: "++"\n"++"[~f1="++fp1.asString++",~f2="++fp2.asString++",~f3="++fp3.asString++"]"++"\n"++
+					"2: "++"\n"++"[~f1="++fp1b.asString++",~f2="++fp2b.asString++",~f3="++fp3b.asString++"]"++"\n"++
+					"3: "++"\n"++"[~f1="++fp1c.asString++",~f2="++fp2c.asString++",~f3="++fp3c.asString++"]"++"\n"++
+					"4: "++"\n"++"[~f1="++fp1d.asString++",~f2="++fp2d.asString++",~f3="++fp3d.asString++"]"++"\n"++
+					"5: "++"\n"++"[~f1="++fp1e.asString++",~f2="++fp2e.asString++",~f3="++fp3e.asString++"]"++"\n"++
+					"6: "++"\n"++"[~f1="++fp1f.asString++",~f2="++fp2f.asString++",~f3="++fp3f.asString++"]"++"\n"++
+					"7: "++"\n"++"[~f1="++fp1g.asString++",~f2="++fp2g.asString++",~f3="++fp3g.asString++"]"++"\n"++
+					"8: "++"\n"++"[~f1="++fp1h.asString++",~f2="++fp2h.asString++",~f3="++fp3h.asString++"]"++"\n"++"\n"++
 
 						"current: "++"\n"++
-					"[~f1="++~f1.asString++",~f2="++~f2.asString++",~f3="++~f3.asString++",~f4="++~f4.asString++",~f5="++~f5.asString++",~f6="++~f6.asString++",~f7="++~f7.asString++"]"
+					"[~f1="++~f1.asString++",~f2="++~f2.asString++",~f3="++~f3.asString++"]"
 
 					);
 				~tsc.stringColor = Color.white;
-				(str= [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7/*,~f8,~f9,~f10,~f11,~f12*/ ];("echo"+str+"| xclip -selection clipboard").unixCmd;);
-				[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7/*,~f8,~f9,~f10,~f11,~f12*/ ].postln;},
+				(str= [ ~f1,~f2,~f3/*,~f4,~f5,~f6,~f7*//*,~f8,~f9,~f10,~f11,~f12*/ ];("echo"+str+"| xclip -selection clipboard").unixCmd;);
+				[ ~f1,~f2,~f3/*,~f4,~f5,~f6,~f7*//*,~f8,~f9,~f10,~f11,~f12*/ ].postln;},
 				{~tsc.close;});
 		});
 		sts = Button.new(w,Rect(Window.screenBounds.width-20-20-20-20,~bpt+69+5,20,20/1.6180339887499)).states_([["st",Color.white,Color.black],["st",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
@@ -1729,7 +1489,7 @@ AppClock.sched((case
 					~timer.stop; ~systemclock.stop; ~systemclock.clear; ~time1o = 0;
 					~timer = Routine({inf.do({
 							~time1o =
-								~time1o+0.01; ~slot = "o1_"+~time1o.asString; 0.01.wait;});}); ~systemclock = SystemClock.play(~timer);},
+							~time1o+0.01; ~slot = "o1_"+~time1o.asString; 0.01.wait;});}); ~systemclock = SystemClock.play(~timer);},
 				{nil});
 
 				[~f1=fp1,~f2=fp2,~f3=fp3,~f4=fp4,~f5=fp5,~f6=fp6,~f7=fp7];
@@ -2398,7 +2158,7 @@ AppClock.sched((case
 			});
 				};
 		});
-		mute4 = Button.new(w,Rect(~bpl+(16*4),~bpt+69+5,16,16/1.6180339887499)).states_([["4",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
+		/*mute4 = Button.new(w,Rect(~bpl+(16*4),~bpt+69+5,16,16/1.6180339887499)).states_([["4",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 case
 	{~l1a1.isRunning == true}{
 		if(button.value == 0, {
@@ -2554,7 +2314,7 @@ case
 				}););
 			});
 				};
-		});
+		});*/
 
 		muteall = Button.new(w,Rect(~bpl+(0),~bpt+69+5,16,16/1.6180339887499)).states_([["m",Color.white,Color.black],["u",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
@@ -2562,10 +2322,10 @@ case
 					mute1.value = 0;
 					mute2.value = 0;
 					mute3.value = 0;
-					mute4.value = 0;
+					/*mute4.value = 0;
 					mute5.value = 0;
 					mute6.value = 0;
-					mute7.value = 0;
+					mute7.value = 0;*/
 					/*mute8.value = 0;
 					mute9.value = 0;
 					mute10.value = 0;
@@ -2589,10 +2349,10 @@ case
 						mute1.value = 1;
 						mute2.value = 1;
 						mute3.value = 1;
-						mute4.value = 1;
+						/*mute4.value = 1;
 						mute5.value = 1;
 						mute6.value = 1;
-						mute7.value = 1;
+						mute7.value = 1;*/
 						/*mute8.value = 1;
 						mute9.value = 1;
 						mute10.value = 1;
@@ -2753,7 +2513,7 @@ case
 			{if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 2);
-		MIDIdef.cc('l4', { |val|
+		/*MIDIdef.cc('l4', { |val|
 			case
 				{~l1a.isRunning == true}{
 					~l4a.set(\dur, ~f4 = \dur.asSpec.map(val / 127));
@@ -2836,7 +2596,7 @@ case
 				~tunefreq7 = ~f7; ~f7 = ~f7+~f7t;
 			{if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
 			}.defer;
-		}, ccNum: 6);
+		}, ccNum: 6);*/
 
 			if(~f1t == nil, {~f1t = 0});
 			if(~f2t == nil, {~f2t = 0});
@@ -2915,7 +2675,7 @@ case
 			{if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 18);
-		MIDIFunc.cc({|val|
+		/*MIDIFunc.cc({|val|
 				~f4 = ~f4-~f4t;
 				Spec.add(\tune, ([0, ~tunefreq4*~stepratio-~tunefreq4, \lin]));
 			case
@@ -3006,7 +2766,7 @@ case
 				~f7 = ~f7+~f7t;
 			{if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
 			}.defer;
-		}, ccNum: 22);
+		}, ccNum: 22);*/
 
 			MIDIFunc.cc({|val| {case{b3.value == 0}{b3.valueAction = 1};}.defer;}, ccNum: 41);
 			MIDIFunc.cc({|val| {case{b3.value == 1}{b3.valueAction = 0};}.defer;}, ccNum: 42);
@@ -3039,20 +2799,19 @@ case
 		*/  MIDIFunc.cc({|val| {mute1.valueAction = 1;}.defer;}, ccNum: 48);
 			MIDIFunc.cc({|val| {mute2.valueAction = 1;}.defer;}, ccNum: 49);
 			MIDIFunc.cc({|val| {mute3.valueAction = 1;}.defer;}, ccNum: 50);
-			MIDIFunc.cc({|val| {mute4.valueAction = 1;}.defer;}, ccNum: 51);
+			/*MIDIFunc.cc({|val| {mute4.valueAction = 1;}.defer;}, ccNum: 51);
 			MIDIFunc.cc({|val| {mute5.valueAction = 1;}.defer;}, ccNum: 52);
 			MIDIFunc.cc({|val| {mute6.valueAction = 1;}.defer;}, ccNum: 53);
 			MIDIFunc.cc({|val| {mute7.valueAction = 1;}.defer;}, ccNum: 54);
-			MIDIFunc.cc({|val| {mute1.valueAction = 1;mute2.valueAction = 1;mute3.valueAction = 1;mute4.valueAction = 1;mute5.valueAction = 1;mute6.valueAction = 1;mute7.valueAction = 1;}.defer;}, ccNum: 55);
+		*/	MIDIFunc.cc({|val| {mute1.valueAction = 1;mute2.valueAction = 1;mute3.valueAction = 1;/*mute4.valueAction = 1;mute5.valueAction = 1;mute6.valueAction = 1;mute7.valueAction = 1;*/}.defer;}, ccNum: 55);
 			MIDIFunc.cc({|val| {mute1.valueAction = 0;}.defer;}, ccNum: 32);
 			MIDIFunc.cc({|val| {mute2.valueAction = 0;}.defer;}, ccNum: 33);
 			MIDIFunc.cc({|val| {mute3.valueAction = 0;}.defer;}, ccNum: 34);
-			MIDIFunc.cc({|val| {mute4.valueAction = 0;}.defer;}, ccNum: 35);
+			/*MIDIFunc.cc({|val| {mute4.valueAction = 0;}.defer;}, ccNum: 35);
 			MIDIFunc.cc({|val| {mute5.valueAction = 0;}.defer;}, ccNum: 36);
 			MIDIFunc.cc({|val| {mute6.valueAction = 0;}.defer;}, ccNum: 37);
 			MIDIFunc.cc({|val| {mute7.valueAction = 0;}.defer;}, ccNum: 38);
-			MIDIFunc.cc({|val| {mute1.valueAction = 0;mute2.valueAction = 0;mute3.valueAction = 0;mute4.valueAction = 0;mute5.valueAction = 0;mute6.valueAction = 0;mute7.valueAction = 0;}.defer;}, ccNum: 39);
-
+		*/	MIDIFunc.cc({|val| {mute1.valueAction = 0;mute2.valueAction = 0;mute3.valueAction = 0;/*mute4.valueAction = 0;mute5.valueAction = 0;mute6.valueAction = 0;mute7.valueAction = 0;*/}.defer;}, ccNum: 39);
 
 		/*MIDIFunc.cc({ |val| ([~a2,~b2,~c2,~d2,~e2,~f2]).postln;}, ccNum: [0]);*/
 		/*MIDIFunc.cc({ |val|~l1.set(\tune, 0);}, ccNum: [32]);*/
@@ -3108,7 +2867,7 @@ case
 				~z30.background = Color.white; ~z6.background = Color.white;
 				~z31.background = Color.white; ~z7.background = Color.white;
 			}
-			{button.value == 4}{
+			/*{button.value == 4}{
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
 				~z27.background = Color.white; ~z3.background = Color.white;
@@ -3134,7 +2893,7 @@ case
 				~z29.background = Color.white; ~z5.background = Color.white;
 				~z30.background = Color.white; ~z6.background = Color.white;
 				~z31.background = Color.green; ~z7.background = Color.green;
-			}
+			}*/
 
 		});
 
@@ -3369,7 +3128,7 @@ case
 					~z31.background = Color.white; ~z7.background = Color.white;
 			});});
 
-			if((~f4 >= ~freqmap.at(127)), {~freqmap.at(127)},
+			/*if((~f4 >= ~freqmap.at(127)), {~freqmap.at(127)},
 				{if((keycodeb.value == 3) and: ((keycode == ~rightarrow_keycode) or: (unicode == ~l_unicode)), {
 						~freqmapval4 = ~f4.cpsmidi.round;
 					case
@@ -3607,7 +3366,7 @@ case
 					~z29.background = Color.white; ~z5.background = Color.white;
 					~z30.background = Color.white; ~z6.background = Color.white;
 					~z31.background = Color.green; ~z7.background = Color.green;
-			});});
+			});});*/
 
 			};
 
@@ -4008,7 +3767,7 @@ case
 						"prc: pause recording"++"\n"++"\n"++
 						"/rc: stop recording"++"\n"++"\n"++
 						"m/u: mute/unmute all"++"\n"++"\n"++
-						"1-7: mute or unmute individual synth"++"\n"++"\n"++
+						"1-3: mute or unmute individual synth"++"\n"++"\n"++
 						"st: stop synth timer/show timer results"++"\n"++"\n"++
 						"r: routine/loop function - rslot for synth set, rtime for time between transitions"++"\n"++"\n"++
 						"s: set slide time/increment"++"\n"++"\n"++
@@ -4021,7 +3780,7 @@ case
 						"ctrl-period/cmd-period: free server"++"\n"++"\n"++
 						"left/right arrow(or J and L): move down/up note"++"\n"++"\n"++
 						"up/down arrow(or I and K): change synth for left/right arrow note function"++"\n"++"\n"++
-						"#1-7 on keyboard: choose synth for left/right arrow note function"++"\n"++"\n"++
+						"#1-3 on keyboard: choose synth for left/right arrow note function"++"\n"++"\n"++
 						"m: mute/unmute all"++"\n"++"\n"++
 						"c: copy function"++"\n"++"\n"++
 						"t: timed synth function"++"\n"++"\n"++

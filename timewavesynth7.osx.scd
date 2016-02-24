@@ -139,10 +139,10 @@ AppClock.sched((case
 
 		//key codes for keyboard functions - either unicode or keycode. to find key codes, see below
 
-		~rightarrow_keycode = 114;
-		~leftarrow_keycode = 113;
-		~uparrow_keycode = 111;
-		~downarrow_keycode = 116;
+		~rightarrow_keycode = 124;
+		~leftarrow_keycode = 123;
+		~uparrow_keycode = 126;
+		~downarrow_keycode = 125;
 		~enter_unicode = 13;
 		~s_unicode = 115;
 		~m_unicode = 109;
@@ -244,7 +244,7 @@ AppClock.sched((case
 			#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g = [];
 			#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h = [];
 
-			[];*/
+			7.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([].at(x-1))});*/
 
 			~gsine = {
 						SynthDef(\gsineicfld, {arg graindur = 0.04, dur = 2000, atk = 0.007, rel = 0.01, gate = 1, amp = 1, i = 1, vol = ~vol, rate = 20, tune = 0,dseqval,
@@ -319,9 +319,10 @@ AppClock.sched((case
 		CompositeView(w, Rect(~b1, ~btd, ~bw, ~bh)).background = ~bcolor;
 		54.do({CompositeView(w, Rect(~b1 = ~b1+(Window.screenBounds.width/(12*4)), ~btu, ~bw, ~bh)).background = ~bcolor;});
 		~b1 = Window.screenBounds.width/(12*4);
-		54.do({CompositeView(w, Rect(~b1 = ~b1+(Window.screenBounds.width/(12*4)), ~btd, ~bw, ~bh)).background = ~bcolor;});*/
+		54.do({CompositeView(w, Rect(~b1 = ~b1+(Window.screenBounds.width/(12*4)), ~btd, ~bw, ~bh)).background = ~bcolor;});
+*/
 
-			~nh = 2;
+		~nh = 2;
 			~nw = ~nh*1.6180339887499;
 
 			8.do(x=20;{CompositeView(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
@@ -1036,7 +1037,7 @@ AppClock.sched((case
 				);
 			};
 
-			case
+case
 			{~slot1 == nil}{""}
 			{~slot2 == nil}{""}
 			{~slot3 == nil}{""}
@@ -1321,6 +1322,29 @@ AppClock.sched((case
 					~l7f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
 			};
 		};
+
+			/*~z = Array.fill(48, {(CompositeView(w, Rect(x, y, 5, 5)).background = Color.yellow;)});
+
+	/*	x = 1; { Environment.put(("~a"++x).asSymbol, 20) }
+			~a1
+			currentEnvironment.put((\z++1).asSymbol, 20) ~z1
+			 { |i| currentEnvironment.put((\a++i).asSymbol,i) };
+
+			x=0; ("f"++(x=x+1)).asSymbol.envirGet;*/
+
+			/*("f" ++ (x=x+1)).asSymbol.envirGet*/ ~z1 = 20
+
+			24.do(x=0; y=0; z=30; {currentEnvironment[\z++(x=1)].asSymbol.close; currentEnvironment.put((\z++x).asSymbol, (CompositeView(w, Rect(((("f" ++ (y=y+1)).asSymbol.envirGet).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), z=z+10, ~nw, 2)).background = Color.white;);)});
+			~zmid.close;~zmid = (CompositeView(w, Rect(x, 280, ~nw, 2)).background = Color.clear;);
+			24.do(x=24; y=0; z=340; {("z"++(x=x+1)).asSymbol.envirGet.close; currentEnvironment.put((\z++x).asSymbol, (CompositeView(w, Rect(((("f" ++ (y=y+1)).asSymbol.envirGet).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), z=z+10, ~nw, 2)).background = Color.white;);)});
+
+*/
+
+
+
+
+
+
 
 		//draw lines with Pen and create Synths according to mouse movement
 		view.mouseMoveAction = {
@@ -1729,7 +1753,7 @@ AppClock.sched((case
 					~timer.stop; ~systemclock.stop; ~systemclock.clear; ~time1o = 0;
 					~timer = Routine({inf.do({
 							~time1o =
-								~time1o+0.01; ~slot = "o1_"+~time1o.asString; 0.01.wait;});}); ~systemclock = SystemClock.play(~timer);},
+							~time1o+0.01; ~slot = "o1_"+~time1o.asString; 0.01.wait;});}); ~systemclock = SystemClock.play(~timer);},
 				{nil});
 
 				[~f1=fp1,~f2=fp2,~f3=fp3,~f4=fp4,~f5=fp5,~f6=fp6,~f7=fp7];
@@ -3052,7 +3076,6 @@ case
 			MIDIFunc.cc({|val| {mute6.valueAction = 0;}.defer;}, ccNum: 37);
 			MIDIFunc.cc({|val| {mute7.valueAction = 0;}.defer;}, ccNum: 38);
 			MIDIFunc.cc({|val| {mute1.valueAction = 0;mute2.valueAction = 0;mute3.valueAction = 0;mute4.valueAction = 0;mute5.valueAction = 0;mute6.valueAction = 0;mute7.valueAction = 0;}.defer;}, ccNum: 39);
-
 
 		/*MIDIFunc.cc({ |val| ([~a2,~b2,~c2,~d2,~e2,~f2]).postln;}, ccNum: [0]);*/
 		/*MIDIFunc.cc({ |val|~l1.set(\tune, 0);}, ccNum: [32]);*/
