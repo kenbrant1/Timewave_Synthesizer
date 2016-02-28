@@ -3,9 +3,9 @@ This synthesizer is derived from and based upon Terence McKenna's Timewave theor
 
 How to run:
 
-- The seven-stringed synthesizer can be found in the "timewavesynth7" files
+- Choose "timewavesynthu" or "timewavesynthi" file to run
 
-- The three-stringed synthesizer can be found in the "timewavesynth3" files
+- There is the 7-stringed synthesizer and the 3-stringed synthesizer to choose from
 
 - Simply evaluate the file in Supercollider IDE to run the synthesizer. Instructions can be found at the top of the file.
 
