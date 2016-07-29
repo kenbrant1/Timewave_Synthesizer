@@ -3,13 +3,11 @@ This synthesizer is derived from and based upon Terence McKenna's Timewave theor
 
 How to run:
 
-- Choose "timewavesynthu" or "timewavesynthi" file to run
-
-- There is the 7-stringed synthesizer and the 3-stringed synthesizer to choose from
+- There is the 8-stringed synthesizer and the 3-stringed synthesizer to choose from
 
 - Simply evaluate the file in Supercollider IDE to run the synthesizer. Instructions can be found at the top of the file.
 
 - To download and install the Supercollider IDE - http://supercollider.github.io/download.html
 
-- The Timewave Synthesizer website - http://timewavesynth.info/
+- The Timewave Synthesizer website - http://kenbrant.info/timewavesynth.html or http://timewavesynth.info/
 
