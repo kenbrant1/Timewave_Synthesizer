@@ -117,12 +117,12 @@ AppClock.sched((case
 
 			//base frequency for synth inst
 
-			~base_frequency = 128.43436842029; //default 128.43436842029 hz
-
+			~base_frequency = ~freqmap.at(21); //default 21
+			~synthdefnum = 12;
 
 			//volume
 
-			~vol = 0.006; //default 0.006
+			~vol = 0.005; //default 0.005
 			~vol1 = ~vol;
 			~vol2 = ~vol;
 			~vol3 = ~vol;
@@ -233,16 +233,7 @@ AppClock.sched((case
 			if([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ];});
 			if([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ];});
 
-			/*	#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12 = [];
-			#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b = [];
-			#fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c = [];
-			#fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d = [];
-			#fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e = [];
-			#fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f = [];
-			#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g = [];
-			#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h = [];
 
-			[];*/
 
 			~gsine = {
 				SynthDef(\gsineicfld1, {arg graindur = 0.04, dur = 2000, atk = 0.007, rel = 0.01, gate = 1, amp = 1, i = 1, vol = ~vol, rate = 20, tune = 0,dseqval,
@@ -1408,17 +1399,90 @@ AppClock.sched((case
 					~tsc = TextView(w, Rect(0,0, 1600*2, 354)).background_(Color.black);
 					(~tsc.string =
 						"saved: "++"\n"++
-						"1: "++"\n"++"[~f1="++fp1.asString++",~f2="++fp2.asString++",~f3="++fp3.asString++"]"++"\n"++
-						"2: "++"\n"++"[~f1="++fp1b.asString++",~f2="++fp2b.asString++",~f3="++fp3b.asString++"]"++"\n"++
-						"3: "++"\n"++"[~f1="++fp1c.asString++",~f2="++fp2c.asString++",~f3="++fp3c.asString++"]"++"\n"++
-						"4: "++"\n"++"[~f1="++fp1d.asString++",~f2="++fp2d.asString++",~f3="++fp3d.asString++"]"++"\n"++
-						"5: "++"\n"++"[~f1="++fp1e.asString++",~f2="++fp2e.asString++",~f3="++fp3e.asString++"]"++"\n"++
-						"6: "++"\n"++"[~f1="++fp1f.asString++",~f2="++fp2f.asString++",~f3="++fp3f.asString++"]"++"\n"++
-						"7: "++"\n"++"[~f1="++fp1g.asString++",~f2="++fp2g.asString++",~f3="++fp3g.asString++"]"++"\n"++
-						"8: "++"\n"++"[~f1="++fp1h.asString++",~f2="++fp2h.asString++",~f3="++fp3h.asString++"]"++"\n"++"\n"++
+						"a = [~f1="++fp1.asString++",~f2="++fp2.asString++",~f3="++fp3.asString++"];"++"\n"++
+						"b = [~f1="++fp1b.asString++",~f2="++fp2b.asString++",~f3="++fp3b.asString++"];"++"\n"++
+						"c = [~f1="++fp1c.asString++",~f2="++fp2c.asString++",~f3="++fp3c.asString++"];"++"\n"++
+						"d = [~f1="++fp1d.asString++",~f2="++fp2d.asString++",~f3="++fp3d.asString++"];"++"\n"++
+						"e = [~f1="++fp1e.asString++",~f2="++fp2e.asString++",~f3="++fp3e.asString++"];"++"\n"++
+						"f = [~f1="++fp1f.asString++",~f2="++fp2f.asString++",~f3="++fp3f.asString++"];"++"\n"++
+						"g = [~f1="++fp1g.asString++",~f2="++fp2g.asString++",~f3="++fp3g.asString++"];"++"\n"++
+						"h = [~f1="++fp1h.asString++",~f2="++fp2h.asString++",~f3="++fp3h.asString++"];"++"\n"++"\n"++
 
 						"current: "++"\n"++
 						"[~f1="++~f1.asString++",~f2="++~f2.asString++",~f3="++~f3.asString++"]"
+
+						"[~sg1a1="++~sg1a1.asString++",~sg1a2="++~sg1a2.asString++",~sg1a3="++~sg1a3.asString++",~sg1a4="++~sg1a4.asString++",~sg1a5="++~sg1a5.asString++",~sg1a6="++~sg1a6.asString++",~sg1a7="++~sg1a7.asString++",~sg1a8="++~sg1a8.asString++"];"++"\n"++
+						"[~sg1b1="++~sg1b1.asString++",~sg1b2="++~sg1b2.asString++",~sg1b3="++~sg1b3.asString++",~sg1b4="++~sg1b4.asString++",~sg1b5="++~sg1b5.asString++",~sg1b6="++~sg1b6.asString++",~sg1b7="++~sg1b7.asString++",~sg1b8="++~sg1b8.asString++"];"++"\n"++
+						"[~sg1c1="++~sg1c1.asString++",~sg1c2="++~sg1c2.asString++",~sg1c3="++~sg1c3.asString++",~sg1c4="++~sg1c4.asString++",~sg1c5="++~sg1c5.asString++",~sg1c6="++~sg1c6.asString++",~sg1c7="++~sg1c7.asString++",~sg1c8="++~sg1c8.asString++"];"++"\n"++
+						"[~sg1d1="++~sg1d1.asString++",~sg1d2="++~sg1d2.asString++",~sg1d3="++~sg1d3.asString++",~sg1d4="++~sg1d4.asString++",~sg1d5="++~sg1d5.asString++",~sg1d6="++~sg1d6.asString++",~sg1d7="++~sg1d7.asString++",~sg1d8="++~sg1d8.asString++"];"++"\n"++
+						"[~sg1e1="++~sg1e1.asString++",~sg1e2="++~sg1e2.asString++",~sg1e3="++~sg1e3.asString++",~sg1e4="++~sg1e4.asString++",~sg1e5="++~sg1e5.asString++",~sg1e6="++~sg1e6.asString++",~sg1e7="++~sg1e7.asString++",~sg1e8="++~sg1e8.asString++"];"++"\n"++
+						"[~sg1f1="++~sg1f1.asString++",~sg1f2="++~sg1f2.asString++",~sg1f3="++~sg1f3.asString++",~sg1f4="++~sg1f4.asString++",~sg1f5="++~sg1f5.asString++",~sg1f6="++~sg1f6.asString++",~sg1f7="++~sg1f7.asString++",~sg1f8="++~sg1f8.asString++"];"++"\n"++
+						"[~sg1g1="++~sg1g1.asString++",~sg1g2="++~sg1g2.asString++",~sg1g3="++~sg1g3.asString++",~sg1g4="++~sg1g4.asString++",~sg1g5="++~sg1g5.asString++",~sg1g6="++~sg1g6.asString++",~sg1g7="++~sg1g7.asString++",~sg1g8="++~sg1g8.asString++"];"++"\n"++
+						"[~sg1h1="++~sg1h1.asString++",~sg1h2="++~sg1h2.asString++",~sg1h3="++~sg1h3.asString++",~sg1h4="++~sg1h4.asString++",~sg1h5="++~sg1h5.asString++",~sg1h6="++~sg1h6.asString++",~sg1h7="++~sg1h7.asString++",~sg1h8="++~sg1h8.asString++"];"++"\n"++
+
+						"[~sg2a1="++~sg2a1.asString++",~sg2a2="++~sg2a2.asString++",~sg2a3="++~sg2a3.asString++",~sg2a4="++~sg2a4.asString++",~sg2a5="++~sg2a5.asString++",~sg2a6="++~sg2a6.asString++",~sg2a7="++~sg2a7.asString++",~sg2a8="++~sg2a8.asString++"];"++"\n"++
+"[~sg2b1="++~sg2b1.asString++",~sg2b2="++~sg2b2.asString++",~sg2b3="++~sg2b3.asString++",~sg2b4="++~sg2b4.asString++",~sg2b5="++~sg2b5.asString++",~sg2b6="++~sg2b6.asString++",~sg2b7="++~sg2b7.asString++",~sg2b8="++~sg2b8.asString++"];"++"\n"++
+"[~sg2c1="++~sg2c1.asString++",~sg2c2="++~sg2c2.asString++",~sg2c3="++~sg2c3.asString++",~sg2c4="++~sg2c4.asString++",~sg2c5="++~sg2c5.asString++",~sg2c6="++~sg2c6.asString++",~sg2c7="++~sg2c7.asString++",~sg2c8="++~sg2c8.asString++"];"++"\n"++
+"[~sg2d1="++~sg2d1.asString++",~sg2d2="++~sg2d2.asString++",~sg2d3="++~sg2d3.asString++",~sg2d4="++~sg2d4.asString++",~sg2d5="++~sg2d5.asString++",~sg2d6="++~sg2d6.asString++",~sg2d7="++~sg2d7.asString++",~sg2d8="++~sg2d8.asString++"];"++"\n"++
+"[~sg2e1="++~sg2e1.asString++",~sg2e2="++~sg2e2.asString++",~sg2e3="++~sg2e3.asString++",~sg2e4="++~sg2e4.asString++",~sg2e5="++~sg2e5.asString++",~sg2e6="++~sg2e6.asString++",~sg2e7="++~sg2e7.asString++",~sg2e8="++~sg2e8.asString++"];"++"\n"++
+"[~sg2f1="++~sg2f1.asString++",~sg2f2="++~sg2f2.asString++",~sg2f3="++~sg2f3.asString++",~sg2f4="++~sg2f4.asString++",~sg2f5="++~sg2f5.asString++",~sg2f6="++~sg2f6.asString++",~sg2f7="++~sg2f7.asString++",~sg2f8="++~sg2f8.asString++"];"++"\n"++
+"[~sg2g1="++~sg2g1.asString++",~sg2g2="++~sg2g2.asString++",~sg2g3="++~sg2g3.asString++",~sg2g4="++~sg2g4.asString++",~sg2g5="++~sg2g5.asString++",~sg2g6="++~sg2g6.asString++",~sg2g7="++~sg2g7.asString++",~sg2g8="++~sg2g8.asString++"];"++"\n"++
+"[~sg2h1="++~sg2h1.asString++",~sg2h2="++~sg2h2.asString++",~sg2h3="++~sg2h3.asString++",~sg2h4="++~sg2h4.asString++",~sg2h5="++~sg2h5.asString++",~sg2h6="++~sg2h6.asString++",~sg2h7="++~sg2h7.asString++",~sg2h8="++~sg2h8.asString++"];"++"\n"++
+
+						"[~sg3a1="++~sg3a1.asString++",~sg3a2="++~sg3a2.asString++",~sg3a3="++~sg3a3.asString++",~sg3a4="++~sg3a4.asString++",~sg3a5="++~sg3a5.asString++",~sg3a6="++~sg3a6.asString++",~sg3a7="++~sg3a7.asString++",~sg3a8="++~sg3a8.asString++"];"++"\n"++
+"[~sg3b1="++~sg3b1.asString++",~sg3b2="++~sg3b2.asString++",~sg3b3="++~sg3b3.asString++",~sg3b4="++~sg3b4.asString++",~sg3b5="++~sg3b5.asString++",~sg3b6="++~sg3b6.asString++",~sg3b7="++~sg3b7.asString++",~sg3b8="++~sg3b8.asString++"];"++"\n"++
+"[~sg3c1="++~sg3c1.asString++",~sg3c2="++~sg3c2.asString++",~sg3c3="++~sg3c3.asString++",~sg3c4="++~sg3c4.asString++",~sg3c5="++~sg3c5.asString++",~sg3c6="++~sg3c6.asString++",~sg3c7="++~sg3c7.asString++",~sg3c8="++~sg3c8.asString++"];"++"\n"++
+"[~sg3d1="++~sg3d1.asString++",~sg3d2="++~sg3d2.asString++",~sg3d3="++~sg3d3.asString++",~sg3d4="++~sg3d4.asString++",~sg3d5="++~sg3d5.asString++",~sg3d6="++~sg3d6.asString++",~sg3d7="++~sg3d7.asString++",~sg3d8="++~sg3d8.asString++"];"++"\n"++
+"[~sg3e1="++~sg3e1.asString++",~sg3e2="++~sg3e2.asString++",~sg3e3="++~sg3e3.asString++",~sg3e4="++~sg3e4.asString++",~sg3e5="++~sg3e5.asString++",~sg3e6="++~sg3e6.asString++",~sg3e7="++~sg3e7.asString++",~sg3e8="++~sg3e8.asString++"];"++"\n"++
+"[~sg3f1="++~sg3f1.asString++",~sg3f2="++~sg3f2.asString++",~sg3f3="++~sg3f3.asString++",~sg3f4="++~sg3f4.asString++",~sg3f5="++~sg3f5.asString++",~sg3f6="++~sg3f6.asString++",~sg3f7="++~sg3f7.asString++",~sg3f8="++~sg3f8.asString++"];"++"\n"++
+"[~sg3g1="++~sg3g1.asString++",~sg3g2="++~sg3g2.asString++",~sg3g3="++~sg3g3.asString++",~sg3g4="++~sg3g4.asString++",~sg3g5="++~sg3g5.asString++",~sg3g6="++~sg3g6.asString++",~sg3g7="++~sg3g7.asString++",~sg3g8="++~sg3g8.asString++"];"++"\n"++
+"[~sg3h1="++~sg3h1.asString++",~sg3h2="++~sg3h2.asString++",~sg3h3="++~sg3h3.asString++",~sg3h4="++~sg3h4.asString++",~sg3h5="++~sg3h5.asString++",~sg3h6="++~sg3h6.asString++",~sg3h7="++~sg3h7.asString++",~sg3h8="++~sg3h8.asString++"];"++"\n"++
+
+						"[~sg4a1="++~sg4a1.asString++",~sg4a2="++~sg4a2.asString++",~sg4a3="++~sg4a3.asString++",~sg4a4="++~sg4a4.asString++",~sg4a5="++~sg4a5.asString++",~sg4a6="++~sg4a6.asString++",~sg4a7="++~sg4a7.asString++",~sg4a8="++~sg4a8.asString++"];"++"\n"++
+"[~sg4b1="++~sg4b1.asString++",~sg4b2="++~sg4b2.asString++",~sg4b3="++~sg4b3.asString++",~sg4b4="++~sg4b4.asString++",~sg4b5="++~sg4b5.asString++",~sg4b6="++~sg4b6.asString++",~sg4b7="++~sg4b7.asString++",~sg4b8="++~sg4b8.asString++"];"++"\n"++
+"[~sg4c1="++~sg4c1.asString++",~sg4c2="++~sg4c2.asString++",~sg4c3="++~sg4c3.asString++",~sg4c4="++~sg4c4.asString++",~sg4c5="++~sg4c5.asString++",~sg4c6="++~sg4c6.asString++",~sg4c7="++~sg4c7.asString++",~sg4c8="++~sg4c8.asString++"];"++"\n"++
+"[~sg4d1="++~sg4d1.asString++",~sg4d2="++~sg4d2.asString++",~sg4d3="++~sg4d3.asString++",~sg4d4="++~sg4d4.asString++",~sg4d5="++~sg4d5.asString++",~sg4d6="++~sg4d6.asString++",~sg4d7="++~sg4d7.asString++",~sg4d8="++~sg4d8.asString++"];"++"\n"++
+"[~sg4e1="++~sg4e1.asString++",~sg4e2="++~sg4e2.asString++",~sg4e3="++~sg4e3.asString++",~sg4e4="++~sg4e4.asString++",~sg4e5="++~sg4e5.asString++",~sg4e6="++~sg4e6.asString++",~sg4e7="++~sg4e7.asString++",~sg4e8="++~sg4e8.asString++"];"++"\n"++
+"[~sg4f1="++~sg4f1.asString++",~sg4f2="++~sg4f2.asString++",~sg4f3="++~sg4f3.asString++",~sg4f4="++~sg4f4.asString++",~sg4f5="++~sg4f5.asString++",~sg4f6="++~sg4f6.asString++",~sg4f7="++~sg4f7.asString++",~sg4f8="++~sg4f8.asString++"];"++"\n"++
+"[~sg4g1="++~sg4g1.asString++",~sg4g2="++~sg4g2.asString++",~sg4g3="++~sg4g3.asString++",~sg4g4="++~sg4g4.asString++",~sg4g5="++~sg4g5.asString++",~sg4g6="++~sg4g6.asString++",~sg4g7="++~sg4g7.asString++",~sg4g8="++~sg4g8.asString++"];"++"\n"++
+"[~sg4h1="++~sg4h1.asString++",~sg4h2="++~sg4h2.asString++",~sg4h3="++~sg4h3.asString++",~sg4h4="++~sg4h4.asString++",~sg4h5="++~sg4h5.asString++",~sg4h6="++~sg4h6.asString++",~sg4h7="++~sg4h7.asString++",~sg4h8="++~sg4h8.asString++"];"++"\n"++
+
+					"[~sg5a1="++~sg5a1.asString++",~sg5a2="++~sg5a2.asString++",~sg5a3="++~sg5a3.asString++",~sg5a4="++~sg5a4.asString++",~sg5a5="++~sg5a5.asString++",~sg5a6="++~sg5a6.asString++",~sg5a7="++~sg5a7.asString++",~sg5a8="++~sg5a8.asString++"];"++"\n"++
+"[~sg5b1="++~sg5b1.asString++",~sg5b2="++~sg5b2.asString++",~sg5b3="++~sg5b3.asString++",~sg5b4="++~sg5b4.asString++",~sg5b5="++~sg5b5.asString++",~sg5b6="++~sg5b6.asString++",~sg5b7="++~sg5b7.asString++",~sg5b8="++~sg5b8.asString++"];"++"\n"++
+"[~sg5c1="++~sg5c1.asString++",~sg5c2="++~sg5c2.asString++",~sg5c3="++~sg5c3.asString++",~sg5c4="++~sg5c4.asString++",~sg5c5="++~sg5c5.asString++",~sg5c6="++~sg5c6.asString++",~sg5c7="++~sg5c7.asString++",~sg5c8="++~sg5c8.asString++"];"++"\n"++
+"[~sg5d1="++~sg5d1.asString++",~sg5d2="++~sg5d2.asString++",~sg5d3="++~sg5d3.asString++",~sg5d4="++~sg5d4.asString++",~sg5d5="++~sg5d5.asString++",~sg5d6="++~sg5d6.asString++",~sg5d7="++~sg5d7.asString++",~sg5d8="++~sg5d8.asString++"];"++"\n"++
+"[~sg5e1="++~sg5e1.asString++",~sg5e2="++~sg5e2.asString++",~sg5e3="++~sg5e3.asString++",~sg5e4="++~sg5e4.asString++",~sg5e5="++~sg5e5.asString++",~sg5e6="++~sg5e6.asString++",~sg5e7="++~sg5e7.asString++",~sg5e8="++~sg5e8.asString++"];"++"\n"++
+"[~sg5f1="++~sg5f1.asString++",~sg5f2="++~sg5f2.asString++",~sg5f3="++~sg5f3.asString++",~sg5f4="++~sg5f4.asString++",~sg5f5="++~sg5f5.asString++",~sg5f6="++~sg5f6.asString++",~sg5f7="++~sg5f7.asString++",~sg5f8="++~sg5f8.asString++"];"++"\n"++
+"[~sg5g1="++~sg5g1.asString++",~sg5g2="++~sg5g2.asString++",~sg5g3="++~sg5g3.asString++",~sg5g4="++~sg5g4.asString++",~sg5g5="++~sg5g5.asString++",~sg5g6="++~sg5g6.asString++",~sg5g7="++~sg5g7.asString++",~sg5g8="++~sg5g8.asString++"];"++"\n"++
+"[~sg5h1="++~sg5h1.asString++",~sg5h2="++~sg5h2.asString++",~sg5h3="++~sg5h3.asString++",~sg5h4="++~sg5h4.asString++",~sg5h5="++~sg5h5.asString++",~sg5h6="++~sg5h6.asString++",~sg5h7="++~sg5h7.asString++",~sg5h8="++~sg5h8.asString++"];"++"\n"++
+
+						"[~sg6a1="++~sg6a1.asString++",~sg6a2="++~sg6a2.asString++",~sg6a3="++~sg6a3.asString++",~sg6a4="++~sg6a4.asString++",~sg6a5="++~sg6a5.asString++",~sg6a6="++~sg6a6.asString++",~sg6a7="++~sg6a7.asString++",~sg6a8="++~sg6a8.asString++"];"++"\n"++
+"[~sg6b1="++~sg6b1.asString++",~sg6b2="++~sg6b2.asString++",~sg6b3="++~sg6b3.asString++",~sg6b4="++~sg6b4.asString++",~sg6b5="++~sg6b5.asString++",~sg6b6="++~sg6b6.asString++",~sg6b7="++~sg6b7.asString++",~sg6b8="++~sg6b8.asString++"];"++"\n"++
+"[~sg6c1="++~sg6c1.asString++",~sg6c2="++~sg6c2.asString++",~sg6c3="++~sg6c3.asString++",~sg6c4="++~sg6c4.asString++",~sg6c5="++~sg6c5.asString++",~sg6c6="++~sg6c6.asString++",~sg6c7="++~sg6c7.asString++",~sg6c8="++~sg6c8.asString++"];"++"\n"++
+"[~sg6d1="++~sg6d1.asString++",~sg6d2="++~sg6d2.asString++",~sg6d3="++~sg6d3.asString++",~sg6d4="++~sg6d4.asString++",~sg6d5="++~sg6d5.asString++",~sg6d6="++~sg6d6.asString++",~sg6d7="++~sg6d7.asString++",~sg6d8="++~sg6d8.asString++"];"++"\n"++
+"[~sg6e1="++~sg6e1.asString++",~sg6e2="++~sg6e2.asString++",~sg6e3="++~sg6e3.asString++",~sg6e4="++~sg6e4.asString++",~sg6e5="++~sg6e5.asString++",~sg6e6="++~sg6e6.asString++",~sg6e7="++~sg6e7.asString++",~sg6e8="++~sg6e8.asString++"];"++"\n"++
+"[~sg6f1="++~sg6f1.asString++",~sg6f2="++~sg6f2.asString++",~sg6f3="++~sg6f3.asString++",~sg6f4="++~sg6f4.asString++",~sg6f5="++~sg6f5.asString++",~sg6f6="++~sg6f6.asString++",~sg6f7="++~sg6f7.asString++",~sg6f8="++~sg6f8.asString++"];"++"\n"++
+"[~sg6g1="++~sg6g1.asString++",~sg6g2="++~sg6g2.asString++",~sg6g3="++~sg6g3.asString++",~sg6g4="++~sg6g4.asString++",~sg6g5="++~sg6g5.asString++",~sg6g6="++~sg6g6.asString++",~sg6g7="++~sg6g7.asString++",~sg6g8="++~sg6g8.asString++"];"++"\n"++
+"[~sg6h1="++~sg6h1.asString++",~sg6h2="++~sg6h2.asString++",~sg6h3="++~sg6h3.asString++",~sg6h4="++~sg6h4.asString++",~sg6h5="++~sg6h5.asString++",~sg6h6="++~sg6h6.asString++",~sg6h7="++~sg6h7.asString++",~sg6h8="++~sg6h8.asString++"];"++"\n"++
+
+						"[~sg7a1="++~sg7a1.asString++",~sg7a2="++~sg7a2.asString++",~sg7a3="++~sg7a3.asString++",~sg7a4="++~sg7a4.asString++",~sg7a5="++~sg7a5.asString++",~sg7a6="++~sg7a6.asString++",~sg7a7="++~sg7a7.asString++",~sg7a8="++~sg7a8.asString++"];"++"\n"++
+"[~sg7b1="++~sg7b1.asString++",~sg7b2="++~sg7b2.asString++",~sg7b3="++~sg7b3.asString++",~sg7b4="++~sg7b4.asString++",~sg7b5="++~sg7b5.asString++",~sg7b6="++~sg7b6.asString++",~sg7b7="++~sg7b7.asString++",~sg7b8="++~sg7b8.asString++"];"++"\n"++
+"[~sg7c1="++~sg7c1.asString++",~sg7c2="++~sg7c2.asString++",~sg7c3="++~sg7c3.asString++",~sg7c4="++~sg7c4.asString++",~sg7c5="++~sg7c5.asString++",~sg7c6="++~sg7c6.asString++",~sg7c7="++~sg7c7.asString++",~sg7c8="++~sg7c8.asString++"];"++"\n"++
+"[~sg7d1="++~sg7d1.asString++",~sg7d2="++~sg7d2.asString++",~sg7d3="++~sg7d3.asString++",~sg7d4="++~sg7d4.asString++",~sg7d5="++~sg7d5.asString++",~sg7d6="++~sg7d6.asString++",~sg7d7="++~sg7d7.asString++",~sg7d8="++~sg7d8.asString++"];"++"\n"++
+"[~sg7e1="++~sg7e1.asString++",~sg7e2="++~sg7e2.asString++",~sg7e3="++~sg7e3.asString++",~sg7e4="++~sg7e4.asString++",~sg7e5="++~sg7e5.asString++",~sg7e6="++~sg7e6.asString++",~sg7e7="++~sg7e7.asString++",~sg7e8="++~sg7e8.asString++"];"++"\n"++
+"[~sg7f1="++~sg7f1.asString++",~sg7f2="++~sg7f2.asString++",~sg7f3="++~sg7f3.asString++",~sg7f4="++~sg7f4.asString++",~sg7f5="++~sg7f5.asString++",~sg7f6="++~sg7f6.asString++",~sg7f7="++~sg7f7.asString++",~sg7f8="++~sg7f8.asString++"];"++"\n"++
+"[~sg7g1="++~sg7g1.asString++",~sg7g2="++~sg7g2.asString++",~sg7g3="++~sg7g3.asString++",~sg7g4="++~sg7g4.asString++",~sg7g5="++~sg7g5.asString++",~sg7g6="++~sg7g6.asString++",~sg7g7="++~sg7g7.asString++",~sg7g8="++~sg7g8.asString++"];"++"\n"++
+"[~sg7h1="++~sg7h1.asString++",~sg7h2="++~sg7h2.asString++",~sg7h3="++~sg7h3.asString++",~sg7h4="++~sg7h4.asString++",~sg7h5="++~sg7h5.asString++",~sg7h6="++~sg7h6.asString++",~sg7h7="++~sg7h7.asString++",~sg7h8="++~sg7h8.asString++"];"++"\n"++
+
+						"[~sg8a1="++~sg8a1.asString++",~sg8a2="++~sg8a2.asString++",~sg8a3="++~sg8a3.asString++",~sg8a4="++~sg8a4.asString++",~sg8a5="++~sg8a5.asString++",~sg8a6="++~sg8a6.asString++",~sg8a7="++~sg8a7.asString++",~sg8a8="++~sg8a8.asString++"];"++"\n"++
+"[~sg8b1="++~sg8b1.asString++",~sg8b2="++~sg8b2.asString++",~sg8b3="++~sg8b3.asString++",~sg8b4="++~sg8b4.asString++",~sg8b5="++~sg8b5.asString++",~sg8b6="++~sg8b6.asString++",~sg8b7="++~sg8b7.asString++",~sg8b8="++~sg8b8.asString++"];"++"\n"++
+"[~sg8c1="++~sg8c1.asString++",~sg8c2="++~sg8c2.asString++",~sg8c3="++~sg8c3.asString++",~sg8c4="++~sg8c4.asString++",~sg8c5="++~sg8c5.asString++",~sg8c6="++~sg8c6.asString++",~sg8c7="++~sg8c7.asString++",~sg8c8="++~sg8c8.asString++"];"++"\n"++
+"[~sg8d1="++~sg8d1.asString++",~sg8d2="++~sg8d2.asString++",~sg8d3="++~sg8d3.asString++",~sg8d4="++~sg8d4.asString++",~sg8d5="++~sg8d5.asString++",~sg8d6="++~sg8d6.asString++",~sg8d7="++~sg8d7.asString++",~sg8d8="++~sg8d8.asString++"];"++"\n"++
+"[~sg8e1="++~sg8e1.asString++",~sg8e2="++~sg8e2.asString++",~sg8e3="++~sg8e3.asString++",~sg8e4="++~sg8e4.asString++",~sg8e5="++~sg8e5.asString++",~sg8e6="++~sg8e6.asString++",~sg8e7="++~sg8e7.asString++",~sg8e8="++~sg8e8.asString++"];"++"\n"++
+"[~sg8f1="++~sg8f1.asString++",~sg8f2="++~sg8f2.asString++",~sg8f3="++~sg8f3.asString++",~sg8f4="++~sg8f4.asString++",~sg8f5="++~sg8f5.asString++",~sg8f6="++~sg8f6.asString++",~sg8f7="++~sg8f7.asString++",~sg8f8="++~sg8f8.asString++"];"++"\n"++
+"[~sg8g1="++~sg8g1.asString++",~sg8g2="++~sg8g2.asString++",~sg8g3="++~sg8g3.asString++",~sg8g4="++~sg8g4.asString++",~sg8g5="++~sg8g5.asString++",~sg8g6="++~sg8g6.asString++",~sg8g7="++~sg8g7.asString++",~sg8g8="++~sg8g8.asString++"];"++"\n"++
+"[~sg8h1="++~sg8h1.asString++",~sg8h2="++~sg8h2.asString++",~sg8h3="++~sg8h3.asString++",~sg8h4="++~sg8h4.asString++",~sg8h5="++~sg8h5.asString++",~sg8h6="++~sg8h6.asString++",~sg8h7="++~sg8h7.asString++",~sg8h8="++~sg8h8.asString++"];"
+
 					);
 					~tsc.stringColor = Color.white;
 					(str= [ ~f1,~f2,~f3/*,~f4,~f5,~f6,~f7*//*,~f8,~f9,~f10,~f11,~f12*/ ];("echo"+str+"| xclip -selection clipboard").unixCmd;);
@@ -2492,7 +2556,7 @@ AppClock.sched((case
 			 x=0;
 			~menu2values = Array.fill(20, {(x=x+1).asString++" kws/inst"});
 			case
-			{~gsinenum == nil}{~menu2start = ~menu2values.at(6)}
+			{~gsinenum == nil}{~menu2start = ~menu2values.at(~synthdefnum-1)}
 			{~gsinenum == 1}{~menu2start = ~menu2values.at(0)}
 			{~gsinenum == 2}{~menu2start = ~menu2values.at(1)}
 			{~gsinenum == 3}{~menu2start = ~menu2values.at(2)}
@@ -2509,7 +2573,7 @@ AppClock.sched((case
 			{~gsinenum == 14}{~menu2start = ~menu2values.at(13)}
 			{~gsinenum == 15}{~menu2start = ~menu2values.at(14)}
 			{~gsinenum == 16}{~menu2start = ~menu2values.at(15)};
-			if(~menu2synthdefstart.value == nil, {~menu2synthdefstart = 36}, {~menu2synthdefstart = ~gsinenum});
+			if(~menu2synthdefstart.value == nil, {~menu2synthdefstart = ~synthdefnum}, {~menu2synthdefstart = ~gsinenum});
 			menu2=PopUpMenu(w,Rect(20+60*2+16,Window.screenBounds.height-52+(30/1.6180339887499*0),60*2,60/1.6180339887499)).items_(~mvalue = (-1); [~menu2start.asString]++Array.fill(16, {~menu2values.at(~mvalue = ~mvalue+1);});).background_(Color.black).stringColor_(Color.white);
 
 			set1=Button(w,Rect(20+60*2+16+120, Window.screenBounds.height-52+(16/1.6180339887499*0),60,60/1.6180339887499)).states_([["set",Color.white,Color.black]]).mouseDownAction_({
@@ -3985,14 +4049,378 @@ AppClock.sched((case
 					{~hb.close;});
 			});
 
-			n1 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*2),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s1",Color.white,Color.black],["1set",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 1, {~r1=fp1;~r2=fp2;~r3=fp3;~r4=fp4;~r5=fp5;~r6=fp6;~r7=fp7;~r8=fp8;~r9=fp9;~r10=fp10;~r11=fp11;~r12=fp12; #fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12/*,fp13,fp14,fp15,fp16,fp17,fp18,fp19,fp20,fp21,fp22,fp23,fp24*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1=~f1;~u2=~f2;~u3=~f3;~u4=~f4;~u5=~f5;~u6=~f6;~u7=~f7;~u8=~f8;~u9=~f9;~u10=~f10;~u11=~f11;~u12=~f12; ~si1aset.value;~si1bset.value;}, {nil});});
-			n2 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*1),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s2",Color.white,Color.black],["2set",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 1, {~r1=fp1b;~r2=fp2b;~r3=fp3b;~r4b=fp4b;~r5b=fp5b;~r6b=fp6b;~r7b=fp7b;~r8b=fp8b;~r9b=fp9b;~r10b=fp10b;~r11b=fp11b;~r12b=fp12b; #fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b/*,fp13b,fp14b,fp15b,fp16b,fp17b,fp18b,fp19b,fp20b,fp21b,fp22b,fp23b,fp24b*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1b=~f1;~u2b=~f2;~u3b=~f3;~u4b=~f4;~u5b=~f5;~u6b=~f6;~u7b=~f7;~u8b=~f8;~u9b=~f9;~u10b=~f10;~u11b=~f11;~u12b=~f12; ~si2set.value}, {nil});});
-			n3 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(0),   Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s3",Color.white,Color.black],["3set",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 1, {~r1=fp1c;~r2=fp2c;~r3=fp3c;~r4c=fp4c;~r5c=fp5c;~r6c=fp6c;~r7c=fp7c;~r8c=fp8c;~r9c=fp9c;~r10c=fp10c;~r11c=fp11c;~r12c=fp12c; #fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c/*,fp13c,fp14c,fp15c,fp16c,fp17c,fp18c,fp19c,fp20c,fp21c,fp22c,fp23c,fp24c*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1c=~f1;~u2c=~f2;~u3c=~f3;~u4c=~f4;~u5c=~f5;~u6c=~f6;~u7c=~f7;~u8c=~f8;~u9c=~f9;~u10c=~f10;~u11c=~f11;~u12c=~f12; ~si3set.value}, {nil});});
-			n4 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(60*1),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s4",Color.white,Color.black],["4set",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 1, {~r1=fp1d;~r2=fp2d;~r3=fp3d;~r4d=fp4d;~r5d=fp5d;~r6d=fp6d;~r7d=fp7d;~r8d=fp8d;~r9d=fp9d;~r10d=fp10d;~r11d=fp11d;~r12d=fp12d; #fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d/*,fp13d,fp14d,fp15d,fp16d,fp17d,fp18d,fp19d,fp20d,fp21d,fp22d,fp23d,fp24d*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1d=~f1;~u2d=~f2;~u3d=~f3;~u4d=~f4;~u5d=~f5;~u6d=~f6;~u7d=~f7;~u8d=~f8;~u9d=~f9;~u10d=~f10;~u11d=~f11;~u12d=~f12; ~si4set.value}, {nil});});
-			n5 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*2),Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s5",Color.white,Color.black],["5set",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 1, {~r1=fp1e;~r2=fp2e;~r3=fp3e;~r4e=fp4e;~r5e=fp5e;~r6e=fp6e;~r7e=fp7e;~r8e=fp8e;~r9e=fp9e;~r10e=fp10e;~r11e=fp11e;~r12e=fp12e; #fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e/*,fp13e,fp14e,fp15e,fp16e,fp17e,fp18e,fp19e,fp20e,fp21e,fp22e,fp23e,fp24e*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1e=~f1;~u2e=~f2;~u3e=~f3;~u4e=~f4;~u5e=~f5;~u6e=~f6;~u7e=~f7;~u8e=~f8;~u9e=~f9;~u10e=~f10;~u11e=~f11;~u12e=~f12; ~si5set.value}, {nil});});
-			n6 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*1),Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s6",Color.white,Color.black],["6set",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 1, {~r1=fp1f;~r2=fp2f;~r3=fp3f;~r4f=fp4f;~r5f=fp5f;~r6f=fp6f;~r7f=fp7f;~r8f=fp8f;~r9f=fp9f;~r10f=fp10f;~r11f=fp11f;~r12f=fp12f; #fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f/*,fp13f,fp14f,fp15f,fp16f,fp17f,fp18f,fp19f,fp20f,fp21f,fp22f,fp23f,fp24f*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1f=~f1;~u2f=~f2;~u3f=~f3;~u4f=~f4;~u5f=~f5;~u6f=~f6;~u7f=~f7;~u8f=~f8;~u9f=~f9;~u10f=~f10;~u11e=~f11;~u12f=~f12; ~si6set.value}, {nil});});
-			n7 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(0),   Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s7",Color.white,Color.black],["7set",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 1, {~r1=fp1g;~r2=fp2g;~r3=fp3g;~r4g=fp4g;~r5g=fp5g;~r6g=fp6g;~r7g=fp7g;~r8g=fp8g;~r9g=fp9g;~r10g=fp10g;~r11g=fp11g;~r12g=fp12g; #fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g/*,fp13g,fp14g,fp15g,fp16g,fp17g,fp18g,fp19g,fp20g,fp21g,fp22g,fp23g,fp24g*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1g=~f1;~u2g=~f2;~u3g=~f3;~u4g=~f4;~u5g=~f5;~u6g=~f6;~u7g=~f7;~u8g=~f8;~u9g=~f9;~u10g=~f10;~u11f=~f11;~u12g=~f12; ~si7set.value}, {nil});});
-			n8 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(60*1),Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s8",Color.white,Color.black],["8set",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 1, {~r1=fp1h;~r2=fp2h;~r3=fp3h;~r4h=fp4h;~r5h=fp5h;~r6h=fp6h;~r7h=fp7h;~r8h=fp8h;~r9h=fp9h;~r10h=fp10h;~r11h=fp11h;~r12h=fp12h; #fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h/*,fp13h,fp14h,fp15h,fp16h,fp17h,fp18h,fp19h,fp20h,fp21h,fp22h,fp23h,fp24h*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1h=~f1;~u2h=~f2;~u3h=~f3;~u4h=~f4;~u5h=~f5;~u6h=~f6;~u7h=~f7;~u8h=~f8;~u9h=~f9;~u10h=~f10;~u11g=~f11;~u12h=~f12; ~si8set.value}, {nil});});
+			~randombutton1 = Button.new(w,Rect(Window.screenBounds.width-20-20-20-20,~bpt+69+5-(20/~gm),20,20/1.6180339887499)).states_([["rw",Color.white,Color.black]]).action_({arg button;
+
+				if((~l1a.isRunning == true) or: (~l1a1.isRunning == true), {
+					8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~freqmap.at(91.rand);)});
+					~synthflow.value;
+				});
+			});
+
+			~randombutton2 = Button.new(w,Rect(Window.screenBounds.width-20-20-20,~bpt+69+5-(20/~gm),20,20/1.6180339887499)).states_([["re",Color.white,Color.black]]).action_({arg button;
+
+				if((~l1a.isRunning == true) or: (~l1a1.isRunning == true), {
+					8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut((~freqmap.at(127)/8).rand;)});
+					~synthflow.value;
+				});
+			});
+
+			~setgroup1 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(20*4),~bpt+69+5,20,20/1.6180339887499)).states_([["g1",Color.white,Color.black],["s1",Color.white,Color.black]]).action_({arg button;
+
+				if(button.value == 1, {
+					#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12=[~sg1a1,~sg1a2,~sg1a3,~sg1a4,~sg1a5,~sg1a6,~sg1a7,~sg1a8,~sg1a9,~sg1a10,~sg1a11,~sg1a12];
+					#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b=[~sg1b1,~sg1b2,~sg1b3,~sg1b4,~sg1b5,~sg1b6,~sg1b7,~sg1b8,~sg1b9,~sg1b10,~sg1b11,~sg1b12];
+					#fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c=[~sg1c1,~sg1c2,~sg1c3,~sg1c4,~sg1c5,~sg1c6,~sg1c7,~sg1c8,~sg1c9,~sg1c10,~sg1c11,~sg1c12];
+					#fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d=[~sg1d1,~sg1d2,~sg1d3,~sg1d4,~sg1d5,~sg1d6,~sg1d7,~sg1d8,~sg1d9,~sg1d10,~sg1d11,~sg1d12];
+					#fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e=[~sg1e1,~sg1e2,~sg1e3,~sg1e4,~sg1e5,~sg1e6,~sg1e7,~sg1e8,~sg1e9,~sg1e10,~sg1e11,~sg1e12];
+					#fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f=[~sg1f1,~sg1f2,~sg1f3,~sg1f4,~sg1f5,~sg1f6,~sg1f7,~sg1f8,~sg1f9,~sg1f10,~sg1f11,~sg1f12];
+					#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g=[~sg1g1,~sg1g2,~sg1g3,~sg1g4,~sg1g5,~sg1g6,~sg1g7,~sg1g8,~sg1g9,~sg1g10,~sg1g11,~sg1g12];
+					#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h=[~sg1h1,~sg1h2,~sg1h3,~sg1h4,~sg1h5,~sg1h6,~sg1h7,~sg1h8,~sg1h9,~sg1h10,~sg1h11,~sg1h12];
+
+					~setgroup2.value = 0;
+					~setgroup3.value = 0;
+					~setgroup4.value = 0;
+					~setgroup5.value = 0;
+					~setgroup6.value = 0;
+					~setgroup7.value = 0;
+					~setgroup8.value = 0;
+
+					~setgroupval = 1;
+				});
+			});
+			~setgroup2 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(20*3),~bpt+69+5,20,20/1.6180339887499)).states_([["g2",Color.white,Color.black],["s2",Color.white,Color.black]]).action_({arg button;
+
+				if(button.value == 1, {
+					#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12=[~sg2a1,~sg2a2,~sg2a3,~sg2a4,~sg2a5,~sg2a6,~sg2a7,~sg2a8,~sg2a9,~sg2a10,~sg2a11,~sg2a12];
+					#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b=[~sg2b1,~sg2b2,~sg2b3,~sg2b4,~sg2b5,~sg2b6,~sg2b7,~sg2b8,~sg2b9,~sg2b10,~sg2b11,~sg2b12];
+					#fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c=[~sg2c1,~sg2c2,~sg2c3,~sg2c4,~sg2c5,~sg2c6,~sg2c7,~sg2c8,~sg2c9,~sg2c10,~sg2c11,~sg2c12];
+					#fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d=[~sg2d1,~sg2d2,~sg2d3,~sg2d4,~sg2d5,~sg2d6,~sg2d7,~sg2d8,~sg2d9,~sg2d10,~sg2d11,~sg2d12];
+					#fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e=[~sg2e1,~sg2e2,~sg2e3,~sg2e4,~sg2e5,~sg2e6,~sg2e7,~sg2e8,~sg2e9,~sg2e10,~sg2e11,~sg2e12];
+					#fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f=[~sg2f1,~sg2f2,~sg2f3,~sg2f4,~sg2f5,~sg2f6,~sg2f7,~sg2f8,~sg2f9,~sg2f10,~sg2f11,~sg2f12];
+					#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g=[~sg2g1,~sg2g2,~sg2g3,~sg2g4,~sg2g5,~sg2g6,~sg2g7,~sg2g8,~sg2g9,~sg2g10,~sg2g11,~sg2g12];
+					#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h=[~sg2h1,~sg2h2,~sg2h3,~sg2h4,~sg2h5,~sg2h6,~sg2h7,~sg2h8,~sg2h9,~sg2h10,~sg2h11,~sg2h12];
+
+					~setgroup1.value = 0;
+					~setgroup3.value = 0;
+					~setgroup4.value = 0;
+					~setgroup5.value = 0;
+					~setgroup6.value = 0;
+					~setgroup7.value = 0;
+					~setgroup8.value = 0;
+
+					~setgroupval = 2;
+				});
+			});
+			~setgroup3 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(20*2),~bpt+69+5,20,20/1.6180339887499)).states_([["g3",Color.white,Color.black],["s3",Color.white,Color.black]]).action_({arg button;
+
+				if(button.value == 1, {
+					#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12=[~sg3a1,~sg3a2,~sg3a3,~sg3a4,~sg3a5,~sg3a6,~sg3a7,~sg3a8,~sg3a9,~sg3a10,~sg3a11,~sg3a12];
+					#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b=[~sg3b1,~sg3b2,~sg3b3,~sg3b4,~sg3b5,~sg3b6,~sg3b7,~sg3b8,~sg3b9,~sg3b10,~sg3b11,~sg3b12];
+					#fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c=[~sg3c1,~sg3c2,~sg3c3,~sg3c4,~sg3c5,~sg3c6,~sg3c7,~sg3c8,~sg3c9,~sg3c10,~sg3c11,~sg3c12];
+					#fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d=[~sg3d1,~sg3d2,~sg3d3,~sg3d4,~sg3d5,~sg3d6,~sg3d7,~sg3d8,~sg3d9,~sg3d10,~sg3d11,~sg3d12];
+					#fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e=[~sg3e1,~sg3e2,~sg3e3,~sg3e4,~sg3e5,~sg3e6,~sg3e7,~sg3e8,~sg3e9,~sg3e10,~sg3e11,~sg3e12];
+					#fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f=[~sg3f1,~sg3f2,~sg3f3,~sg3f4,~sg3f5,~sg3f6,~sg3f7,~sg3f8,~sg3f9,~sg3f10,~sg3f11,~sg3f12];
+					#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g=[~sg3g1,~sg3g2,~sg3g3,~sg3g4,~sg3g5,~sg3g6,~sg3g7,~sg3g8,~sg3g9,~sg3g10,~sg3g11,~sg3g12];
+					#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h=[~sg3h1,~sg3h2,~sg3h3,~sg3h4,~sg3h5,~sg3h6,~sg3h7,~sg3h8,~sg3h9,~sg3h10,~sg3h11,~sg3h12];
+
+					~setgroup1.value = 0;
+					~setgroup2.value = 0;
+					~setgroup4.value = 0;
+					~setgroup5.value = 0;
+					~setgroup6.value = 0;
+					~setgroup7.value = 0;
+					~setgroup8.value = 0;
+
+					~setgroupval = 3;
+				});
+			});
+			~setgroup4 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(20*1),~bpt+69+5,20,20/1.6180339887499)).states_([["g4",Color.white,Color.black],["s4",Color.white,Color.black]]).action_({arg button;
+
+				if(button.value == 1, {
+					#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12=[~sg4a1,~sg4a2,~sg4a3,~sg4a4,~sg4a5,~sg4a6,~sg4a7,~sg4a8,~sg4a9,~sg4a10,~sg4a11,~sg4a12];
+					#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b=[~sg4b1,~sg4b2,~sg4b3,~sg4b4,~sg4b5,~sg4b6,~sg4b7,~sg4b8,~sg4b9,~sg4b10,~sg4b11,~sg4b12];
+					#fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c=[~sg4c1,~sg4c2,~sg4c3,~sg4c4,~sg4c5,~sg4c6,~sg4c7,~sg4c8,~sg4c9,~sg4c10,~sg4c11,~sg4c12];
+					#fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d=[~sg4d1,~sg4d2,~sg4d3,~sg4d4,~sg4d5,~sg4d6,~sg4d7,~sg4d8,~sg4d9,~sg4d10,~sg4d11,~sg4d12];
+					#fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e=[~sg4e1,~sg4e2,~sg4e3,~sg4e4,~sg4e5,~sg4e6,~sg4e7,~sg4e8,~sg4e9,~sg4e10,~sg4e11,~sg4e12];
+					#fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f=[~sg4f1,~sg4f2,~sg4f3,~sg4f4,~sg4f5,~sg4f6,~sg4f7,~sg4f8,~sg4f9,~sg4f10,~sg4f11,~sg4f12];
+					#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g=[~sg4g1,~sg4g2,~sg4g3,~sg4g4,~sg4g5,~sg4g6,~sg4g7,~sg4g8,~sg4g9,~sg4g10,~sg4g11,~sg4g12];
+					#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h=[~sg4h1,~sg4h2,~sg4h3,~sg4h4,~sg4h5,~sg4h6,~sg4h7,~sg4h8,~sg4h9,~sg4h10,~sg4h11,~sg4h12];
+
+					~setgroup1.value = 0;
+					~setgroup2.value = 0;
+					~setgroup3.value = 0;
+					~setgroup5.value = 0;
+					~setgroup6.value = 0;
+					~setgroup7.value = 0;
+					~setgroup8.value = 0;
+
+					~setgroupval = 4;
+				});
+			});
+			~setgroup5 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(0*1),~bpt+69+5,20,20/1.6180339887499)).states_([["g5",Color.white,Color.black],["s5",Color.white,Color.black]]).action_({arg button;
+
+				if(button.value == 1, {
+					#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12=[~sg5a1,~sg5a2,~sg5a3,~sg5a4,~sg5a5,~sg5a6,~sg5a7,~sg5a8,~sg5a9,~sg5a10,~sg5a11,~sg5a12];
+					#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b=[~sg5b1,~sg5b2,~sg5b3,~sg5b4,~sg5b5,~sg5b6,~sg5b7,~sg5b8,~sg5b9,~sg5b10,~sg5b11,~sg5b12];
+					#fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c=[~sg5c1,~sg5c2,~sg5c3,~sg5c4,~sg5c5,~sg5c6,~sg5c7,~sg5c8,~sg5c9,~sg5c10,~sg5c11,~sg5c12];
+					#fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d=[~sg5d1,~sg5d2,~sg5d3,~sg5d4,~sg5d5,~sg5d6,~sg5d7,~sg5d8,~sg5d9,~sg5d10,~sg5d11,~sg5d12];
+					#fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e=[~sg5e1,~sg5e2,~sg5e3,~sg5e4,~sg5e5,~sg5e6,~sg5e7,~sg5e8,~sg5e9,~sg5e10,~sg5e11,~sg5e12];
+					#fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f=[~sg5f1,~sg5f2,~sg5f3,~sg5f4,~sg5f5,~sg5f6,~sg5f7,~sg5f8,~sg5f9,~sg5f10,~sg5f11,~sg5f12];
+					#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g=[~sg5g1,~sg5g2,~sg5g3,~sg5g4,~sg5g5,~sg5g6,~sg5g7,~sg5g8,~sg5g9,~sg5g10,~sg5g11,~sg5g12];
+					#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h=[~sg5h1,~sg5h2,~sg5h3,~sg5h4,~sg5h5,~sg5h6,~sg5h7,~sg5h8,~sg5h9,~sg5h10,~sg5h11,~sg5h12];
+
+					~setgroup1.value = 0;
+					~setgroup2.value = 0;
+					~setgroup3.value = 0;
+					~setgroup4.value = 0;
+					~setgroup6.value = 0;
+					~setgroup7.value = 0;
+					~setgroup8.value = 0;
+
+					~setgroupval = 5;
+				});
+			});
+			~setgroup6 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(20*1),~bpt+69+5,20,20/1.6180339887499)).states_([["g6",Color.white,Color.black],["s6",Color.white,Color.black]]).action_({arg button;
+
+				if(button.value == 1, {
+					#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12=[~sg6a1,~sg6a2,~sg6a3,~sg6a4,~sg6a5,~sg6a6,~sg6a7,~sg6a8,~sg6a9,~sg6a10,~sg6a11,~sg6a12];
+					#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b=[~sg6b1,~sg6b2,~sg6b3,~sg6b4,~sg6b5,~sg6b6,~sg6b7,~sg6b8,~sg6b9,~sg6b10,~sg6b11,~sg6b12];
+					#fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c=[~sg6c1,~sg6c2,~sg6c3,~sg6c4,~sg6c5,~sg6c6,~sg6c7,~sg6c8,~sg6c9,~sg6c10,~sg6c11,~sg6c12];
+					#fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d=[~sg6d1,~sg6d2,~sg6d3,~sg6d4,~sg6d5,~sg6d6,~sg6d7,~sg6d8,~sg6d9,~sg6d10,~sg6d11,~sg6d12];
+					#fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e=[~sg6e1,~sg6e2,~sg6e3,~sg6e4,~sg6e5,~sg6e6,~sg6e7,~sg6e8,~sg6e9,~sg6e10,~sg6e11,~sg6e12];
+					#fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f=[~sg6f1,~sg6f2,~sg6f3,~sg6f4,~sg6f5,~sg6f6,~sg6f7,~sg6f8,~sg6f9,~sg6f10,~sg6f11,~sg6f12];
+					#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g=[~sg6g1,~sg6g2,~sg6g3,~sg6g4,~sg6g5,~sg6g6,~sg6g7,~sg6g8,~sg6g9,~sg6g10,~sg6g11,~sg6g12];
+					#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h=[~sg6h1,~sg6h2,~sg6h3,~sg6h4,~sg6h5,~sg6h6,~sg6h7,~sg6h8,~sg6h9,~sg6h10,~sg6h11,~sg6h12];
+
+					~setgroup1.value = 0;
+					~setgroup2.value = 0;
+					~setgroup3.value = 0;
+					~setgroup4.value = 0;
+					~setgroup5.value = 0;
+					~setgroup7.value = 0;
+					~setgroup8.value = 0;
+
+					~setgroupval = 6;
+				});
+			});
+			~setgroup7 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(20*2),~bpt+69+5,20,20/1.6180339887499)).states_([["g7",Color.white,Color.black],["s7",Color.white,Color.black]]).action_({arg button;
+
+				if(button.value == 1, {
+					#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12=[~sg7a1,~sg7a2,~sg7a3,~sg7a4,~sg7a5,~sg7a6,~sg7a7,~sg7a8,~sg7a9,~sg7a10,~sg7a11,~sg7a12];
+					#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b=[~sg7b1,~sg7b2,~sg7b3,~sg7b4,~sg7b5,~sg7b6,~sg7b7,~sg7b8,~sg7b9,~sg7b10,~sg7b11,~sg7b12];
+					#fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c=[~sg7c1,~sg7c2,~sg7c3,~sg7c4,~sg7c5,~sg7c6,~sg7c7,~sg7c8,~sg7c9,~sg7c10,~sg7c11,~sg7c12];
+					#fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d=[~sg7d1,~sg7d2,~sg7d3,~sg7d4,~sg7d5,~sg7d6,~sg7d7,~sg7d8,~sg7d9,~sg7d10,~sg7d11,~sg7d12];
+					#fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e=[~sg7e1,~sg7e2,~sg7e3,~sg7e4,~sg7e5,~sg7e6,~sg7e7,~sg7e8,~sg7e9,~sg7e10,~sg7e11,~sg7e12];
+					#fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f=[~sg7f1,~sg7f2,~sg7f3,~sg7f4,~sg7f5,~sg7f6,~sg7f7,~sg7f8,~sg7f9,~sg7f10,~sg7f11,~sg7f12];
+					#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g=[~sg7g1,~sg7g2,~sg7g3,~sg7g4,~sg7g5,~sg7g6,~sg7g7,~sg7g8,~sg7g9,~sg7g10,~sg7g11,~sg7g12];
+					#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h=[~sg7h1,~sg7h2,~sg7h3,~sg7h4,~sg7h5,~sg7h6,~sg7h7,~sg7h8,~sg7h9,~sg7h10,~sg7h11,~sg7h12];
+
+					~setgroup1.value = 0;
+					~setgroup2.value = 0;
+					~setgroup3.value = 0;
+					~setgroup4.value = 0;
+					~setgroup5.value = 0;
+					~setgroup6.value = 0;
+					~setgroup8.value = 0;
+
+					~setgroupval = 7;
+				});
+			});
+			~setgroup8 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(20*3),~bpt+69+5,20,20/1.6180339887499)).states_([["g8",Color.white,Color.black],["s8",Color.white,Color.black]]).action_({arg button;
+
+				if(button.value == 1, {
+					#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12=[~sg8a1,~sg8a2,~sg8a3,~sg8a4,~sg8a5,~sg8a6,~sg8a7,~sg8a8,~sg8a9,~sg8a10,~sg8a11,~sg8a12];
+					#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b=[~sg8b1,~sg8b2,~sg8b3,~sg8b4,~sg8b5,~sg8b6,~sg8b7,~sg8b8,~sg8b9,~sg8b10,~sg8b11,~sg8b12];
+					#fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c=[~sg8c1,~sg8c2,~sg8c3,~sg8c4,~sg8c5,~sg8c6,~sg8c7,~sg8c8,~sg8c9,~sg8c10,~sg8c11,~sg8c12];
+					#fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d=[~sg8d1,~sg8d2,~sg8d3,~sg8d4,~sg8d5,~sg8d6,~sg8d7,~sg8d8,~sg8d9,~sg8d10,~sg8d11,~sg8d12];
+					#fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e=[~sg8e1,~sg8e2,~sg8e3,~sg8e4,~sg8e5,~sg8e6,~sg8e7,~sg8e8,~sg8e9,~sg8e10,~sg8e11,~sg8e12];
+					#fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f=[~sg8f1,~sg8f2,~sg8f3,~sg8f4,~sg8f5,~sg8f6,~sg8f7,~sg8f8,~sg8f9,~sg8f10,~sg8f11,~sg8f12];
+					#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g=[~sg8g1,~sg8g2,~sg8g3,~sg8g4,~sg8g5,~sg8g6,~sg8g7,~sg8g8,~sg8g9,~sg8g10,~sg8g11,~sg8g12];
+					#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h=[~sg8h1,~sg8h2,~sg8h3,~sg8h4,~sg8h5,~sg8h6,~sg8h7,~sg8h8,~sg8h9,~sg8h10,~sg8h11,~sg8h12];
+
+					~setgroup1.value = 0;
+					~setgroup2.value = 0;
+					~setgroup3.value = 0;
+					~setgroup4.value = 0;
+					~setgroup5.value = 0;
+					~setgroup6.value = 0;
+					~setgroup7.value = 0;
+
+					~setgroupval = 8;
+				});
+			});
+
+			if(~setgroupval == nil, {~setgroup1.value = 1;});
+			if(~setgroupval == 1, {~setgroup1.value = 1;});
+			if(~setgroupval == 2, {~setgroup2.value = 1;});
+			if(~setgroupval == 3, {~setgroup3.value = 1;});
+			if(~setgroupval == 4, {~setgroup4.value = 1;});
+			if(~setgroupval == 5, {~setgroup5.value = 1;});
+			if(~setgroupval == 6, {~setgroup6.value = 1;});
+			if(~setgroupval == 7, {~setgroup7.value = 1;});
+			if(~setgroupval == 8, {~setgroup8.value = 1;});
+
+			n1 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*2),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s1",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1=fp1;~r2=fp2;~r3=fp3;~r4=fp4;~r5=fp5;~r6=fp6;~r7=fp7;~r8=fp8;~r9=fp9;~r10=fp10;~r11=fp11;~r12=fp12; #fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12/*,fp13,fp14,fp15,fp16,fp17,fp18,fp19,fp20,fp21,fp22,fp23,fp24*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1=~f1;~u2=~f2;~u3=~f3;~u4=~f4;~u5=~f5;~u6=~f6;~u7=~f7;~u8=~f8;~u9=~f9;~u10=~f10;~u11=~f11;~u12=~f12; ~si1aset.value;~si1bset.value;
+
+				if(~setgroup1.value == 1, {12.do(x = 0; {("sg1a"++(x=x+1)).asSymbol.envirPut([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12].at(x-1))});});
+				if(~setgroup2.value == 1, {12.do(x = 0; {("sg2a"++(x=x+1)).asSymbol.envirPut([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12].at(x-1))});});
+				if(~setgroup3.value == 1, {12.do(x = 0; {("sg3a"++(x=x+1)).asSymbol.envirPut([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12].at(x-1))});});
+				if(~setgroup4.value == 1, {12.do(x = 0; {("sg4a"++(x=x+1)).asSymbol.envirPut([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12].at(x-1))});});
+				if(~setgroup5.value == 1, {12.do(x = 0; {("sg5a"++(x=x+1)).asSymbol.envirPut([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12].at(x-1))});});
+				if(~setgroup6.value == 1, {12.do(x = 0; {("sg6a"++(x=x+1)).asSymbol.envirPut([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12].at(x-1))});});
+				if(~setgroup7.value == 1, {12.do(x = 0; {("sg7a"++(x=x+1)).asSymbol.envirPut([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12].at(x-1))});});
+				if(~setgroup8.value == 1, {12.do(x = 0; {("sg8a"++(x=x+1)).asSymbol.envirPut([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12].at(x-1))});});
+
+				n1.states_([["s1",Color.green,Color.black]]);
+				n2.states_([["s2",Color.white,Color.black]]);
+				n3.states_([["s3",Color.white,Color.black]]);
+				n4.states_([["s4",Color.white,Color.black]]);
+				n5.states_([["s5",Color.white,Color.black]]);
+				n6.states_([["s6",Color.white,Color.black]]);
+				n7.states_([["s7",Color.white,Color.black]]);
+				n8.states_([["s8",Color.white,Color.black]]);
+			});});
+
+			n2 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*1),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s2",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1b=fp1b;~r2b=fp2b;~r3b=fp3b;~r4b=fp4b;~r5b=fp5b;~r6b=fp6b;~r7b=fp7b;~r8b=fp8b;~r9b=fp9b;~r10b=fp10b;~r11b=fp11b;~r12b=fp12b; #fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b/*,fp13b,fp14b,fp15b,fp16b,fp17b,fp18b,fp19b,fp20b,fp21b,fp22b,fp23b,fp24b*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1b=~f1;~u2b=~f2;~u3b=~f3;~u4b=~f4;~u5b=~f5;~u6b=~f6;~u7b=~f7;~u8b=~f8;~u9b=~f9;~u10b=~f10;~u11b=~f11;~u12b=~f12; ~si2set.value;
+
+				if(~setgroup1.value == 1, {12.do(x = 0; {("sg1b"++(x=x+1)).asSymbol.envirPut([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b].at(x-1))});});
+				if(~setgroup2.value == 1, {12.do(x = 0; {("sg2b"++(x=x+1)).asSymbol.envirPut([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b].at(x-1))});});
+				if(~setgroup3.value == 1, {12.do(x = 0; {("sg3b"++(x=x+1)).asSymbol.envirPut([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b].at(x-1))});});
+				if(~setgroup4.value == 1, {12.do(x = 0; {("sg4b"++(x=x+1)).asSymbol.envirPut([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b].at(x-1))});});
+				if(~setgroup5.value == 1, {12.do(x = 0; {("sg5b"++(x=x+1)).asSymbol.envirPut([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b].at(x-1))});});
+				if(~setgroup6.value == 1, {12.do(x = 0; {("sg6b"++(x=x+1)).asSymbol.envirPut([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b].at(x-1))});});
+				if(~setgroup7.value == 1, {12.do(x = 0; {("sg7b"++(x=x+1)).asSymbol.envirPut([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b].at(x-1))});});
+				if(~setgroup8.value == 1, {12.do(x = 0; {("sg8b"++(x=x+1)).asSymbol.envirPut([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b].at(x-1))});});
+
+				n1.states_([["s1",Color.white,Color.black]]);
+				n2.states_([["s2",Color.green,Color.black]]);
+				n3.states_([["s3",Color.white,Color.black]]);
+				n4.states_([["s4",Color.white,Color.black]]);
+				n5.states_([["s5",Color.white,Color.black]]);
+				n6.states_([["s6",Color.white,Color.black]]);
+				n7.states_([["s7",Color.white,Color.black]]);
+				n8.states_([["s8",Color.white,Color.black]]);
+			});});
+			n3 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(0),   Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s3",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1c=fp1c;~r2c=fp2c;~r3c=fp3c;~r4c=fp4c;~r5c=fp5c;~r6c=fp6c;~r7c=fp7c;~r8c=fp8c;~r9c=fp9c;~r10c=fp10c;~r11c=fp11c;~r12c=fp12c; #fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c/*,fp13c,fp14c,fp15c,fp16c,fp17c,fp18c,fp19c,fp20c,fp21c,fp22c,fp23c,fp24c*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1c=~f1;~u2c=~f2;~u3c=~f3;~u4c=~f4;~u5c=~f5;~u6c=~f6;~u7c=~f7;~u8c=~f8;~u9c=~f9;~u10c=~f10;~u11c=~f11;~u12c=~f12; ~si3set.value;
+
+				if(~setgroup1.value == 1, {12.do(x = 0; {("sg1c"++(x=x+1)).asSymbol.envirPut([fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c].at(x-1))});});
+				if(~setgroup2.value == 1, {12.do(x = 0; {("sg2c"++(x=x+1)).asSymbol.envirPut([fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c].at(x-1))});});
+				if(~setgroup3.value == 1, {12.do(x = 0; {("sg3c"++(x=x+1)).asSymbol.envirPut([fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c].at(x-1))});});
+				if(~setgroup4.value == 1, {12.do(x = 0; {("sg4c"++(x=x+1)).asSymbol.envirPut([fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c].at(x-1))});});
+				if(~setgroup5.value == 1, {12.do(x = 0; {("sg5c"++(x=x+1)).asSymbol.envirPut([fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c].at(x-1))});});
+				if(~setgroup6.value == 1, {12.do(x = 0; {("sg6c"++(x=x+1)).asSymbol.envirPut([fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c].at(x-1))});});
+				if(~setgroup7.value == 1, {12.do(x = 0; {("sg7c"++(x=x+1)).asSymbol.envirPut([fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c].at(x-1))});});
+				if(~setgroup8.value == 1, {12.do(x = 0; {("sg8c"++(x=x+1)).asSymbol.envirPut([fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c].at(x-1))});});
+
+				n1.states_([["s1",Color.white,Color.black]]);
+				n2.states_([["s2",Color.white,Color.black]]);
+				n3.states_([["s3",Color.green,Color.black]]);
+				n4.states_([["s4",Color.white,Color.black]]);
+				n5.states_([["s5",Color.white,Color.black]]);
+				n6.states_([["s6",Color.white,Color.black]]);
+				n7.states_([["s7",Color.white,Color.black]]);
+				n8.states_([["s8",Color.white,Color.black]]);
+			});});
+			n4 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(60*1),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s4",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1d=fp1d;~r2d=fp2d;~r3d=fp3d;~r4d=fp4d;~r5d=fp5d;~r6d=fp6d;~r7d=fp7d;~r8d=fp8d;~r9d=fp9d;~r10d=fp10d;~r11d=fp11d;~r12d=fp12d; #fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d/*,fp13d,fp14d,fp15d,fp16d,fp17d,fp18d,fp19d,fp20d,fp21d,fp22d,fp23d,fp24d*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1d=~f1;~u2d=~f2;~u3d=~f3;~u4d=~f4;~u5d=~f5;~u6d=~f6;~u7d=~f7;~u8d=~f8;~u9d=~f9;~u10d=~f10;~u11d=~f11;~u12d=~f12; ~si4set.value;
+
+				if(~setgroup1.value == 1, {12.do(x = 0; {("sg1d"++(x=x+1)).asSymbol.envirPut([fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d].at(x-1))});});
+				if(~setgroup2.value == 1, {12.do(x = 0; {("sg2d"++(x=x+1)).asSymbol.envirPut([fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d].at(x-1))});});
+				if(~setgroup3.value == 1, {12.do(x = 0; {("sg3d"++(x=x+1)).asSymbol.envirPut([fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d].at(x-1))});});
+				if(~setgroup4.value == 1, {12.do(x = 0; {("sg4d"++(x=x+1)).asSymbol.envirPut([fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d].at(x-1))});});
+				if(~setgroup5.value == 1, {12.do(x = 0; {("sg5d"++(x=x+1)).asSymbol.envirPut([fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d].at(x-1))});});
+				if(~setgroup6.value == 1, {12.do(x = 0; {("sg6d"++(x=x+1)).asSymbol.envirPut([fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d].at(x-1))});});
+				if(~setgroup7.value == 1, {12.do(x = 0; {("sg7d"++(x=x+1)).asSymbol.envirPut([fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d].at(x-1))});});
+				if(~setgroup8.value == 1, {12.do(x = 0; {("sg8d"++(x=x+1)).asSymbol.envirPut([fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d].at(x-1))});});
+
+				n1.states_([["s1",Color.white,Color.black]]);
+				n2.states_([["s2",Color.white,Color.black]]);
+				n3.states_([["s3",Color.white,Color.black]]);
+				n4.states_([["s4",Color.green,Color.black]]);
+				n5.states_([["s5",Color.white,Color.black]]);
+				n6.states_([["s6",Color.white,Color.black]]);
+				n7.states_([["s7",Color.white,Color.black]]);
+				n8.states_([["s8",Color.white,Color.black]]);
+			});});
+			n5 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*2),Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s5",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1e=fp1e;~r2e=fp2e;~r3e=fp3e;~r4e=fp4e;~r5e=fp5e;~r6e=fp6e;~r7e=fp7e;~r8e=fp8e;~r9e=fp9e;~r10e=fp10e;~r11e=fp11e;~r12e=fp12e; #fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e/*,fp13e,fp14e,fp15e,fp16e,fp17e,fp18e,fp19e,fp20e,fp21e,fp22e,fp23e,fp24e*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1e=~f1;~u2e=~f2;~u3e=~f3;~u4e=~f4;~u5e=~f5;~u6e=~f6;~u7e=~f7;~u8e=~f8;~u9e=~f9;~u10e=~f10;~u11e=~f11;~u12e=~f12; ~si5set.value;
+
+				if(~setgroup1.value == 1, {12.do(x = 0; {("sg1e"++(x=x+1)).asSymbol.envirPut([fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e].at(x-1))});});
+				if(~setgroup2.value == 1, {12.do(x = 0; {("sg2e"++(x=x+1)).asSymbol.envirPut([fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e].at(x-1))});});
+				if(~setgroup3.value == 1, {12.do(x = 0; {("sg3e"++(x=x+1)).asSymbol.envirPut([fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e].at(x-1))});});
+				if(~setgroup4.value == 1, {12.do(x = 0; {("sg4e"++(x=x+1)).asSymbol.envirPut([fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e].at(x-1))});});
+				if(~setgroup5.value == 1, {12.do(x = 0; {("sg5e"++(x=x+1)).asSymbol.envirPut([fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e].at(x-1))});});
+				if(~setgroup6.value == 1, {12.do(x = 0; {("sg6e"++(x=x+1)).asSymbol.envirPut([fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e].at(x-1))});});
+				if(~setgroup7.value == 1, {12.do(x = 0; {("sg7e"++(x=x+1)).asSymbol.envirPut([fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e].at(x-1))});});
+				if(~setgroup8.value == 1, {12.do(x = 0; {("sg8e"++(x=x+1)).asSymbol.envirPut([fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e].at(x-1))});});
+
+				n1.states_([["s1",Color.white,Color.black]]);
+				n2.states_([["s2",Color.white,Color.black]]);
+				n3.states_([["s3",Color.white,Color.black]]);
+				n4.states_([["s4",Color.white,Color.black]]);
+				n5.states_([["s5",Color.green,Color.black]]);
+				n6.states_([["s6",Color.white,Color.black]]);
+				n7.states_([["s7",Color.white,Color.black]]);
+				n8.states_([["s8",Color.white,Color.black]]);
+			});});
+			n6 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*1),Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s6",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1f=fp1f;~r2f=fp2f;~r3f=fp3f;~r4f=fp4f;~r5f=fp5f;~r6f=fp6f;~r7f=fp7f;~r8f=fp8f;~r9f=fp9f;~r10f=fp10f;~r11f=fp11f;~r12f=fp12f; #fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f/*,fp13f,fp14f,fp15f,fp16f,fp17f,fp18f,fp19f,fp20f,fp21f,fp22f,fp23f,fp24f*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1f=~f1;~u2f=~f2;~u3f=~f3;~u4f=~f4;~u5f=~f5;~u6f=~f6;~u7f=~f7;~u8f=~f8;~u9f=~f9;~u10f=~f10;~u11e=~f11;~u12f=~f12; ~si6set.value;
+
+				if(~setgroup1.value == 1, {12.do(x = 0; {("sg1f"++(x=x+1)).asSymbol.envirPut([fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f].at(x-1))});});
+				if(~setgroup2.value == 1, {12.do(x = 0; {("sg2f"++(x=x+1)).asSymbol.envirPut([fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f].at(x-1))});});
+				if(~setgroup3.value == 1, {12.do(x = 0; {("sg3f"++(x=x+1)).asSymbol.envirPut([fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f].at(x-1))});});
+				if(~setgroup4.value == 1, {12.do(x = 0; {("sg4f"++(x=x+1)).asSymbol.envirPut([fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f].at(x-1))});});
+				if(~setgroup5.value == 1, {12.do(x = 0; {("sg5f"++(x=x+1)).asSymbol.envirPut([fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f].at(x-1))});});
+				if(~setgroup6.value == 1, {12.do(x = 0; {("sg6f"++(x=x+1)).asSymbol.envirPut([fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f].at(x-1))});});
+				if(~setgroup7.value == 1, {12.do(x = 0; {("sg7f"++(x=x+1)).asSymbol.envirPut([fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f].at(x-1))});});
+				if(~setgroup8.value == 1, {12.do(x = 0; {("sg8f"++(x=x+1)).asSymbol.envirPut([fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f].at(x-1))});});
+
+				n1.states_([["s1",Color.white,Color.black]]);
+				n2.states_([["s2",Color.white,Color.black]]);
+				n3.states_([["s3",Color.white,Color.black]]);
+				n4.states_([["s4",Color.white,Color.black]]);
+				n5.states_([["s5",Color.white,Color.black]]);
+				n6.states_([["s6",Color.green,Color.black]]);
+				n7.states_([["s7",Color.white,Color.black]]);
+				n8.states_([["s8",Color.white,Color.black]]);
+			});});
+			n7 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(0),   Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s7",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1g=fp1g;~r2g=fp2g;~r3g=fp3g;~r4g=fp4g;~r5g=fp5g;~r6g=fp6g;~r7g=fp7g;~r8g=fp8g;~r9g=fp9g;~r10g=fp10g;~r11g=fp11g;~r12g=fp12g; #fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g/*,fp13g,fp14g,fp15g,fp16g,fp17g,fp18g,fp19g,fp20g,fp21g,fp22g,fp23g,fp24g*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1g=~f1;~u2g=~f2;~u3g=~f3;~u4g=~f4;~u5g=~f5;~u6g=~f6;~u7g=~f7;~u8g=~f8;~u9g=~f9;~u10g=~f10;~u11f=~f11;~u12g=~f12; ~si7set.value;
+
+				if(~setgroup1.value == 1, {12.do(x = 0; {("sg1g"++(x=x+1)).asSymbol.envirPut([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g].at(x-1))});});
+				if(~setgroup2.value == 1, {12.do(x = 0; {("sg2g"++(x=x+1)).asSymbol.envirPut([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g].at(x-1))});});
+				if(~setgroup3.value == 1, {12.do(x = 0; {("sg3g"++(x=x+1)).asSymbol.envirPut([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g].at(x-1))});});
+				if(~setgroup4.value == 1, {12.do(x = 0; {("sg4g"++(x=x+1)).asSymbol.envirPut([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g].at(x-1))});});
+				if(~setgroup5.value == 1, {12.do(x = 0; {("sg5g"++(x=x+1)).asSymbol.envirPut([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g].at(x-1))});});
+				if(~setgroup6.value == 1, {12.do(x = 0; {("sg6g"++(x=x+1)).asSymbol.envirPut([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g].at(x-1))});});
+				if(~setgroup7.value == 1, {12.do(x = 0; {("sg7g"++(x=x+1)).asSymbol.envirPut([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g].at(x-1))});});
+				if(~setgroup8.value == 1, {12.do(x = 0; {("sg8g"++(x=x+1)).asSymbol.envirPut([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g].at(x-1))});});
+
+			n1.states_([["s1",Color.white,Color.black]]);
+				n2.states_([["s2",Color.white,Color.black]]);
+				n3.states_([["s3",Color.white,Color.black]]);
+				n4.states_([["s4",Color.white,Color.black]]);
+				n5.states_([["s5",Color.white,Color.black]]);
+				n6.states_([["s6",Color.white,Color.black]]);
+				n7.states_([["s7",Color.green,Color.black]]);
+				n8.states_([["s8",Color.white,Color.black]]);
+			});});
+			n8 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(60*1),Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s8",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1h=fp1h;~r2h=fp2h;~r3h=fp3h;~r4h=fp4h;~r5h=fp5h;~r6h=fp6h;~r7h=fp7h;~r8h=fp8h;~r9h=fp9h;~r10h=fp10h;~r11h=fp11h;~r12h=fp12h; #fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h/*,fp13h,fp14h,fp15h,fp16h,fp17h,fp18h,fp19h,fp20h,fp21h,fp22h,fp23h,fp24h*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1h=~f1;~u2h=~f2;~u3h=~f3;~u4h=~f4;~u5h=~f5;~u6h=~f6;~u7h=~f7;~u8h=~f8;~u9h=~f9;~u10h=~f10;~u11g=~f11;~u12h=~f12; ~si8set.value;
+
+				if(~setgroup1.value == 1, {12.do(x = 0; {("sg1h"++(x=x+1)).asSymbol.envirPut([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h].at(x-1))});});
+				if(~setgroup2.value == 1, {12.do(x = 0; {("sg2h"++(x=x+1)).asSymbol.envirPut([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h].at(x-1))});});
+				if(~setgroup3.value == 1, {12.do(x = 0; {("sg3h"++(x=x+1)).asSymbol.envirPut([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h].at(x-1))});});
+				if(~setgroup4.value == 1, {12.do(x = 0; {("sg4h"++(x=x+1)).asSymbol.envirPut([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h].at(x-1))});});
+				if(~setgroup5.value == 1, {12.do(x = 0; {("sg5h"++(x=x+1)).asSymbol.envirPut([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h].at(x-1))});});
+				if(~setgroup6.value == 1, {12.do(x = 0; {("sg6h"++(x=x+1)).asSymbol.envirPut([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h].at(x-1))});});
+				if(~setgroup7.value == 1, {12.do(x = 0; {("sg7h"++(x=x+1)).asSymbol.envirPut([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h].at(x-1))});});
+				if(~setgroup8.value == 1, {12.do(x = 0; {("sg8h"++(x=x+1)).asSymbol.envirPut([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h].at(x-1))});});
+
+				n1.states_([["s1",Color.white,Color.black]]);
+				n2.states_([["s2",Color.white,Color.black]]);
+				n3.states_([["s3",Color.white,Color.black]]);
+				n4.states_([["s4",Color.white,Color.black]]);
+				n5.states_([["s5",Color.white,Color.black]]);
+				n6.states_([["s6",Color.white,Color.black]]);
+				n7.states_([["s7",Color.white,Color.black]]);
+				n8.states_([["s8",Color.green,Color.black]]);
+			});});
 
 			~undo = PopUpMenu(w, Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+39,Window.screenBounds.height-52+19.777087639995-(40/1.6180339887499)-8,40,40/1.6180339887499)).items_(["uc","u1","u2","u3","u4","u5","u6","u7","u8"]).background_(Color.black).stringColor_(Color.white).action_({arg button;});
 
