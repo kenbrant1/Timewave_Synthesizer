@@ -51,8 +51,8 @@ s.waitForBoot({
 
 	//base frequency for synth inst
 
-	~base_frequency = ~freqmap.at(21); //default 21
-	~synthdefnum = 9; //default 9
+	~base_frequency = ~freqmap.at(1); //default 1
+	~synthdefnum = 12; //default 12
 
 	//volume
 
