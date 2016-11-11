@@ -2,7 +2,7 @@
 //To run the synth, simply click anywhere within the parenthesis above and press "ctrl - enter" or "cmd - return".
 //A guide to using the instrument is available by clicking on the "i" button in the bottom right corner of the GUI.
 //Several lines down, where it says "//VARIABLES YOU MAY WISH TO CHANGE", are variables that you can change for various things,
-//including key codes for keyboard functions - which is recommended.
+//including key codes for keyboard functions.
 
 //It is recommended to reboot the interpreter in the "Language" toolbar, or by hightlighting "(thisProcess.platform.recompile);"
 //and pressing "ctrl - enter" or "cmd - return", before each server boot. Rebooting the interpreter is not needed to
@@ -117,8 +117,8 @@ AppClock.sched((case
 
 			//base frequency for synth inst
 
-			~base_frequency = ~freqmap.at(48); //default 48
-			~synthdefnum = 7;
+			~base_frequency = ~freqmap.at(33); //default 48
+			~synthdefnum = 9;
 
 			//volume
 
