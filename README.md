@@ -3,7 +3,7 @@ This synthesizer is derived from and based upon Terence McKenna's Timewave Zero 
 
 How to run:
 
-- There is the 8-stringed synthesizer and the 3-stringed synthesizer to choose from
+- There is the 8-stringed synthesizer and the 3-stringed synthesizer to choose from, and program songs using the "timewavesynth8 script.scd" file
 
 - Simply evaluate the file in Supercollider IDE to run the synthesizer. Instructions can be found at the top of the file.
 
