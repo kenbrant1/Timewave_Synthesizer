@@ -5,7 +5,7 @@ How to run:
 
 - There is the 8-stringed synthesizer and the 3-stringed synthesizer to choose from ("timewavesynthi8.scd" or "timewavesynthi3.scd"), and program songs using the "timewavesynth8 script.scd" file.
 
-- Simply evaluate the file in Supercollider IDE to run the synthesizer. Instructions can be found at the top of the file.
+- Evaluate the file in Supercollider IDE, to run the synthesizer. Instructions can be found at the top of the file.
 
 - To download and install the Supercollider IDE - http://supercollider.github.io/download.html
 
