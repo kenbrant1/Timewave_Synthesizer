@@ -9,5 +9,5 @@ How to run:
 
 - To download and install the Supercollider IDE - http://supercollider.github.io/download.html
 
-- The Timewave Synthesizer website - http://kenbrant.info/timewavesynth.html or http://timewavesynth.info/
+- The Timewave Synthesizer website - http://kenbrant.byethost14.com/timewavesynth.html
 
