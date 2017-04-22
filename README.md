@@ -3,7 +3,7 @@ This synthesizer was developed based upon the Timewave theory, by Terence McKenn
 
 How to run:
 
-- Choose the 8-stringed synthesizer ("timewavesynthi8.scd" or "timewavesynthi8osx.scd"), and program songs using the "timewavesynth8 script.scd" file.
+- Choose the 8-stringed synthesizer ("timewavesynth8.scd" or "timewavesynth8osx.scd"), and program/make songs using the "timewavesynth8 script.scd" file.
 
 - Evaluate the file in Supercollider IDE to run the synthesizer. Instructions can be found at the top of the file.
 
