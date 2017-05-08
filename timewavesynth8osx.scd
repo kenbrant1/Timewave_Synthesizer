@@ -5147,7 +5147,7 @@ s.waitForBoot({
 	});*/
 	~min = Button.new(w,Rect(Window.screenBounds.width-20,~bpt+69+5-(20/1.6180339887499),20,20/1.6180339887499)).states_([["m",Color.white,Color.black]]).action_({arg button; w.minimize;});
 
-	~close = Button.new(w,Rect(Window.screenBounds.width-20,~bpt+69+5,20,20/1.6180339887499)).states_([["c",Color.white,Color.black]]).action_({arg button; w.close; ~numsynths.stop;});
+	~close = Button.new(w,Rect(Window.screenBounds.width-20,~bpt+69+5,20,20/1.6180339887499)).states_([["c",Color.white,Color.black]]).action_({arg button; ~synthfree.value; w.close; ~numsynths.stop;});
 
 
 	w.front; w.fullScreen;
