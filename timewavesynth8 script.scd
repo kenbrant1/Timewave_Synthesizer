@@ -15,7 +15,7 @@ Important Note: You must load the Timewave Synthesizer program and press the "sy
 			x = 32;
 
 			//copy and paste "saved" chords from the "copy" button inside the synthesizer program here:
-			//choose to change each duration individually by changing the "x" variable, as well as "synthopen/synthflow"
+			//choose to change each duration individually by changing the "x" variable in the code below this line, as well as "synthopen/synthflow"
 			[~f1=519.95703782873,~f2=616.23193196285,~f3=667.17109017758,~f4=692.66874234338,~f5=526.88556162392,~f6=516.52701736121,~f7=508.61137210833,~f8=506.37212156992]; ~synthopen.value; ~trace.value; (x).wait;
 			[~f1=572.96170615003,~f2=572.96170615003,~f3=570.43914200903,~f4=570.43914200903,~f5=570.43914200903,~f6=516.52701736121,~f7=508.61137210833,~f8=506.37212156992]; ~synthflow.value; ~trace.value; (x).wait;
 			[~f1=572.96170615003,~f2=572.96170615003,~f3=709.68417951408,~f4=709.68417951408,~f5=661.30934745052,~f6=590.93477690798,~f7=575.49542543341,~f8=551.87055912019]; ~synthflow.value; ~trace.value; (x).wait;
