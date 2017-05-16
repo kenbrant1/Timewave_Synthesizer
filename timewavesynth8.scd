@@ -8,7 +8,7 @@
 //and pressing "ctrl - enter" or "cmd - return", before each server boot. Rebooting the interpreter is not needed to
 //evaluate the code below if the server is booted.
 
-//You can program/make a song by using the "timewavesynth8 script" file
+//You can program/make a song by using the "timewavesynth8 script.scd" file
 
 //This synth is compatible with the Korg NanoKontrol 2
 
