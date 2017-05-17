@@ -50,7 +50,7 @@ s.waitForBoot({
 
 	//base frequency for synth inst
 
-	~base_frequency = ~freqmap.at(37); //default 37
+	~base_frequency = ~freqmap.at(48); //default 48
 	~synthdefnum = 7; //default 7
 
 	//volume
@@ -70,7 +70,7 @@ s.waitForBoot({
 	~vol12 = ~vol;
 
 
-	//key codes for keyboard functions - either unicode or keycode. to find key codes, see below
+	//Key codes for keyboard functions - either unicode or keycode. To find key codes, see below:
 
 	~rightarrow_keycode = 114;
 	~leftarrow_keycode = 113;
@@ -143,6 +143,9 @@ s.waitForBoot({
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+	//starting notes
+
 	#f1,f2,f3,f4,f5,f6,f7,f8/*,f9,f10,f11,f12*//*,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24*/ =
 	/*[432/1.6180339887499/1.6180339887499/1.6180339887499, 432/1.6180339887499, 432*1.6180339887499, 432, 432*1.6180339887499*1.6180339887499 , 432/1.6180339887499/1.6180339887499,432*1.6180339887499*1.6180339887499*1.6180339887499 ]*/
 	[432,457.68805676322,484.90360486965,513.73747368118,544.28589355459,576.65081700145,610.94025894518,647.26865721073];
@@ -167,71 +170,74 @@ s.waitForBoot({
 	if([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ];});
 	if([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ];});
 
-	/*if([~sg1a1,~sg1a2,~sg1a3,~sg1a4,~sg1a5,~sg1a6,~sg1a7,~sg1a8,~sg1a9,~sg1a10,~sg1a11,~sg1a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1a1=363.70466325781,~sg1a2=363.70466325781,~sg1a3=375.11361009939,~sg1a4=387.73491784403,~sg1a5=400.78089002338,~sg1a6=413.35287034511,~sg1a7=446.53534289049,~sg1a8=571.69903276134];});
-	if([~sg1b1,~sg1b2,~sg1b3,~sg1b4,~sg1b5,~sg1b6,~sg1b7,~sg1b8,~sg1b9,~sg1b10,~sg1b11,~sg1b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1b1=612.16681122095,~sg1b2=612.16681122095,~sg1b3=620.32404731854,~sg1b4=664.2337527431,~sg1b5=400.78089002338,~sg1b6=413.35287034511,~sg1b7=446.53534289049,~sg1b8=571.69903276134];});
-	if([~sg1c1,~sg1c2,~sg1c3,~sg1c4,~sg1c5,~sg1c6,~sg1c7,~sg1c8,~sg1c9,~sg1c10,~sg1c11,~sg1c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1c1=612.16681122095,~sg1c2=612.16681122095,~sg1c3=620.32404731854,~sg1c4=664.2337527431,~sg1c5=688.09938797254,~sg1c6=688.09938797254,~sg1c7=688.09938797254,~sg1c8=688.09938797254];});
-	if([~sg1d1,~sg1d2,~sg1d3,~sg1d4,~sg1d5,~sg1d6,~sg1d7,~sg1d8,~sg1d9,~sg1d10,~sg1d11,~sg1d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1d1=768.34831687483,~sg1d2=744.97927649072,~sg1d3=730.33302050573,~sg1d4=711.25161146077,~sg1d5=688.09938797254,~sg1d6=688.09938797254,~sg1d7=688.09938797254,~sg1d8=688.09938797254];});
-	if([~sg1e1,~sg1e2,~sg1e3,~sg1e4,~sg1e5,~sg1e6,~sg1e7,~sg1e8,~sg1e9,~sg1e10,~sg1e11,~sg1e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1e1=768.34831687483,~sg1e2=744.97927649072,~sg1e3=730.33302050573,~sg1e4=711.25161146077,~sg1e5=676.06126847589,~sg1e6=654.05453931384,~sg1e7=632.76415961742,~sg1e8=613.51886308334];});
-	if([~sg1f1,~sg1f2,~sg1f3,~sg1f4,~sg1f5,~sg1f6,~sg1f7,~sg1f8,~sg1f9,~sg1f10,~sg1f11,~sg1f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1f1=768.34831687483,~sg1f2=744.97927649072,~sg1f3=730.33302050573,~sg1f4=711.25161146077,~sg1f5=700.35186129742,~sg1f6=694.19859343288,~sg1f7=674.57138780208,~sg1f8=639.78281371714];});
-	if([~sg1g1,~sg1g2,~sg1g3,~sg1g4,~sg1g5,~sg1g6,~sg1g7,~sg1g8,~sg1g9,~sg1g10,~sg1g11,~sg1g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1g1=803.00996243911,~sg1g2=820.92281909864,~sg1g3=830.02853917182,~sg1g4=1001.2323624784,~sg1g5=910.61517256383,~sg1g6=694.19859343288,~sg1g7=674.57138780208,~sg1g8=639.78281371714];});
-	if([~sg1h1,~sg1h2,~sg1h3,~sg1h4,~sg1h5,~sg1h6,~sg1h7,~sg1h8,~sg1h9,~sg1h10,~sg1h11,~sg1h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1h1=803.00996243911,~sg1h2=820.92281909864,~sg1h3=830.02853917182,~sg1h4=1001.2323624784,~sg1h5=817.30856278141,~sg1h6=575.49542543341,~sg1h7=575.49542543341,~sg1h8=575.49542543341];});
-	if([~sg2a1,~sg2a2,~sg2a3,~sg2a4,~sg2a5,~sg2a6,~sg2a7,~sg2a8,~sg2a9,~sg2a10,~sg2a11,~sg2a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2a1=803.00996243911,~sg2a2=782.02972310957,~sg2a3=754.90626327726,~sg2a4=733.5626584335,~sg2a5=817.30856278141,~sg2a6=575.49542543341,~sg2a7=575.49542543341,~sg2a8=575.49542543341];});
-	if([~sg2b1,~sg2b2,~sg2b3,~sg2b4,~sg2b5,~sg2b6,~sg2b7,~sg2b8,~sg2b9,~sg2b10,~sg2b11,~sg2b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2b1=803.00996243911,~sg2b2=782.02972310957,~sg2b3=754.90626327726,~sg2b4=733.5626584335,~sg2b5=727.11760162391,~sg2b6=727.11760162391,~sg2b7=727.11760162391,~sg2b8=727.11760162391];});
-	if([~sg2c1,~sg2c2,~sg2c3,~sg2c4,~sg2c5,~sg2c6,~sg2c7,~sg2c8,~sg2c9,~sg2c10,~sg2c11,~sg2c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2c1=803.00996243911,~sg2c2=782.02972310957,~sg2c3=754.90626327726,~sg2c4=733.5626584335,~sg2c5=754.90626327726,~sg2c6=806.56098828383,~sg2c7=837.38578245214,~sg2c8=890.74519370755];});
-	if([~sg2d1,~sg2d2,~sg2d3,~sg2d4,~sg2d5,~sg2d6,~sg2d7,~sg2d8,~sg2d9,~sg2d10,~sg2d11,~sg2d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2d1=438.72332341895,~sg2d2=636.96605796088,~sg2d3=697.26843971369,~sg2d4=728.72353760317,~sg2d5=754.90626327726,~sg2d6=806.56098828383,~sg2d7=837.38578245214,~sg2d8=890.74519370755];});
-	if([~sg2e1,~sg2e2,~sg2e3,~sg2e4,~sg2e5,~sg2e6,~sg2e7,~sg2e8,~sg2e9,~sg2e10,~sg2e11,~sg2e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2e1=438.72332341895,~sg2e2=636.96605796088,~sg2e3=697.26843971369,~sg2e4=728.72353760317,~sg2e5=758.24456762793,~sg2e6=758.24456762793,~sg2e7=758.24456762793,~sg2e8=758.24456762793];});
-	if([~sg2f1,~sg2f2,~sg2f3,~sg2f4,~sg2f5,~sg2f6,~sg2f7,~sg2f8,~sg2f9,~sg2f10,~sg2f11,~sg2f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2f1=438.72332341895,~sg2f2=636.96605796088,~sg2f3=697.26843971369,~sg2f4=728.72353760317,~sg2f5=731.94605816546,~sg2f6=728.72353760317,~sg2f7=708.12020182023,~sg2f8=694.19859343288];});
-	if([~sg2g1,~sg2g2,~sg2g3,~sg2g4,~sg2g5,~sg2g6,~sg2g7,~sg2g8,~sg2g9,~sg2g10,~sg2g11,~sg2g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2g1=700.35186129742,~sg2g2=700.35186129742,~sg2g3=700.35186129742,~sg2g4=700.35186129742,~sg2g5=700.35186129742,~sg2g6=714.39686864628,~sg2g7=738.4339136594,~sg2g8=768.34831687483];});
-	if([~sg2h1,~sg2h2,~sg2h3,~sg2h4,~sg2h5,~sg2h6,~sg2h7,~sg2h8,~sg2h9,~sg2h10,~sg2h11,~sg2h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2h1=700.35186129742,~sg2h2=700.35186129742,~sg2h3=700.35186129742,~sg2h4=700.35186129742,~sg2h5=700.35186129742,~sg2h6=759.91925165361,~sg2h7=804.78351679607,~sg2h8=842.94647971769];});
-	if([~sg3a1,~sg3a2,~sg3a3,~sg3a4,~sg3a5,~sg3a6,~sg3a7,~sg3a8,~sg3a9,~sg3a10,~sg3a11,~sg3a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3a1=nil,~sg3a2=nil,~sg3a3=nil,~sg3a4=nil,~sg3a5=nil,~sg3a6=nil,~sg3a7=nil,~sg3a8=nil];});
-	if([~sg3b1,~sg3b2,~sg3b3,~sg3b4,~sg3b5,~sg3b6,~sg3b7,~sg3b8,~sg3b9,~sg3b10,~sg3b11,~sg3b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3b1=nil,~sg3b2=nil,~sg3b3=nil,~sg3b4=nil,~sg3b5=nil,~sg3b6=nil,~sg3b7=nil,~sg3b8=nil];});
-	if([~sg3c1,~sg3c2,~sg3c3,~sg3c4,~sg3c5,~sg3c6,~sg3c7,~sg3c8,~sg3c9,~sg3c10,~sg3c11,~sg3c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3c1=nil,~sg3c2=nil,~sg3c3=nil,~sg3c4=nil,~sg3c5=nil,~sg3c6=nil,~sg3c7=nil,~sg3c8=nil];});
-	if([~sg3d1,~sg3d2,~sg3d3,~sg3d4,~sg3d5,~sg3d6,~sg3d7,~sg3d8,~sg3d9,~sg3d10,~sg3d11,~sg3d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3d1=nil,~sg3d2=nil,~sg3d3=nil,~sg3d4=nil,~sg3d5=nil,~sg3d6=nil,~sg3d7=nil,~sg3d8=nil];});
-	if([~sg3e1,~sg3e2,~sg3e3,~sg3e4,~sg3e5,~sg3e6,~sg3e7,~sg3e8,~sg3e9,~sg3e10,~sg3e11,~sg3e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3e1=nil,~sg3e2=nil,~sg3e3=nil,~sg3e4=nil,~sg3e5=nil,~sg3e6=nil,~sg3e7=nil,~sg3e8=nil];});
-	if([~sg3f1,~sg3f2,~sg3f3,~sg3f4,~sg3f5,~sg3f6,~sg3f7,~sg3f8,~sg3f9,~sg3f10,~sg3f11,~sg3f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3f1=nil,~sg3f2=nil,~sg3f3=nil,~sg3f4=nil,~sg3f5=nil,~sg3f6=nil,~sg3f7=nil,~sg3f8=nil];});
-	if([~sg3g1,~sg3g2,~sg3g3,~sg3g4,~sg3g5,~sg3g6,~sg3g7,~sg3g8,~sg3g9,~sg3g10,~sg3g11,~sg3g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3g1=nil,~sg3g2=nil,~sg3g3=nil,~sg3g4=nil,~sg3g5=nil,~sg3g6=nil,~sg3g7=nil,~sg3g8=nil];});
-	if([~sg3h1,~sg3h2,~sg3h3,~sg3h4,~sg3h5,~sg3h6,~sg3h7,~sg3h8,~sg3h9,~sg3h10,~sg3h11,~sg3h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3h1=nil,~sg3h2=nil,~sg3h3=nil,~sg3h4=nil,~sg3h5=nil,~sg3h6=nil,~sg3h7=nil,~sg3h8=nil];});
-	if([~sg4a1,~sg4a2,~sg4a3,~sg4a4,~sg4a5,~sg4a6,~sg4a7,~sg4a8,~sg4a9,~sg4a10,~sg4a11,~sg4a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4a1=nil,~sg4a2=nil,~sg4a3=nil,~sg4a4=nil,~sg4a5=nil,~sg4a6=nil,~sg4a7=nil,~sg4a8=nil];});
-	if([~sg4b1,~sg4b2,~sg4b3,~sg4b4,~sg4b5,~sg4b6,~sg4b7,~sg4b8,~sg4b9,~sg4b10,~sg4b11,~sg4b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4b1=nil,~sg4b2=nil,~sg4b3=nil,~sg4b4=nil,~sg4b5=nil,~sg4b6=nil,~sg4b7=nil,~sg4b8=nil];});
-	if([~sg4c1,~sg4c2,~sg4c3,~sg4c4,~sg4c5,~sg4c6,~sg4c7,~sg4c8,~sg4c9,~sg4c10,~sg4c11,~sg4c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4c1=nil,~sg4c2=nil,~sg4c3=nil,~sg4c4=nil,~sg4c5=nil,~sg4c6=nil,~sg4c7=nil,~sg4c8=nil];});
-	if([~sg4d1,~sg4d2,~sg4d3,~sg4d4,~sg4d5,~sg4d6,~sg4d7,~sg4d8,~sg4d9,~sg4d10,~sg4d11,~sg4d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4d1=nil,~sg4d2=nil,~sg4d3=nil,~sg4d4=nil,~sg4d5=nil,~sg4d6=nil,~sg4d7=nil,~sg4d8=nil];});
-	if([~sg4e1,~sg4e2,~sg4e3,~sg4e4,~sg4e5,~sg4e6,~sg4e7,~sg4e8,~sg4e9,~sg4e10,~sg4e11,~sg4e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4e1=nil,~sg4e2=nil,~sg4e3=nil,~sg4e4=nil,~sg4e5=nil,~sg4e6=nil,~sg4e7=nil,~sg4e8=nil];});
-	if([~sg4f1,~sg4f2,~sg4f3,~sg4f4,~sg4f5,~sg4f6,~sg4f7,~sg4f8,~sg4f9,~sg4f10,~sg4f11,~sg4f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4f1=nil,~sg4f2=nil,~sg4f3=nil,~sg4f4=nil,~sg4f5=nil,~sg4f6=nil,~sg4f7=nil,~sg4f8=nil];});
-	if([~sg4g1,~sg4g2,~sg4g3,~sg4g4,~sg4g5,~sg4g6,~sg4g7,~sg4g8,~sg4g9,~sg4g10,~sg4g11,~sg4g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4g1=nil,~sg4g2=nil,~sg4g3=nil,~sg4g4=nil,~sg4g5=nil,~sg4g6=nil,~sg4g7=nil,~sg4g8=nil];});
-	if([~sg4h1,~sg4h2,~sg4h3,~sg4h4,~sg4h5,~sg4h6,~sg4h7,~sg4h8,~sg4h9,~sg4h10,~sg4h11,~sg4h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4h1=nil,~sg4h2=nil,~sg4h3=nil,~sg4h4=nil,~sg4h5=nil,~sg4h6=nil,~sg4h7=nil,~sg4h8=nil];});
-	if([~sg5a1,~sg5a2,~sg5a3,~sg5a4,~sg5a5,~sg5a6,~sg5a7,~sg5a8,~sg5a9,~sg5a10,~sg5a11,~sg5a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5a1=nil,~sg5a2=nil,~sg5a3=nil,~sg5a4=nil,~sg5a5=nil,~sg5a6=nil,~sg5a7=nil,~sg5a8=nil];});
-	if([~sg5b1,~sg5b2,~sg5b3,~sg5b4,~sg5b5,~sg5b6,~sg5b7,~sg5b8,~sg5b9,~sg5b10,~sg5b11,~sg5b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5b1=nil,~sg5b2=nil,~sg5b3=nil,~sg5b4=nil,~sg5b5=nil,~sg5b6=nil,~sg5b7=nil,~sg5b8=nil];});
-	if([~sg5c1,~sg5c2,~sg5c3,~sg5c4,~sg5c5,~sg5c6,~sg5c7,~sg5c8,~sg5c9,~sg5c10,~sg5c11,~sg5c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5c1=nil,~sg5c2=nil,~sg5c3=nil,~sg5c4=nil,~sg5c5=nil,~sg5c6=nil,~sg5c7=nil,~sg5c8=nil];});
-	if([~sg5d1,~sg5d2,~sg5d3,~sg5d4,~sg5d5,~sg5d6,~sg5d7,~sg5d8,~sg5d9,~sg5d10,~sg5d11,~sg5d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5d1=nil,~sg5d2=nil,~sg5d3=nil,~sg5d4=nil,~sg5d5=nil,~sg5d6=nil,~sg5d7=nil,~sg5d8=nil];});
-	if([~sg5e1,~sg5e2,~sg5e3,~sg5e4,~sg5e5,~sg5e6,~sg5e7,~sg5e8,~sg5e9,~sg5e10,~sg5e11,~sg5e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5e1=nil,~sg5e2=nil,~sg5e3=nil,~sg5e4=nil,~sg5e5=nil,~sg5e6=nil,~sg5e7=nil,~sg5e8=nil];});
-	if([~sg5f1,~sg5f2,~sg5f3,~sg5f4,~sg5f5,~sg5f6,~sg5f7,~sg5f8,~sg5f9,~sg5f10,~sg5f11,~sg5f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5f1=nil,~sg5f2=nil,~sg5f3=nil,~sg5f4=nil,~sg5f5=nil,~sg5f6=nil,~sg5f7=nil,~sg5f8=nil];});
-	if([~sg5g1,~sg5g2,~sg5g3,~sg5g4,~sg5g5,~sg5g6,~sg5g7,~sg5g8,~sg5g9,~sg5g10,~sg5g11,~sg5g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5g1=nil,~sg5g2=nil,~sg5g3=nil,~sg5g4=nil,~sg5g5=nil,~sg5g6=nil,~sg5g7=nil,~sg5g8=nil];});
-	if([~sg5h1,~sg5h2,~sg5h3,~sg5h4,~sg5h5,~sg5h6,~sg5h7,~sg5h8,~sg5h9,~sg5h10,~sg5h11,~sg5h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5h1=nil,~sg5h2=nil,~sg5h3=nil,~sg5h4=nil,~sg5h5=nil,~sg5h6=nil,~sg5h7=nil,~sg5h8=nil];});
-	if([~sg6a1,~sg6a2,~sg6a3,~sg6a4,~sg6a5,~sg6a6,~sg6a7,~sg6a8,~sg6a9,~sg6a10,~sg6a11,~sg6a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6a1=nil,~sg6a2=nil,~sg6a3=nil,~sg6a4=nil,~sg6a5=nil,~sg6a6=nil,~sg6a7=nil,~sg6a8=nil];});
-	if([~sg6b1,~sg6b2,~sg6b3,~sg6b4,~sg6b5,~sg6b6,~sg6b7,~sg6b8,~sg6b9,~sg6b10,~sg6b11,~sg6b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6b1=nil,~sg6b2=nil,~sg6b3=nil,~sg6b4=nil,~sg6b5=nil,~sg6b6=nil,~sg6b7=nil,~sg6b8=nil];});
-	if([~sg6c1,~sg6c2,~sg6c3,~sg6c4,~sg6c5,~sg6c6,~sg6c7,~sg6c8,~sg6c9,~sg6c10,~sg6c11,~sg6c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6c1=nil,~sg6c2=nil,~sg6c3=nil,~sg6c4=nil,~sg6c5=nil,~sg6c6=nil,~sg6c7=nil,~sg6c8=nil];});
-	if([~sg6d1,~sg6d2,~sg6d3,~sg6d4,~sg6d5,~sg6d6,~sg6d7,~sg6d8,~sg6d9,~sg6d10,~sg6d11,~sg6d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6d1=nil,~sg6d2=nil,~sg6d3=nil,~sg6d4=nil,~sg6d5=nil,~sg6d6=nil,~sg6d7=nil,~sg6d8=nil];});
-	if([~sg6e1,~sg6e2,~sg6e3,~sg6e4,~sg6e5,~sg6e6,~sg6e7,~sg6e8,~sg6e9,~sg6e10,~sg6e11,~sg6e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6e1=nil,~sg6e2=nil,~sg6e3=nil,~sg6e4=nil,~sg6e5=nil,~sg6e6=nil,~sg6e7=nil,~sg6e8=nil];});
-	if([~sg6f1,~sg6f2,~sg6f3,~sg6f4,~sg6f5,~sg6f6,~sg6f7,~sg6f8,~sg6f9,~sg6f10,~sg6f11,~sg6f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6f1=nil,~sg6f2=nil,~sg6f3=nil,~sg6f4=nil,~sg6f5=nil,~sg6f6=nil,~sg6f7=nil,~sg6f8=nil];});
-	if([~sg6g1,~sg6g2,~sg6g3,~sg6g4,~sg6g5,~sg6g6,~sg6g7,~sg6g8,~sg6g9,~sg6g10,~sg6g11,~sg6g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6g1=nil,~sg6g2=nil,~sg6g3=nil,~sg6g4=nil,~sg6g5=nil,~sg6g6=nil,~sg6g7=nil,~sg6g8=nil];});
-	if([~sg6h1,~sg6h2,~sg6h3,~sg6h4,~sg6h5,~sg6h6,~sg6h7,~sg6h8,~sg6h9,~sg6h10,~sg6h11,~sg6h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6h1=nil,~sg6h2=nil,~sg6h3=nil,~sg6h4=nil,~sg6h5=nil,~sg6h6=nil,~sg6h7=nil,~sg6h8=nil];});
-	if([~sg7a1,~sg7a2,~sg7a3,~sg7a4,~sg7a5,~sg7a6,~sg7a7,~sg7a8,~sg7a9,~sg7a10,~sg7a11,~sg7a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7a1=nil,~sg7a2=nil,~sg7a3=nil,~sg7a4=nil,~sg7a5=nil,~sg7a6=nil,~sg7a7=nil,~sg7a8=nil];});
-	if([~sg7b1,~sg7b2,~sg7b3,~sg7b4,~sg7b5,~sg7b6,~sg7b7,~sg7b8,~sg7b9,~sg7b10,~sg7b11,~sg7b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7b1=nil,~sg7b2=nil,~sg7b3=nil,~sg7b4=nil,~sg7b5=nil,~sg7b6=nil,~sg7b7=nil,~sg7b8=nil];});
-	if([~sg7c1,~sg7c2,~sg7c3,~sg7c4,~sg7c5,~sg7c6,~sg7c7,~sg7c8,~sg7c9,~sg7c10,~sg7c11,~sg7c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7c1=nil,~sg7c2=nil,~sg7c3=nil,~sg7c4=nil,~sg7c5=nil,~sg7c6=nil,~sg7c7=nil,~sg7c8=nil];});
-	if([~sg7d1,~sg7d2,~sg7d3,~sg7d4,~sg7d5,~sg7d6,~sg7d7,~sg7d8,~sg7d9,~sg7d10,~sg7d11,~sg7d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7d1=nil,~sg7d2=nil,~sg7d3=nil,~sg7d4=nil,~sg7d5=nil,~sg7d6=nil,~sg7d7=nil,~sg7d8=nil];});
-	if([~sg7e1,~sg7e2,~sg7e3,~sg7e4,~sg7e5,~sg7e6,~sg7e7,~sg7e8,~sg7e9,~sg7e10,~sg7e11,~sg7e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7e1=nil,~sg7e2=nil,~sg7e3=nil,~sg7e4=nil,~sg7e5=nil,~sg7e6=nil,~sg7e7=nil,~sg7e8=nil];});
-	if([~sg7f1,~sg7f2,~sg7f3,~sg7f4,~sg7f5,~sg7f6,~sg7f7,~sg7f8,~sg7f9,~sg7f10,~sg7f11,~sg7f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7f1=nil,~sg7f2=nil,~sg7f3=nil,~sg7f4=nil,~sg7f5=nil,~sg7f6=nil,~sg7f7=nil,~sg7f8=nil];});
-	if([~sg7g1,~sg7g2,~sg7g3,~sg7g4,~sg7g5,~sg7g6,~sg7g7,~sg7g8,~sg7g9,~sg7g10,~sg7g11,~sg7g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7g1=nil,~sg7g2=nil,~sg7g3=nil,~sg7g4=nil,~sg7g5=nil,~sg7g6=nil,~sg7g7=nil,~sg7g8=nil];});
-	if([~sg7h1,~sg7h2,~sg7h3,~sg7h4,~sg7h5,~sg7h6,~sg7h7,~sg7h8,~sg7h9,~sg7h10,~sg7h11,~sg7h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7h1=nil,~sg7h2=nil,~sg7h3=nil,~sg7h4=nil,~sg7h5=nil,~sg7h6=nil,~sg7h7=nil,~sg7h8=nil];});
-	if([~sg8a1,~sg8a2,~sg8a3,~sg8a4,~sg8a5,~sg8a6,~sg8a7,~sg8a8,~sg8a9,~sg8a10,~sg8a11,~sg8a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8a1=nil,~sg8a2=nil,~sg8a3=nil,~sg8a4=nil,~sg8a5=nil,~sg8a6=nil,~sg8a7=nil,~sg8a8=nil];});
-	if([~sg8b1,~sg8b2,~sg8b3,~sg8b4,~sg8b5,~sg8b6,~sg8b7,~sg8b8,~sg8b9,~sg8b10,~sg8b11,~sg8b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8b1=nil,~sg8b2=nil,~sg8b3=nil,~sg8b4=nil,~sg8b5=nil,~sg8b6=nil,~sg8b7=nil,~sg8b8=nil];});
-	if([~sg8c1,~sg8c2,~sg8c3,~sg8c4,~sg8c5,~sg8c6,~sg8c7,~sg8c8,~sg8c9,~sg8c10,~sg8c11,~sg8c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8c1=nil,~sg8c2=nil,~sg8c3=nil,~sg8c4=nil,~sg8c5=nil,~sg8c6=nil,~sg8c7=nil,~sg8c8=nil];});
-	if([~sg8d1,~sg8d2,~sg8d3,~sg8d4,~sg8d5,~sg8d6,~sg8d7,~sg8d8,~sg8d9,~sg8d10,~sg8d11,~sg8d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8d1=nil,~sg8d2=nil,~sg8d3=nil,~sg8d4=nil,~sg8d5=nil,~sg8d6=nil,~sg8d7=nil,~sg8d8=nil];});
-	if([~sg8e1,~sg8e2,~sg8e3,~sg8e4,~sg8e5,~sg8e6,~sg8e7,~sg8e8,~sg8e9,~sg8e10,~sg8e11,~sg8e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8e1=nil,~sg8e2=nil,~sg8e3=nil,~sg8e4=nil,~sg8e5=nil,~sg8e6=nil,~sg8e7=nil,~sg8e8=nil];});
-	if([~sg8f1,~sg8f2,~sg8f3,~sg8f4,~sg8f5,~sg8f6,~sg8f7,~sg8f8,~sg8f9,~sg8f10,~sg8f11,~sg8f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8f1=nil,~sg8f2=nil,~sg8f3=nil,~sg8f4=nil,~sg8f5=nil,~sg8f6=nil,~sg8f7=nil,~sg8f8=nil];});
-	if([~sg8g1,~sg8g2,~sg8g3,~sg8g4,~sg8g5,~sg8g6,~sg8g7,~sg8g8,~sg8g9,~sg8g10,~sg8g11,~sg8g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8g1=nil,~sg8g2=nil,~sg8g3=nil,~sg8g4=nil,~sg8g5=nil,~sg8g6=nil,~sg8g7=nil,~sg8g8=nil];});
-	if([~sg8h1,~sg8h2,~sg8h3,~sg8h4,~sg8h5,~sg8h6,~sg8h7,~sg8h8,~sg8h9,~sg8h10,~sg8h11,~sg8h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8h1=nil,~sg8h2=nil,~sg8h3=nil,~sg8h4=nil,~sg8h5=nil,~sg8h6=nil,~sg8h7=nil,~sg8h8=nil];});
-	*/
+	if([~sg1a1,~sg1a2,~sg1a3,~sg1a4,~sg1a5,~sg1a6,~sg1a7,~sg1a8,~sg1a9,~sg1a10,~sg1a11,~sg1a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1a1=~f1,~sg1a2=~f2,~sg1a3=~f3,~sg1a4=~f4,~sg1a5=~f5,~sg1a6=~f6,~sg1a7=~f7,~sg1a8=~f8];});
+	if([~sg1b1,~sg1b2,~sg1b3,~sg1b4,~sg1b5,~sg1b6,~sg1b7,~sg1b8,~sg1b9,~sg1b10,~sg1b11,~sg1b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1b1=~f1,~sg1b2=~f2,~sg1b3=~f3,~sg1b4=~f4,~sg1b5=~f5,~sg1b6=~f6,~sg1b7=~f7,~sg1b8=~f8];});
+	if([~sg1c1,~sg1c2,~sg1c3,~sg1c4,~sg1c5,~sg1c6,~sg1c7,~sg1c8,~sg1c9,~sg1c10,~sg1c11,~sg1c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1c1=~f1,~sg1c2=~f2,~sg1c3=~f3,~sg1c4=~f4,~sg1c5=~f5,~sg1c6=~f6,~sg1c7=~f7,~sg1c8=~f8];});
+	if([~sg1d1,~sg1d2,~sg1d3,~sg1d4,~sg1d5,~sg1d6,~sg1d7,~sg1d8,~sg1d9,~sg1d10,~sg1d11,~sg1d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1d1=~f1,~sg1d2=~f2,~sg1d3=~f3,~sg1d4=~f4,~sg1d5=~f5,~sg1d6=~f6,~sg1d7=~f7,~sg1d8=~f8];});
+	if([~sg1e1,~sg1e2,~sg1e3,~sg1e4,~sg1e5,~sg1e6,~sg1e7,~sg1e8,~sg1e9,~sg1e10,~sg1e11,~sg1e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1e1=~f1,~sg1e2=~f2,~sg1e3=~f3,~sg1e4=~f4,~sg1e5=~f5,~sg1e6=~f6,~sg1e7=~f7,~sg1e8=~f8];});
+	if([~sg1f1,~sg1f2,~sg1f3,~sg1f4,~sg1f5,~sg1f6,~sg1f7,~sg1f8,~sg1f9,~sg1f10,~sg1f11,~sg1f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1f1=~f1,~sg1f2=~f2,~sg1f3=~f3,~sg1f4=~f4,~sg1f5=~f5,~sg1f6=~f6,~sg1f7=~f7,~sg1f8=~f8];});
+	if([~sg1g1,~sg1g2,~sg1g3,~sg1g4,~sg1g5,~sg1g6,~sg1g7,~sg1g8,~sg1g9,~sg1g10,~sg1g11,~sg1g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1g1=~f1,~sg1g2=~f2,~sg1g3=~f3,~sg1g4=~f4,~sg1g5=~f5,~sg1g6=~f6,~sg1g7=~f7,~sg1g8=~f8];});
+	if([~sg1h1,~sg1h2,~sg1h3,~sg1h4,~sg1h5,~sg1h6,~sg1h7,~sg1h8,~sg1h9,~sg1h10,~sg1h11,~sg1h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1h1=~f1,~sg1h2=~f2,~sg1h3=~f3,~sg1h4=~f4,~sg1h5=~f5,~sg1h6=~f6,~sg1h7=~f7,~sg1h8=~f8];});
+	if([~sg2a1,~sg2a2,~sg2a3,~sg2a4,~sg2a5,~sg2a6,~sg2a7,~sg2a8,~sg2a9,~sg2a10,~sg2a11,~sg2a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2a1=~f1,~sg2a2=~f2,~sg2a3=~f3,~sg2a4=~f4,~sg2a5=~f5,~sg2a6=~f6,~sg2a7=~f7,~sg2a8=~f8];});
+	if([~sg2b1,~sg2b2,~sg2b3,~sg2b4,~sg2b5,~sg2b6,~sg2b7,~sg2b8,~sg2b9,~sg2b10,~sg2b11,~sg2b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2b1=~f1,~sg2b2=~f2,~sg2b3=~f3,~sg2b4=~f4,~sg2b5=~f5,~sg2b6=~f6,~sg2b7=~f7,~sg2b8=~f8];});
+	if([~sg2c1,~sg2c2,~sg2c3,~sg2c4,~sg2c5,~sg2c6,~sg2c7,~sg2c8,~sg2c9,~sg2c10,~sg2c11,~sg2c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2c1=~f1,~sg2c2=~f2,~sg2c3=~f3,~sg2c4=~f4,~sg2c5=~f5,~sg2c6=~f6,~sg2c7=~f7,~sg2c8=~f8];});
+	if([~sg2d1,~sg2d2,~sg2d3,~sg2d4,~sg2d5,~sg2d6,~sg2d7,~sg2d8,~sg2d9,~sg2d10,~sg2d11,~sg2d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2d1=~f1,~sg2d2=~f2,~sg2d3=~f3,~sg2d4=~f4,~sg2d5=~f5,~sg2d6=~f6,~sg2d7=~f7,~sg2d8=~f8];});
+	if([~sg2e1,~sg2e2,~sg2e3,~sg2e4,~sg2e5,~sg2e6,~sg2e7,~sg2e8,~sg2e9,~sg2e10,~sg2e11,~sg2e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2e1=~f1,~sg2e2=~f2,~sg2e3=~f3,~sg2e4=~f4,~sg2e5=~f5,~sg2e6=~f6,~sg2e7=~f7,~sg2e8=~f8];});
+	if([~sg2f1,~sg2f2,~sg2f3,~sg2f4,~sg2f5,~sg2f6,~sg2f7,~sg2f8,~sg2f9,~sg2f10,~sg2f11,~sg2f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2f1=~f1,~sg2f2=~f2,~sg2f3=~f3,~sg2f4=~f4,~sg2f5=~f5,~sg2f6=~f6,~sg2f7=~f7,~sg2f8=~f8];});
+	if([~sg2g1,~sg2g2,~sg2g3,~sg2g4,~sg2g5,~sg2g6,~sg2g7,~sg2g8,~sg2g9,~sg2g10,~sg2g11,~sg2g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2g1=~f1,~sg2g2=~f2,~sg2g3=~f3,~sg2g4=~f4,~sg2g5=~f5,~sg2g6=~f6,~sg2g7=~f7,~sg2g8=~f8];});
+	if([~sg2h1,~sg2h2,~sg2h3,~sg2h4,~sg2h5,~sg2h6,~sg2h7,~sg2h8,~sg2h9,~sg2h10,~sg2h11,~sg2h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2h1=~f1,~sg2h2=~f2,~sg2h3=~f3,~sg2h4=~f4,~sg2h5=~f5,~sg2h6=~f6,~sg2h7=~f7,~sg2h8=~f8];});
+	if([~sg3a1,~sg3a2,~sg3a3,~sg3a4,~sg3a5,~sg3a6,~sg3a7,~sg3a8,~sg3a9,~sg3a10,~sg3a11,~sg3a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3a1=~f1,~sg3a2=~f2,~sg3a3=~f3,~sg3a4=~f4,~sg3a5=~f5,~sg3a6=~f6,~sg3a7=~f7,~sg3a8=~f8];});
+	if([~sg3b1,~sg3b2,~sg3b3,~sg3b4,~sg3b5,~sg3b6,~sg3b7,~sg3b8,~sg3b9,~sg3b10,~sg3b11,~sg3b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3b1=~f1,~sg3b2=~f2,~sg3b3=~f3,~sg3b4=~f4,~sg3b5=~f5,~sg3b6=~f6,~sg3b7=~f7,~sg3b8=~f8];});
+	if([~sg3c1,~sg3c2,~sg3c3,~sg3c4,~sg3c5,~sg3c6,~sg3c7,~sg3c8,~sg3c9,~sg3c10,~sg3c11,~sg3c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3c1=~f1,~sg3c2=~f2,~sg3c3=~f3,~sg3c4=~f4,~sg3c5=~f5,~sg3c6=~f6,~sg3c7=~f7,~sg3c8=~f8];});
+	if([~sg3d1,~sg3d2,~sg3d3,~sg3d4,~sg3d5,~sg3d6,~sg3d7,~sg3d8,~sg3d9,~sg3d10,~sg3d11,~sg3d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3d1=~f1,~sg3d2=~f2,~sg3d3=~f3,~sg3d4=~f4,~sg3d5=~f5,~sg3d6=~f6,~sg3d7=~f7,~sg3d8=~f8];});
+	if([~sg3e1,~sg3e2,~sg3e3,~sg3e4,~sg3e5,~sg3e6,~sg3e7,~sg3e8,~sg3e9,~sg3e10,~sg3e11,~sg3e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3e1=~f1,~sg3e2=~f2,~sg3e3=~f3,~sg3e4=~f4,~sg3e5=~f5,~sg3e6=~f6,~sg3e7=~f7,~sg3e8=~f8];});
+	if([~sg3f1,~sg3f2,~sg3f3,~sg3f4,~sg3f5,~sg3f6,~sg3f7,~sg3f8,~sg3f9,~sg3f10,~sg3f11,~sg3f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3f1=~f1,~sg3f2=~f2,~sg3f3=~f3,~sg3f4=~f4,~sg3f5=~f5,~sg3f6=~f6,~sg3f7=~f7,~sg3f8=~f8];});
+	if([~sg3g1,~sg3g2,~sg3g3,~sg3g4,~sg3g5,~sg3g6,~sg3g7,~sg3g8,~sg3g9,~sg3g10,~sg3g11,~sg3g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3g1=~f1,~sg3g2=~f2,~sg3g3=~f3,~sg3g4=~f4,~sg3g5=~f5,~sg3g6=~f6,~sg3g7=~f7,~sg3g8=~f8];});
+	if([~sg3h1,~sg3h2,~sg3h3,~sg3h4,~sg3h5,~sg3h6,~sg3h7,~sg3h8,~sg3h9,~sg3h10,~sg3h11,~sg3h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3h1=~f1,~sg3h2=~f2,~sg3h3=~f3,~sg3h4=~f4,~sg3h5=~f5,~sg3h6=~f6,~sg3h7=~f7,~sg3h8=~f8];});
+	if([~sg4a1,~sg4a2,~sg4a3,~sg4a4,~sg4a5,~sg4a6,~sg4a7,~sg4a8,~sg4a9,~sg4a10,~sg4a11,~sg4a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4a1=~f1,~sg4a2=~f2,~sg4a3=~f3,~sg4a4=~f4,~sg4a5=~f5,~sg4a6=~f6,~sg4a7=~f7,~sg4a8=~f8];});
+	if([~sg4b1,~sg4b2,~sg4b3,~sg4b4,~sg4b5,~sg4b6,~sg4b7,~sg4b8,~sg4b9,~sg4b10,~sg4b11,~sg4b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4b1=~f1,~sg4b2=~f2,~sg4b3=~f3,~sg4b4=~f4,~sg4b5=~f5,~sg4b6=~f6,~sg4b7=~f7,~sg4b8=~f8];});
+	if([~sg4c1,~sg4c2,~sg4c3,~sg4c4,~sg4c5,~sg4c6,~sg4c7,~sg4c8,~sg4c9,~sg4c10,~sg4c11,~sg4c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4c1=~f1,~sg4c2=~f2,~sg4c3=~f3,~sg4c4=~f4,~sg4c5=~f5,~sg4c6=~f6,~sg4c7=~f7,~sg4c8=~f8];});
+	if([~sg4d1,~sg4d2,~sg4d3,~sg4d4,~sg4d5,~sg4d6,~sg4d7,~sg4d8,~sg4d9,~sg4d10,~sg4d11,~sg4d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4d1=~f1,~sg4d2=~f2,~sg4d3=~f3,~sg4d4=~f4,~sg4d5=~f5,~sg4d6=~f6,~sg4d7=~f7,~sg4d8=~f8];});
+	if([~sg4e1,~sg4e2,~sg4e3,~sg4e4,~sg4e5,~sg4e6,~sg4e7,~sg4e8,~sg4e9,~sg4e10,~sg4e11,~sg4e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4e1=~f1,~sg4e2=~f2,~sg4e3=~f3,~sg4e4=~f4,~sg4e5=~f5,~sg4e6=~f6,~sg4e7=~f7,~sg4e8=~f8];});
+	if([~sg4f1,~sg4f2,~sg4f3,~sg4f4,~sg4f5,~sg4f6,~sg4f7,~sg4f8,~sg4f9,~sg4f10,~sg4f11,~sg4f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4f1=~f1,~sg4f2=~f2,~sg4f3=~f3,~sg4f4=~f4,~sg4f5=~f5,~sg4f6=~f6,~sg4f7=~f7,~sg4f8=~f8];});
+	if([~sg4g1,~sg4g2,~sg4g3,~sg4g4,~sg4g5,~sg4g6,~sg4g7,~sg4g8,~sg4g9,~sg4g10,~sg4g11,~sg4g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4g1=~f1,~sg4g2=~f2,~sg4g3=~f3,~sg4g4=~f4,~sg4g5=~f5,~sg4g6=~f6,~sg4g7=~f7,~sg4g8=~f8];});
+	if([~sg4h1,~sg4h2,~sg4h3,~sg4h4,~sg4h5,~sg4h6,~sg4h7,~sg4h8,~sg4h9,~sg4h10,~sg4h11,~sg4h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4h1=~f1,~sg4h2=~f2,~sg4h3=~f3,~sg4h4=~f4,~sg4h5=~f5,~sg4h6=~f6,~sg4h7=~f7,~sg4h8=~f8];});
+	if([~sg5a1,~sg5a2,~sg5a3,~sg5a4,~sg5a5,~sg5a6,~sg5a7,~sg5a8,~sg5a9,~sg5a10,~sg5a11,~sg5a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5a1=~f1,~sg5a2=~f2,~sg5a3=~f3,~sg5a4=~f4,~sg5a5=~f5,~sg5a6=~f6,~sg5a7=~f7,~sg5a8=~f8];});
+	if([~sg5b1,~sg5b2,~sg5b3,~sg5b4,~sg5b5,~sg5b6,~sg5b7,~sg5b8,~sg5b9,~sg5b10,~sg5b11,~sg5b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5b1=~f1,~sg5b2=~f2,~sg5b3=~f3,~sg5b4=~f4,~sg5b5=~f5,~sg5b6=~f6,~sg5b7=~f7,~sg5b8=~f8];});
+	if([~sg5c1,~sg5c2,~sg5c3,~sg5c4,~sg5c5,~sg5c6,~sg5c7,~sg5c8,~sg5c9,~sg5c10,~sg5c11,~sg5c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5c1=~f1,~sg5c2=~f2,~sg5c3=~f3,~sg5c4=~f4,~sg5c5=~f5,~sg5c6=~f6,~sg5c7=~f7,~sg5c8=~f8];});
+	if([~sg5d1,~sg5d2,~sg5d3,~sg5d4,~sg5d5,~sg5d6,~sg5d7,~sg5d8,~sg5d9,~sg5d10,~sg5d11,~sg5d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5d1=~f1,~sg5d2=~f2,~sg5d3=~f3,~sg5d4=~f4,~sg5d5=~f5,~sg5d6=~f6,~sg5d7=~f7,~sg5d8=~f8];});
+	if([~sg5e1,~sg5e2,~sg5e3,~sg5e4,~sg5e5,~sg5e6,~sg5e7,~sg5e8,~sg5e9,~sg5e10,~sg5e11,~sg5e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5e1=~f1,~sg5e2=~f2,~sg5e3=~f3,~sg5e4=~f4,~sg5e5=~f5,~sg5e6=~f6,~sg5e7=~f7,~sg5e8=~f8];});
+	if([~sg5f1,~sg5f2,~sg5f3,~sg5f4,~sg5f5,~sg5f6,~sg5f7,~sg5f8,~sg5f9,~sg5f10,~sg5f11,~sg5f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5f1=~f1,~sg5f2=~f2,~sg5f3=~f3,~sg5f4=~f4,~sg5f5=~f5,~sg5f6=~f6,~sg5f7=~f7,~sg5f8=~f8];});
+	if([~sg5g1,~sg5g2,~sg5g3,~sg5g4,~sg5g5,~sg5g6,~sg5g7,~sg5g8,~sg5g9,~sg5g10,~sg5g11,~sg5g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5g1=~f1,~sg5g2=~f2,~sg5g3=~f3,~sg5g4=~f4,~sg5g5=~f5,~sg5g6=~f6,~sg5g7=~f7,~sg5g8=~f8];});
+	if([~sg5h1,~sg5h2,~sg5h3,~sg5h4,~sg5h5,~sg5h6,~sg5h7,~sg5h8,~sg5h9,~sg5h10,~sg5h11,~sg5h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5h1=~f1,~sg5h2=~f2,~sg5h3=~f3,~sg5h4=~f4,~sg5h5=~f5,~sg5h6=~f6,~sg5h7=~f7,~sg5h8=~f8];});
+	if([~sg6a1,~sg6a2,~sg6a3,~sg6a4,~sg6a5,~sg6a6,~sg6a7,~sg6a8,~sg6a9,~sg6a10,~sg6a11,~sg6a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6a1=~f1,~sg6a2=~f2,~sg6a3=~f3,~sg6a4=~f4,~sg6a5=~f5,~sg6a6=~f6,~sg6a7=~f7,~sg6a8=~f8];});
+	if([~sg6b1,~sg6b2,~sg6b3,~sg6b4,~sg6b5,~sg6b6,~sg6b7,~sg6b8,~sg6b9,~sg6b10,~sg6b11,~sg6b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6b1=~f1,~sg6b2=~f2,~sg6b3=~f3,~sg6b4=~f4,~sg6b5=~f5,~sg6b6=~f6,~sg6b7=~f7,~sg6b8=~f8];});
+	if([~sg6c1,~sg6c2,~sg6c3,~sg6c4,~sg6c5,~sg6c6,~sg6c7,~sg6c8,~sg6c9,~sg6c10,~sg6c11,~sg6c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6c1=~f1,~sg6c2=~f2,~sg6c3=~f3,~sg6c4=~f4,~sg6c5=~f5,~sg6c6=~f6,~sg6c7=~f7,~sg6c8=~f8];});
+	if([~sg6d1,~sg6d2,~sg6d3,~sg6d4,~sg6d5,~sg6d6,~sg6d7,~sg6d8,~sg6d9,~sg6d10,~sg6d11,~sg6d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6d1=~f1,~sg6d2=~f2,~sg6d3=~f3,~sg6d4=~f4,~sg6d5=~f5,~sg6d6=~f6,~sg6d7=~f7,~sg6d8=~f8];});
+	if([~sg6e1,~sg6e2,~sg6e3,~sg6e4,~sg6e5,~sg6e6,~sg6e7,~sg6e8,~sg6e9,~sg6e10,~sg6e11,~sg6e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6e1=~f1,~sg6e2=~f2,~sg6e3=~f3,~sg6e4=~f4,~sg6e5=~f5,~sg6e6=~f6,~sg6e7=~f7,~sg6e8=~f8];});
+	if([~sg6f1,~sg6f2,~sg6f3,~sg6f4,~sg6f5,~sg6f6,~sg6f7,~sg6f8,~sg6f9,~sg6f10,~sg6f11,~sg6f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6f1=~f1,~sg6f2=~f2,~sg6f3=~f3,~sg6f4=~f4,~sg6f5=~f5,~sg6f6=~f6,~sg6f7=~f7,~sg6f8=~f8];});
+	if([~sg6g1,~sg6g2,~sg6g3,~sg6g4,~sg6g5,~sg6g6,~sg6g7,~sg6g8,~sg6g9,~sg6g10,~sg6g11,~sg6g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6g1=~f1,~sg6g2=~f2,~sg6g3=~f3,~sg6g4=~f4,~sg6g5=~f5,~sg6g6=~f6,~sg6g7=~f7,~sg6g8=~f8];});
+	if([~sg6h1,~sg6h2,~sg6h3,~sg6h4,~sg6h5,~sg6h6,~sg6h7,~sg6h8,~sg6h9,~sg6h10,~sg6h11,~sg6h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6h1=~f1,~sg6h2=~f2,~sg6h3=~f3,~sg6h4=~f4,~sg6h5=~f5,~sg6h6=~f6,~sg6h7=~f7,~sg6h8=~f8];});
+	if([~sg7a1,~sg7a2,~sg7a3,~sg7a4,~sg7a5,~sg7a6,~sg7a7,~sg7a8,~sg7a9,~sg7a10,~sg7a11,~sg7a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7a1=~f1,~sg7a2=~f2,~sg7a3=~f3,~sg7a4=~f4,~sg7a5=~f5,~sg7a6=~f6,~sg7a7=~f7,~sg7a8=~f8];});
+	if([~sg7b1,~sg7b2,~sg7b3,~sg7b4,~sg7b5,~sg7b6,~sg7b7,~sg7b8,~sg7b9,~sg7b10,~sg7b11,~sg7b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7b1=~f1,~sg7b2=~f2,~sg7b3=~f3,~sg7b4=~f4,~sg7b5=~f5,~sg7b6=~f6,~sg7b7=~f7,~sg7b8=~f8];});
+	if([~sg7c1,~sg7c2,~sg7c3,~sg7c4,~sg7c5,~sg7c6,~sg7c7,~sg7c8,~sg7c9,~sg7c10,~sg7c11,~sg7c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7c1=~f1,~sg7c2=~f2,~sg7c3=~f3,~sg7c4=~f4,~sg7c5=~f5,~sg7c6=~f6,~sg7c7=~f7,~sg7c8=~f8];});
+	if([~sg7d1,~sg7d2,~sg7d3,~sg7d4,~sg7d5,~sg7d6,~sg7d7,~sg7d8,~sg7d9,~sg7d10,~sg7d11,~sg7d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7d1=~f1,~sg7d2=~f2,~sg7d3=~f3,~sg7d4=~f4,~sg7d5=~f5,~sg7d6=~f6,~sg7d7=~f7,~sg7d8=~f8];});
+	if([~sg7e1,~sg7e2,~sg7e3,~sg7e4,~sg7e5,~sg7e6,~sg7e7,~sg7e8,~sg7e9,~sg7e10,~sg7e11,~sg7e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7e1=~f1,~sg7e2=~f2,~sg7e3=~f3,~sg7e4=~f4,~sg7e5=~f5,~sg7e6=~f6,~sg7e7=~f7,~sg7e8=~f8];});
+	if([~sg7f1,~sg7f2,~sg7f3,~sg7f4,~sg7f5,~sg7f6,~sg7f7,~sg7f8,~sg7f9,~sg7f10,~sg7f11,~sg7f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7f1=~f1,~sg7f2=~f2,~sg7f3=~f3,~sg7f4=~f4,~sg7f5=~f5,~sg7f6=~f6,~sg7f7=~f7,~sg7f8=~f8];});
+	if([~sg7g1,~sg7g2,~sg7g3,~sg7g4,~sg7g5,~sg7g6,~sg7g7,~sg7g8,~sg7g9,~sg7g10,~sg7g11,~sg7g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7g1=~f1,~sg7g2=~f2,~sg7g3=~f3,~sg7g4=~f4,~sg7g5=~f5,~sg7g6=~f6,~sg7g7=~f7,~sg7g8=~f8];});
+	if([~sg7h1,~sg7h2,~sg7h3,~sg7h4,~sg7h5,~sg7h6,~sg7h7,~sg7h8,~sg7h9,~sg7h10,~sg7h11,~sg7h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7h1=~f1,~sg7h2=~f2,~sg7h3=~f3,~sg7h4=~f4,~sg7h5=~f5,~sg7h6=~f6,~sg7h7=~f7,~sg7h8=~f8];});
+	if([~sg8a1,~sg8a2,~sg8a3,~sg8a4,~sg8a5,~sg8a6,~sg8a7,~sg8a8,~sg8a9,~sg8a10,~sg8a11,~sg8a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8a1=~f1,~sg8a2=~f2,~sg8a3=~f3,~sg8a4=~f4,~sg8a5=~f5,~sg8a6=~f6,~sg8a7=~f7,~sg8a8=~f8];});
+	if([~sg8b1,~sg8b2,~sg8b3,~sg8b4,~sg8b5,~sg8b6,~sg8b7,~sg8b8,~sg8b9,~sg8b10,~sg8b11,~sg8b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8b1=~f1,~sg8b2=~f2,~sg8b3=~f3,~sg8b4=~f4,~sg8b5=~f5,~sg8b6=~f6,~sg8b7=~f7,~sg8b8=~f8];});
+	if([~sg8c1,~sg8c2,~sg8c3,~sg8c4,~sg8c5,~sg8c6,~sg8c7,~sg8c8,~sg8c9,~sg8c10,~sg8c11,~sg8c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8c1=~f1,~sg8c2=~f2,~sg8c3=~f3,~sg8c4=~f4,~sg8c5=~f5,~sg8c6=~f6,~sg8c7=~f7,~sg8c8=~f8];});
+	if([~sg8d1,~sg8d2,~sg8d3,~sg8d4,~sg8d5,~sg8d6,~sg8d7,~sg8d8,~sg8d9,~sg8d10,~sg8d11,~sg8d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8d1=~f1,~sg8d2=~f2,~sg8d3=~f3,~sg8d4=~f4,~sg8d5=~f5,~sg8d6=~f6,~sg8d7=~f7,~sg8d8=~f8];});
+	if([~sg8e1,~sg8e2,~sg8e3,~sg8e4,~sg8e5,~sg8e6,~sg8e7,~sg8e8,~sg8e9,~sg8e10,~sg8e11,~sg8e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8e1=~f1,~sg8e2=~f2,~sg8e3=~f3,~sg8e4=~f4,~sg8e5=~f5,~sg8e6=~f6,~sg8e7=~f7,~sg8e8=~f8];});
+	if([~sg8f1,~sg8f2,~sg8f3,~sg8f4,~sg8f5,~sg8f6,~sg8f7,~sg8f8,~sg8f9,~sg8f10,~sg8f11,~sg8f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8f1=~f1,~sg8f2=~f2,~sg8f3=~f3,~sg8f4=~f4,~sg8f5=~f5,~sg8f6=~f6,~sg8f7=~f7,~sg8f8=~f8];});
+	if([~sg8g1,~sg8g2,~sg8g3,~sg8g4,~sg8g5,~sg8g6,~sg8g7,~sg8g8,~sg8g9,~sg8g10,~sg8g11,~sg8g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8g1=~f1,~sg8g2=~f2,~sg8g3=~f3,~sg8g4=~f4,~sg8g5=~f5,~sg8g6=~f6,~sg8g7=~f7,~sg8g8=~f8];});
+	if([~sg8h1,~sg8h2,~sg8h3,~sg8h4,~sg8h5,~sg8h6,~sg8h7,~sg8h8,~sg8h9,~sg8h10,~sg8h11,~sg8h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8h1=~f1,~sg8h2=~f2,~sg8h3=~f3,~sg8h4=~f4,~sg8h5=~f5,~sg8h6=~f6,~sg8h7=~f7,~sg8h8=~f8];});
+
+
+	//synthdefs
+
 	~gsine1 = {
 		SynthDef(\gsineicfld1, {arg graindur = 0.04, dur = 2000, atk = 0.007, rel = 0.01, gate = 1, amp = 1, i = 1, vol = ~vol, rate = 20, tune = 0,dseqval,
 			a, b, c, d, e, f, pan=0, fc = 1;
@@ -384,6 +390,9 @@ s.waitForBoot({
 
 	};
 
+
+	//starting values for synthdefs
+
 	if((~gsinenum == nil) and: (~synthdef != "gsineicld"), {
 		(
 			if(~basefreq == nil, {~basefreq = ~base_frequency});
@@ -422,11 +431,9 @@ s.waitForBoot({
 	});
 
 
+	//generaate GUI window
 
-	//gui
 	w = Window("Timewave Synth", Rect(0,0,Window.screenBounds.width,Window.screenBounds.height), border:true);
-
-
 
 	view = UserView(w, Window.screenBounds);
 	view.clearOnRefresh = false;
@@ -502,6 +509,9 @@ s.waitForBoot({
 	*/
 
 	~dc1 = ~tgrid-5; ~dc2 = ~bgrid-5; ~dca = 10;
+
+
+	//synth functions (open, flow, slide, pause, free)
 
 	~synthopen = {
 		case
@@ -1161,6 +1171,9 @@ s.waitForBoot({
 		);
 	};
 
+
+	//timer values
+
 	case
 	{~slot1 == nil}{""}
 	{~slot2 == nil}{""}
@@ -1205,6 +1218,9 @@ s.waitForBoot({
 		~tst.stringColor = Color.white;
 	)};
 
+
+	//monitoring number of synths function
+
 	~numsynthsfunc = {
 		if((~numsynths != nil) or: (~numsynths.isPlaying == true), {~numsynths.stop;});
 		~numsynths = Routine({inf.do({if((s.numSynths > 49) and: (3.wait; s.numSynths > 49) and: (6.wait; s.numSynths > 49), {
@@ -1225,10 +1241,15 @@ s.waitForBoot({
 
 	~numsynthsfunc.value;
 
+
+	//mouse down action
+
 	view.mouseDownAction = {
 		|v, x, y, mod, butNum|
 		point = [x,y];
 		if(butNum == 0, { v.refresh;
+
+			//generate dots on mouse down action
 
 			~tgrid = 30;
 			~bgrid = Window.screenBounds.height-(Window.screenBounds.height/1.6180339887499)+30;
@@ -1256,6 +1277,8 @@ s.waitForBoot({
 
 		~tgrid = 30;
 		~bgrid = Window.screenBounds.height-(Window.screenBounds.height/1.6180339887499)+30;
+
+		//set synth values on mouse down action
 
 		case
 		{~l1a.isRunning == true}{
@@ -1494,12 +1517,16 @@ s.waitForBoot({
 		};
 	};
 
-	//draw lines with Pen and create Synths according to mouse movement
+
+	//mouse move action
+
 	view.mouseMoveAction = {
 		|v, x, y|
 
 		~nh = 2;
 		~nw = ~nh*1.6180339887499;
+
+		//generate dots on mouse move action
 
 		~tgrid = 30;
 		~bgrid = Window.screenBounds.height-(Window.screenBounds.height/1.6180339887499)+30;
@@ -1527,6 +1554,8 @@ s.waitForBoot({
 
 		~tgrid = 30;
 		~bgrid = Window.screenBounds.height-(Window.screenBounds.height/1.6180339887499)+30;
+
+		//set synth values on mouse move action
 
 		case
 		{~l1a.isRunning == true}{
@@ -1774,6 +1803,9 @@ s.waitForBoot({
 	~bph = 40;
 	~bpw = 40/1.6180339887499;
 
+
+	//copy button
+
 	b = Button.new(w,Rect(Window.screenBounds.width*0+80,Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["copy",Color.white,Color.black],["copy",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 		if(button.value == 1, {
 
@@ -1957,6 +1989,10 @@ s.waitForBoot({
 			[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7/*,~f8,~f9,~f10,~f11,~f12*/ ].postln;},
 			{~tsc.close;});
 	});
+
+
+	//stop timer button
+
 	sts = Button.new(w,Rect(Window.screenBounds.width-20-20-20-20,~bpt+69+5,20,20/1.6180339887499)).states_([["st",Color.white,Color.black],["st",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 		if(~timer.isPlaying == true, {
 			if(~tst.value == nil, {~timer.stop; ~systemclock.stop; ~systemclock.clear;},{~tst.close;
@@ -1964,10 +2000,18 @@ s.waitForBoot({
 				~timer.stop; ~systemclock.stop; ~systemclock.clear;});
 		});
 	});
+
+
+	//timer button
+
 	~ts = Button.new(w,Rect(Window.screenBounds.width*0+20,Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["tsynth0",Color.white,Color.black],["tsynth1",Color.white,Color.black]]).action_({arg synthbutton; synthbutton.value.postln}).action_({arg synthbutton; if(synthbutton.value == 1, {
 		if(~tst != nil, {~tst.close});
 		~timevals.value;
 		~timer.stop; ~systemclock.stop; ~systemclock.clear;},{if(~tst.value == nil, {~timer.stop; ~systemclock.stop; ~systemclock.clear;},{~timer.stop; ~systemclock.stop; ~systemclock.clear; ~tst.close;})})});
+
+
+	//start/stop synth button
+
 	b3 = Button.new(w,Rect(Window.screenBounds.width*0+20,Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["synth0",Color.white,Color.black],["synth1",Color.white,Color.black]]).action_({arg synthbutton; synthbutton.value.postln}).action_({
 		arg synthbutton; if(synthbutton.value == 1, {
 			~l1a = Synth(\gsineicfld, [\dur, 432]).register;~l1a1 = Synth(\gsineicfld, [\dur, 432]).register;[~l1a, ~l1a1].do(_.free);~l1a = Synth(\gsineicfld, [\dur, 432]).register;~l1a1 = Synth(\gsineicfld, [\dur, 432]).register;[~l1a, ~l1a1].do(_.free);
@@ -1977,10 +2021,17 @@ s.waitForBoot({
 			},
 			{~synthfree.value; b4.value = 0;})
 	});
+
+
+	//pause/unpause button
+
 	b4 = Button.new(w,Rect(Window.screenBounds.width*0+80,Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["pause0",Color.white,Color.black],["pause1",Color.white,Color.black]]).action_({arg synthbutton; synthbutton.value.postln}).action_({
 		arg synthbutton; if(synthbutton.value == 1, {~synthpause.value; ~timer.stop;},
 			{~synthflow.value; if(~time == 0, {~timer.stop;}, {~timer = Routine({inf.do({~time = ~time+0.01; ~time.postln; 0.01.wait;});}); SystemClock.play(~timer);})})
 	});
+
+
+	//open/flow/slide buttons coordinate values
 
 	~bph = 26;
 	~bpw = 26/1.6180339887499;
@@ -2091,6 +2142,9 @@ s.waitForBoot({
 	~tsph=280+210/~gm;
 	~tspl=Window.screenBounds.width-~tspw;
 	~tspt=~bpt-310;
+
+
+	//synthopen 1-8 buttons
 
 	~bplaceo1 = Button.new(w,Rect(~bp01l,~bp01t,~bp01h,~bp01w)).states_([["o1",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
@@ -2224,6 +2278,10 @@ s.waitForBoot({
 					~time8o+0.01; ~slot = "o8_"+~time8o.asString; 0.01.wait;});}); ~systemclock = SystemClock.play(~timer);},
 			{nil});
 	});
+
+
+	//synthflow 1-8 buttons
+
 	~bplacef1 = Button.new(w,Rect(~bpf1l,~bpf1t,~bpf1h,~bpf1w)).states_([["f1",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		[~f1=fp1,~f2=fp2,~f3=fp3,~f4=fp4,~f5=fp5,~f6=fp6,~f7=fp7,~f8=fp8];
@@ -2357,6 +2415,10 @@ s.waitForBoot({
 					~time8f+0.01; ~slot = "f8_"+~time8f.asString; 0.01.wait;});}); ~systemclock = SystemClock.play(~timer);},
 			{nil});
 	});
+
+
+	//synthslide 1-8 buttons
+
 	~bplaces1 = Button.new(w,Rect(~bpf1l,~bpf1t+~bpf1w,~bpf1h,~bpf1w)).states_([["s1",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		if(~slidetime1 == nil, {~slidetime1 = 4}); if(~slidedo1 == nil, {~slidedo1 = 2000;}); ~slidecount = ~slidedo1;
@@ -2538,6 +2600,9 @@ s.waitForBoot({
 			{nil});
 	});
 
+
+	//if slidetime/slidedo is nil
+
 	if(~slidetimeall == nil, {~slidetimeall = 1});
 	if(~slidetime1 == nil, {~slidetime1 = 1});
 	if(~slidetime2 == nil, {~slidetime2 = 1});
@@ -2558,6 +2623,8 @@ s.waitForBoot({
 	if(~slidedo7 == nil, {~slidedo7 = 432});
 	if(~slidedo8 == nil, {~slidedo8 = 432});
 
+
+	//set slide values button
 
 	~slidevals = Button.new(w,Rect(Window.screenBounds.width-20-20-20,~bpt+69+5,20,20/1.6180339887499)).states_([["s",Color.white,Color.black],["s",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
@@ -2669,6 +2736,9 @@ s.waitForBoot({
 			~slideview.front;
 		}, {~slideview.close});
 	});
+
+
+	//mute/unmute 1-8 buttons
 
 	mute1 = Button.new(w,Rect(~bpl+(16*1),~bpt+69+5,16,16/1.6180339887499)).states_([["1",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 		case
@@ -2985,6 +3055,9 @@ s.waitForBoot({
 		};
 	});
 
+
+	//mute/unmute all button
+
 	muteall = Button.new(w,Rect(~bpl+(0),~bpt+69+5,16,16/1.6180339887499)).states_([["m",Color.white,Color.black],["u",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		if(button.value == 0, {
@@ -3054,8 +3127,16 @@ s.waitForBoot({
 	if(~menu1nvalstart.value == nil, {~menu1nvalstart = ~ngm6}, {~menu1nvalstart = ~menu1nval});
 	menu1=PopUpMenu(w,Rect(20+60*2+16+(60*2),Window.screenBounds.height-88+(30/1.6180339887499*0),60*2,60/1.6180339887499)).items_(~mvalue = (-1); [~menu1start.asString]++Array.fill(4, {~menu1values.at(~mvalue = ~mvalue+1);});).background_(Color.black).stringColor_(Color.white);
 	*/
+
+
+	//generate values for KW(King Wen) sequences per timewave instance pop-up menu
+
 	x=0;
 	~menu2values = Array.fill(20, {(x=x+1).asString++" kws/inst"});
+
+
+	//KW(King Wen) sequences per timewave instance upon starting value
+
 	case
 	{~gsinenum == nil}{~menu2start = ~menu2values.at(~synthdefnum-1)}
 	{~gsinenum == 1}{~menu2start = ~menu2values.at(0)}
@@ -3075,7 +3156,20 @@ s.waitForBoot({
 	{~gsinenum == 15}{~menu2start = ~menu2values.at(14)}
 	{~gsinenum == 16}{~menu2start = ~menu2values.at(15)};
 	if(~menu2synthdefstart.value == nil, {~menu2synthdefstart = ~synthdefnum}, {~menu2synthdefstart = ~gsinenum});
+
+
+	//KW(King Wen) sequences per timewave instance pop-up menu
+
 	menu2=PopUpMenu(w,Rect(20+60*2+16,Window.screenBounds.height-52+(30/1.6180339887499*0),60*2,60/1.6180339887499)).items_(~mvalue = (-1); [~menu2start.asString]++Array.fill(16, {~menu2values.at(~mvalue = ~mvalue+1);});).background_(Color.black).stringColor_(Color.white);
+
+
+	//pop-menu for base frequency
+
+	~bfreqstart = ~basefreq;
+	~bfreq = PopUpMenu(w, Rect(20+60*2+16,Window.screenBounds.height-88+(30/1.6180339887499*0),120,60/1.6180339887499)).items_(~bfreqv = (-1); [~basefreq.asString++" hz"]++Array.fill(128, {~freqmap.at(~bfreqv=~bfreqv+1).asString++" hz"})).background_(Color.black).stringColor_(Color.white).action_({arg button;});
+
+
+	//set button for KW sequences per timewave instance, basefreq, and gsine
 
 	set1=Button(w,Rect(20+60*2+16+120, Window.screenBounds.height-52+(16/1.6180339887499*0),60,60/1.6180339887499)).states_([["set",Color.white,Color.black]]).mouseDownAction_({
 
@@ -3123,9 +3217,16 @@ s.waitForBoot({
 	.action_({
 	});
 
+
+	//midi Korg NanoKontrol function
+
 	~midifunc = {
 		~snb = 0;
 		/*~etemp = EqualTemperament(12, calibratefreq: 432, calibratenote: 69);*/
+
+
+		//midi set frequency
+
 		MIDIFunc.cc({if(~snb == 0, {~snb = 1},{~snb = 0});}, ccNum: 60);
 		MIDIdef.cc('l1', { |val|
 			case
@@ -3299,6 +3400,9 @@ s.waitForBoot({
 			}.defer;
 		}, ccNum: 7);
 
+
+		//if midi tuning frequency values are nil
+
 		if(~f1t == nil, {~f1t = 0});
 		if(~f2t == nil, {~f2t = 0});
 		if(~f3t == nil, {~f3t = 0});
@@ -3307,6 +3411,9 @@ s.waitForBoot({
 		if(~f6t == nil, {~f6t = 0});
 		if(~f7t == nil, {~f7t = 0});
 		if(~f8t == nil, {~f8t = 0});
+
+
+		//midi set tuning frequency
 
 		MIDIFunc.cc({|val|
 			~f1 = ~f1-~f1t;
@@ -3493,10 +3600,20 @@ s.waitForBoot({
 			}.defer;
 		}, ccNum: 23);
 
+
+		//Korg NanoKontrol button assignments
+
+
+		//start/stop synth and pause/unpause synth buttons
+
 		MIDIFunc.cc({|val| {case{b3.value == 0}{b3.valueAction = 1};}.defer;}, ccNum: 41);
 		MIDIFunc.cc({|val| {case{b3.value == 1}{b3.valueAction = 0};}.defer;}, ccNum: 42);
 		MIDIFunc.cc({|val| {case{b4.value == 0}{b4.valueAction = 1};}.defer;}, ccNum: 43);
 		MIDIFunc.cc({|val| {case{b4.value == 1}{b4.valueAction = 0};}.defer;}, ccNum: 44);
+
+
+		//open/flow/slide buttons (inactive)
+
 		/*MIDIFunc.cc({|val| {~bplaceo1.valueAction=0}.defer;}, ccNum: 32);
 		MIDIFunc.cc({|val| {~bplaceo2.valueAction=0}.defer;}, ccNum: 33);
 		MIDIFunc.cc({|val| {~bplaceo3.valueAction=0}.defer;}, ccNum: 34);
@@ -3521,7 +3638,12 @@ s.waitForBoot({
 		MIDIFunc.cc({|val| {~bplaces6.valueAction=0}.defer;}, ccNum: 69);
 		MIDIFunc.cc({|val| {~bplaces7.valueAction=0}.defer;}, ccNum: 70);
 		MIDIFunc.cc({|val| {~bplaces8.valueAction=0}.defer;}, ccNum: 71);
-		*/  MIDIFunc.cc({|val| {mute1.valueAction = 1;}.defer;}, ccNum: 48);
+		*/
+
+
+		//mute/unmute buttons
+
+		MIDIFunc.cc({|val| {mute1.valueAction = 1;}.defer;}, ccNum: 48);
 		MIDIFunc.cc({|val| {mute2.valueAction = 1;}.defer;}, ccNum: 49);
 		MIDIFunc.cc({|val| {mute3.valueAction = 1;}.defer;}, ccNum: 50);
 		MIDIFunc.cc({|val| {mute4.valueAction = 1;}.defer;}, ccNum: 51);
@@ -3545,11 +3667,18 @@ s.waitForBoot({
 		/*MIDIFunc.cc({ |val| ([(~w),(~x),(~y),(~z),(~u),(~v),~r,~s]).postln;}, ccNum: [64]);*/
 		/*~basefreq= 432.cpsmidi-69;*/
 		/*Spec.add(\dur, ~etemp.cps([0, 127, \exp]));*/
+
 		Spec.add(\dur, ([~freqmap.at(0), ~freqmap.at(127), \exp]));
 		/*Spec.add(\tune, ([0, 128, \lin]));*/
 	};
 
+
+	//evaluate midi function
+
 	~midifunc.value;
+
+
+	//keyboard number buttons to choose synth
 
 	keycodeb = Button.new(w,Rect(Window.screenBounds.width-20-16,~bpt+160,16,16/1.6180339887499)).states_([
 		["1",Color.white,Color.black],
@@ -3645,51 +3774,65 @@ s.waitForBoot({
 
 	});
 
+
+	//misc. keyboard buttons
+
 	w.view.keyDownAction = { arg view, char, modifiers, unicode, keycode;
 		[char, modifiers, unicode, keycode];
 
+		//copy
 		if(unicode == ~c_unicode, {
 			case
 			{b.value == 0}{b.valueAction = 1}
 			{b.value == 1}{b.valueAction = 0};
 		});
+
+		//start/stop synth
 		if(unicode == ~s_unicode, {
 			case
 			{b3.value == 0}{b3.valueAction = 1}
 			{b3.value == 1}{b3.valueAction = 0};
 		});
+
+		//pause/unpause synth
 		if(unicode == ~spacebar_unicode, {
 			case
 			{b4.value == 0}{b4.valueAction = 1}
 			{b4.value == 1}{b4.valueAction = 0};
 		});
+
+		//timer function
 		if(unicode == ~t_unicode, {
 			case
 			{~ts.value == 0}{~ts.valueAction = 1}
 			{~ts.value == 1}{~ts.valueAction = 0};
 		});
+
+		//routine function
 		if(unicode == ~r_unicode, {
 			case
 			{~rviewbutton.value == 0}{~rviewbutton.valueAction = 1}
 			{~rviewbutton.value == 1}{~rviewbutton.valueAction = 0};
 		});
-		if(unicode == ~u_unicode, {
-			case
-			{unmuteall.value == 0}{unmuteall.valueAction = 1}
-			{unmuteall.value == 1}{unmuteall.valueAction = 0};
-		});
+
+		//mute/unmute all synths
 		if(unicode == ~m_unicode, {
 			case
 			{muteall.value == 0}{muteall.valueAction = 1}
 			{muteall.value == 1}{muteall.valueAction = 0};
 		});
 
+		//minimize GUI window
 		if(unicode == ~escape_unicode, {w.minimize;});
 
 		/*~bfreqv = ~freqmap.at(34);
 		if((~bfreq.value == 1) and: ((keycode == ~leftarrow_keycode) or: (unicode == ~j_unicode)), {~bfreqtext.string = ~freqmap.at(~bfreqv = ~bfreqv-1).asString;}, {nil});
 		if((~bfreq.value == 1) and: ((keycode == ~rightarrow_keycode) or: (unicode == ~l_unicode)), {~bfreqtext.string = ~freqmap.at(~bfreqv = ~bfreqv+1).asString;}, {nil});
 		*/
+
+
+		//keyboard number actions
+
 		case
 		{unicode == ~one_unicode}{keycodeb.valueAction_(0)}
 		{unicode == ~two_unicode}{keycodeb.valueAction_(1)}
@@ -3699,8 +3842,15 @@ s.waitForBoot({
 		{unicode == ~six_unicode}{keycodeb.valueAction_(5)}
 		{unicode == ~seven_unicode}{keycodeb.valueAction_(6)}
 		{unicode == ~eight_unicode}{keycodeb.valueAction_(7)}
+
+
+		//keyboard up/down arrow actions
+
 		{(keycode == ~uparrow_keycode) or: (unicode == ~i_unicode)}{keycodeb.valueAction_(keycodeb.value-1)}
 		{(keycode == ~downarrow_keycode) or: (unicode == ~k_unicode)}{keycodeb.valueAction_(keycodeb.value+1)};
+
+
+		//set synth frequency using left/right arrow keys or j/l keys
 
 		if((~f1 >= ~freqmap.at(127)), {~freqmap.at(127)},
 			{if((keycodeb.value == 0) and: ((keycode == ~rightarrow_keycode) or: (unicode == ~l_unicode)), {
@@ -4201,6 +4351,9 @@ s.waitForBoot({
 
 	};
 
+
+	//if routine function values are nil
+
 	if(~rslot1a == nil, {~rslot1a = ~bplaceo1;}); if(~rslot1b == nil, {~rslot1b = ~bplacef1;});
 	if(~rslot2 == nil, {~rslot2 = ~bplacef2;});
 	if(~rslot3 == nil, {~rslot3 = ~bplacef3;});
@@ -4227,6 +4380,9 @@ s.waitForBoot({
 	if(~rdo6 == nil, {~rdo6 = "f6";});
 	if(~rdo7 == nil, {~rdo7 = "f7";});
 	if(~rdo8 == nil, {~rdo8 = "f8";});
+
+
+	//misc. routine button functions (see below)
 
 	~si1aset = {
 		if(~si1a.value == "o1", {~rslot1a = ~bplaceo1; ~rdo1a = ~si1a.value;});
@@ -4475,6 +4631,9 @@ s.waitForBoot({
 	if([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h = [0,0,0,0,0,0,0,0,0,0,0,0];});
 	*/
 
+
+	//routine function button
+
 	~rviewbutton = Button.new(w,Rect(Window.screenBounds.width-20-20,~bpt+69+5-(20/~gm),20,20/1.6180339887499)).states_([["r",Color.white,Color.black],["r",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		if(button.value == 1, {
@@ -4643,6 +4802,9 @@ s.waitForBoot({
 		}, {~rview.close});
 	});
 
+
+	//synth identifier function
+
 	~synthmonitor = StaticText(w, Rect(Window.screenBounds.width-14,~bpt+49,18,18/1.6180339887499)).background_(Color.black).stringColor_(Color.white);
 	~synthmonitor.string = if(~currentsynth == nil, {"nil".asString});
 
@@ -4655,13 +4817,16 @@ s.waitForBoot({
 
 	~synthmonitorfunc.value;
 
+
+	//information button
+
 	info = Button.new(w,Rect(Window.screenBounds.width-20-20,~bpt+69+5,20,20/1.6180339887499)).states_([["i",Color.white,Color.black],["i",Color.white,Color.black]]).action_({arg button;
 
 		if(button.value == 1, {
 			~hb = TextView(w, Rect(0,0, Window.screenBounds.width, Window.screenBounds.height-200)).background_(Color.black);
 			(~hb.string =
 				"(scroll down to see more)"++"\n"++"\n"++"\n"++
-				"ctrl/cmd-period: stop synth"++"\n"++"\n"++"\n"++
+				"ctrl/cmd-period: stop synth/free server"++"\n"++"\n"++"\n"++
 				"GUI Buttons"++"\n"++"\n"++"\n"++
 				"synth0/synth1: start/stop synth set"++"\n"++"\n"++
 				"pause0/pause1: pause/unpause synth set"++"\n"++"\n"++
@@ -4709,6 +4874,9 @@ s.waitForBoot({
 			{~hb.close;});
 	});
 
+
+	//random notes button 1
+
 	~randombutton1 = Button.new(w,Rect(Window.screenBounds.width-20-20-20-20,~bpt+69+5-(20/~gm),20,20/1.6180339887499)).states_([["rw",Color.white,Color.black]]).action_({arg button;
 
 		if((~l1a.isRunning == true) or: (~l1a1.isRunning == true), {
@@ -4717,6 +4885,9 @@ s.waitForBoot({
 		});
 	});
 
+
+	//random notes button 2
+
 	~randombutton2 = Button.new(w,Rect(Window.screenBounds.width-20-20-20,~bpt+69+5-(20/~gm),20,20/1.6180339887499)).states_([["re",Color.white,Color.black]]).action_({arg button;
 
 		if((~l1a.isRunning == true) or: (~l1a1.isRunning == true), {
@@ -4724,6 +4895,9 @@ s.waitForBoot({
 			~synthflow.value;
 		});
 	});
+
+
+	//setgroup buttons, sg1-sg8
 
 	~setgroup1 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(20*4),~bpt+69+5,20,20/1.6180339887499)).states_([["g1",Color.white,Color.black],["s1",Color.green,Color.black]]).action_({arg button;
 
@@ -4910,6 +5084,9 @@ s.waitForBoot({
 		});
 	});
 
+
+	//if setgroup values are nil
+
 	if(~setgroupval == nil, {~setgroup1.value = 1;});
 	if(~setgroupval == 1, {~setgroup1.value = 1;});
 	if(~setgroupval == 2, {~setgroup2.value = 1;});
@@ -4919,6 +5096,9 @@ s.waitForBoot({
 	if(~setgroupval == 6, {~setgroup6.value = 1;});
 	if(~setgroupval == 7, {~setgroup7.value = 1;});
 	if(~setgroupval == 8, {~setgroup8.value = 1;});
+
+
+	//save chord notes buttons, s1-s8
 
 	n1 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*2),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s1",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1=fp1;~r2=fp2;~r3=fp3;~r4=fp4;~r5=fp5;~r6=fp6;~r7=fp7;~r8=fp8;~r9=fp9;~r10=fp10;~r11=fp11;~r12=fp12; #fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12/*,fp13,fp14,fp15,fp16,fp17,fp18,fp19,fp20,fp21,fp22,fp23,fp24*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1=~f1;~u2=~f2;~u3=~f3;~u4=~f4;~u5=~f5;~u6=~f6;~u7=~f7;~u8=~f8;~u9=~f9;~u10=~f10;~u11=~f11;~u12=~f12; ~si1aset.value;~si1bset.value;
 
@@ -5082,7 +5262,13 @@ s.waitForBoot({
 		n8.states_([["s8",Color.green,Color.black]]);
 	});});
 
+
+	//undo saved chord pop-up menu
+
 	~undo = PopUpMenu(w, Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+39,Window.screenBounds.height-52+19.777087639995-(40/1.6180339887499)-8,40,40/1.6180339887499)).items_(["uc","u1","u2","u3","u4","u5","u6","u7","u8"]).background_(Color.black).stringColor_(Color.white).action_({arg button;});
+
+
+	//set button for undo pop-up menu
 
 	set2 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+40+39,Window.screenBounds.height-52+19.777087639995-(40/1.6180339887499)-8,40,40/1.6180339887499)).states_([["set",Color.white,Color.black]]).action_({arg button;
 		case
@@ -5113,8 +5299,8 @@ s.waitForBoot({
 	set2 = Button(w,Rect(20+60*2+16+140,Window.screenBounds.height-88+(16/1.6180339887499*0),60,60/1.6180339887499)).states_([["set",Color.white,Color.black]]).mouseDownAction_({
 	*/
 
-	~bfreqstart = ~basefreq;
-	~bfreq = PopUpMenu(w, Rect(20+60*2+16,Window.screenBounds.height-88+(30/1.6180339887499*0),120,60/1.6180339887499)).items_(~bfreqv = (-1); [~basefreq.asString++" hz"]++Array.fill(128, {~freqmap.at(~bfreqv=~bfreqv+1).asString++" hz"})).background_(Color.black).stringColor_(Color.white).action_({arg button;});
+
+	//gsine pop-up menu
 
 	if(~gsine == nil, {~gsine = ~gsine1});
 
@@ -5130,9 +5316,18 @@ s.waitForBoot({
 	{~gsine == ~gsine1}{~gsinemenu.value = 0;}
 	{~gsine == ~gsine2}{~gsinemenu.value = 1;};
 
+
+	//start record button
+
 	~startrecord = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+39,Window.screenBounds.height-52+19.777087639995,28,28/1.6180339887499)).states_([["rc",Color.white,Color.black],["rc",Color.black,Color.red]]).action_({arg button; Server.default.record; ~numsynths.stop; if(button.value == 0, {button.value = 1});});
 
+
+	//pause record button
+
 	~pauserecord = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+28+39,Window.screenBounds.height-52+19.777087639995,28,28/1.6180339887499)).states_([["prc",Color.white,Color.black],["/prc",Color.black,Color.blue]]).action_({arg button; if(button == 1, {Server.default.pauseRecording;}, {Server.default.record});});
+
+
+	//stop record button
 
 	~stoprecord = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+28+28+39,Window.screenBounds.height-52+19.777087639995,28,28/1.6180339887499)).states_([["/rc",Color.white,Color.black]]).action_({arg button; Server.default.stopRecording; ~startrecord.value = 0; ~pauserecord.value = 0; ~numsynths.stop; ~numsynths.play;});
 
@@ -5142,7 +5337,14 @@ s.waitForBoot({
 	/*~freeserver = Button.new(w,Rect(Window.screenBounds.width-20-20-20,~bpt+75,20,20/1.6180339887499)).states_([["fs",Color.white,Color.black]]).action_({arg button;
 	~synthfree.value; Server.freeAll;
 	});*/
+
+
+	//minimize GUI window button
+
 	~min = Button.new(w,Rect(Window.screenBounds.width-20,~bpt+69+5-(20/1.6180339887499),20,20/1.6180339887499)).states_([["m",Color.white,Color.black]]).action_({arg button; w.minimize;});
+
+
+	//close GUI window button
 
 	~close = Button.new(w,Rect(Window.screenBounds.width-20,~bpt+69+5,20,20/1.6180339887499)).states_([["c",Color.white,Color.black]]).action_({arg button;
 
