@@ -4,7 +4,8 @@
 3. Hit "Ctrl/Cmd - Enter" anywhere inside the "TASK" parenthesis above the "START RECORDING;" line...
 The record file location will be found in the post window...
 Leave out #2 to run the script without recording...
-Important Note: You must load the Timewave Synthesizer program and press the "synth0" button at least once before this script can run.*/
+Important Note: You must load the Timewave Synthesizer program and press the "synth0" button at least once before this script can run.
+Press "Ctrl/Cmd - Period" to stop synth/free the sever. */
 
 ((//3 - TASK
 	t = Task({~st = 0; ~trace = {("event-"++(~st = ~st + 1).asString).postln;};
