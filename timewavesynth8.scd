@@ -4880,7 +4880,7 @@ s.waitForBoot({
 	~randombutton1 = Button.new(w,Rect(Window.screenBounds.width-20-20-20-20,~bpt+69+5-(20/~gm),20,20/1.6180339887499)).states_([["rw",Color.white,Color.black]]).action_({arg button;
 
 		if((~l1a.isRunning == true) or: (~l1a1.isRunning == true), {
-			8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~freqmap.at(91.rand);)});
+			8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~freqmap.at(rrand(36, 91));)});
 			~synthflow.value;
 		});
 	});
