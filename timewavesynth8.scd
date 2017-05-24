@@ -425,7 +425,9 @@ s.waitForBoot({
 	view.clearOnRefresh = false;
 	view.background = Color.black;
 
-	/*~b1 = Window.screenBounds.width/(12*4) /*25.462962962963*/; ~btu = 31; ~btd = 340; ~bw = 0.5; ~bh = 70; ~bcolor = Color.grey;
+	//vertical grid (inactive)
+
+	/*~b1 = Window.screenBounds.width/(12*4) /*25.462962962963*/; ~btu = 31; ~btd = 375; ~bw = 0.5; ~bh = 80; ~bcolor = Color.grey;
 	CompositeView(w, Rect(~b1, ~btu, ~bw, ~bh)).background = ~bcolor;
 	CompositeView(w, Rect(~b1, ~btd, ~bw, ~bh)).background = ~bcolor;
 	54.do({CompositeView(w, Rect(~b1 = ~b1+(Window.screenBounds.width/(12*4)), ~btu, ~bw, ~bh)).background = ~bcolor;});
@@ -439,6 +441,8 @@ s.waitForBoot({
 	~bgrid = Window.screenBounds.height-(Window.screenBounds.height/1.6180339887499)+30;
 
 	~dc1 = ~tgrid-5; ~dc2 = ~bgrid-5; ~dca = 10;
+
+	//horizontal grid
 
 	9.do(x=~tgrid-10; {CompositeView(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
 	9.do(x=~bgrid-10; {CompositeView(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
