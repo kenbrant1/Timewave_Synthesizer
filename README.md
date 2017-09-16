@@ -1,5 +1,5 @@
 # Timewave Synthesizer
-This synthesizer is derived from and based upon Terence McKenna's Timewave Zero theory. His theory is that time is a complex wave, and the King Wen sequence of the I Ching is a 64 hexagram model from which this complex wave is derived. This theory is the basis for the well-known novelty computer program he and others had developed. 
+This synthesizer is derived from and based upon Terence McKenna's Timewave Zero theory. His theory posits that the structure of time is a complex wave, and the King Wen sequence of the I Ching is the 64 hexagram code from which the waveform of time is derived; that the King Wen sequence maps the linear progression of the human states of mind, which ultimately substantiates this waveform. This theory is the basis for the well-known novelty computer program he and others had developed.
 
 How to run:
 
