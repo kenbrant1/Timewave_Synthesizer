@@ -12,7 +12,7 @@ Press "Ctrl/Cmd - Period" to stop synth/free the sever. */
 		1.do({
 
 			//duration of each chord
-			a = 32;
+			a = 38.832815729998;
 
 			//copy and paste "saved" chords from the "copy" button inside the synthesizer program here:
 			//choose to change each duration individually by changing the "a" variable in the code below this line, as well as "synthopen/synthflow"
