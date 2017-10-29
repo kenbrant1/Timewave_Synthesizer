@@ -12,5 +12,5 @@ How to run:
 - The Timewave Synthesizer website - http://timewavesynth.byethost14.com/timewavesynth.html
 
 
-[Example Piece Using Timewave Synthesizer](https://www.youtube.com/watch?v=lWIbzwakj5U)
+[Example Piece Using Timewave Synthesizer](https://www.youtube.com/watch?v=Nl_1iM6vb7I)
 
