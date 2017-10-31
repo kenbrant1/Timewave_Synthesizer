@@ -72,8 +72,8 @@ s.waitForBoot({
 
 	if(~low_pass_filter_on == nil, {~low_pass_filter_on = 1}); //set starting low-pass filter on/off. 1 means on - switch to 0 for off.
 
-	~low_pass_filter_freq_limit = 1500 * 1.6180339887499; //frequency limit for low-pass filter in synthdefs. default is (1500 * 1.6180339887499 or 2427.0509831249).
-
+	if(~low_pass_filter_set_value == nil, {~low_pass_filter_freq_limit = 1364.0007331375 * 1.6180339887499; //frequency limit for low-pass filter in synthdefs. default is (1500 * 1.6180339887499 or 2427.0509831249).
+	});
 
 	//volume
 
@@ -461,9 +461,9 @@ s.waitForBoot({
 	};
 
 
-	//starting values for synthdefs
+	//set base (lowest) frequencies, set starting values for synthdef, and load synthdef on server boot
 
-	if((~gsinenum == nil) and: (~synthdef != "gsineicld"), {
+	if((~gsinenum == nil) or: (~synthdef != "gsineicld"), {
 		(
 			if(~basefreq == nil, {~basefreq = ~base_frequency});
 			~fmult = 16;
@@ -472,12 +472,12 @@ s.waitForBoot({
 
 			~synthdef = "gsineicld"; ~gsinenum = ~synthdefnum;
 
-			if(~gsine == nil, {~gsine.value;});
+			~gsine.value;
 		);
 	});
 
 
-	//generaate GUI window
+	//generate GUI window
 
 	w = Window("Timewave Synth", Rect(0,0,Window.screenBounds.width,Window.screenBounds.height), border:true);
 
@@ -1696,13 +1696,13 @@ s.waitForBoot({
 	});
 
 
-	//generate values for KW(King Wen) sequences in a timewave half-cycle (or amplitude x2) pop-up menu
+	//generate values for number of KW(King Wen) sequences in a timewave half-cycle (or amplitude x2) pop-up menu
 
 	x=0;
 	~menu2values = Array.fill(24, {(x=x+1).asString++" kws"});
 
 
-	//KW(King Wen) sequences in a timewave half-cycle (or amplitude x2) upon starting value
+	//number of KW(King Wen) sequences in a timewave half-cycle (or amplitude x2) upon starting value
 
 	case
 	{~gsinenum == nil}{~menu2start = ~menu2values.at(~synthdefnum-1)}
@@ -1733,15 +1733,29 @@ s.waitForBoot({
 	if(~menu2synthdefstart.value == nil, {~menu2synthdefstart = ~synthdefnum}, {~menu2synthdefstart = ~gsinenum});
 
 
-	//KW(King Wen) sequences in a timewave half-cycle (or amplitude x2) pop-up menu
+	//number of KW(King Wen) sequences in a timewave half-cycle (or amplitude x2) pop-up menu
 
-	menu2=PopUpMenu(w,Rect(20+60*2+16,Window.screenBounds.height-88+(30/1.6180339887499*0),86,60/1.6180339887499)).items_(~mvalue = (-1); [~menu2start.asString]++Array.fill(24, {~menu2values.at(~mvalue = ~mvalue+1);});).background_(Color.black).stringColor_(Color.white);
+	menu2=PopUpMenu(w,Rect(20+60*2+16,Window.screenBounds.height-88+(30/1.6180339887499*0),86,60/1.6180339887499)).items_(~mvalue = (-1); [~menu2start.asString]++Array.fill(24, {~menu2values.at(~mvalue = ~mvalue+1);});).background_(Color.black).stringColor_(Color.white).action_({arg button;
+
+		if(~st != nil, {~st.close});
+		~st = StaticText(w, Rect(20+60*2+16+231,Window.screenBounds.height-88+(30/1.6180339887499*0), 80, 60)).background_(Color.black);
+		~st.stringColor = Color.white;
+		~st.string = "# of kws in halfcycle selected";
+		AppClock.sched(~gm,{~st.close;});
+	});
 
 
-	//pop-menu for base frequency
+	//pop-menu for timewave base (lowest) frequency
 
 	~bfreqstart = ~basefreq;
-	~bfreq = PopUpMenu(w, Rect(20+60*2+16+86,Window.screenBounds.height-88+(30/1.6180339887499*0),140,60/1.6180339887499)).items_(~bfreqv = (-1); [~basefreq.asString++" hz"]++Array.fill(140, {~freqmap.at(~bfreqv=~bfreqv+1).asString})).background_(Color.black).stringColor_(Color.white).action_({arg button;});
+	~bfreq = PopUpMenu(w, Rect(20+60*2+16+86,Window.screenBounds.height-88+(30/1.6180339887499*0),140,60/1.6180339887499)).items_(~bfreqv = (-1); [~basefreq.asString++" hz"]++Array.fill(140, {~freqmap.at(~bfreqv=~bfreqv+1).asString})).background_(Color.black).stringColor_(Color.white).action_({arg button;
+
+		if(~st != nil, {~st.close});
+		~st = StaticText(w, Rect(20+60*2+16+231,Window.screenBounds.height-88+(30/1.6180339887499*0), 80, 40)).background_(Color.black);
+		~st.stringColor = Color.white;
+		~st.string = "basefreq selected";
+		AppClock.sched(~gm,{~st.close;});
+	});
 
 
 	//synthdef pop-up menu
@@ -1760,6 +1774,12 @@ s.waitForBoot({
 		if(~gsinemenu.value == 9,  {~kws_setting = 1; ~ratio_setting = "hsine1"; ~low_pass_filter_on = 0; ~gs = 9;});
 		if(~gsinemenu.value == 10, {~kws_setting = 2; ~ratio_setting = "hsine2"; ~low_pass_filter_on = 0; ~gs = 10;});
 		if(~gsinemenu.value == 11, {~kws_setting = 3; ~ratio_setting = "hsine3"; ~low_pass_filter_on = 0; ~gs = 11;});
+
+		if(~st != nil, {~st.close});
+		~st = StaticText(w, Rect(20+60*2+16+231,Window.screenBounds.height-88+(30/1.6180339887499*0), 80, 60)).background_(Color.black);
+		~st.stringColor = Color.white;
+		~st.string = "synthdef setting selected";
+		AppClock.sched(~gm,{~st.close;});
 	});
 
 	if(~gs == nil, {~gs = 0;});
@@ -1782,16 +1802,51 @@ s.waitForBoot({
 	//set low-pass filter frequency limit
 
 	if(~low_pass_filter_set_value == nil, {~low_pass_filter_set_value = ~low_pass_filter_freq_limit});
+	if(~low_pass_filter_set_value != ~low_pass_filter_freq_limit, {~low_pass_filter_set_value = ~low_pass_filter_freq_limit});
 
-	~low_pass_filter_numberbox = NumberBox(w, Rect(20+60*2+16+86,Window.screenBounds.height-52+(30/1.6180339887499*0),80,60/1.6180339887499)).background_(Color.black).normalColor_(Color.white;).value_(~low_pass_filter_set_value);
+	~low_pass_filter_textfield = TextField(w, Rect(20+60*2+16+86,Window.screenBounds.height-52+(30/1.6180339887499*0),80,60/1.6180339887499));
+	~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString;
+	~low_pass_filter_textfield.background_(Color.black);
+	~low_pass_filter_textfield.stringColor_(Color.white);
+	~low_pass_filter_textfield.action = {arg value; ~low_pass_filter_set_value = value;
 
-	~low_pass_filter_numberbox.action_({arg val; ~low_pass_filter_set_value = val.value;});
+		~low_pass_filter_set_value = ~low_pass_filter_set_value.value;
+
+		~low_pass_filter_set_value = ~low_pass_filter_set_value.separate;
+
+		~low_pass_filter_set_value = ~low_pass_filter_set_value.reject{arg item;
+			(item != "1") and:
+			(item != "2") and:
+			(item != "3") and:
+			(item != "4") and:
+			(item != "5") and:
+			(item != "6") and:
+			(item != "7") and:
+			(item != "8") and:
+			(item != "9") and:
+			(item != "0") and:
+			(item != ".")
+		};
+
+		~low_pass_filter_set_value = ~low_pass_filter_set_value.join.asString.asFloat;
+
+		~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString;
+
+		if(~low_pass_filter_set_value != 0, {
+			if(~st != nil, {~st.close});
+			~st = StaticText(w, Rect(20+60*2+16+231,Window.screenBounds.height-88+(30/1.6180339887499*0), 80, 80)).background_(Color.black);
+			~st.stringColor = Color.white;
+			~st.string = "low-pass filter freq limit selected";
+			AppClock.sched(~gm,{~st.close;});
+		}, {~low_pass_filter_set_value = ~low_pass_filter_freq_limit; ~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString;});
+	};
 
 
-	//set button for KW sequences in a timewave half-cycle (or amplitude x2), basefreq, and gsine
+	//set button for number of KW sequences in a timewave half-cycle (or amplitude x2), basefreq, and gsine(evaluate synthdefs)
 
 	set1=Button(w,Rect(20+60*2+16+166, Window.screenBounds.height-52+(16/1.6180339887499*0),60,60/1.6180339887499)).states_([["set",Color.white,Color.black]]).mouseDownAction_({
 
+		if(~st != nil, {~st.close});
 		~st = StaticText(w, Rect(20+60*2+16+231,Window.screenBounds.height-40, 62, 20)).background_(Color.black);
 		~st.stringColor = Color.white;
 		~st.string = "loading...";
@@ -1807,6 +1862,7 @@ s.waitForBoot({
 
 			~low_pass_filter_freq_limit = ~low_pass_filter_set_value;
 
+
 			//set n1-n9 values
 
 			case
@@ -1816,6 +1872,9 @@ s.waitForBoot({
 			{~ratio_setting == "hsine1";}{~n_value1 = ~h1;    ~n_value2 = ~h2;    ~n_value6 = ~h6;}
 			{~ratio_setting == "hsine2";}{~n_value1 = ~nh1;   ~n_value2 = ~nh2;   ~n_value6 = ~nh6;}
 			{~ratio_setting == "hsine3";}{~n_value1 = ~nnh1;  ~n_value2 = ~nnh2;  ~n_value6 = ~nnh6;};
+
+
+			//evaluate synthdefs(gsine)
 
 			case
 			{menu2.value == 0}{~gsinenum = ~menu2synthdefstart; ~gsine.value;}
