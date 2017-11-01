@@ -179,7 +179,7 @@ s.waitForBoot({
 	//ratio values
 
 	~fth = 1.4142135623729; //default kws binary interval
-	~bi = ~fth; //~bi = "binary interval" - intverval of key change to hexgram's opposite in King Wen sequence
+	~bi = ~fth; //~bi = "binary interval" - intverval of key change to a hexagram line's opposite in King Wen sequence
 	~stepratio = 1.0594630943593;
 	~nval = 1.0355417528;
 	~n9s = 1.86;
@@ -213,7 +213,7 @@ s.waitForBoot({
 
 	//edit SAVED s1-s8 frequencies/chords. Replace any "[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]" with desired frequencies.
 	//Example: [~f1=31.385685128991,~f2=86.222407114322,~f3=229.95963599755,~f4=841.97361403235,~f5=894.01606840275,~f6=38.068730542463,~f7=80.91428965114,~f8=554.92014995488]
-	//You can find frequencies in the "copy" section of GUI under "saved open/flow 1-8:" or "saved slide 1-8:".
+	//You can find frequencies in the "copy" section of GUI under "saved open/flow 1-8 frequencies:" or "saved slide 1-8 frequencies:".
 	//Remove both the "/*" and "*/" around the code to make evaluable. Put them back to make it unevaluable.
 
 	/*
@@ -232,7 +232,7 @@ s.waitForBoot({
 
 	//edit STARTING frequencies/chord (not saved s1-s8 frequencies/chords). Replace "[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]" with starting frequencies.
 	//Example: [~f1=31.385685128991,~f2=86.222407114322,~f3=229.95963599755,~f4=841.97361403235,~f5=894.01606840275,~f6=38.068730542463,~f7=80.91428965114,~f8=554.92014995488]
-	//You can find frequencies in the "copy" section of GUI under "current".
+	//You can find frequencies in the "copy" section of GUI under "current chord/frequencies".
 	//Remove both the "/*" and "*/" around the code to make evaluable. Put them back to make it unevaluable again.
 
 	/*
@@ -4604,7 +4604,7 @@ s.waitForBoot({
 				"copy: copy frequency/note info"++"\n"++"\n"++
 				"kws: change number of kw(King Wen) sequences in a timewave half-cycle (or amplitude x2). press set to load"++"\n"++"\n"++
 				"top-level hz frequency: set the base frequency. press set to load"++"\n"++"\n"++
-				"psine1-psine3 (based on phi, with low-pass filter), hsine1-hsine3 (based on 19.47, with low-pass filter), psineuf1-psineuf3 (based on phi, without low-pass filter), hsineuf1-hsineuf3 (based on 19.47, without low-pass filter) - set synthdef type. press set to load"++"\n"++"\n"++
+				"psine1-psine3 (based on phi, with low-pass filter), hsine1-hsine3 (based on 19.47:360, with low-pass filter), psineuf1-psineuf3 (based on phi, without low-pass filter), hsineuf1-hsineuf3 (based on 19.47:360, without low-pass filter) - set synthdef type. press set to load"++"\n"++"\n"++
 				"lower-level hz frequency: change the low-pass filter frequency limit. default is 2100. press set to load"++"\n"++"\n"++
 				"s1-s8: set/save note positions"++"\n"++"\n"++
 				"g1-g8: groups of saved note positions"++"\n"++"\n"++
@@ -5092,7 +5092,7 @@ s.waitForBoot({
 
 	w.front; w.fullScreen;
 
-	//Developed by Ken Brant (ken_brant@ymail.com)
+	/* e-mail: ken_brant@ymail.com */
 
 }.value);
 );
@@ -5108,7 +5108,7 @@ s.waitForBoot({
 ~a = a; ~b = b; ~c =c; ~d = d; ~e = e;~f=f;);
 
 ~fth = 1.4142135623729;
-~bi  = ~fth; (~bi  = "binary interval" - intverval of key change to hexgram's opposite in King Wen sequence)
+~bi  = ~fth; (~bi  = "binary interval" - intverval of key change to a hexagram line's opposite in King Wen sequence)
 
 
 (First Setting)

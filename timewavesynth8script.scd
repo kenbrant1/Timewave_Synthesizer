@@ -496,4 +496,4 @@ s.stopRecording; // STOP RECORDING
 };
 );
 
-//Developed by Ken Brant (ken_brant@ymail.com)
+/* e-mail: ken_brant@ymail.com */
