@@ -62,9 +62,9 @@ s.waitForBoot({
 
 	if((~kws_setting == nil) or: (~ratio_setting == nil), {
 
-		~kws_setting = 1; //type of King Wen sequence interpretation
+		~kws_setting = 1; //default type of King Wen sequence interpretation
 
-		~ratio_setting = "psine1"; //ratio setting for synthdef
+		~ratio_setting = "psine1"; //default ratio setting for synthdef
 	});
 
 
@@ -4576,7 +4576,7 @@ s.waitForBoot({
 				"kws: change number of kw(King Wen) sequences in a timewave half-cycle (or amplitude x2). press set to load"++"\n"++"\n"++
 				"top-level hz frequency: set the base frequency. press set to load"++"\n"++"\n"++
 				"psine1-psine3 (based on phi, with low-pass filter), hsine1-hsine3 (based on 19.47, with low-pass filter), psineuf1-psineuf3 (based on phi, without low-pass filter), hsineuf1-hsineuf3 (based on 19.47, without low-pass filter) - set synthdef type. press set to load"++"\n"++"\n"++
-				"lower-level hz frequency: change the low-pass filter frequency limit. default is 2427.05. press set to load"++"\n"++"\n"++
+				"lower-level hz frequency: change the low-pass filter frequency limit. default is 2206.9995468963. press set to load"++"\n"++"\n"++
 				"s1-s8: set/save note positions"++"\n"++"\n"++
 				"g1-g8: groups of saved note positions"++"\n"++"\n"++
 				"uc-u8: undo changes to set note positions. press set to load"++"\n"++"\n"++
