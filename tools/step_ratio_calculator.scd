@@ -5,7 +5,6 @@
 
 //Press "ctrl/cmd - enter" within the parenthesis to evaluate
 
-
 y = Routine({var a = 1, n1 = 1, n2 = 1.6180339887499, numsteps = 64;
 	x=1000.do({n = n1;
 		numsteps.do({n = n*a});
@@ -105,3 +104,5 @@ y = Routine({var a = 1, n1 = 1, n2 = 1.6180339887499, numsteps = 64;
 	a.postln;
 }).play;
 );
+
+/* e-mail: ken_brant@ymail.com */
