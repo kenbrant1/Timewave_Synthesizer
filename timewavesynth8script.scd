@@ -1,11 +1,13 @@
 /*Order of execution to run script and record(goes from bottom to top):
-1. Hit "Ctrl/Cmd - Enter" anywhere inside the "LOAD SYNTH FUNCTIONS" parenthesis on line 42,
-2. Click on the same line as "START RECORDING" on line 39 and hit "Ctrl/Cmd - Enter",
-3. Hit "Ctrl/Cmd - Enter" anywhere inside the "TASK" parenthesis on line 10...
+1. Hit "Ctrl/Cmd - Enter" anywhere inside the "LOAD SYNTH FUNCTIONS" parenthesis on line 44,
+2. Click on the same line as "START RECORDING" on line 41 and hit "Ctrl/Cmd - Enter",
+3. Hit "Ctrl/Cmd - Enter" anywhere inside the "TASK" parenthesis on line 12...
 The record file location will be found in the post window...
 Leave out #2 to run the script without recording...
 Important Note: You must load the Timewave Synthesizer program and press the "synth0" button at least once before this script can run.
-Press "Ctrl/Cmd - Period" to stop synth/free the sever. */
+Press "Ctrl/Cmd - Period" to stop synth/free the sever.
+
+You can compose a piece, and find guides for doing so, inside the "//3 - TASK" function. */
 
 ((//3 - TASK
 	t = Task({/*trace*/ ~st = 0; ~trace = {("event-"++(~st = ~st + 1).asString).postln;}; 8.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(/*volume*/ 0.005)});

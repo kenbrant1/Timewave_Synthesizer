@@ -72,7 +72,7 @@ s.waitForBoot({
 
 	if(~low_pass_filter_on == nil, {~low_pass_filter_on = 1}); //set starting low-pass filter on/off. 1 means on - switch to 0 for off.
 
-	if(~low_pass_filter_set_value == nil, {~low_pass_filter_freq_limit = 1364.0007331375 * 1.6180339887499; //frequency limit for low-pass filter in synthdefs. default is (1500 * 1.6180339887499 or 2427.0509831249).
+	if(~low_pass_filter_set_value == nil, {~low_pass_filter_freq_limit = 2100; //frequency limit for low-pass filter in synthdefs. default is 2100.
 	});
 
 	//volume
@@ -211,11 +211,49 @@ s.waitForBoot({
 	~nnh6 = 1.0076258811195;
 
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//edit SAVED s1-s8 frequencies/chords. Replace any "[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]" with desired frequencies.
+	//Example: [~f1=31.385685128991,~f2=86.222407114322,~f3=229.95963599755,~f4=841.97361403235,~f5=894.01606840275,~f6=38.068730542463,~f7=80.91428965114,~f8=554.92014995488]
+	//You can find frequencies in the "copy" section of GUI under "saved open/flow 1-8:" or "saved slide 1-8:".
+	//Remove both the "/*" and "*/" around the code to make evaluable. Put them back to make it unevaluable.
+
+	/*
+
+	#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8 = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ];
+	#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ];
+	#fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ];
+	#fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ];
+	#fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ];
+	#fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ];
+	#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ];
+	#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ];
+
+	*/
 
 
-	//starting notes
+	//edit STARTING frequencies/chord (not saved s1-s8 frequencies/chords). Replace "[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]" with starting frequencies.
+	//Example: [~f1=31.385685128991,~f2=86.222407114322,~f3=229.95963599755,~f4=841.97361403235,~f5=894.01606840275,~f6=38.068730542463,~f7=80.91428965114,~f8=554.92014995488]
+	//You can find frequencies in the "copy" section of GUI under "current".
+	//Remove both the "/*" and "*/" around the code to make evaluable. Put them back to make it unevaluable again.
 
+	/*
+
+	8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(
+
+		[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]
+
+		.at(x-1))});
+
+	*/
+
+	//^Imoprtant note: "edit STARTING frequencies/chord" must be placed after "edit SAVED frequencies/chords" in code in order for it to work correctly
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	//default starting notes
+
+	if(([f1,f2,f3,f4,f5,f6,f7,f8] == [nil,nil,nil,nil,nil,nil,nil,nil]), {
 	#f1,f2,f3,f4,f5,f6,f7,f8 = [
 		(~freqmap.at(127)/8).rand,
 		(~freqmap.at(127)/8).rand,
@@ -224,19 +262,11 @@ s.waitForBoot({
 		(~freqmap.at(127)/8).rand,
 		(~freqmap.at(127)/8).rand,
 		(~freqmap.at(127)/8).rand,
-		(~freqmap.at(127)/8).rand,
+		(~freqmap.at(127)/8).rand
 	];
+	});
 
 	if(([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]), {8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([f1,f2,f3,f4,f5,f6,f7,f8].at(x-1))});});
-
-	#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12 = [~u1,~u2,~u3,~u4,~u5,~u6,~u7,~u8,~u9,~u10,~u11,~u12];
-	#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b = [~u1b,~u2b,~u3b,~u4b,~u5b,~u6b,~u7b,~u8b,~u9b,~u10b,~u11b,~u12b];
-	#fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c = [~u1c,~u2c,~u3c,~u4c,~u5c,~u6c,~u7c,~u8c,~u9c,~u10c,~u11c,~u12c];
-	#fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d = [~u1d,~u2d,~u3d,~u4d,~u5d,~u6d,~u7d,~u8d,~u9d,~u10d,~u11d,~u12d];
-	#fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e = [~u1e,~u2e,~u3e,~u4e,~u5e,~u6e,~u7e,~u8e,~u9e,~u10e,~u11e,~u12e];
-	#fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f = [~u1f,~u2f,~u3f,~u4f,~u5f,~u6f,~u7f,~u8f,~u9f,~u10f,~u11f,~u12f];
-	#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g = [~u1g,~u2g,~u3g,~u4g,~u5g,~u6g,~u7g,~u8g,~u9g,~u10g,~u11g,~u12g];
-	#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h = [~u1h,~u2h,~u3h,~u4h,~u5h,~u6h,~u7h,~u8h,~u9h,~u10h,~u11h,~u12h];
 
 	if([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12 = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ];});
 	if([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ];});
@@ -247,16 +277,14 @@ s.waitForBoot({
 	if([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ];});
 	if([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ];});
 
-	/*#fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12 = [];
-	#fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b = [];
-	#fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c = [];
-	#fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d = [];
-	#fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e = [];
-	#fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f = [];
-	#fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g = [];
-	#fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h = [];
-
-	[];*/
+	12.do(x = 0; {("u"++(x=x+1)).asSymbol.envirPut([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12].at(x-1))});
+	12.do(x = 0; {("u"++(x=x+1)++"b").asSymbol.envirPut([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b].at(x-1))});
+	12.do(x = 0; {("u"++(x=x+1)++"c").asSymbol.envirPut([fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c].at(x-1))});
+	12.do(x = 0; {("u"++(x=x+1)++"d").asSymbol.envirPut([fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d].at(x-1))});
+	12.do(x = 0; {("u"++(x=x+1)++"e").asSymbol.envirPut([fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e].at(x-1))});
+	12.do(x = 0; {("u"++(x=x+1)++"f").asSymbol.envirPut([fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f].at(x-1))});
+	12.do(x = 0; {("u"++(x=x+1)++"g").asSymbol.envirPut([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g].at(x-1))});
+	12.do(x = 0; {("u"++(x=x+1)++"h").asSymbol.envirPut([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h].at(x-1))});
 
 	if([~sg1a1,~sg1a2,~sg1a3,~sg1a4,~sg1a5,~sg1a6,~sg1a7,~sg1a8,~sg1a9,~sg1a10,~sg1a11,~sg1a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1a1=~f1,~sg1a2=~f2,~sg1a3=~f3,~sg1a4=~f4,~sg1a5=~f5,~sg1a6=~f6,~sg1a7=~f7,~sg1a8=~f8];});
 	if([~sg1b1,~sg1b2,~sg1b3,~sg1b4,~sg1b5,~sg1b6,~sg1b7,~sg1b8,~sg1b9,~sg1b10,~sg1b11,~sg1b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1b1=~f1,~sg1b2=~f2,~sg1b3=~f3,~sg1b4=~f4,~sg1b5=~f5,~sg1b6=~f6,~sg1b7=~f7,~sg1b8=~f8];});
@@ -1625,7 +1653,12 @@ s.waitForBoot({
 
 			~tsc = TextView(w, Rect(0,0, 1600*2, 354)).background_(Color.black);
 			(~tsc.string =
-				"saved open/flow 1-8: "++"\n"++"\n"++
+				"current chord/frequencies: "++"\n"++"\n"++
+
+				"[~f1="++~f1.asString++",~f2="++~f2.asString++",~f3="++~f3.asString++",~f4="++~f4.asString++",~f5="++~f5.asString++",~f6="++~f6.asString++",~f7="++~f7.asString++",~f8="++~f8.asString++"]"++"\n"++"\n"++
+
+				"saved open/flow 1-8 frequencies (in script format): "++"\n"++"\n"++
+
 				"[~f1="++fp1.asString++",~f2="++fp2.asString++",~f3="++fp3.asString++",~f4="++fp4.asString++",~f5="++fp5.asString++",~f6="++fp6.asString++",~f7="++fp7.asString++",~f8="++fp8.asString++"];"++" "++"~synthopen.value; ~trace.value; (a).wait;"++"\n"++
 				"[~f1="++fp1b.asString++",~f2="++fp2b.asString++",~f3="++fp3b.asString++",~f4="++fp4b.asString++",~f5="++fp5b.asString++",~f6="++fp6b.asString++",~f7="++fp7b.asString++",~f8="++fp8b.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
 				"[~f1="++fp1c.asString++",~f2="++fp2c.asString++",~f3="++fp3c.asString++",~f4="++fp4c.asString++",~f5="++fp5c.asString++",~f6="++fp6c.asString++",~f7="++fp7c.asString++",~f8="++fp8c.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
@@ -1635,7 +1668,7 @@ s.waitForBoot({
 				"[~f1="++fp1g.asString++",~f2="++fp2g.asString++",~f3="++fp3g.asString++",~f4="++fp4g.asString++",~f5="++fp5g.asString++",~f6="++fp6g.asString++",~f7="++fp7g.asString++",~f8="++fp8g.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
 				"[~f1="++fp1h.asString++",~f2="++fp2h.asString++",~f3="++fp3h.asString++",~f4="++fp4h.asString++",~f5="++fp5h.asString++",~f6="++fp6h.asString++",~f7="++fp7h.asString++",~f8="++fp8h.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++"\n"++
 
-				"saved slide 1-8: "++"\n"++"\n"++
+				"saved slide 1-8 frequencies (in script format): "++"\n"++"\n"++
 
 				"#s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]; [~f1="++fp1.asString++",~f2="++fp2.asString++",~f3="++fp3.asString++",~f4="++fp4.asString++",~f5="++fp5.asString++",~f6="++fp6.asString++",~f7="++fp7.asString++",~f8="++fp8.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
 				"#s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]; [~f1="++fp1b.asString++",~f2="++fp2b.asString++",~f3="++fp3b.asString++",~f4="++fp4b.asString++",~f5="++fp5b.asString++",~f6="++fp6b.asString++",~f7="++fp7b.asString++",~f8="++fp8b.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
@@ -1644,13 +1677,9 @@ s.waitForBoot({
 				"#s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]; [~f1="++fp1e.asString++",~f2="++fp2e.asString++",~f3="++fp3e.asString++",~f4="++fp4e.asString++",~f5="++fp5e.asString++",~f6="++fp6e.asString++",~f7="++fp7e.asString++",~f8="++fp8e.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
 				"#s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]; [~f1="++fp1f.asString++",~f2="++fp2f.asString++",~f3="++fp3f.asString++",~f4="++fp4f.asString++",~f5="++fp5f.asString++",~f6="++fp6f.asString++",~f7="++fp7f.asString++",~f8="++fp8f.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
 				"#s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]; [~f1="++fp1g.asString++",~f2="++fp2g.asString++",~f3="++fp3g.asString++",~f4="++fp4g.asString++",~f5="++fp5g.asString++",~f6="++fp6g.asString++",~f7="++fp7g.asString++",~f8="++fp8g.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
-				"#s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]; [~f1="++fp1h.asString++",~f2="++fp2h.asString++",~f3="++fp3h.asString++",~f4="++fp4h.asString++",~f5="++fp5h.asString++",~f6="++fp6h.asString++",~f7="++fp7h.asString++",~f8="++fp8h.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++"\n"++
-
-				"current: "++"\n"++
-				"[~f1="++~f1.asString++",~f2="++~f2.asString++",~f3="++~f3.asString++",~f4="++~f4.asString++",~f5="++~f5.asString++",~f6="++~f6.asString++",~f7="++~f7.asString++",~f8="++~f8.asString++"]"
+				"#s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]; [~f1="++fp1h.asString++",~f2="++fp2h.asString++",~f3="++fp3h.asString++",~f4="++fp4h.asString++",~f5="++fp5h.asString++",~f6="++fp6h.asString++",~f7="++fp7h.asString++",~f8="++fp8h.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"
 			);
 			~tsc.stringColor = Color.white;
-			(str= [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8/*,~f9,~f10,~f11,~f12*/ ];("echo"+str+"| xclip -selection clipboard").unixCmd;);
 			[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8/*,~f9,~f10,~f11,~f12*/ ].postln;},
 			{~tsc.close;});
 	});
@@ -4576,7 +4605,7 @@ s.waitForBoot({
 				"kws: change number of kw(King Wen) sequences in a timewave half-cycle (or amplitude x2). press set to load"++"\n"++"\n"++
 				"top-level hz frequency: set the base frequency. press set to load"++"\n"++"\n"++
 				"psine1-psine3 (based on phi, with low-pass filter), hsine1-hsine3 (based on 19.47, with low-pass filter), psineuf1-psineuf3 (based on phi, without low-pass filter), hsineuf1-hsineuf3 (based on 19.47, without low-pass filter) - set synthdef type. press set to load"++"\n"++"\n"++
-				"lower-level hz frequency: change the low-pass filter frequency limit. default is 2206.9995468963. press set to load"++"\n"++"\n"++
+				"lower-level hz frequency: change the low-pass filter frequency limit. default is 2100. press set to load"++"\n"++"\n"++
 				"s1-s8: set/save note positions"++"\n"++"\n"++
 				"g1-g8: groups of saved note positions"++"\n"++"\n"++
 				"uc-u8: undo changes to set note positions. press set to load"++"\n"++"\n"++
@@ -4841,7 +4870,7 @@ s.waitForBoot({
 
 	//save chord notes buttons, s1-s8
 
-	n1 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*2),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s1",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1=fp1;~r2=fp2;~r3=fp3;~r4=fp4;~r5=fp5;~r6=fp6;~r7=fp7;~r8=fp8;~r9=fp9;~r10=fp10;~r11=fp11;~r12=fp12; #fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12/*,fp13,fp14,fp15,fp16,fp17,fp18,fp19,fp20,fp21,fp22,fp23,fp24*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1=~f1;~u2=~f2;~u3=~f3;~u4=~f4;~u5=~f5;~u6=~f6;~u7=~f7;~u8=~f8;~u9=~f9;~u10=~f10;~u11=~f11;~u12=~f12; ~si1aset.value;~si1bset.value;
+	n1 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*2),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s1",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(((button.value == 0) or: (button.value == 1)), {~r1=fp1;~r2=fp2;~r3=fp3;~r4=fp4;~r5=fp5;~r6=fp6;~r7=fp7;~r8=fp8;~r9=fp9;~r10=fp10;~r11=fp11;~r12=fp12; #fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12/*,fp13,fp14,fp15,fp16,fp17,fp18,fp19,fp20,fp21,fp22,fp23,fp24*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1=~f1;~u2=~f2;~u3=~f3;~u4=~f4;~u5=~f5;~u6=~f6;~u7=~f7;~u8=~f8;~u9=~f9;~u10=~f10;~u11=~f11;~u12=~f12; ~si1aset.value;~si1bset.value;
 
 		if(~setgroup1.value == 1, {12.do(x = 0; {("sg1a"++(x=x+1)).asSymbol.envirPut([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12].at(x-1))});});
 		if(~setgroup2.value == 1, {12.do(x = 0; {("sg2a"++(x=x+1)).asSymbol.envirPut([fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8,fp9,fp10,fp11,fp12].at(x-1))});});
@@ -4862,7 +4891,7 @@ s.waitForBoot({
 		n8.states_([["s8",Color.white,Color.black]]);
 	});});
 
-	n2 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*1),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s2",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1b=fp1b;~r2b=fp2b;~r3b=fp3b;~r4b=fp4b;~r5b=fp5b;~r6b=fp6b;~r7b=fp7b;~r8b=fp8b;~r9b=fp9b;~r10b=fp10b;~r11b=fp11b;~r12b=fp12b; #fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b/*,fp13b,fp14b,fp15b,fp16b,fp17b,fp18b,fp19b,fp20b,fp21b,fp22b,fp23b,fp24b*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1b=~f1;~u2b=~f2;~u3b=~f3;~u4b=~f4;~u5b=~f5;~u6b=~f6;~u7b=~f7;~u8b=~f8;~u9b=~f9;~u10b=~f10;~u11b=~f11;~u12b=~f12; ~si2set.value;
+	n2 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*1),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s2",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(((button.value == 0) or: (button.value == 1)), {~r1b=fp1b;~r2b=fp2b;~r3b=fp3b;~r4b=fp4b;~r5b=fp5b;~r6b=fp6b;~r7b=fp7b;~r8b=fp8b;~r9b=fp9b;~r10b=fp10b;~r11b=fp11b;~r12b=fp12b; #fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b/*,fp13b,fp14b,fp15b,fp16b,fp17b,fp18b,fp19b,fp20b,fp21b,fp22b,fp23b,fp24b*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1b=~f1;~u2b=~f2;~u3b=~f3;~u4b=~f4;~u5b=~f5;~u6b=~f6;~u7b=~f7;~u8b=~f8;~u9b=~f9;~u10b=~f10;~u11b=~f11;~u12b=~f12; ~si2set.value;
 
 		if(~setgroup1.value == 1, {12.do(x = 0; {("sg1b"++(x=x+1)).asSymbol.envirPut([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b].at(x-1))});});
 		if(~setgroup2.value == 1, {12.do(x = 0; {("sg2b"++(x=x+1)).asSymbol.envirPut([fp1b,fp2b,fp3b,fp4b,fp5b,fp6b,fp7b,fp8b,fp9b,fp10b,fp11b,fp12b].at(x-1))});});
@@ -4882,7 +4911,7 @@ s.waitForBoot({
 		n7.states_([["s7",Color.white,Color.black]]);
 		n8.states_([["s8",Color.white,Color.black]]);
 	});});
-	n3 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(0),   Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s3",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1c=fp1c;~r2c=fp2c;~r3c=fp3c;~r4c=fp4c;~r5c=fp5c;~r6c=fp6c;~r7c=fp7c;~r8c=fp8c;~r9c=fp9c;~r10c=fp10c;~r11c=fp11c;~r12c=fp12c; #fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c/*,fp13c,fp14c,fp15c,fp16c,fp17c,fp18c,fp19c,fp20c,fp21c,fp22c,fp23c,fp24c*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1c=~f1;~u2c=~f2;~u3c=~f3;~u4c=~f4;~u5c=~f5;~u6c=~f6;~u7c=~f7;~u8c=~f8;~u9c=~f9;~u10c=~f10;~u11c=~f11;~u12c=~f12; ~si3set.value;
+	n3 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(0),   Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s3",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(((button.value == 0) or: (button.value == 1)), {~r1c=fp1c;~r2c=fp2c;~r3c=fp3c;~r4c=fp4c;~r5c=fp5c;~r6c=fp6c;~r7c=fp7c;~r8c=fp8c;~r9c=fp9c;~r10c=fp10c;~r11c=fp11c;~r12c=fp12c; #fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c/*,fp13c,fp14c,fp15c,fp16c,fp17c,fp18c,fp19c,fp20c,fp21c,fp22c,fp23c,fp24c*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1c=~f1;~u2c=~f2;~u3c=~f3;~u4c=~f4;~u5c=~f5;~u6c=~f6;~u7c=~f7;~u8c=~f8;~u9c=~f9;~u10c=~f10;~u11c=~f11;~u12c=~f12; ~si3set.value;
 
 		if(~setgroup1.value == 1, {12.do(x = 0; {("sg1c"++(x=x+1)).asSymbol.envirPut([fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c].at(x-1))});});
 		if(~setgroup2.value == 1, {12.do(x = 0; {("sg2c"++(x=x+1)).asSymbol.envirPut([fp1c,fp2c,fp3c,fp4c,fp5c,fp6c,fp7c,fp8c,fp9c,fp10c,fp11c,fp12c].at(x-1))});});
@@ -4902,7 +4931,7 @@ s.waitForBoot({
 		n7.states_([["s7",Color.white,Color.black]]);
 		n8.states_([["s8",Color.white,Color.black]]);
 	});});
-	n4 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(60*1),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s4",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1d=fp1d;~r2d=fp2d;~r3d=fp3d;~r4d=fp4d;~r5d=fp5d;~r6d=fp6d;~r7d=fp7d;~r8d=fp8d;~r9d=fp9d;~r10d=fp10d;~r11d=fp11d;~r12d=fp12d; #fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d/*,fp13d,fp14d,fp15d,fp16d,fp17d,fp18d,fp19d,fp20d,fp21d,fp22d,fp23d,fp24d*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1d=~f1;~u2d=~f2;~u3d=~f3;~u4d=~f4;~u5d=~f5;~u6d=~f6;~u7d=~f7;~u8d=~f8;~u9d=~f9;~u10d=~f10;~u11d=~f11;~u12d=~f12; ~si4set.value;
+	n4 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(60*1),Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["s4",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(((button.value == 0) or: (button.value == 1)), {~r1d=fp1d;~r2d=fp2d;~r3d=fp3d;~r4d=fp4d;~r5d=fp5d;~r6d=fp6d;~r7d=fp7d;~r8d=fp8d;~r9d=fp9d;~r10d=fp10d;~r11d=fp11d;~r12d=fp12d; #fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d/*,fp13d,fp14d,fp15d,fp16d,fp17d,fp18d,fp19d,fp20d,fp21d,fp22d,fp23d,fp24d*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1d=~f1;~u2d=~f2;~u3d=~f3;~u4d=~f4;~u5d=~f5;~u6d=~f6;~u7d=~f7;~u8d=~f8;~u9d=~f9;~u10d=~f10;~u11d=~f11;~u12d=~f12; ~si4set.value;
 
 		if(~setgroup1.value == 1, {12.do(x = 0; {("sg1d"++(x=x+1)).asSymbol.envirPut([fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d].at(x-1))});});
 		if(~setgroup2.value == 1, {12.do(x = 0; {("sg2d"++(x=x+1)).asSymbol.envirPut([fp1d,fp2d,fp3d,fp4d,fp5d,fp6d,fp7d,fp8d,fp9d,fp10d,fp11d,fp12d].at(x-1))});});
@@ -4922,7 +4951,7 @@ s.waitForBoot({
 		n7.states_([["s7",Color.white,Color.black]]);
 		n8.states_([["s8",Color.white,Color.black]]);
 	});});
-	n5 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*2),Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s5",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1e=fp1e;~r2e=fp2e;~r3e=fp3e;~r4e=fp4e;~r5e=fp5e;~r6e=fp6e;~r7e=fp7e;~r8e=fp8e;~r9e=fp9e;~r10e=fp10e;~r11e=fp11e;~r12e=fp12e; #fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e/*,fp13e,fp14e,fp15e,fp16e,fp17e,fp18e,fp19e,fp20e,fp21e,fp22e,fp23e,fp24e*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1e=~f1;~u2e=~f2;~u3e=~f3;~u4e=~f4;~u5e=~f5;~u6e=~f6;~u7e=~f7;~u8e=~f8;~u9e=~f9;~u10e=~f10;~u11e=~f11;~u12e=~f12; ~si5set.value;
+	n5 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*2),Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s5",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(((button.value == 0) or: (button.value == 1)), {~r1e=fp1e;~r2e=fp2e;~r3e=fp3e;~r4e=fp4e;~r5e=fp5e;~r6e=fp6e;~r7e=fp7e;~r8e=fp8e;~r9e=fp9e;~r10e=fp10e;~r11e=fp11e;~r12e=fp12e; #fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e/*,fp13e,fp14e,fp15e,fp16e,fp17e,fp18e,fp19e,fp20e,fp21e,fp22e,fp23e,fp24e*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1e=~f1;~u2e=~f2;~u3e=~f3;~u4e=~f4;~u5e=~f5;~u6e=~f6;~u7e=~f7;~u8e=~f8;~u9e=~f9;~u10e=~f10;~u11e=~f11;~u12e=~f12; ~si5set.value;
 
 		if(~setgroup1.value == 1, {12.do(x = 0; {("sg1e"++(x=x+1)).asSymbol.envirPut([fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e].at(x-1))});});
 		if(~setgroup2.value == 1, {12.do(x = 0; {("sg2e"++(x=x+1)).asSymbol.envirPut([fp1e,fp2e,fp3e,fp4e,fp5e,fp6e,fp7e,fp8e,fp9e,fp10e,fp11e,fp12e].at(x-1))});});
@@ -4942,7 +4971,7 @@ s.waitForBoot({
 		n7.states_([["s7",Color.white,Color.black]]);
 		n8.states_([["s8",Color.white,Color.black]]);
 	});});
-	n6 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*1),Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s6",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1f=fp1f;~r2f=fp2f;~r3f=fp3f;~r4f=fp4f;~r5f=fp5f;~r6f=fp6f;~r7f=fp7f;~r8f=fp8f;~r9f=fp9f;~r10f=fp10f;~r11f=fp11f;~r12f=fp12f; #fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f/*,fp13f,fp14f,fp15f,fp16f,fp17f,fp18f,fp19f,fp20f,fp21f,fp22f,fp23f,fp24f*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1f=~f1;~u2f=~f2;~u3f=~f3;~u4f=~f4;~u5f=~f5;~u6f=~f6;~u7f=~f7;~u8f=~f8;~u9f=~f9;~u10f=~f10;~u11e=~f11;~u12f=~f12; ~si6set.value;
+	n6 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)-(60*1),Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s6",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(((button.value == 0) or: (button.value == 1)), {~r1f=fp1f;~r2f=fp2f;~r3f=fp3f;~r4f=fp4f;~r5f=fp5f;~r6f=fp6f;~r7f=fp7f;~r8f=fp8f;~r9f=fp9f;~r10f=fp10f;~r11f=fp11f;~r12f=fp12f; #fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f/*,fp13f,fp14f,fp15f,fp16f,fp17f,fp18f,fp19f,fp20f,fp21f,fp22f,fp23f,fp24f*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1f=~f1;~u2f=~f2;~u3f=~f3;~u4f=~f4;~u5f=~f5;~u6f=~f6;~u7f=~f7;~u8f=~f8;~u9f=~f9;~u10f=~f10;~u11e=~f11;~u12f=~f12; ~si6set.value;
 
 		if(~setgroup1.value == 1, {12.do(x = 0; {("sg1f"++(x=x+1)).asSymbol.envirPut([fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f].at(x-1))});});
 		if(~setgroup2.value == 1, {12.do(x = 0; {("sg2f"++(x=x+1)).asSymbol.envirPut([fp1f,fp2f,fp3f,fp4f,fp5f,fp6f,fp7f,fp8f,fp9f,fp10f,fp11f,fp12f].at(x-1))});});
@@ -4962,7 +4991,7 @@ s.waitForBoot({
 		n7.states_([["s7",Color.white,Color.black]]);
 		n8.states_([["s8",Color.white,Color.black]]);
 	});});
-	n7 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(0),   Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s7",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1g=fp1g;~r2g=fp2g;~r3g=fp3g;~r4g=fp4g;~r5g=fp5g;~r6g=fp6g;~r7g=fp7g;~r8g=fp8g;~r9g=fp9g;~r10g=fp10g;~r11g=fp11g;~r12g=fp12g; #fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g/*,fp13g,fp14g,fp15g,fp16g,fp17g,fp18g,fp19g,fp20g,fp21g,fp22g,fp23g,fp24g*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1g=~f1;~u2g=~f2;~u3g=~f3;~u4g=~f4;~u5g=~f5;~u6g=~f6;~u7g=~f7;~u8g=~f8;~u9g=~f9;~u10g=~f10;~u11f=~f11;~u12g=~f12; ~si7set.value;
+	n7 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(0),   Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s7",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(((button.value == 0) or: (button.value == 1)), {~r1g=fp1g;~r2g=fp2g;~r3g=fp3g;~r4g=fp4g;~r5g=fp5g;~r6g=fp6g;~r7g=fp7g;~r8g=fp8g;~r9g=fp9g;~r10g=fp10g;~r11g=fp11g;~r12g=fp12g; #fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g/*,fp13g,fp14g,fp15g,fp16g,fp17g,fp18g,fp19g,fp20g,fp21g,fp22g,fp23g,fp24g*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1g=~f1;~u2g=~f2;~u3g=~f3;~u4g=~f4;~u5g=~f5;~u6g=~f6;~u7g=~f7;~u8g=~f8;~u9g=~f9;~u10g=~f10;~u11f=~f11;~u12g=~f12; ~si7set.value;
 
 		if(~setgroup1.value == 1, {12.do(x = 0; {("sg1g"++(x=x+1)).asSymbol.envirPut([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g].at(x-1))});});
 		if(~setgroup2.value == 1, {12.do(x = 0; {("sg2g"++(x=x+1)).asSymbol.envirPut([fp1g,fp2g,fp3g,fp4g,fp5g,fp6g,fp7g,fp8g,fp9g,fp10g,fp11g,fp12g].at(x-1))});});
@@ -4982,7 +5011,7 @@ s.waitForBoot({
 		n7.states_([["s7",Color.green,Color.black]]);
 		n8.states_([["s8",Color.white,Color.black]]);
 	});});
-	n8 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(60*1),Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s8",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(button.value == 0, {~r1h=fp1h;~r2h=fp2h;~r3h=fp3h;~r4h=fp4h;~r5h=fp5h;~r6h=fp6h;~r7h=fp7h;~r8h=fp8h;~r9h=fp9h;~r10h=fp10h;~r11h=fp11h;~r12h=fp12h; #fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h/*,fp13h,fp14h,fp15h,fp16h,fp17h,fp18h,fp19h,fp20h,fp21h,fp22h,fp23h,fp24h*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1h=~f1;~u2h=~f2;~u3h=~f3;~u4h=~f4;~u5h=~f5;~u6h=~f6;~u7h=~f7;~u8h=~f8;~u9h=~f9;~u10h=~f10;~u11g=~f11;~u12h=~f12; ~si8set.value;
+	n8 = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/2)+(60*1),Window.screenBounds.height-52,60,60/1.6180339887499)).states_([["s8",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button; if(((button.value == 0) or: (button.value == 1)), {~r1h=fp1h;~r2h=fp2h;~r3h=fp3h;~r4h=fp4h;~r5h=fp5h;~r6h=fp6h;~r7h=fp7h;~r8h=fp8h;~r9h=fp9h;~r10h=fp10h;~r11h=fp11h;~r12h=fp12h; #fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h/*,fp13h,fp14h,fp15h,fp16h,fp17h,fp18h,fp19h,fp20h,fp21h,fp22h,fp23h,fp24h*/ = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; "s"++"\n"++[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].asString.postString; ~u1h=~f1;~u2h=~f2;~u3h=~f3;~u4h=~f4;~u5h=~f5;~u6h=~f6;~u7h=~f7;~u8h=~f8;~u9h=~f9;~u10h=~f10;~u11g=~f11;~u12h=~f12; ~si8set.value;
 
 		if(~setgroup1.value == 1, {12.do(x = 0; {("sg1h"++(x=x+1)).asSymbol.envirPut([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h].at(x-1))});});
 		if(~setgroup2.value == 1, {12.do(x = 0; {("sg2h"++(x=x+1)).asSymbol.envirPut([fp1h,fp2h,fp3h,fp4h,fp5h,fp6h,fp7h,fp8h,fp9h,fp10h,fp11h,fp12h].at(x-1))});});
