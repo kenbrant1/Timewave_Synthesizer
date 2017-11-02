@@ -1074,8 +1074,8 @@ s.waitForBoot({
 				~numsynthmessagestring.align = \topLeft;
 				~numsynthmessagestring.string ="Warning:"++"\n"++"\n"++"More than the normal amount of synths are currently running. It is recommended to free the server by pressing "+"ctrl/cmd - period".quote+" and then pressing the "+"ok".quote+" button. Otherwise, you can press the "+"cancel".quote+" button to allow the synths to keep running. If you press the "+"cancel".quote+" button this message will not show again unless "+"synth0".quote+" has been pressed.";
 				~numsynthmessagestring.stringColor = Color.white;
-				~numsynthmessagebutton1 = Button.new(~numsynthmessage,Rect(320+46-100,340/1.6180339887499-30,46,46/1.6180339887499)).states_([["ok",Color.white,Color.black]]).action_({AppClock.sched(0, {~numsynthmessage.close; ~numsynths.play; ~midifunc.value;});});
-				~numsynthmessagebutton2 = Button.new(~numsynthmessage,Rect(120-46,340/1.6180339887499-30,46,46/1.6180339887499)).states_([["cancel",Color.white,Color.black]]).action_({AppClock.sched(0, {~numsynths.stop; ~numsynthmessage.close;});});
+				~numsynthmessagebutton1 = Button.new(~numsynthmessage,Rect(120-46,340/1.6180339887499-30,46,46/1.6180339887499)).states_([["ok",Color.white,Color.black]]).action_({AppClock.sched(0, {~numsynthmessage.close; ~numsynths.play; ~midifunc.value;});});
+				~numsynthmessagebutton2 = Button.new(~numsynthmessage,Rect(320+46-100,340/1.6180339887499-30,46,46/1.6180339887499)).states_([["cancel",Color.white,Color.black]]).action_({AppClock.sched(0, {~numsynths.stop; ~numsynthmessage.close;});});
 				~numsynthmessage.front;
 			});
 		}); 1.wait;});}).play;
@@ -1879,9 +1879,7 @@ s.waitForBoot({
 		~st = StaticText(w, Rect(20+60*2+16+231,Window.screenBounds.height-40, 62, 20)).background_(Color.black);
 		~st.stringColor = Color.white;
 		~st.string = "loading...";
-		AppClock.sched(0.2,{
-			~st.close;
-		});
+		AppClock.sched(0.2,{~st.close;});
 
 		AppClock.sched(0,{
 
@@ -2521,15 +2519,15 @@ s.waitForBoot({
 
 				top = 0;
 
-				stall=NumberBox(~slideview, Rect(lefttimebox , top=top, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetimeall);
-				st1=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime1);
-				st2=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime2);
-				st3=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime3);
-				st4=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime4);
-				st5=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime5);
-				st6=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime6);
-				st7=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime7);
-				st8=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime8);
+				stall=NumberBox(~slideview, Rect(lefttimebox , top=top, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetimeall).maxDecimals_(9);
+				st1=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime1).maxDecimals_(9);
+				st2=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime2).maxDecimals_(9);
+				st3=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime3).maxDecimals_(9);
+				st4=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime4).maxDecimals_(9);
+				st5=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime5).maxDecimals_(9);
+				st6=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime6).maxDecimals_(9);
+				st7=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime7).maxDecimals_(9);
+				st8=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime8).maxDecimals_(9);
 
 				top = 0;
 
@@ -4421,16 +4419,15 @@ s.waitForBoot({
 
 				top = 0;
 
-				st1=NumberBox(~rview, Rect(lefttimebox , top=top, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime1);
-				st2=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime2);
-				st3=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime3);
-				st4=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime4);
-				st5=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime5);
-				st6=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime6);
-				st7=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime7);
-				st8=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime8);
-				stall=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtimeall);
-
+				st1=NumberBox(~rview, Rect(lefttimebox , top=top, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime1).maxDecimals_(9);
+				st2=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime2).maxDecimals_(9);
+				st3=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime3).maxDecimals_(9);
+				st4=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime4).maxDecimals_(9);
+				st5=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime5).maxDecimals_(9);
+				st6=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime6).maxDecimals_(9);
+				st7=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime7).maxDecimals_(9);
+				st8=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime8).maxDecimals_(9);
+				stall=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtimeall).maxDecimals_(9);
 
 				~si1a.action_({~si1aset.value});
 				~si1b.action_({~si1bset.value});
@@ -4564,9 +4561,15 @@ s.waitForBoot({
 
 	~cpumonitorfunc =  {
 		~cpumonitor.close;
-		~cpumonitor = StaticText(w, Rect(20,~bpt-100,500,120/1.6180339887499)).background_(Color.black).stringColor_(Color.white);
-		~cpumonitor.string = "cpu: "+s.avgCPU.asString+"%"++"\n" ++"ugens: "+s.numUGens.asString++"\n" ++"synths: "+s.numSynths.asString;
-		~cpumonitor.font = Font(size: 14);
+		~cpumonitor = StaticText(w, Rect(20,~bpt-100,800,124/1.6180339887499)).background_(Color.black).stringColor_(Color.white);
+		~cpumonitor.string =
+		"cpu: "+s.avgCPU.asString+"%"++"\n" ++
+		"ugens: "+s.numUGens.asString++"\n" ++
+		"synths: "+s.numSynths.asString++"\n" ++
+		/*"f1 = "++~f1.round(0.01)++", f2 = "++~f2.round(0.01)++", f3 = "++~f3.round(0.01)++", f4 = "++~f4.round(0.01)++", f5 = "++~f5.round(0.01)++", f6 = "++~f6.round(0.01)++","++"f7 = "++~f7.round(0.01)++", f8 = "++~f8.round(0.01);
+*/		~f1.round(0.01)++", "++~f2.round(0.01)++", "++~f3.round(0.01)++", "++~f4.round(0.01)++", "++~f5.round(0.01)++", "++~f6.round(0.01)++", "++~f7.round(0.01)++", "++~f8.round(0.01);
+		/*[ ~f1.round(0.01), ~f2.round(0.01), ~f3.round(0.01),~f4.round(0.01),~f5.round(0.01),~f6.round(0.01),~f7.round(0.01),~f8.round(0.01) ].asString;
+	*/	~cpumonitor.font = Font(size: 14);
 	};
 
 	~cpumonitorroutine = Routine({
@@ -5083,7 +5086,7 @@ s.waitForBoot({
 		~closemessagestring.align = \center;
 		~closemessagestring.string ="Close Timewave Synth?";
 		~closemessagestring.stringColor = Color.white;
-		~closemessagebutton1 = Button.new(~closemessage,Rect(120-46+40,340/1.6180339887499-30,46,46/1.6180339887499)).states_([["Yes",Color.white,Color.black]]).action_({AppClock.sched(0, {w.close; Task({1.do({if(~l1a.isRunning == true or: ~l1a1.isRunning == true, {~synthfree.value;}, {nil}); 1.wait; s.freeAll;});}).play;});});
+		~closemessagebutton1 = Button.new(~closemessage,Rect(120-46+40,340/1.6180339887499-30,46,46/1.6180339887499)).states_([["Yes",Color.white,Color.black]]).action_({AppClock.sched(0, {~cpumonitorroutine.stop; ~metronome.stop; ~loop.stop; ~loop.reset; ~numsynths.stop; w.close; Task({1.do({if(~l1a.isRunning == true or: ~l1a1.isRunning == true, {~synthfree.value;}, {nil}); 1.wait; Server.freeAll;});}).play;});});
 		~closemessagebutton2 = Button.new(~closemessage,Rect(320+46-130,340/1.6180339887499-30,46,46/1.6180339887499)).states_([["No",Color.white,Color.black]]).action_({AppClock.sched(0, {~closemessage.close;});});
 		~closemessage.front;
 
