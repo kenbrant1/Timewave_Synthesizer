@@ -510,11 +510,11 @@ s.waitForBoot({
 	//vertical grid (inactive)
 
 	/*~b1 = Window.screenBounds.width/(12*4) /*25.462962962963*/; ~btu = 31; ~btd = 375; ~bw = 0.5; ~bh = 80; ~bcolor = Color.grey;
-	CompositeView(w, Rect(~b1, ~btu, ~bw, ~bh)).background = ~bcolor;
-	CompositeView(w, Rect(~b1, ~btd, ~bw, ~bh)).background = ~bcolor;
-	54.do({CompositeView(w, Rect(~b1 = ~b1+(Window.screenBounds.width/(12*4)), ~btu, ~bw, ~bh)).background = ~bcolor;});
+	View(w, Rect(~b1, ~btu, ~bw, ~bh)).background = ~bcolor;
+	View(w, Rect(~b1, ~btd, ~bw, ~bh)).background = ~bcolor;
+	54.do({View(w, Rect(~b1 = ~b1+(Window.screenBounds.width/(12*4)), ~btu, ~bw, ~bh)).background = ~bcolor;});
 	~b1 = Window.screenBounds.width/(12*4);
-	54.do({CompositeView(w, Rect(~b1 = ~b1+(Window.screenBounds.width/(12*4)), ~btd, ~bw, ~bh)).background = ~bcolor;});*/
+	54.do({View(w, Rect(~b1 = ~b1+(Window.screenBounds.width/(12*4)), ~btd, ~bw, ~bh)).background = ~bcolor;});*/
 
 	~nh = 2;
 	~nw = ~nh*1.6180339887499;
@@ -526,26 +526,26 @@ s.waitForBoot({
 
 	//horizontal grid
 
-	9.do(x=~tgrid-10; {CompositeView(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
-	9.do(x=~bgrid-10; {CompositeView(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
+	9.do(x=~tgrid-10; {View(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
+	9.do(x=~bgrid-10; {View(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
 
-	~z1 = (CompositeView(w, Rect((if(~f1 == nil, {f1.value},{~f1.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z2 = (CompositeView(w, Rect((if(~f2 == nil, {f2.value},{~f2.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z3 = (CompositeView(w, Rect((if(~f3 == nil, {f3.value},{~f3.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z4 = (CompositeView(w, Rect((if(~f4 == nil, {f4.value},{~f4.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z5 = (CompositeView(w, Rect((if(~f5 == nil, {f5.value},{~f5.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z6 = (CompositeView(w, Rect((if(~f6 == nil, {f6.value},{~f6.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z7 = (CompositeView(w, Rect((if(~f7 == nil, {f7.value},{~f7.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z8 = (CompositeView(w, Rect((if(~f8 == nil, {f8.value},{~f8.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~zmid = (CompositeView(w, Rect(x, 280, ~nw, 2)).background = Color.clear;);
-	~z25 = (CompositeView(w, Rect((if(~f1 == nil, {f1.value},{~f1.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z26 = (CompositeView(w, Rect((if(~f2 == nil, {f2.value},{~f2.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z27 = (CompositeView(w, Rect((if(~f3 == nil, {f3.value},{~f3.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z28 = (CompositeView(w, Rect((if(~f4 == nil, {f4.value},{~f4.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z29 = (CompositeView(w, Rect((if(~f5 == nil, {f5.value},{~f5.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z30 = (CompositeView(w, Rect((if(~f6 == nil, {f6.value},{~f6.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z31 = (CompositeView(w, Rect((if(~f7 == nil, {f7.value},{~f7.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z32 = (CompositeView(w, Rect((if(~f8 == nil, {f8.value},{~f8.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
+	~z1 = (View(w, Rect((if(~f1 == nil, {f1.value},{~f1.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
+	~z2 = (View(w, Rect((if(~f2 == nil, {f2.value},{~f2.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
+	~z3 = (View(w, Rect((if(~f3 == nil, {f3.value},{~f3.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
+	~z4 = (View(w, Rect((if(~f4 == nil, {f4.value},{~f4.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
+	~z5 = (View(w, Rect((if(~f5 == nil, {f5.value},{~f5.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
+	~z6 = (View(w, Rect((if(~f6 == nil, {f6.value},{~f6.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
+	~z7 = (View(w, Rect((if(~f7 == nil, {f7.value},{~f7.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
+	~z8 = (View(w, Rect((if(~f8 == nil, {f8.value},{~f8.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
+	~zmid = (View(w, Rect(x, 280, ~nw, 2)).background = Color.clear;);
+	~z25 = (View(w, Rect((if(~f1 == nil, {f1.value},{~f1.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
+	~z26 = (View(w, Rect((if(~f2 == nil, {f2.value},{~f2.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
+	~z27 = (View(w, Rect((if(~f3 == nil, {f3.value},{~f3.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
+	~z28 = (View(w, Rect((if(~f4 == nil, {f4.value},{~f4.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
+	~z29 = (View(w, Rect((if(~f5 == nil, {f5.value},{~f5.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
+	~z30 = (View(w, Rect((if(~f6 == nil, {f6.value},{~f6.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
+	~z31 = (View(w, Rect((if(~f7 == nil, {f7.value},{~f7.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
+	~z32 = (View(w, Rect((if(~f8 == nil, {f8.value},{~f8.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
 
 
 	~dc1 = ~tgrid-5; ~dc2 = ~bgrid-5; ~dca = 10;
@@ -690,14 +690,14 @@ s.waitForBoot({
 			});
 		};
 
-		if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (CompositeView(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
-		if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (CompositeView(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
-		if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
-		if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
-		if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (CompositeView(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
-		if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (CompositeView(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-		if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
-		if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
+		if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+		if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
+		if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+		if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
+		if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
+		if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
+		if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+		if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 
 		b3.value = 1;
 	};
@@ -764,14 +764,14 @@ s.waitForBoot({
 			}););
 		};
 
-		if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (CompositeView(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
-		if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (CompositeView(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
-		if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
-		if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
-		if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (CompositeView(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
-		if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (CompositeView(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-		if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
-		if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
+		if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+		if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
+		if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+		if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
+		if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
+		if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
+		if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+		if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 
 	};
 
@@ -811,14 +811,14 @@ s.waitForBoot({
 					);
 
 					{if(~slidecount==0,{
-						if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (CompositeView(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
-						if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (CompositeView(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
-						if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
-						if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
-						if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (CompositeView(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
-						if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (CompositeView(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-						if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
-						if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
+						if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+						if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
+						if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+						if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
+						if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
+						if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
+						if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+						if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 					});}.defer;
 
 					(~slidetime/~slidedo).wait;});});}).play;);}
@@ -856,14 +856,14 @@ s.waitForBoot({
 
 					);
 
-					{if(~slidecount==0,{if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (CompositeView(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
-						if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (CompositeView(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
-						if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
-						if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
-						if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (CompositeView(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
-						if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (CompositeView(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-						if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
-						if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
+					{if(~slidecount==0,{if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+						if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
+						if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+						if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
+						if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
+						if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
+						if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+						if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 					});}.defer;
 
 					(~slidetime/~slidedo).wait;});});}).play;);};
@@ -1092,23 +1092,23 @@ s.waitForBoot({
 
 			case
 			{y<~tgrid} {nil}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z1.close;~z1 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z2.close;~z2 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z3.close;~z3 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z4.close;~z4 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z5.close;~z5 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z6.close;~z6 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {~z7.close;~z7 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {~z8.close;~z8 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z1.close;~z1 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z2.close;~z2 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z3.close;~z3 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z4.close;~z4 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z5.close;~z5 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z6.close;~z6 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {~z7.close;~z7 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {~z8.close;~z8 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 			{y>~tgrid and: y<~bgrid} {nil}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z1.close;~z1 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z2.close;~z2 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z3.close;~z3 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z4.close;~z4 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z5.close;~z5 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z6.close;~z6 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z7.close;~z7 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z8.close;~z8 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z1.close;~z1 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z2.close;~z2 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z3.close;~z3 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z4.close;~z4 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z5.close;~z5 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z6.close;~z6 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z7.close;~z7 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z8.close;~z8 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 		}, {});
 
 		~tgrid = 30;
@@ -1369,23 +1369,23 @@ s.waitForBoot({
 
 		case
 		{y<~tgrid} {nil}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z1.close;~z25.close;~z1 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z2.close;~z26.close;~z2 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z3.close;~z27.close;~z3 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z4.close;~z28.close;~z4 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z5.close;~z29.close;~z5 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z6.close;~z30.close;~z6 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {~z7.close;~z31.close;~z7 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {~z8.close;~z32.close;~z8 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 		{y>~tgrid and: y<~bgrid} {nil}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect(x, y, ~nw, 2)).background = Color.white;)};
+		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z1.close;~z25.close;~z1 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z2.close;~z26.close;~z2 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z3.close;~z27.close;~z3 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z4.close;~z28.close;~z4 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z5.close;~z29.close;~z5 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z6.close;~z30.close;~z6 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z7.close;~z31.close;~z7 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z8.close;~z32.close;~z8 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)};
 		w.refresh;
 
 		~tgrid = 30;
@@ -1842,27 +1842,11 @@ s.waitForBoot({
 	~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString;
 	~low_pass_filter_textfield.background_(Color.black);
 	~low_pass_filter_textfield.stringColor_(Color.white);
-	~low_pass_filter_textfield.action = {arg value; ~low_pass_filter_set_value = value;
+	~low_pass_filter_textfield.action = {arg value; ~freqsetvalue = value.value;
 
-		~low_pass_filter_set_value = ~low_pass_filter_set_value.value;
+		~freqset_textfield_func.value; //this function is found after line 2900
 
-		~low_pass_filter_set_value = ~low_pass_filter_set_value.separate;
-
-		~low_pass_filter_set_value = ~low_pass_filter_set_value.reject{arg item;
-			(item != "1") and:
-			(item != "2") and:
-			(item != "3") and:
-			(item != "4") and:
-			(item != "5") and:
-			(item != "6") and:
-			(item != "7") and:
-			(item != "8") and:
-			(item != "9") and:
-			(item != "0") and:
-			(item != ".")
-		};
-
-		~low_pass_filter_set_value = ~low_pass_filter_set_value.join.asString.asFloat;
+		~low_pass_filter_set_value = ~freqsetvalue.value;
 
 		~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString;
 
@@ -2502,115 +2486,243 @@ s.waitForBoot({
 	if(~slidedo8 == nil, {~slidedo8 = 432});
 
 
-	//set slide values button
+	//frequency set function
 
-	~slidevals = Button.new(w,Rect(Window.screenBounds.width-20-20-20,~bpt+69+5,20,20/1.6180339887499)).states_([["s",Color.white,Color.black],["s",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
+	~freqset_textfield_func = {
+		~freqsetvalue = ~freqsetvalue.asString;
+		~freqsetvalue = ~freqsetvalue.separate;
+		~freqsetvalue = ~freqsetvalue.reject{arg item;
+			(item != "1") and:
+			(item != "2") and:
+			(item != "3") and:
+			(item != "4") and:
+			(item != "5") and:
+			(item != "6") and:
+			(item != "7") and:
+			(item != "8") and:
+			(item != "9") and:
+			(item != "0") and:
+			(item != ".") and:
+			(item != "+") and:
+			(item != "-") and:
+			(item != "*") and:
+			(item != "/") and:
+			(item != "**") and:
+			(item != "%")
+		};
+		~freqsetvalue = ~freqsetvalue.join.asString.interpret;
+	};
+
+
+	//extra options button
+
+	~extraoptions = Button.new(w,Rect(Window.screenBounds.width-20-20-20,~bpt+69+5,20,20/1.6180339887499)).states_([["eo",Color.white,Color.black],["eo",Color.white,Color.black]]).action_({arg button;
 
 		if(button.value == 1, {
-			({
-				arg lefttime = 0 , lefttimebox = 52, leftdo = lefttimebox+widthbox+6, leftdobox = leftdo+57, top = 0,width=52, height = 16,  widthbox=52, heightbox = 16, inc=0, lw = 0,  uw = 0, numw = 40;
-				var tall, stall, iall, siall, st1, st2, st3, st4, st5, st6, st7, st8, si1, si2, si3, si4, si5, si6, si7, si8, t1,t2,t3,t4,t5,t6,t7,t8,i1,i2,i3,i4,i5,i6,i7,i8;
-				~slideview = View(w, Rect(Window.screenBounds.width-(340+46),Window.screenBounds.height-(340+46/1.6180339887499)-110,340+46,340+46/1.6180339887499)).front;
 
-				tall = StaticText(~slideview, Rect(lefttime , top=top, width, height)).background_(Color.black).string_("all time").stringColor_(Color.white);
-				t1 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s1 time").stringColor_(Color.white);
-				t2 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s2 time").stringColor_(Color.white);
-				t3 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s3 time").stringColor_(Color.white);
-				t4 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s4 time").stringColor_(Color.white);
-				t5 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s5 time").stringColor_(Color.white);
-				t6 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s6 time").stringColor_(Color.white);
-				t7 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s7 time").stringColor_(Color.white);
-				t8 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s8 time").stringColor_(Color.white);
+			~extraoptionsview = View(w, Rect(Window.screenBounds.width-(540),Window.screenBounds.height-(340+46/1.6180339887499)-150,340+46,380+46/1.6180339887499)).front;
+			~extraoptionsview.background_(Color.black);
 
-				top = 0;
+			//set slide values button
 
-				stall=NumberBox(~slideview, Rect(lefttimebox , top=top, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetimeall).maxDecimals_(9);
-				st1=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime1).maxDecimals_(9);
-				st2=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime2).maxDecimals_(9);
-				st3=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime3).maxDecimals_(9);
-				st4=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime4).maxDecimals_(9);
-				st5=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime5).maxDecimals_(9);
-				st6=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime6).maxDecimals_(9);
-				st7=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime7).maxDecimals_(9);
-				st8=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime8).maxDecimals_(9);
+			~slidevals = Button.new(~extraoptionsview,Rect(0,25,120,20)).states_([["slide values",Color.white,Color.black],["slide values",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-				top = 0;
+				if(button.value == 1, {
+					({
+						arg lefttime = 0 , lefttimebox = 52, leftdo = lefttimebox+widthbox+6, leftdobox = leftdo+57, top = 0,width=52, height = 16,  widthbox=52, heightbox = 16, inc=0, lw = 0,  uw = 0, numw = 40;
+						var tall, stall, iall, siall, st1, st2, st3, st4, st5, st6, st7, st8, si1, si2, si3, si4, si5, si6, si7, si8, t1,t2,t3,t4,t5,t6,t7,t8,i1,i2,i3,i4,i5,i6,i7,i8;
+						~slideview = View(w, Rect(Window.screenBounds.width-(340+46),Window.screenBounds.height-(340+46/1.6180339887499)-150,340+46,380+46/1.6180339887499)).front;
+						/*w.view.decorator=FlowLayout(w.view.bounds);
+						w.view.decorator.gap=2@2;*/
 
-				iall = StaticText(~slideview, Rect(leftdo , top=top, width, height)).background_(Color.black).string_("all incr").stringColor_(Color.white);
-				i1 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s1 incr").stringColor_(Color.white);
-				i2 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s2 incr").stringColor_(Color.white);
-				i3 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s3 incr").stringColor_(Color.white);
-				i4 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s4 incr").stringColor_(Color.white);
-				i5 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s5 incr").stringColor_(Color.white);
-				i6 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s6 incr").stringColor_(Color.white);
-				i7 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s7 incr").stringColor_(Color.white);
-				i8 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s8 incr").stringColor_(Color.white);
+						tall = StaticText(~slideview, Rect(lefttime , top=top, width, height)).background_(Color.black).string_("all time").stringColor_(Color.white);
+						t1 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s1 time").stringColor_(Color.white);
+						t2 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s2 time").stringColor_(Color.white);
+						t3 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s3 time").stringColor_(Color.white);
+						t4 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s4 time").stringColor_(Color.white);
+						t5 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s5 time").stringColor_(Color.white);
+						t6 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s6 time").stringColor_(Color.white);
+						t7 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s7 time").stringColor_(Color.white);
+						t8 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s8 time").stringColor_(Color.white);
 
-				top = 0;
+						top = 0;
 
-				siall=NumberBox(~slideview, Rect(leftdobox , top=top, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedoall);
-				si1=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo1);
-				si2=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo2);
-				si3=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo3);
-				si4=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo4);
-				si5=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo5);
-				si6=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo6);
-				si7=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo7);
-				si8=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo8);
+						stall=NumberBox(~slideview, Rect(lefttimebox , top=top, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetimeall).maxDecimals_(9);
+						st1=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime1).maxDecimals_(9);
+						st2=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime2).maxDecimals_(9);
+						st3=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime3).maxDecimals_(9);
+						st4=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime4).maxDecimals_(9);
+						st5=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime5).maxDecimals_(9);
+						st6=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime6).maxDecimals_(9);
+						st7=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime7).maxDecimals_(9);
+						st8=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime8).maxDecimals_(9);
 
-				stall.action_({arg val;
-					~slidetimeall = val.value;
-					~slidetime1 = val.value;
-					~slidetime2 = val.value;
-					~slidetime3 = val.value;
-					~slidetime4 = val.value;
-					~slidetime5 = val.value;
-					~slidetime6 = val.value;
-					~slidetime7 = val.value;
-					~slidetime8 = val.value;
-					~slideview.close; ~slidevals.valueAction_(1);
-				});
-				st1.action_({arg val; ~slidetime1 = val.value;});
-				st2.action_({arg val; ~slidetime2 = val.value;});
-				st3.action_({arg val; ~slidetime3 = val.value;});
-				st4.action_({arg val; ~slidetime4 = val.value;});
-				st5.action_({arg val; ~slidetime5 = val.value;});
-				st6.action_({arg val; ~slidetime6 = val.value;});
-				st7.action_({arg val; ~slidetime7 = val.value;});
-				st8.action_({arg val; ~slidetime8 = val.value;});
+						top = 0;
 
-				siall.action_({arg val;
-					~slidedoall = val.value;
-					~slidedo1 = val.value;
-					~slidedo2 = val.value;
-					~slidedo3 = val.value;
-					~slidedo4 = val.value;
-					~slidedo5 = val.value;
-					~slidedo6 = val.value;
-					~slidedo7 = val.value;
-					~slidedo8 = val.value;
-					~slideview.close; ~slidevals.valueAction_(1);
-				});
-				si1.action_({arg val; ~slidedo1 = val.value;});
-				si2.action_({arg val; ~slidedo2 = val.value;});
-				si3.action_({arg val; ~slidedo3 = val.value;});
-				si4.action_({arg val; ~slidedo4 = val.value;});
-				si5.action_({arg val; ~slidedo5 = val.value;});
-				si6.action_({arg val; ~slidedo6 = val.value;});
-				si7.action_({arg val; ~slidedo7 = val.value;});
-				si8.action_({arg val; ~slidedo8 = val.value;});
+						iall = StaticText(~slideview, Rect(leftdo , top=top, width, height)).background_(Color.black).string_("all incr").stringColor_(Color.white);
+						i1 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s1 incr").stringColor_(Color.white);
+						i2 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s2 incr").stringColor_(Color.white);
+						i3 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s3 incr").stringColor_(Color.white);
+						i4 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s4 incr").stringColor_(Color.white);
+						i5 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s5 incr").stringColor_(Color.white);
+						i6 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s6 incr").stringColor_(Color.white);
+						i7 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s7 incr").stringColor_(Color.white);
+						i8 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s8 incr").stringColor_(Color.white);
 
-				~slideview.background_(Color.black);
+						top = 0;
 
-				~closeslidebutton = Button.new(~slideview,Rect(220, top+40, 40, 40/~gm)).states_([["close",Color.white,Color.black]]).action_({arg button;
+						siall=NumberBox(~slideview, Rect(leftdobox , top=top, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedoall);
+						si1=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo1);
+						si2=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo2);
+						si3=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo3);
+						si4=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo4);
+						si5=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo5);
+						si6=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo6);
+						si7=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo7);
+						si8=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo8);
 
-					~slideview.close; ~slidevals.value = 0;
-				});
+						stall.action_({arg val;
+							~slidetimeall = val.value;
+							~slidetime1 = val.value;
+							~slidetime2 = val.value;
+							~slidetime3 = val.value;
+							~slidetime4 = val.value;
+							~slidetime5 = val.value;
+							~slidetime6 = val.value;
+							~slidetime7 = val.value;
+							~slidetime8 = val.value;
+							~slideview.close; ~slidevals.valueAction_(1);
+						});
+						st1.action_({arg val; ~slidetime1 = val.value;});
+						st2.action_({arg val; ~slidetime2 = val.value;});
+						st3.action_({arg val; ~slidetime3 = val.value;});
+						st4.action_({arg val; ~slidetime4 = val.value;});
+						st5.action_({arg val; ~slidetime5 = val.value;});
+						st6.action_({arg val; ~slidetime6 = val.value;});
+						st7.action_({arg val; ~slidetime7 = val.value;});
+						st8.action_({arg val; ~slidetime8 = val.value;});
 
-			}.value);
+						siall.action_({arg val;
+							~slidedoall = val.value;
+							~slidedo1 = val.value;
+							~slidedo2 = val.value;
+							~slidedo3 = val.value;
+							~slidedo4 = val.value;
+							~slidedo5 = val.value;
+							~slidedo6 = val.value;
+							~slidedo7 = val.value;
+							~slidedo8 = val.value;
+							~slideview.close; ~slidevals.valueAction_(1);
+						});
+						si1.action_({arg val; ~slidedo1 = val.value;});
+						si2.action_({arg val; ~slidedo2 = val.value;});
+						si3.action_({arg val; ~slidedo3 = val.value;});
+						si4.action_({arg val; ~slidedo4 = val.value;});
+						si5.action_({arg val; ~slidedo5 = val.value;});
+						si6.action_({arg val; ~slidedo6 = val.value;});
+						si7.action_({arg val; ~slidedo7 = val.value;});
+						si8.action_({arg val; ~slidedo8 = val.value;});
 
-			~slideview.front;
-		}, {~slideview.close});
+						~slideview.background_(Color.black);
+
+						~closeslidebutton = Button.new(~slideview,Rect(leftdobox+widthbox-40, top+40, 40, 40/~gm)).states_([["close",Color.white,Color.black]]).action_({arg button;
+
+							~slideview.close; ~slidevals.value = 0;
+						});
+
+					}.value);
+
+					~slideview.front;
+				}, {~slideview.close;});
+			});
+
+
+			//set individual or all synth frequencies button
+
+			~beforefreqsetfreqs = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ];
+
+			~synthfreqset = Button.new(~extraoptionsview,Rect(0,0,120,20)).states_([["set frequencies",Color.white,Color.black],["set frequencies",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
+
+				if(button.value == 1, {
+					({
+						arg  top = 0,width=88, revertwidth=75, height = 16,  heightbox = 16, lefttime = 0 , lefttimebox = width+5,  widthbox=165, leftdo = lefttimebox+widthbox+5, leftdobox = leftdo+57, inc=0, lw = 0,  uw = 0, numw = 40;
+						var tall, stall, iall, siall, st1, st2, st3, st4, st5, st6, st7, st8, st9, st10, st11, st12, si1, si2, si3, si4, si5, si6, si7, si8, t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12;
+						~synthfreqsetview = View(w, Rect(Window.screenBounds.width-(340+46),Window.screenBounds.height-(340+46/1.6180339887499)-150,340+46,380+46/1.6180339887499)).front;
+						/*w.view.decorator=FlowLayout(w.view.bounds);
+						w.view.decorator.gap=2@2;*/
+
+						t1 = StaticText(~synthfreqsetview, Rect(lefttime , top=top, width, height)).background_(Color.black).string_("freq 1 (f1)").stringColor_(Color.white);
+						t2 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 2 (f2)").stringColor_(Color.white);
+						t3 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 3 (f3)").stringColor_(Color.white);
+						t4 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 4 (f4)").stringColor_(Color.white);
+						t5 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 5 (f5)").stringColor_(Color.white);
+						t6 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 6 (f6)").stringColor_(Color.white);
+						t7 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 7 (f7)").stringColor_(Color.white);
+						t8 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 8 (f8)").stringColor_(Color.white);
+						tall = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height+10, width, height)).background_(Color.black).string_("all freqs").stringColor_(Color.white);
+
+						top = 0;
+
+						st1=TextField(~synthfreqsetview, Rect(lefttimebox , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f1);
+						st2=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f2);
+						st3=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f3);
+						st4=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f4);
+						st5=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f5);
+						st6=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f6);
+						st7=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f7);
+						st8=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f8);
+						stall=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox+10, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f1);
+
+						top = 0;
+
+						i1 = Button.new(~synthfreqsetview, Rect(leftdo , top=top, revertwidth, height)).states_([["f1 revert",Color.white,Color.black],["f1 revert",Color.white,Color.black]]).action_({arg button; if(~f1_revert != nil, {if(~f1 != ~f1_revert, {~f1_un_revert = ~f1; ~f1 = ~f1_revert;}, {if(~f1_un_revert != nil, {~f1 = ~f1_un_revert;});}); ~synthflow.value; st1.string = ~f1.asString;});});
+						i2 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f2 revert",Color.white,Color.black],["f2 revert",Color.white,Color.black]]).action_({arg button; if(~f2_revert != nil, {if(~f2 != ~f2_revert, {~f2_un_revert = ~f2; ~f2 = ~f2_revert;}, {if(~f2_un_revert != nil, {~f2 = ~f2_un_revert;});}); ~synthflow.value; st2.string = ~f2.asString;});});
+						i3 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f3 revert",Color.white,Color.black],["f3 revert",Color.white,Color.black]]).action_({arg button; if(~f3_revert != nil, {if(~f3 != ~f3_revert, {~f3_un_revert = ~f3; ~f3 = ~f3_revert;}, {if(~f3_un_revert != nil, {~f3 = ~f3_un_revert;});}); ~synthflow.value; st3.string = ~f3.asString;});});
+						i4 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f4 revert",Color.white,Color.black],["f4 revert",Color.white,Color.black]]).action_({arg button; if(~f4_revert != nil, {if(~f4 != ~f4_revert, {~f4_un_revert = ~f4; ~f4 = ~f4_revert;}, {if(~f4_un_revert != nil, {~f4 = ~f4_un_revert;});}); ~synthflow.value; st4.string = ~f4.asString;});});
+						i5 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f5 revert",Color.white,Color.black],["f5 revert",Color.white,Color.black]]).action_({arg button; if(~f5_revert != nil, {if(~f5 != ~f5_revert, {~f5_un_revert = ~f5; ~f5 = ~f5_revert;}, {if(~f5_un_revert != nil, {~f5 = ~f5_un_revert;});}); ~synthflow.value; st5.string = ~f5.asString;});});
+						i6 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f6 revert",Color.white,Color.black],["f6 revert",Color.white,Color.black]]).action_({arg button; if(~f6_revert != nil, {if(~f6 != ~f6_revert, {~f6_un_revert = ~f6; ~f6 = ~f6_revert;}, {if(~f6_un_revert != nil, {~f6 = ~f6_un_revert;});}); ~synthflow.value; st6.string = ~f6.asString;});});
+						i7 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f7 revert",Color.white,Color.black],["f7 revert",Color.white,Color.black]]).action_({arg button; if(~f7_revert != nil, {if(~f7 != ~f7_revert, {~f7_un_revert = ~f7; ~f7 = ~f7_revert;}, {if(~f7_un_revert != nil, {~f7 = ~f7_un_revert;});}); ~synthflow.value; st7.string = ~f7.asString;});});
+						i8 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f8 revert",Color.white,Color.black],["f8 revert",Color.white,Color.black]]).action_({arg button; if(~f8_revert != nil, {if(~f8 != ~f8_revert, {~f8_un_revert = ~f8; ~f8 = ~f8_revert;}, {if(~f8_un_revert != nil, {~f8 = ~f8_un_revert;});}); ~synthflow.value; st8.string = ~f8.asString;});});
+						iall = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height+10, revertwidth, height)).states_([["all revert",Color.white,Color.black],["all revert",Color.white,Color.black]]).action_({arg button; if(~f_all_revert != nil, {if([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ] != ~f_all_revert.flatten, {~f_all_un_revert = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ].flatten; 8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~f_all_revert.flatten.at(x-1);)});}, {if(~f_all_un_revert != nil, {8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~f_all_un_revert.flatten.at(x-1);)});});}); ~synthflow.value; stall.string = ~f1.asString;});});
+
+
+						stall.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f_all_revert = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]; 8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~freqsetvalue;)}); ~synthflow.value; stall.string = ~freqsetvalue.asString;});
+						st1.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f1_revert = ~f1; ~f1 = ~freqsetvalue; ~synthflow.value; st1.string = ~freqsetvalue.asString;});
+						st2.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f2_revert = ~f2; ~f2 = ~freqsetvalue; ~synthflow.value; st2.string = ~freqsetvalue.asString;});
+						st3.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f3_revert = ~f3; ~f3 = ~freqsetvalue; ~synthflow.value; st3.string = ~freqsetvalue.asString;});
+						st4.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f4_revert = ~f4; ~f4 = ~freqsetvalue; ~synthflow.value; st4.string = ~freqsetvalue.asString;});
+						st5.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f5_revert = ~f5; ~f5 = ~freqsetvalue; ~synthflow.value; st5.string = ~freqsetvalue.asString;});
+						st6.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f6_revert = ~f6; ~f6 = ~freqsetvalue; ~synthflow.value; st6.string = ~freqsetvalue.asString;});
+						st7.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f7_revert = ~f7; ~f7 = ~freqsetvalue; ~synthflow.value; st7.string = ~freqsetvalue.asString;});
+						st8.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f8_revert = ~f8; ~f8 = ~freqsetvalue; ~synthflow.value; st8.string = ~freqsetvalue.asString;});
+
+						~synthfreqsetview.background_(Color.black);
+
+						~closesfreqsetbutton = Button.new(~synthfreqsetview,Rect(leftdo+revertwidth-40, top=top+height+20, 40, 40/~gm)).states_([["close",Color.white,Color.black]]).action_({arg button;
+
+							~synthfreqsetview.close;
+						});
+
+						~beforefreqsetrevert = Button.new(~synthfreqsetview,Rect(lefttime, top+(40/~gm)-height, revertwidth+150, height)).states_([["restore freqs before opening eo",Color.white,Color.black],["revert",Color.white,Color.black]]).action_({arg button;
+
+							if([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ] != ~beforefreqsetfreqs.flatten, {~beforefreqsetfreqs_unrestore = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8 ]; 8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~beforefreqsetfreqs.flatten.at(x-1);)});}, {if(~beforefreqsetfreqs_unrestore != nil, {8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~beforefreqsetfreqs_unrestore.flatten.at(x-1);)});});}); ~synthflow.value;
+						});
+
+
+					}.value);
+
+					~synthfreqsetview.front;
+				}, {~synthfreqsetview.close});
+			});
+
+
+			Button.new(~extraoptionsview,Rect(0,80,120,20)).states_([["close eo",Color.white,Color.black],["close eo",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
+
+				~extraoptionsview.close; ~slideview.close; ~synthfreqsetview.close; ~extraoptions.value = 0;
+
+			});
+
+		}, {~extraoptionsview.close; ~slideview.close; ~synthfreqset.close;});
 	});
 
 
@@ -3008,7 +3120,7 @@ s.waitForBoot({
 				~l1f1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
 			};
 			~tunefreq1 = ~f1; ~f1 = ~f1+~f1t;
-			{if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (CompositeView(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+			{if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: [0]);
 		MIDIdef.cc('l2', { |val|
@@ -3029,7 +3141,7 @@ s.waitForBoot({
 				~l2f1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
 			};
 			~tunefreq2 = ~f2; ~f2 = ~f2+~f2t;
-			{if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (CompositeView(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
+			{if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: [1]);
 		MIDIdef.cc('l3', { |val|
@@ -3050,7 +3162,7 @@ s.waitForBoot({
 				~l3f1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
 			};
 			~tunefreq3 = ~f3; ~f3 = ~f3+~f3t;
-			{if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+			{if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 2);
 		MIDIdef.cc('l4', { |val|
@@ -3071,7 +3183,7 @@ s.waitForBoot({
 				~l4f1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
 			};
 			~tunefreq4 = ~f4; ~f4 = ~f4+~f4t;
-			{if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
+			{if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 3);
 		MIDIdef.cc('l5', { |val|
@@ -3092,7 +3204,7 @@ s.waitForBoot({
 				~l5f1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
 			};
 			~tunefreq5 = ~f5; ~f5 = ~f5+~f5t;
-			{if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (CompositeView(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
+			{if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 4);
 		MIDIdef.cc('l6', { |val|
@@ -3113,7 +3225,7 @@ s.waitForBoot({
 				~l6f1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
 			};
 			~tunefreq6 = ~f6; ~f6 = ~f6+~f6t;
-			{if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (CompositeView(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
+			{if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 5);
 		MIDIdef.cc('l7', { |val|
@@ -3134,7 +3246,7 @@ s.waitForBoot({
 				~l7f1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
 			};
 			~tunefreq7 = ~f7; ~f7 = ~f7+~f7t;
-			{if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+			{if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 6);
 		MIDIdef.cc('l8', { |val|
@@ -3155,7 +3267,7 @@ s.waitForBoot({
 				~l8f1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
 			};
 			~tunefreq8 = ~f8; ~f8 = ~f8+~f8t;
-			{if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
+			{if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 7);
 
@@ -3194,7 +3306,7 @@ s.waitForBoot({
 				~l1f1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
 			};
 			~f1 = ~f1+~f1t;
-			{if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (CompositeView(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+			{if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 16);
 		MIDIFunc.cc({|val|
@@ -3217,7 +3329,7 @@ s.waitForBoot({
 				~l2f1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
 			};
 			~f2 = ~f2+~f2t;
-			{if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (CompositeView(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
+			{if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 17);
 		MIDIFunc.cc({|val|
@@ -3240,7 +3352,7 @@ s.waitForBoot({
 				~l3f1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
 			};
 			~f3 = ~f3+~f3t;
-			{if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+			{if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 18);
 		MIDIFunc.cc({|val|
@@ -3263,7 +3375,7 @@ s.waitForBoot({
 				~l4f1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
 			};
 			~f4 = ~f4+~f4t;
-			{if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
+			{if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 19);
 		MIDIFunc.cc({|val|
@@ -3286,7 +3398,7 @@ s.waitForBoot({
 				~l5f1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
 			};
 			~f5 = ~f5+~f5t;
-			{if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (CompositeView(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
+			{if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 20);
 		MIDIFunc.cc({|val|
@@ -3309,7 +3421,7 @@ s.waitForBoot({
 				~l6f1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
 			};
 			~f6 = ~f6+~f6t;
-			{if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (CompositeView(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
+			{if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 21);
 		MIDIFunc.cc({|val|
@@ -3332,7 +3444,7 @@ s.waitForBoot({
 				~l7f1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
 			};
 			~f7 = ~f7+~f7t;
-			{if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+			{if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 22);
 		MIDIFunc.cc({|val|
@@ -3355,7 +3467,7 @@ s.waitForBoot({
 				~l8f1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
 			};
 			~f8 = ~f8+~f8t;
-			{if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
+			{if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 			}.defer;
 		}, ccNum: 23);
 
@@ -3644,7 +3756,7 @@ s.waitForBoot({
 					~l1e1.set(\dur, ~f1/~icd6);
 					~l1f1.set(\dur, ~f1/~icd6);
 				};
-				if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (CompositeView(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+				if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 				~z25.background = Color.green; ~z1.background = Color.green;
 				~z26.background = Color.white; ~z2.background = Color.white;
 				~z27.background = Color.white; ~z3.background = Color.white;
@@ -3674,7 +3786,7 @@ s.waitForBoot({
 					~l1e1.set(\dur, ~f1/~icd6);
 					~l1f1.set(\dur, ~f1/~icd6);
 				};
-				if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (CompositeView(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (CompositeView(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+				if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 
 				~z25.background = Color.green; ~z1.background = Color.green;
 				~z26.background = Color.white; ~z2.background = Color.white;
@@ -3706,7 +3818,7 @@ s.waitForBoot({
 					~l2e1.set(\dur, ~f2/~icd6);
 					~l2f1.set(\dur, ~f2/~icd6);
 				};
-				if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (CompositeView(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
+				if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.green; ~z2.background = Color.green;
 				~z27.background = Color.white; ~z3.background = Color.white;
@@ -3736,7 +3848,7 @@ s.waitForBoot({
 					~l2e1.set(\dur, ~f2/~icd6);
 					~l2f1.set(\dur, ~f2/~icd6);
 				};
-				if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (CompositeView(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (CompositeView(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
+				if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
 
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.green; ~z2.background = Color.green;
@@ -3768,7 +3880,7 @@ s.waitForBoot({
 					~l3e1.set(\dur, ~f3/~icd6);
 					~l3f1.set(\dur, ~f3/~icd6);
 				};
-				if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+				if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
 				~z27.background = Color.green; ~z3.background = Color.green;
@@ -3798,7 +3910,7 @@ s.waitForBoot({
 					~l3e1.set(\dur, ~f3/~icd6);
 					~l3f1.set(\dur, ~f3/~icd6);
 				};
-				if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (CompositeView(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (CompositeView(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+				if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
 
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
@@ -3830,7 +3942,7 @@ s.waitForBoot({
 					~l4e1.set(\dur, ~f4/~icd6);
 					~l4f1.set(\dur, ~f4/~icd6);
 				};
-				if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
+				if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
 				~z27.background = Color.white; ~z3.background = Color.white;
@@ -3860,7 +3972,7 @@ s.waitForBoot({
 					~l4e1.set(\dur, ~f4/~icd6);
 					~l4f1.set(\dur, ~f4/~icd6);
 				};
-				if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (CompositeView(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (CompositeView(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
+				if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
 
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
@@ -3892,7 +4004,7 @@ s.waitForBoot({
 					~l5e1.set(\dur, ~f5/~icd6);
 					~l5f1.set(\dur, ~f5/~icd6);
 				};
-				if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (CompositeView(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
+				if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
 				~z27.background = Color.white; ~z3.background = Color.white;
@@ -3922,7 +4034,7 @@ s.waitForBoot({
 					~l5e1.set(\dur, ~f5/~icd6);
 					~l5f1.set(\dur, ~f5/~icd6);
 				};
-				if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (CompositeView(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (CompositeView(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
+				if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
 
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
@@ -3954,7 +4066,7 @@ s.waitForBoot({
 					~l6e1.set(\dur, ~f6/~icd6);
 					~l6f1.set(\dur, ~f6/~icd6);
 				};
-				if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (CompositeView(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
+				if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
 				~z27.background = Color.white; ~z3.background = Color.white;
@@ -3984,7 +4096,7 @@ s.waitForBoot({
 					~l6e1.set(\dur, ~f6/~icd6);
 					~l6f1.set(\dur, ~f6/~icd6);
 				};
-				if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (CompositeView(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (CompositeView(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
+				if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
 
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
@@ -4016,7 +4128,7 @@ s.waitForBoot({
 					~l7e1.set(\dur, ~f7/~icd6);
 					~l7f1.set(\dur, ~f7/~icd6);
 				};
-				if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+				if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
 				~z27.background = Color.white; ~z3.background = Color.white;
@@ -4046,7 +4158,7 @@ s.waitForBoot({
 					~l7e1.set(\dur, ~f7/~icd6);
 					~l7f1.set(\dur, ~f7/~icd6);
 				};
-				if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (CompositeView(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (CompositeView(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+				if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
 
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
@@ -4078,7 +4190,7 @@ s.waitForBoot({
 					~l8e1.set(\dur, ~f8/~icd6);
 					~l8f1.set(\dur, ~f8/~icd6);
 				};
-				if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
+				if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
 				~z27.background = Color.white; ~z3.background = Color.white;
@@ -4108,7 +4220,7 @@ s.waitForBoot({
 					~l8e1.set(\dur, ~f8/~icd6);
 					~l8f1.set(\dur, ~f8/~icd6);
 				};
-				if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (CompositeView(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (CompositeView(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
+				if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
@@ -4646,8 +4758,7 @@ s.waitForBoot({
 				"rw: random western scale"++"\n"++"\n"++
 				"re: random eastern scale"++"\n"++"\n"++
 				"r: routine/loop function - rslot for synth set, rtime for time between transitions"++"\n"++"\n"++
-				"st: stop synth timer/show timer results"++"\n"++"\n"++
-				"s: set slide time/increment"++"\n"++"\n"++
+				"eo: extra options - set frequencies, set slide time/increment"++"\n"++"\n"++
 				"i: help"++"\n"++"\n"++
 				"m: minimize window"++"\n"++"\n"++
 				"c: close window"++"\n"++"\n"++"\n"++
