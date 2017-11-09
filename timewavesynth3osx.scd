@@ -8,9 +8,9 @@
 //and pressing "ctrl - enter" or "cmd - return", before each server boot. Rebooting the interpreter is not needed to
 //evaluate the code below if the server is booted.
 
-//You can program/make a song by using the "timewavesynth12script.scd" file
+//You can program/make a song by using the "timewavesynth8script.scd" file
 
-//This version is slightly CPU intensive due to the amount of synths it has, so a less-powerful computer may experience trouble running it
+//This synth is compatible with the Korg NanoKontrol 2
 
 s.options.memSize = 2097152/4;
 MIDIIn.connectAll;
@@ -19,7 +19,7 @@ MIDIIn.connectAll;
 s.boot;
 s.waitForBoot({
 	var point, w, view, view2,
-	vol = 0.02,mute1,mute2,mute3,mute4,mute5,mute6,mute7,mute8,mute9,mute10,mute11,mute12,muteall,unmuteall,
+	vol = 0.02,mute1,mute2,mute3,mute4,mute5,mute6,mute7,mute8,muteall,unmuteall,
 	g1,g2,g6,g8,g33,g48,g64,g72,g88,gm,ngm1,ngm2,ngm6,set1,set2,menu1,menu2,
 	ts,sts,str,spaceb,b1,b2,b3,b4,button,button1,info,
 	n1,n2,n3,n4,n5,n6,n7,n8,keycodeb,
@@ -203,35 +203,35 @@ s.waitForBoot({
 	~nnh6 = 1.0076258811195;
 
 
-	//edit SAVED s1-s8 frequencies/chords. Replace any "[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]" with desired frequencies.
-	//Example: [~f1=31.385685128991,~f2=86.222407114322,~f3=229.95963599755,~f4=841.97361403235,~f5=894.01606840275,~f6=38.068730542463,~f7=80.91428965114,~f8=554.92014995488,~f9=267.88136743588,~f10=962.78155194321,~f11=772.35072747751,~f12=1365.644617352]
+	//edit SAVED s1-s8 frequencies/chords. Replace any "[ ~f1,~f2,~f3 ]" with desired frequencies.
+	//Example: [~f1=31.385685128991,~f2=86.222407114322,~f3=229.95963599755]
 	//You can find frequencies in the "copy" section of GUI under "saved open/flow 1-8 frequencies:" or "saved slide 1-8 frequencies:".
 	//Remove both the "/*" and "*/" around the code to make evaluable. Put them back to make it unevaluable.
 
 	/*
 
-	12.do(x = 0; {("fp"++(x=x+1)).asSymbol.envirPut([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].at(x-1))});
-	12.do(x = 0; {("fp"++(x=x+1)++"b").asSymbol.envirPut([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].at(x-1))});
-	12.do(x = 0; {("fp"++(x=x+1)++"c").asSymbol.envirPut([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].at(x-1))});
-	12.do(x = 0; {("fp"++(x=x+1)++"d").asSymbol.envirPut([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].at(x-1))});
-	12.do(x = 0; {("fp"++(x=x+1)++"e").asSymbol.envirPut([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].at(x-1))});
-	12.do(x = 0; {("fp"++(x=x+1)++"f").asSymbol.envirPut([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].at(x-1))});
-	12.do(x = 0; {("fp"++(x=x+1)++"g").asSymbol.envirPut([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].at(x-1))});
-	12.do(x = 0; {("fp"++(x=x+1)++"h").asSymbol.envirPut([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].at(x-1))});
+	3.do(x = 0; {("fp"++(x=x+1)).asSymbol.envirPut([ ~f1,~f2,~f3 ].at(x-1))});
+	3.do(x = 0; {("fp"++(x=x+1)++"b").asSymbol.envirPut([ ~f1,~f2,~f3 ].at(x-1))});
+	3.do(x = 0; {("fp"++(x=x+1)++"c").asSymbol.envirPut([ ~f1,~f2,~f3 ].at(x-1))});
+	3.do(x = 0; {("fp"++(x=x+1)++"d").asSymbol.envirPut([ ~f1,~f2,~f3 ].at(x-1))});
+	3.do(x = 0; {("fp"++(x=x+1)++"e").asSymbol.envirPut([ ~f1,~f2,~f3 ].at(x-1))});
+	3.do(x = 0; {("fp"++(x=x+1)++"f").asSymbol.envirPut([ ~f1,~f2,~f3 ].at(x-1))});
+	3.do(x = 0; {("fp"++(x=x+1)++"g").asSymbol.envirPut([ ~f1,~f2,~f3 ].at(x-1))});
+	3.do(x = 0; {("fp"++(x=x+1)++"h").asSymbol.envirPut([ ~f1,~f2,~f3 ].at(x-1))});
 
 	*/
 
 
-	//edit STARTING frequencies/chord (not saved s1-s8 frequencies/chords). Replace "[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]" with starting frequencies.
-	//Example: [~f1=31.385685128991,~f2=86.222407114322,~f3=229.95963599755,~f4=841.97361403235,~f5=894.01606840275,~f6=38.068730542463,~f7=80.91428965114,~f8=554.92014995488,~f9=267.88136743588,~f10=962.78155194321,~f11=772.35072747751,~f12=1365.644617352]
+	//edit STARTING frequencies/chord (not saved s1-s8 frequencies/chords). Replace "[ ~f1,~f2,~f3 ]" with starting frequencies.
+	//Example: [~f1=31.385685128991,~f2=86.222407114322,~f3=229.95963599755]
 	//You can find frequencies in the "copy" section of GUI under "current chord/frequencies".
 	//Remove both the "/*" and "*/" around the code to make evaluable. Put them back to make it unevaluable again.
 
 	/*
 
-	12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(
+	3.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(
 
-	[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]
+	[ ~f1,~f2,~f3 ]
 
 	.at(x-1))});
 
@@ -245,24 +245,15 @@ s.waitForBoot({
 
 	//default starting notes
 
-	if(([f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]), {
-		#f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12 = [
+	if(([f1,f2,f3] == [nil,nil,nil]), {
+		#f1,f2,f3 = [
 			(~freqmap.at(127)/8).rand,
 			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
+			(~freqmap.at(127)/8).rand
 		];
 	});
 
-	if(([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]), {12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12].at(x-1))});});
+	if(([ ~f1,~f2,~f3 ] == [nil,nil,nil]), {3.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([f1,f2,f3].at(x-1))});});
 
 	if([~fp1,~fp2,~fp3,~fp4,~fp5,~fp6,~fp7,~fp8,~fp9,~fp10,~fp11,~fp12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {12.do(x = 0; {("fp"++(x=x+1)).asSymbol.envirPut([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].at(x-1))});});
 	if([~fp1b,~fp2b,~fp3b,~fp4b,~fp5b,~fp6b,~fp7b,~fp8b,~fp9b,~fp10b,~fp11b,~fp12b] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {12.do(x = 0; {("fp"++(x=x+1)++"b").asSymbol.envirPut([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].at(x-1))});});
@@ -282,70 +273,70 @@ s.waitForBoot({
 	12.do(x = 0; {("u"++(x=x+1)++"g").asSymbol.envirPut([~fp1g,~fp2g,~fp3g,~fp4g,~fp5g,~fp6g,~fp7g,~fp8g,~fp9g,~fp10g,~fp11g,~fp12g].at(x-1))});
 	12.do(x = 0; {("u"++(x=x+1)++"h").asSymbol.envirPut([~fp1h,~fp2h,~fp3h,~fp4h,~fp5h,~fp6h,~fp7h,~fp8h,~fp9h,~fp10h,~fp11h,~fp12h].at(x-1))});
 
-	if([~sg1a1,~sg1a2,~sg1a3,~sg1a4,~sg1a5,~sg1a6,~sg1a7,~sg1a8,~sg1a9,~sg1a10,~sg1a11,~sg1a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1a1=~f1,~sg1a2=~f2,~sg1a3=~f3,~sg1a4=~f4,~sg1a5=~f5,~sg1a6=~f6,~sg1a7=~f7,~sg1a8=~f8,~sg1a9=~f9,~sg1a10=~f10,~sg1a11=~f11,~sg1a12=~f12];});
-	if([~sg1b1,~sg1b2,~sg1b3,~sg1b4,~sg1b5,~sg1b6,~sg1b7,~sg1b8,~sg1b9,~sg1b10,~sg1b11,~sg1b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1b1=~f1,~sg1b2=~f2,~sg1b3=~f3,~sg1b4=~f4,~sg1b5=~f5,~sg1b6=~f6,~sg1b7=~f7,~sg1b8=~f8,~sg1b9=~f9,~sg1b10=~f10,~sg1b11=~f11,~sg1b12=~f12];});
-	if([~sg1c1,~sg1c2,~sg1c3,~sg1c4,~sg1c5,~sg1c6,~sg1c7,~sg1c8,~sg1c9,~sg1c10,~sg1c11,~sg1c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1c1=~f1,~sg1c2=~f2,~sg1c3=~f3,~sg1c4=~f4,~sg1c5=~f5,~sg1c6=~f6,~sg1c7=~f7,~sg1c8=~f8,~sg1c9=~f9,~sg1c10=~f10,~sg1c11=~f11,~sg1c12=~f12];});
-	if([~sg1d1,~sg1d2,~sg1d3,~sg1d4,~sg1d5,~sg1d6,~sg1d7,~sg1d8,~sg1d9,~sg1d10,~sg1d11,~sg1d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1d1=~f1,~sg1d2=~f2,~sg1d3=~f3,~sg1d4=~f4,~sg1d5=~f5,~sg1d6=~f6,~sg1d7=~f7,~sg1d8=~f8,~sg1d9=~f9,~sg1d10=~f10,~sg1d11=~f11,~sg1d12=~f12];});
-	if([~sg1e1,~sg1e2,~sg1e3,~sg1e4,~sg1e5,~sg1e6,~sg1e7,~sg1e8,~sg1e9,~sg1e10,~sg1e11,~sg1e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1e1=~f1,~sg1e2=~f2,~sg1e3=~f3,~sg1e4=~f4,~sg1e5=~f5,~sg1e6=~f6,~sg1e7=~f7,~sg1e8=~f8,~sg1e9=~f9,~sg1e10=~f10,~sg1e11=~f11,~sg1e12=~f12];});
-	if([~sg1f1,~sg1f2,~sg1f3,~sg1f4,~sg1f5,~sg1f6,~sg1f7,~sg1f8,~sg1f9,~sg1f10,~sg1f11,~sg1f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1f1=~f1,~sg1f2=~f2,~sg1f3=~f3,~sg1f4=~f4,~sg1f5=~f5,~sg1f6=~f6,~sg1f7=~f7,~sg1f8=~f8,~sg1f9=~f9,~sg1f10=~f10,~sg1f11=~f11,~sg1f12=~f12];});
-	if([~sg1g1,~sg1g2,~sg1g3,~sg1g4,~sg1g5,~sg1g6,~sg1g7,~sg1g8,~sg1g9,~sg1g10,~sg1g11,~sg1g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1g1=~f1,~sg1g2=~f2,~sg1g3=~f3,~sg1g4=~f4,~sg1g5=~f5,~sg1g6=~f6,~sg1g7=~f7,~sg1g8=~f8,~sg1g9=~f9,~sg1g10=~f10,~sg1g11=~f11,~sg1g12=~f12];});
-	if([~sg1h1,~sg1h2,~sg1h3,~sg1h4,~sg1h5,~sg1h6,~sg1h7,~sg1h8,~sg1h9,~sg1h10,~sg1h11,~sg1h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1h1=~f1,~sg1h2=~f2,~sg1h3=~f3,~sg1h4=~f4,~sg1h5=~f5,~sg1h6=~f6,~sg1h7=~f7,~sg1h8=~f8,~sg1h9=~f9,~sg1h10=~f10,~sg1h11=~f11,~sg1h12=~f12];});
-	if([~sg2a1,~sg2a2,~sg2a3,~sg2a4,~sg2a5,~sg2a6,~sg2a7,~sg2a8,~sg2a9,~sg2a10,~sg2a11,~sg2a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2a1=~f1,~sg2a2=~f2,~sg2a3=~f3,~sg2a4=~f4,~sg2a5=~f5,~sg2a6=~f6,~sg2a7=~f7,~sg2a8=~f8,~sg2a9=~f9,~sg2a10=~f10,~sg2a11=~f11,~sg2a12=~f12];});
-	if([~sg2b1,~sg2b2,~sg2b3,~sg2b4,~sg2b5,~sg2b6,~sg2b7,~sg2b8,~sg2b9,~sg2b10,~sg2b11,~sg2b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2b1=~f1,~sg2b2=~f2,~sg2b3=~f3,~sg2b4=~f4,~sg2b5=~f5,~sg2b6=~f6,~sg2b7=~f7,~sg2b8=~f8,~sg2b9=~f9,~sg2b10=~f10,~sg2b11=~f11,~sg2b12=~f12];});
-	if([~sg2c1,~sg2c2,~sg2c3,~sg2c4,~sg2c5,~sg2c6,~sg2c7,~sg2c8,~sg2c9,~sg2c10,~sg2c11,~sg2c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2c1=~f1,~sg2c2=~f2,~sg2c3=~f3,~sg2c4=~f4,~sg2c5=~f5,~sg2c6=~f6,~sg2c7=~f7,~sg2c8=~f8,~sg2c9=~f9,~sg2c10=~f10,~sg2c11=~f11,~sg2c12=~f12];});
-	if([~sg2d1,~sg2d2,~sg2d3,~sg2d4,~sg2d5,~sg2d6,~sg2d7,~sg2d8,~sg2d9,~sg2d10,~sg2d11,~sg2d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2d1=~f1,~sg2d2=~f2,~sg2d3=~f3,~sg2d4=~f4,~sg2d5=~f5,~sg2d6=~f6,~sg2d7=~f7,~sg2d8=~f8,~sg2d9=~f9,~sg2d10=~f10,~sg2d11=~f11,~sg2d12=~f12];});
-	if([~sg2e1,~sg2e2,~sg2e3,~sg2e4,~sg2e5,~sg2e6,~sg2e7,~sg2e8,~sg2e9,~sg2e10,~sg2e11,~sg2e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2e1=~f1,~sg2e2=~f2,~sg2e3=~f3,~sg2e4=~f4,~sg2e5=~f5,~sg2e6=~f6,~sg2e7=~f7,~sg2e8=~f8,~sg2e9=~f9,~sg2e10=~f10,~sg2e11=~f11,~sg2e12=~f12];});
-	if([~sg2f1,~sg2f2,~sg2f3,~sg2f4,~sg2f5,~sg2f6,~sg2f7,~sg2f8,~sg2f9,~sg2f10,~sg2f11,~sg2f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2f1=~f1,~sg2f2=~f2,~sg2f3=~f3,~sg2f4=~f4,~sg2f5=~f5,~sg2f6=~f6,~sg2f7=~f7,~sg2f8=~f8,~sg2f9=~f9,~sg2f10=~f10,~sg2f11=~f11,~sg2f12=~f12];});
-	if([~sg2g1,~sg2g2,~sg2g3,~sg2g4,~sg2g5,~sg2g6,~sg2g7,~sg2g8,~sg2g9,~sg2g10,~sg2g11,~sg2g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2g1=~f1,~sg2g2=~f2,~sg2g3=~f3,~sg2g4=~f4,~sg2g5=~f5,~sg2g6=~f6,~sg2g7=~f7,~sg2g8=~f8,~sg2g9=~f9,~sg2g10=~f10,~sg2g11=~f11,~sg2g12=~f12];});
-	if([~sg2h1,~sg2h2,~sg2h3,~sg2h4,~sg2h5,~sg2h6,~sg2h7,~sg2h8,~sg2h9,~sg2h10,~sg2h11,~sg2h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2h1=~f1,~sg2h2=~f2,~sg2h3=~f3,~sg2h4=~f4,~sg2h5=~f5,~sg2h6=~f6,~sg2h7=~f7,~sg2h8=~f8,~sg2h9=~f9,~sg2h10=~f10,~sg2h11=~f11,~sg2h12=~f12];});
-	if([~sg3a1,~sg3a2,~sg3a3,~sg3a4,~sg3a5,~sg3a6,~sg3a7,~sg3a8,~sg3a9,~sg3a10,~sg3a11,~sg3a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3a1=~f1,~sg3a2=~f2,~sg3a3=~f3,~sg3a4=~f4,~sg3a5=~f5,~sg3a6=~f6,~sg3a7=~f7,~sg3a8=~f8,~sg3a9=~f9,~sg3a10=~f10,~sg3a11=~f11,~sg3a12=~f12];});
-	if([~sg3b1,~sg3b2,~sg3b3,~sg3b4,~sg3b5,~sg3b6,~sg3b7,~sg3b8,~sg3b9,~sg3b10,~sg3b11,~sg3b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3b1=~f1,~sg3b2=~f2,~sg3b3=~f3,~sg3b4=~f4,~sg3b5=~f5,~sg3b6=~f6,~sg3b7=~f7,~sg3b8=~f8,~sg3b9=~f9,~sg3b10=~f10,~sg3b11=~f11,~sg3b12=~f12];});
-	if([~sg3c1,~sg3c2,~sg3c3,~sg3c4,~sg3c5,~sg3c6,~sg3c7,~sg3c8,~sg3c9,~sg3c10,~sg3c11,~sg3c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3c1=~f1,~sg3c2=~f2,~sg3c3=~f3,~sg3c4=~f4,~sg3c5=~f5,~sg3c6=~f6,~sg3c7=~f7,~sg3c8=~f8,~sg3c9=~f9,~sg3c10=~f10,~sg3c11=~f11,~sg3c12=~f12];});
-	if([~sg3d1,~sg3d2,~sg3d3,~sg3d4,~sg3d5,~sg3d6,~sg3d7,~sg3d8,~sg3d9,~sg3d10,~sg3d11,~sg3d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3d1=~f1,~sg3d2=~f2,~sg3d3=~f3,~sg3d4=~f4,~sg3d5=~f5,~sg3d6=~f6,~sg3d7=~f7,~sg3d8=~f8,~sg3d9=~f9,~sg3d10=~f10,~sg3d11=~f11,~sg3d12=~f12];});
-	if([~sg3e1,~sg3e2,~sg3e3,~sg3e4,~sg3e5,~sg3e6,~sg3e7,~sg3e8,~sg3e9,~sg3e10,~sg3e11,~sg3e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3e1=~f1,~sg3e2=~f2,~sg3e3=~f3,~sg3e4=~f4,~sg3e5=~f5,~sg3e6=~f6,~sg3e7=~f7,~sg3e8=~f8,~sg3e9=~f9,~sg3e10=~f10,~sg3e11=~f11,~sg3e12=~f12];});
-	if([~sg3f1,~sg3f2,~sg3f3,~sg3f4,~sg3f5,~sg3f6,~sg3f7,~sg3f8,~sg3f9,~sg3f10,~sg3f11,~sg3f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3f1=~f1,~sg3f2=~f2,~sg3f3=~f3,~sg3f4=~f4,~sg3f5=~f5,~sg3f6=~f6,~sg3f7=~f7,~sg3f8=~f8,~sg3f9=~f9,~sg3f10=~f10,~sg3f11=~f11,~sg3f12=~f12];});
-	if([~sg3g1,~sg3g2,~sg3g3,~sg3g4,~sg3g5,~sg3g6,~sg3g7,~sg3g8,~sg3g9,~sg3g10,~sg3g11,~sg3g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3g1=~f1,~sg3g2=~f2,~sg3g3=~f3,~sg3g4=~f4,~sg3g5=~f5,~sg3g6=~f6,~sg3g7=~f7,~sg3g8=~f8,~sg3g9=~f9,~sg3g10=~f10,~sg3g11=~f11,~sg3g12=~f12];});
-	if([~sg3h1,~sg3h2,~sg3h3,~sg3h4,~sg3h5,~sg3h6,~sg3h7,~sg3h8,~sg3h9,~sg3h10,~sg3h11,~sg3h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3h1=~f1,~sg3h2=~f2,~sg3h3=~f3,~sg3h4=~f4,~sg3h5=~f5,~sg3h6=~f6,~sg3h7=~f7,~sg3h8=~f8,~sg3h9=~f9,~sg3h10=~f10,~sg3h11=~f11,~sg3h12=~f12];});
-	if([~sg4a1,~sg4a2,~sg4a3,~sg4a4,~sg4a5,~sg4a6,~sg4a7,~sg4a8,~sg4a9,~sg4a10,~sg4a11,~sg4a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4a1=~f1,~sg4a2=~f2,~sg4a3=~f3,~sg4a4=~f4,~sg4a5=~f5,~sg4a6=~f6,~sg4a7=~f7,~sg4a8=~f8,~sg4a9=~f9,~sg4a10=~f10,~sg4a11=~f11,~sg4a12=~f12];});
-	if([~sg4b1,~sg4b2,~sg4b3,~sg4b4,~sg4b5,~sg4b6,~sg4b7,~sg4b8,~sg4b9,~sg4b10,~sg4b11,~sg4b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4b1=~f1,~sg4b2=~f2,~sg4b3=~f3,~sg4b4=~f4,~sg4b5=~f5,~sg4b6=~f6,~sg4b7=~f7,~sg4b8=~f8,~sg4b9=~f9,~sg4b10=~f10,~sg4b11=~f11,~sg4b12=~f12];});
-	if([~sg4c1,~sg4c2,~sg4c3,~sg4c4,~sg4c5,~sg4c6,~sg4c7,~sg4c8,~sg4c9,~sg4c10,~sg4c11,~sg4c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4c1=~f1,~sg4c2=~f2,~sg4c3=~f3,~sg4c4=~f4,~sg4c5=~f5,~sg4c6=~f6,~sg4c7=~f7,~sg4c8=~f8,~sg4c9=~f9,~sg4c10=~f10,~sg4c11=~f11,~sg4c12=~f12];});
-	if([~sg4d1,~sg4d2,~sg4d3,~sg4d4,~sg4d5,~sg4d6,~sg4d7,~sg4d8,~sg4d9,~sg4d10,~sg4d11,~sg4d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4d1=~f1,~sg4d2=~f2,~sg4d3=~f3,~sg4d4=~f4,~sg4d5=~f5,~sg4d6=~f6,~sg4d7=~f7,~sg4d8=~f8,~sg4d9=~f9,~sg4d10=~f10,~sg4d11=~f11,~sg4d12=~f12];});
-	if([~sg4e1,~sg4e2,~sg4e3,~sg4e4,~sg4e5,~sg4e6,~sg4e7,~sg4e8,~sg4e9,~sg4e10,~sg4e11,~sg4e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4e1=~f1,~sg4e2=~f2,~sg4e3=~f3,~sg4e4=~f4,~sg4e5=~f5,~sg4e6=~f6,~sg4e7=~f7,~sg4e8=~f8,~sg4e9=~f9,~sg4e10=~f10,~sg4e11=~f11,~sg4e12=~f12];});
-	if([~sg4f1,~sg4f2,~sg4f3,~sg4f4,~sg4f5,~sg4f6,~sg4f7,~sg4f8,~sg4f9,~sg4f10,~sg4f11,~sg4f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4f1=~f1,~sg4f2=~f2,~sg4f3=~f3,~sg4f4=~f4,~sg4f5=~f5,~sg4f6=~f6,~sg4f7=~f7,~sg4f8=~f8,~sg4f9=~f9,~sg4f10=~f10,~sg4f11=~f11,~sg4f12=~f12];});
-	if([~sg4g1,~sg4g2,~sg4g3,~sg4g4,~sg4g5,~sg4g6,~sg4g7,~sg4g8,~sg4g9,~sg4g10,~sg4g11,~sg4g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4g1=~f1,~sg4g2=~f2,~sg4g3=~f3,~sg4g4=~f4,~sg4g5=~f5,~sg4g6=~f6,~sg4g7=~f7,~sg4g8=~f8,~sg4g9=~f9,~sg4g10=~f10,~sg4g11=~f11,~sg4g12=~f12];});
-	if([~sg4h1,~sg4h2,~sg4h3,~sg4h4,~sg4h5,~sg4h6,~sg4h7,~sg4h8,~sg4h9,~sg4h10,~sg4h11,~sg4h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4h1=~f1,~sg4h2=~f2,~sg4h3=~f3,~sg4h4=~f4,~sg4h5=~f5,~sg4h6=~f6,~sg4h7=~f7,~sg4h8=~f8,~sg4h9=~f9,~sg4h10=~f10,~sg4h11=~f11,~sg4h12=~f12];});
-	if([~sg5a1,~sg5a2,~sg5a3,~sg5a4,~sg5a5,~sg5a6,~sg5a7,~sg5a8,~sg5a9,~sg5a10,~sg5a11,~sg5a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5a1=~f1,~sg5a2=~f2,~sg5a3=~f3,~sg5a4=~f4,~sg5a5=~f5,~sg5a6=~f6,~sg5a7=~f7,~sg5a8=~f8,~sg5a9=~f9,~sg5a10=~f10,~sg5a11=~f11,~sg5a12=~f12];});
-	if([~sg5b1,~sg5b2,~sg5b3,~sg5b4,~sg5b5,~sg5b6,~sg5b7,~sg5b8,~sg5b9,~sg5b10,~sg5b11,~sg5b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5b1=~f1,~sg5b2=~f2,~sg5b3=~f3,~sg5b4=~f4,~sg5b5=~f5,~sg5b6=~f6,~sg5b7=~f7,~sg5b8=~f8,~sg5b9=~f9,~sg5b10=~f10,~sg5b11=~f11,~sg5b12=~f12];});
-	if([~sg5c1,~sg5c2,~sg5c3,~sg5c4,~sg5c5,~sg5c6,~sg5c7,~sg5c8,~sg5c9,~sg5c10,~sg5c11,~sg5c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5c1=~f1,~sg5c2=~f2,~sg5c3=~f3,~sg5c4=~f4,~sg5c5=~f5,~sg5c6=~f6,~sg5c7=~f7,~sg5c8=~f8,~sg5c9=~f9,~sg5c10=~f10,~sg5c11=~f11,~sg5c12=~f12];});
-	if([~sg5d1,~sg5d2,~sg5d3,~sg5d4,~sg5d5,~sg5d6,~sg5d7,~sg5d8,~sg5d9,~sg5d10,~sg5d11,~sg5d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5d1=~f1,~sg5d2=~f2,~sg5d3=~f3,~sg5d4=~f4,~sg5d5=~f5,~sg5d6=~f6,~sg5d7=~f7,~sg5d8=~f8,~sg5d9=~f9,~sg5d10=~f10,~sg5d11=~f11,~sg5d12=~f12];});
-	if([~sg5e1,~sg5e2,~sg5e3,~sg5e4,~sg5e5,~sg5e6,~sg5e7,~sg5e8,~sg5e9,~sg5e10,~sg5e11,~sg5e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5e1=~f1,~sg5e2=~f2,~sg5e3=~f3,~sg5e4=~f4,~sg5e5=~f5,~sg5e6=~f6,~sg5e7=~f7,~sg5e8=~f8,~sg5e9=~f9,~sg5e10=~f10,~sg5e11=~f11,~sg5e12=~f12];});
-	if([~sg5f1,~sg5f2,~sg5f3,~sg5f4,~sg5f5,~sg5f6,~sg5f7,~sg5f8,~sg5f9,~sg5f10,~sg5f11,~sg5f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5f1=~f1,~sg5f2=~f2,~sg5f3=~f3,~sg5f4=~f4,~sg5f5=~f5,~sg5f6=~f6,~sg5f7=~f7,~sg5f8=~f8,~sg5f9=~f9,~sg5f10=~f10,~sg5f11=~f11,~sg5f12=~f12];});
-	if([~sg5g1,~sg5g2,~sg5g3,~sg5g4,~sg5g5,~sg5g6,~sg5g7,~sg5g8,~sg5g9,~sg5g10,~sg5g11,~sg5g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5g1=~f1,~sg5g2=~f2,~sg5g3=~f3,~sg5g4=~f4,~sg5g5=~f5,~sg5g6=~f6,~sg5g7=~f7,~sg5g8=~f8,~sg5g9=~f9,~sg5g10=~f10,~sg5g11=~f11,~sg5g12=~f12];});
-	if([~sg5h1,~sg5h2,~sg5h3,~sg5h4,~sg5h5,~sg5h6,~sg5h7,~sg5h8,~sg5h9,~sg5h10,~sg5h11,~sg5h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5h1=~f1,~sg5h2=~f2,~sg5h3=~f3,~sg5h4=~f4,~sg5h5=~f5,~sg5h6=~f6,~sg5h7=~f7,~sg5h8=~f8,~sg5h9=~f9,~sg5h10=~f10,~sg5h11=~f11,~sg5h12=~f12];});
-	if([~sg6a1,~sg6a2,~sg6a3,~sg6a4,~sg6a5,~sg6a6,~sg6a7,~sg6a8,~sg6a9,~sg6a10,~sg6a11,~sg6a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6a1=~f1,~sg6a2=~f2,~sg6a3=~f3,~sg6a4=~f4,~sg6a5=~f5,~sg6a6=~f6,~sg6a7=~f7,~sg6a8=~f8,~sg6a9=~f9,~sg6a10=~f10,~sg6a11=~f11,~sg6a12=~f12];});
-	if([~sg6b1,~sg6b2,~sg6b3,~sg6b4,~sg6b5,~sg6b6,~sg6b7,~sg6b8,~sg6b9,~sg6b10,~sg6b11,~sg6b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6b1=~f1,~sg6b2=~f2,~sg6b3=~f3,~sg6b4=~f4,~sg6b5=~f5,~sg6b6=~f6,~sg6b7=~f7,~sg6b8=~f8,~sg6b9=~f9,~sg6b10=~f10,~sg6b11=~f11,~sg6b12=~f12];});
-	if([~sg6c1,~sg6c2,~sg6c3,~sg6c4,~sg6c5,~sg6c6,~sg6c7,~sg6c8,~sg6c9,~sg6c10,~sg6c11,~sg6c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6c1=~f1,~sg6c2=~f2,~sg6c3=~f3,~sg6c4=~f4,~sg6c5=~f5,~sg6c6=~f6,~sg6c7=~f7,~sg6c8=~f8,~sg6c9=~f9,~sg6c10=~f10,~sg6c11=~f11,~sg6c12=~f12];});
-	if([~sg6d1,~sg6d2,~sg6d3,~sg6d4,~sg6d5,~sg6d6,~sg6d7,~sg6d8,~sg6d9,~sg6d10,~sg6d11,~sg6d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6d1=~f1,~sg6d2=~f2,~sg6d3=~f3,~sg6d4=~f4,~sg6d5=~f5,~sg6d6=~f6,~sg6d7=~f7,~sg6d8=~f8,~sg6d9=~f9,~sg6d10=~f10,~sg6d11=~f11,~sg6d12=~f12];});
-	if([~sg6e1,~sg6e2,~sg6e3,~sg6e4,~sg6e5,~sg6e6,~sg6e7,~sg6e8,~sg6e9,~sg6e10,~sg6e11,~sg6e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6e1=~f1,~sg6e2=~f2,~sg6e3=~f3,~sg6e4=~f4,~sg6e5=~f5,~sg6e6=~f6,~sg6e7=~f7,~sg6e8=~f8,~sg6e9=~f9,~sg6e10=~f10,~sg6e11=~f11,~sg6e12=~f12];});
-	if([~sg6f1,~sg6f2,~sg6f3,~sg6f4,~sg6f5,~sg6f6,~sg6f7,~sg6f8,~sg6f9,~sg6f10,~sg6f11,~sg6f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6f1=~f1,~sg6f2=~f2,~sg6f3=~f3,~sg6f4=~f4,~sg6f5=~f5,~sg6f6=~f6,~sg6f7=~f7,~sg6f8=~f8,~sg6f9=~f9,~sg6f10=~f10,~sg6f11=~f11,~sg6f12=~f12];});
-	if([~sg6g1,~sg6g2,~sg6g3,~sg6g4,~sg6g5,~sg6g6,~sg6g7,~sg6g8,~sg6g9,~sg6g10,~sg6g11,~sg6g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6g1=~f1,~sg6g2=~f2,~sg6g3=~f3,~sg6g4=~f4,~sg6g5=~f5,~sg6g6=~f6,~sg6g7=~f7,~sg6g8=~f8,~sg6g9=~f9,~sg6g10=~f10,~sg6g11=~f11,~sg6g12=~f12];});
-	if([~sg6h1,~sg6h2,~sg6h3,~sg6h4,~sg6h5,~sg6h6,~sg6h7,~sg6h8,~sg6h9,~sg6h10,~sg6h11,~sg6h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6h1=~f1,~sg6h2=~f2,~sg6h3=~f3,~sg6h4=~f4,~sg6h5=~f5,~sg6h6=~f6,~sg6h7=~f7,~sg6h8=~f8,~sg6h9=~f9,~sg6h10=~f10,~sg6h11=~f11,~sg6h12=~f12];});
-	if([~sg7a1,~sg7a2,~sg7a3,~sg7a4,~sg7a5,~sg7a6,~sg7a7,~sg7a8,~sg7a9,~sg7a10,~sg7a11,~sg7a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7a1=~f1,~sg7a2=~f2,~sg7a3=~f3,~sg7a4=~f4,~sg7a5=~f5,~sg7a6=~f6,~sg7a7=~f7,~sg7a8=~f8,~sg7a9=~f9,~sg7a10=~f10,~sg7a11=~f11,~sg7a12=~f12];});
-	if([~sg7b1,~sg7b2,~sg7b3,~sg7b4,~sg7b5,~sg7b6,~sg7b7,~sg7b8,~sg7b9,~sg7b10,~sg7b11,~sg7b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7b1=~f1,~sg7b2=~f2,~sg7b3=~f3,~sg7b4=~f4,~sg7b5=~f5,~sg7b6=~f6,~sg7b7=~f7,~sg7b8=~f8,~sg7b9=~f9,~sg7b10=~f10,~sg7b11=~f11,~sg7b12=~f12];});
-	if([~sg7c1,~sg7c2,~sg7c3,~sg7c4,~sg7c5,~sg7c6,~sg7c7,~sg7c8,~sg7c9,~sg7c10,~sg7c11,~sg7c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7c1=~f1,~sg7c2=~f2,~sg7c3=~f3,~sg7c4=~f4,~sg7c5=~f5,~sg7c6=~f6,~sg7c7=~f7,~sg7c8=~f8,~sg7c9=~f9,~sg7c10=~f10,~sg7c11=~f11,~sg7c12=~f12];});
-	if([~sg7d1,~sg7d2,~sg7d3,~sg7d4,~sg7d5,~sg7d6,~sg7d7,~sg7d8,~sg7d9,~sg7d10,~sg7d11,~sg7d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7d1=~f1,~sg7d2=~f2,~sg7d3=~f3,~sg7d4=~f4,~sg7d5=~f5,~sg7d6=~f6,~sg7d7=~f7,~sg7d8=~f8,~sg7d9=~f9,~sg7d10=~f10,~sg7d11=~f11,~sg7d12=~f12];});
-	if([~sg7e1,~sg7e2,~sg7e3,~sg7e4,~sg7e5,~sg7e6,~sg7e7,~sg7e8,~sg7e9,~sg7e10,~sg7e11,~sg7e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7e1=~f1,~sg7e2=~f2,~sg7e3=~f3,~sg7e4=~f4,~sg7e5=~f5,~sg7e6=~f6,~sg7e7=~f7,~sg7e8=~f8,~sg7e9=~f9,~sg7e10=~f10,~sg7e11=~f11,~sg7e12=~f12];});
-	if([~sg7f1,~sg7f2,~sg7f3,~sg7f4,~sg7f5,~sg7f6,~sg7f7,~sg7f8,~sg7f9,~sg7f10,~sg7f11,~sg7f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7f1=~f1,~sg7f2=~f2,~sg7f3=~f3,~sg7f4=~f4,~sg7f5=~f5,~sg7f6=~f6,~sg7f7=~f7,~sg7f8=~f8,~sg7f9=~f9,~sg7f10=~f10,~sg7f11=~f11,~sg7f12=~f12];});
-	if([~sg7g1,~sg7g2,~sg7g3,~sg7g4,~sg7g5,~sg7g6,~sg7g7,~sg7g8,~sg7g9,~sg7g10,~sg7g11,~sg7g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7g1=~f1,~sg7g2=~f2,~sg7g3=~f3,~sg7g4=~f4,~sg7g5=~f5,~sg7g6=~f6,~sg7g7=~f7,~sg7g8=~f8,~sg7g9=~f9,~sg7g10=~f10,~sg7g11=~f11,~sg7g12=~f12];});
-	if([~sg7h1,~sg7h2,~sg7h3,~sg7h4,~sg7h5,~sg7h6,~sg7h7,~sg7h8,~sg7h9,~sg7h10,~sg7h11,~sg7h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7h1=~f1,~sg7h2=~f2,~sg7h3=~f3,~sg7h4=~f4,~sg7h5=~f5,~sg7h6=~f6,~sg7h7=~f7,~sg7h8=~f8,~sg7h9=~f9,~sg7h10=~f10,~sg7h11=~f11,~sg7h12=~f12];});
-	if([~sg8a1,~sg8a2,~sg8a3,~sg8a4,~sg8a5,~sg8a6,~sg8a7,~sg8a8,~sg8a9,~sg8a10,~sg8a11,~sg8a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8a1=~f1,~sg8a2=~f2,~sg8a3=~f3,~sg8a4=~f4,~sg8a5=~f5,~sg8a6=~f6,~sg8a7=~f7,~sg8a8=~f8,~sg8a9=~f9,~sg8a10=~f10,~sg8a11=~f11,~sg8a12=~f12];});
-	if([~sg8b1,~sg8b2,~sg8b3,~sg8b4,~sg8b5,~sg8b6,~sg8b7,~sg8b8,~sg8b9,~sg8b10,~sg8b11,~sg8b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8b1=~f1,~sg8b2=~f2,~sg8b3=~f3,~sg8b4=~f4,~sg8b5=~f5,~sg8b6=~f6,~sg8b7=~f7,~sg8b8=~f8,~sg8b9=~f9,~sg8b10=~f10,~sg8b11=~f11,~sg8b12=~f12];});
-	if([~sg8c1,~sg8c2,~sg8c3,~sg8c4,~sg8c5,~sg8c6,~sg8c7,~sg8c8,~sg8c9,~sg8c10,~sg8c11,~sg8c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8c1=~f1,~sg8c2=~f2,~sg8c3=~f3,~sg8c4=~f4,~sg8c5=~f5,~sg8c6=~f6,~sg8c7=~f7,~sg8c8=~f8,~sg8c9=~f9,~sg8c10=~f10,~sg8c11=~f11,~sg8c12=~f12];});
-	if([~sg8d1,~sg8d2,~sg8d3,~sg8d4,~sg8d5,~sg8d6,~sg8d7,~sg8d8,~sg8d9,~sg8d10,~sg8d11,~sg8d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8d1=~f1,~sg8d2=~f2,~sg8d3=~f3,~sg8d4=~f4,~sg8d5=~f5,~sg8d6=~f6,~sg8d7=~f7,~sg8d8=~f8,~sg8d9=~f9,~sg8d10=~f10,~sg8d11=~f11,~sg8d12=~f12];});
-	if([~sg8e1,~sg8e2,~sg8e3,~sg8e4,~sg8e5,~sg8e6,~sg8e7,~sg8e8,~sg8e9,~sg8e10,~sg8e11,~sg8e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8e1=~f1,~sg8e2=~f2,~sg8e3=~f3,~sg8e4=~f4,~sg8e5=~f5,~sg8e6=~f6,~sg8e7=~f7,~sg8e8=~f8,~sg8e9=~f9,~sg8e10=~f10,~sg8e11=~f11,~sg8e12=~f12];});
-	if([~sg8f1,~sg8f2,~sg8f3,~sg8f4,~sg8f5,~sg8f6,~sg8f7,~sg8f8,~sg8f9,~sg8f10,~sg8f11,~sg8f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8f1=~f1,~sg8f2=~f2,~sg8f3=~f3,~sg8f4=~f4,~sg8f5=~f5,~sg8f6=~f6,~sg8f7=~f7,~sg8f8=~f8,~sg8f9=~f9,~sg8f10=~f10,~sg8f11=~f11,~sg8f12=~f12];});
-	if([~sg8g1,~sg8g2,~sg8g3,~sg8g4,~sg8g5,~sg8g6,~sg8g7,~sg8g8,~sg8g9,~sg8g10,~sg8g11,~sg8g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8g1=~f1,~sg8g2=~f2,~sg8g3=~f3,~sg8g4=~f4,~sg8g5=~f5,~sg8g6=~f6,~sg8g7=~f7,~sg8g8=~f8,~sg8g9=~f9,~sg8g10=~f10,~sg8g11=~f11,~sg8g12=~f12];});
-	if([~sg8h1,~sg8h2,~sg8h3,~sg8h4,~sg8h5,~sg8h6,~sg8h7,~sg8h8,~sg8h9,~sg8h10,~sg8h11,~sg8h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8h1=~f1,~sg8h2=~f2,~sg8h3=~f3,~sg8h4=~f4,~sg8h5=~f5,~sg8h6=~f6,~sg8h7=~f7,~sg8h8=~f8,~sg8h9=~f9,~sg8h10=~f10,~sg8h11=~f11,~sg8h12=~f12];});
+	if([~sg1a1,~sg1a2,~sg1a3,~sg1a4,~sg1a5,~sg1a6,~sg1a7,~sg1a8,~sg1a9,~sg1a10,~sg1a11,~sg1a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1a1=~f1,~sg1a2=~f2,~sg1a3=~f3,~sg1a4=~f4,~sg1a5=~f5,~sg1a6=~f6,~sg1a7=~f7,~sg1a8=~f8];});
+	if([~sg1b1,~sg1b2,~sg1b3,~sg1b4,~sg1b5,~sg1b6,~sg1b7,~sg1b8,~sg1b9,~sg1b10,~sg1b11,~sg1b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1b1=~f1,~sg1b2=~f2,~sg1b3=~f3,~sg1b4=~f4,~sg1b5=~f5,~sg1b6=~f6,~sg1b7=~f7,~sg1b8=~f8];});
+	if([~sg1c1,~sg1c2,~sg1c3,~sg1c4,~sg1c5,~sg1c6,~sg1c7,~sg1c8,~sg1c9,~sg1c10,~sg1c11,~sg1c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1c1=~f1,~sg1c2=~f2,~sg1c3=~f3,~sg1c4=~f4,~sg1c5=~f5,~sg1c6=~f6,~sg1c7=~f7,~sg1c8=~f8];});
+	if([~sg1d1,~sg1d2,~sg1d3,~sg1d4,~sg1d5,~sg1d6,~sg1d7,~sg1d8,~sg1d9,~sg1d10,~sg1d11,~sg1d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1d1=~f1,~sg1d2=~f2,~sg1d3=~f3,~sg1d4=~f4,~sg1d5=~f5,~sg1d6=~f6,~sg1d7=~f7,~sg1d8=~f8];});
+	if([~sg1e1,~sg1e2,~sg1e3,~sg1e4,~sg1e5,~sg1e6,~sg1e7,~sg1e8,~sg1e9,~sg1e10,~sg1e11,~sg1e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1e1=~f1,~sg1e2=~f2,~sg1e3=~f3,~sg1e4=~f4,~sg1e5=~f5,~sg1e6=~f6,~sg1e7=~f7,~sg1e8=~f8];});
+	if([~sg1f1,~sg1f2,~sg1f3,~sg1f4,~sg1f5,~sg1f6,~sg1f7,~sg1f8,~sg1f9,~sg1f10,~sg1f11,~sg1f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1f1=~f1,~sg1f2=~f2,~sg1f3=~f3,~sg1f4=~f4,~sg1f5=~f5,~sg1f6=~f6,~sg1f7=~f7,~sg1f8=~f8];});
+	if([~sg1g1,~sg1g2,~sg1g3,~sg1g4,~sg1g5,~sg1g6,~sg1g7,~sg1g8,~sg1g9,~sg1g10,~sg1g11,~sg1g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1g1=~f1,~sg1g2=~f2,~sg1g3=~f3,~sg1g4=~f4,~sg1g5=~f5,~sg1g6=~f6,~sg1g7=~f7,~sg1g8=~f8];});
+	if([~sg1h1,~sg1h2,~sg1h3,~sg1h4,~sg1h5,~sg1h6,~sg1h7,~sg1h8,~sg1h9,~sg1h10,~sg1h11,~sg1h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1h1=~f1,~sg1h2=~f2,~sg1h3=~f3,~sg1h4=~f4,~sg1h5=~f5,~sg1h6=~f6,~sg1h7=~f7,~sg1h8=~f8];});
+	if([~sg2a1,~sg2a2,~sg2a3,~sg2a4,~sg2a5,~sg2a6,~sg2a7,~sg2a8,~sg2a9,~sg2a10,~sg2a11,~sg2a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2a1=~f1,~sg2a2=~f2,~sg2a3=~f3,~sg2a4=~f4,~sg2a5=~f5,~sg2a6=~f6,~sg2a7=~f7,~sg2a8=~f8];});
+	if([~sg2b1,~sg2b2,~sg2b3,~sg2b4,~sg2b5,~sg2b6,~sg2b7,~sg2b8,~sg2b9,~sg2b10,~sg2b11,~sg2b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2b1=~f1,~sg2b2=~f2,~sg2b3=~f3,~sg2b4=~f4,~sg2b5=~f5,~sg2b6=~f6,~sg2b7=~f7,~sg2b8=~f8];});
+	if([~sg2c1,~sg2c2,~sg2c3,~sg2c4,~sg2c5,~sg2c6,~sg2c7,~sg2c8,~sg2c9,~sg2c10,~sg2c11,~sg2c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2c1=~f1,~sg2c2=~f2,~sg2c3=~f3,~sg2c4=~f4,~sg2c5=~f5,~sg2c6=~f6,~sg2c7=~f7,~sg2c8=~f8];});
+	if([~sg2d1,~sg2d2,~sg2d3,~sg2d4,~sg2d5,~sg2d6,~sg2d7,~sg2d8,~sg2d9,~sg2d10,~sg2d11,~sg2d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2d1=~f1,~sg2d2=~f2,~sg2d3=~f3,~sg2d4=~f4,~sg2d5=~f5,~sg2d6=~f6,~sg2d7=~f7,~sg2d8=~f8];});
+	if([~sg2e1,~sg2e2,~sg2e3,~sg2e4,~sg2e5,~sg2e6,~sg2e7,~sg2e8,~sg2e9,~sg2e10,~sg2e11,~sg2e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2e1=~f1,~sg2e2=~f2,~sg2e3=~f3,~sg2e4=~f4,~sg2e5=~f5,~sg2e6=~f6,~sg2e7=~f7,~sg2e8=~f8];});
+	if([~sg2f1,~sg2f2,~sg2f3,~sg2f4,~sg2f5,~sg2f6,~sg2f7,~sg2f8,~sg2f9,~sg2f10,~sg2f11,~sg2f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2f1=~f1,~sg2f2=~f2,~sg2f3=~f3,~sg2f4=~f4,~sg2f5=~f5,~sg2f6=~f6,~sg2f7=~f7,~sg2f8=~f8];});
+	if([~sg2g1,~sg2g2,~sg2g3,~sg2g4,~sg2g5,~sg2g6,~sg2g7,~sg2g8,~sg2g9,~sg2g10,~sg2g11,~sg2g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2g1=~f1,~sg2g2=~f2,~sg2g3=~f3,~sg2g4=~f4,~sg2g5=~f5,~sg2g6=~f6,~sg2g7=~f7,~sg2g8=~f8];});
+	if([~sg2h1,~sg2h2,~sg2h3,~sg2h4,~sg2h5,~sg2h6,~sg2h7,~sg2h8,~sg2h9,~sg2h10,~sg2h11,~sg2h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2h1=~f1,~sg2h2=~f2,~sg2h3=~f3,~sg2h4=~f4,~sg2h5=~f5,~sg2h6=~f6,~sg2h7=~f7,~sg2h8=~f8];});
+	if([~sg3a1,~sg3a2,~sg3a3,~sg3a4,~sg3a5,~sg3a6,~sg3a7,~sg3a8,~sg3a9,~sg3a10,~sg3a11,~sg3a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3a1=~f1,~sg3a2=~f2,~sg3a3=~f3,~sg3a4=~f4,~sg3a5=~f5,~sg3a6=~f6,~sg3a7=~f7,~sg3a8=~f8];});
+	if([~sg3b1,~sg3b2,~sg3b3,~sg3b4,~sg3b5,~sg3b6,~sg3b7,~sg3b8,~sg3b9,~sg3b10,~sg3b11,~sg3b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3b1=~f1,~sg3b2=~f2,~sg3b3=~f3,~sg3b4=~f4,~sg3b5=~f5,~sg3b6=~f6,~sg3b7=~f7,~sg3b8=~f8];});
+	if([~sg3c1,~sg3c2,~sg3c3,~sg3c4,~sg3c5,~sg3c6,~sg3c7,~sg3c8,~sg3c9,~sg3c10,~sg3c11,~sg3c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3c1=~f1,~sg3c2=~f2,~sg3c3=~f3,~sg3c4=~f4,~sg3c5=~f5,~sg3c6=~f6,~sg3c7=~f7,~sg3c8=~f8];});
+	if([~sg3d1,~sg3d2,~sg3d3,~sg3d4,~sg3d5,~sg3d6,~sg3d7,~sg3d8,~sg3d9,~sg3d10,~sg3d11,~sg3d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3d1=~f1,~sg3d2=~f2,~sg3d3=~f3,~sg3d4=~f4,~sg3d5=~f5,~sg3d6=~f6,~sg3d7=~f7,~sg3d8=~f8];});
+	if([~sg3e1,~sg3e2,~sg3e3,~sg3e4,~sg3e5,~sg3e6,~sg3e7,~sg3e8,~sg3e9,~sg3e10,~sg3e11,~sg3e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3e1=~f1,~sg3e2=~f2,~sg3e3=~f3,~sg3e4=~f4,~sg3e5=~f5,~sg3e6=~f6,~sg3e7=~f7,~sg3e8=~f8];});
+	if([~sg3f1,~sg3f2,~sg3f3,~sg3f4,~sg3f5,~sg3f6,~sg3f7,~sg3f8,~sg3f9,~sg3f10,~sg3f11,~sg3f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3f1=~f1,~sg3f2=~f2,~sg3f3=~f3,~sg3f4=~f4,~sg3f5=~f5,~sg3f6=~f6,~sg3f7=~f7,~sg3f8=~f8];});
+	if([~sg3g1,~sg3g2,~sg3g3,~sg3g4,~sg3g5,~sg3g6,~sg3g7,~sg3g8,~sg3g9,~sg3g10,~sg3g11,~sg3g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3g1=~f1,~sg3g2=~f2,~sg3g3=~f3,~sg3g4=~f4,~sg3g5=~f5,~sg3g6=~f6,~sg3g7=~f7,~sg3g8=~f8];});
+	if([~sg3h1,~sg3h2,~sg3h3,~sg3h4,~sg3h5,~sg3h6,~sg3h7,~sg3h8,~sg3h9,~sg3h10,~sg3h11,~sg3h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3h1=~f1,~sg3h2=~f2,~sg3h3=~f3,~sg3h4=~f4,~sg3h5=~f5,~sg3h6=~f6,~sg3h7=~f7,~sg3h8=~f8];});
+	if([~sg4a1,~sg4a2,~sg4a3,~sg4a4,~sg4a5,~sg4a6,~sg4a7,~sg4a8,~sg4a9,~sg4a10,~sg4a11,~sg4a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4a1=~f1,~sg4a2=~f2,~sg4a3=~f3,~sg4a4=~f4,~sg4a5=~f5,~sg4a6=~f6,~sg4a7=~f7,~sg4a8=~f8];});
+	if([~sg4b1,~sg4b2,~sg4b3,~sg4b4,~sg4b5,~sg4b6,~sg4b7,~sg4b8,~sg4b9,~sg4b10,~sg4b11,~sg4b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4b1=~f1,~sg4b2=~f2,~sg4b3=~f3,~sg4b4=~f4,~sg4b5=~f5,~sg4b6=~f6,~sg4b7=~f7,~sg4b8=~f8];});
+	if([~sg4c1,~sg4c2,~sg4c3,~sg4c4,~sg4c5,~sg4c6,~sg4c7,~sg4c8,~sg4c9,~sg4c10,~sg4c11,~sg4c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4c1=~f1,~sg4c2=~f2,~sg4c3=~f3,~sg4c4=~f4,~sg4c5=~f5,~sg4c6=~f6,~sg4c7=~f7,~sg4c8=~f8];});
+	if([~sg4d1,~sg4d2,~sg4d3,~sg4d4,~sg4d5,~sg4d6,~sg4d7,~sg4d8,~sg4d9,~sg4d10,~sg4d11,~sg4d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4d1=~f1,~sg4d2=~f2,~sg4d3=~f3,~sg4d4=~f4,~sg4d5=~f5,~sg4d6=~f6,~sg4d7=~f7,~sg4d8=~f8];});
+	if([~sg4e1,~sg4e2,~sg4e3,~sg4e4,~sg4e5,~sg4e6,~sg4e7,~sg4e8,~sg4e9,~sg4e10,~sg4e11,~sg4e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4e1=~f1,~sg4e2=~f2,~sg4e3=~f3,~sg4e4=~f4,~sg4e5=~f5,~sg4e6=~f6,~sg4e7=~f7,~sg4e8=~f8];});
+	if([~sg4f1,~sg4f2,~sg4f3,~sg4f4,~sg4f5,~sg4f6,~sg4f7,~sg4f8,~sg4f9,~sg4f10,~sg4f11,~sg4f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4f1=~f1,~sg4f2=~f2,~sg4f3=~f3,~sg4f4=~f4,~sg4f5=~f5,~sg4f6=~f6,~sg4f7=~f7,~sg4f8=~f8];});
+	if([~sg4g1,~sg4g2,~sg4g3,~sg4g4,~sg4g5,~sg4g6,~sg4g7,~sg4g8,~sg4g9,~sg4g10,~sg4g11,~sg4g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4g1=~f1,~sg4g2=~f2,~sg4g3=~f3,~sg4g4=~f4,~sg4g5=~f5,~sg4g6=~f6,~sg4g7=~f7,~sg4g8=~f8];});
+	if([~sg4h1,~sg4h2,~sg4h3,~sg4h4,~sg4h5,~sg4h6,~sg4h7,~sg4h8,~sg4h9,~sg4h10,~sg4h11,~sg4h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4h1=~f1,~sg4h2=~f2,~sg4h3=~f3,~sg4h4=~f4,~sg4h5=~f5,~sg4h6=~f6,~sg4h7=~f7,~sg4h8=~f8];});
+	if([~sg5a1,~sg5a2,~sg5a3,~sg5a4,~sg5a5,~sg5a6,~sg5a7,~sg5a8,~sg5a9,~sg5a10,~sg5a11,~sg5a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5a1=~f1,~sg5a2=~f2,~sg5a3=~f3,~sg5a4=~f4,~sg5a5=~f5,~sg5a6=~f6,~sg5a7=~f7,~sg5a8=~f8];});
+	if([~sg5b1,~sg5b2,~sg5b3,~sg5b4,~sg5b5,~sg5b6,~sg5b7,~sg5b8,~sg5b9,~sg5b10,~sg5b11,~sg5b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5b1=~f1,~sg5b2=~f2,~sg5b3=~f3,~sg5b4=~f4,~sg5b5=~f5,~sg5b6=~f6,~sg5b7=~f7,~sg5b8=~f8];});
+	if([~sg5c1,~sg5c2,~sg5c3,~sg5c4,~sg5c5,~sg5c6,~sg5c7,~sg5c8,~sg5c9,~sg5c10,~sg5c11,~sg5c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5c1=~f1,~sg5c2=~f2,~sg5c3=~f3,~sg5c4=~f4,~sg5c5=~f5,~sg5c6=~f6,~sg5c7=~f7,~sg5c8=~f8];});
+	if([~sg5d1,~sg5d2,~sg5d3,~sg5d4,~sg5d5,~sg5d6,~sg5d7,~sg5d8,~sg5d9,~sg5d10,~sg5d11,~sg5d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5d1=~f1,~sg5d2=~f2,~sg5d3=~f3,~sg5d4=~f4,~sg5d5=~f5,~sg5d6=~f6,~sg5d7=~f7,~sg5d8=~f8];});
+	if([~sg5e1,~sg5e2,~sg5e3,~sg5e4,~sg5e5,~sg5e6,~sg5e7,~sg5e8,~sg5e9,~sg5e10,~sg5e11,~sg5e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5e1=~f1,~sg5e2=~f2,~sg5e3=~f3,~sg5e4=~f4,~sg5e5=~f5,~sg5e6=~f6,~sg5e7=~f7,~sg5e8=~f8];});
+	if([~sg5f1,~sg5f2,~sg5f3,~sg5f4,~sg5f5,~sg5f6,~sg5f7,~sg5f8,~sg5f9,~sg5f10,~sg5f11,~sg5f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5f1=~f1,~sg5f2=~f2,~sg5f3=~f3,~sg5f4=~f4,~sg5f5=~f5,~sg5f6=~f6,~sg5f7=~f7,~sg5f8=~f8];});
+	if([~sg5g1,~sg5g2,~sg5g3,~sg5g4,~sg5g5,~sg5g6,~sg5g7,~sg5g8,~sg5g9,~sg5g10,~sg5g11,~sg5g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5g1=~f1,~sg5g2=~f2,~sg5g3=~f3,~sg5g4=~f4,~sg5g5=~f5,~sg5g6=~f6,~sg5g7=~f7,~sg5g8=~f8];});
+	if([~sg5h1,~sg5h2,~sg5h3,~sg5h4,~sg5h5,~sg5h6,~sg5h7,~sg5h8,~sg5h9,~sg5h10,~sg5h11,~sg5h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5h1=~f1,~sg5h2=~f2,~sg5h3=~f3,~sg5h4=~f4,~sg5h5=~f5,~sg5h6=~f6,~sg5h7=~f7,~sg5h8=~f8];});
+	if([~sg6a1,~sg6a2,~sg6a3,~sg6a4,~sg6a5,~sg6a6,~sg6a7,~sg6a8,~sg6a9,~sg6a10,~sg6a11,~sg6a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6a1=~f1,~sg6a2=~f2,~sg6a3=~f3,~sg6a4=~f4,~sg6a5=~f5,~sg6a6=~f6,~sg6a7=~f7,~sg6a8=~f8];});
+	if([~sg6b1,~sg6b2,~sg6b3,~sg6b4,~sg6b5,~sg6b6,~sg6b7,~sg6b8,~sg6b9,~sg6b10,~sg6b11,~sg6b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6b1=~f1,~sg6b2=~f2,~sg6b3=~f3,~sg6b4=~f4,~sg6b5=~f5,~sg6b6=~f6,~sg6b7=~f7,~sg6b8=~f8];});
+	if([~sg6c1,~sg6c2,~sg6c3,~sg6c4,~sg6c5,~sg6c6,~sg6c7,~sg6c8,~sg6c9,~sg6c10,~sg6c11,~sg6c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6c1=~f1,~sg6c2=~f2,~sg6c3=~f3,~sg6c4=~f4,~sg6c5=~f5,~sg6c6=~f6,~sg6c7=~f7,~sg6c8=~f8];});
+	if([~sg6d1,~sg6d2,~sg6d3,~sg6d4,~sg6d5,~sg6d6,~sg6d7,~sg6d8,~sg6d9,~sg6d10,~sg6d11,~sg6d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6d1=~f1,~sg6d2=~f2,~sg6d3=~f3,~sg6d4=~f4,~sg6d5=~f5,~sg6d6=~f6,~sg6d7=~f7,~sg6d8=~f8];});
+	if([~sg6e1,~sg6e2,~sg6e3,~sg6e4,~sg6e5,~sg6e6,~sg6e7,~sg6e8,~sg6e9,~sg6e10,~sg6e11,~sg6e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6e1=~f1,~sg6e2=~f2,~sg6e3=~f3,~sg6e4=~f4,~sg6e5=~f5,~sg6e6=~f6,~sg6e7=~f7,~sg6e8=~f8];});
+	if([~sg6f1,~sg6f2,~sg6f3,~sg6f4,~sg6f5,~sg6f6,~sg6f7,~sg6f8,~sg6f9,~sg6f10,~sg6f11,~sg6f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6f1=~f1,~sg6f2=~f2,~sg6f3=~f3,~sg6f4=~f4,~sg6f5=~f5,~sg6f6=~f6,~sg6f7=~f7,~sg6f8=~f8];});
+	if([~sg6g1,~sg6g2,~sg6g3,~sg6g4,~sg6g5,~sg6g6,~sg6g7,~sg6g8,~sg6g9,~sg6g10,~sg6g11,~sg6g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6g1=~f1,~sg6g2=~f2,~sg6g3=~f3,~sg6g4=~f4,~sg6g5=~f5,~sg6g6=~f6,~sg6g7=~f7,~sg6g8=~f8];});
+	if([~sg6h1,~sg6h2,~sg6h3,~sg6h4,~sg6h5,~sg6h6,~sg6h7,~sg6h8,~sg6h9,~sg6h10,~sg6h11,~sg6h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6h1=~f1,~sg6h2=~f2,~sg6h3=~f3,~sg6h4=~f4,~sg6h5=~f5,~sg6h6=~f6,~sg6h7=~f7,~sg6h8=~f8];});
+	if([~sg7a1,~sg7a2,~sg7a3,~sg7a4,~sg7a5,~sg7a6,~sg7a7,~sg7a8,~sg7a9,~sg7a10,~sg7a11,~sg7a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7a1=~f1,~sg7a2=~f2,~sg7a3=~f3,~sg7a4=~f4,~sg7a5=~f5,~sg7a6=~f6,~sg7a7=~f7,~sg7a8=~f8];});
+	if([~sg7b1,~sg7b2,~sg7b3,~sg7b4,~sg7b5,~sg7b6,~sg7b7,~sg7b8,~sg7b9,~sg7b10,~sg7b11,~sg7b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7b1=~f1,~sg7b2=~f2,~sg7b3=~f3,~sg7b4=~f4,~sg7b5=~f5,~sg7b6=~f6,~sg7b7=~f7,~sg7b8=~f8];});
+	if([~sg7c1,~sg7c2,~sg7c3,~sg7c4,~sg7c5,~sg7c6,~sg7c7,~sg7c8,~sg7c9,~sg7c10,~sg7c11,~sg7c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7c1=~f1,~sg7c2=~f2,~sg7c3=~f3,~sg7c4=~f4,~sg7c5=~f5,~sg7c6=~f6,~sg7c7=~f7,~sg7c8=~f8];});
+	if([~sg7d1,~sg7d2,~sg7d3,~sg7d4,~sg7d5,~sg7d6,~sg7d7,~sg7d8,~sg7d9,~sg7d10,~sg7d11,~sg7d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7d1=~f1,~sg7d2=~f2,~sg7d3=~f3,~sg7d4=~f4,~sg7d5=~f5,~sg7d6=~f6,~sg7d7=~f7,~sg7d8=~f8];});
+	if([~sg7e1,~sg7e2,~sg7e3,~sg7e4,~sg7e5,~sg7e6,~sg7e7,~sg7e8,~sg7e9,~sg7e10,~sg7e11,~sg7e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7e1=~f1,~sg7e2=~f2,~sg7e3=~f3,~sg7e4=~f4,~sg7e5=~f5,~sg7e6=~f6,~sg7e7=~f7,~sg7e8=~f8];});
+	if([~sg7f1,~sg7f2,~sg7f3,~sg7f4,~sg7f5,~sg7f6,~sg7f7,~sg7f8,~sg7f9,~sg7f10,~sg7f11,~sg7f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7f1=~f1,~sg7f2=~f2,~sg7f3=~f3,~sg7f4=~f4,~sg7f5=~f5,~sg7f6=~f6,~sg7f7=~f7,~sg7f8=~f8];});
+	if([~sg7g1,~sg7g2,~sg7g3,~sg7g4,~sg7g5,~sg7g6,~sg7g7,~sg7g8,~sg7g9,~sg7g10,~sg7g11,~sg7g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7g1=~f1,~sg7g2=~f2,~sg7g3=~f3,~sg7g4=~f4,~sg7g5=~f5,~sg7g6=~f6,~sg7g7=~f7,~sg7g8=~f8];});
+	if([~sg7h1,~sg7h2,~sg7h3,~sg7h4,~sg7h5,~sg7h6,~sg7h7,~sg7h8,~sg7h9,~sg7h10,~sg7h11,~sg7h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7h1=~f1,~sg7h2=~f2,~sg7h3=~f3,~sg7h4=~f4,~sg7h5=~f5,~sg7h6=~f6,~sg7h7=~f7,~sg7h8=~f8];});
+	if([~sg8a1,~sg8a2,~sg8a3,~sg8a4,~sg8a5,~sg8a6,~sg8a7,~sg8a8,~sg8a9,~sg8a10,~sg8a11,~sg8a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8a1=~f1,~sg8a2=~f2,~sg8a3=~f3,~sg8a4=~f4,~sg8a5=~f5,~sg8a6=~f6,~sg8a7=~f7,~sg8a8=~f8];});
+	if([~sg8b1,~sg8b2,~sg8b3,~sg8b4,~sg8b5,~sg8b6,~sg8b7,~sg8b8,~sg8b9,~sg8b10,~sg8b11,~sg8b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8b1=~f1,~sg8b2=~f2,~sg8b3=~f3,~sg8b4=~f4,~sg8b5=~f5,~sg8b6=~f6,~sg8b7=~f7,~sg8b8=~f8];});
+	if([~sg8c1,~sg8c2,~sg8c3,~sg8c4,~sg8c5,~sg8c6,~sg8c7,~sg8c8,~sg8c9,~sg8c10,~sg8c11,~sg8c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8c1=~f1,~sg8c2=~f2,~sg8c3=~f3,~sg8c4=~f4,~sg8c5=~f5,~sg8c6=~f6,~sg8c7=~f7,~sg8c8=~f8];});
+	if([~sg8d1,~sg8d2,~sg8d3,~sg8d4,~sg8d5,~sg8d6,~sg8d7,~sg8d8,~sg8d9,~sg8d10,~sg8d11,~sg8d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8d1=~f1,~sg8d2=~f2,~sg8d3=~f3,~sg8d4=~f4,~sg8d5=~f5,~sg8d6=~f6,~sg8d7=~f7,~sg8d8=~f8];});
+	if([~sg8e1,~sg8e2,~sg8e3,~sg8e4,~sg8e5,~sg8e6,~sg8e7,~sg8e8,~sg8e9,~sg8e10,~sg8e11,~sg8e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8e1=~f1,~sg8e2=~f2,~sg8e3=~f3,~sg8e4=~f4,~sg8e5=~f5,~sg8e6=~f6,~sg8e7=~f7,~sg8e8=~f8];});
+	if([~sg8f1,~sg8f2,~sg8f3,~sg8f4,~sg8f5,~sg8f6,~sg8f7,~sg8f8,~sg8f9,~sg8f10,~sg8f11,~sg8f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8f1=~f1,~sg8f2=~f2,~sg8f3=~f3,~sg8f4=~f4,~sg8f5=~f5,~sg8f6=~f6,~sg8f7=~f7,~sg8f8=~f8];});
+	if([~sg8g1,~sg8g2,~sg8g3,~sg8g4,~sg8g5,~sg8g6,~sg8g7,~sg8g8,~sg8g9,~sg8g10,~sg8g11,~sg8g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8g1=~f1,~sg8g2=~f2,~sg8g3=~f3,~sg8g4=~f4,~sg8g5=~f5,~sg8g6=~f6,~sg8g7=~f7,~sg8g8=~f8];});
+	if([~sg8h1,~sg8h2,~sg8h3,~sg8h4,~sg8h5,~sg8h6,~sg8h7,~sg8h8,~sg8h9,~sg8h10,~sg8h11,~sg8h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8h1=~f1,~sg8h2=~f2,~sg8h3=~f3,~sg8h4=~f4,~sg8h5=~f5,~sg8h6=~f6,~sg8h7=~f7,~sg8h8=~f8];});
 
 
 	//set n1-n9 ratio values
@@ -488,17 +479,8 @@ s.waitForBoot({
 			~synthflow_random_sendreply_answer_f1 = '/synthflow_random_sendreply_answer_f1';
 			~synthflow_random_sendreply_answer_f2 = '/synthflow_random_sendreply_answer_f2';
 			~synthflow_random_sendreply_answer_f3 = '/synthflow_random_sendreply_answer_f3';
-			~synthflow_random_sendreply_answer_f4 = '/synthflow_random_sendreply_answer_f4';
-			~synthflow_random_sendreply_answer_f5 = '/synthflow_random_sendreply_answer_f5';
-			~synthflow_random_sendreply_answer_f6 = '/synthflow_random_sendreply_answer_f6';
-			~synthflow_random_sendreply_answer_f7 = '/synthflow_random_sendreply_answer_f7';
-			~synthflow_random_sendreply_answer_f8 = '/synthflow_random_sendreply_answer_f8';
-			~synthflow_random_sendreply_answer_f9 = '/synthflow_random_sendreply_answer_f9';
-			~synthflow_random_sendreply_answer_f10 = '/synthflow_random_sendreply_answer_f10';
-			~synthflow_random_sendreply_answer_f11 = '/synthflow_random_sendreply_answer_f11';
-			~synthflow_random_sendreply_answer_f12 = '/synthflow_random_sendreply_answer_f12';
 
-			12.do(~sendreply_x = 0; {
+			3.do(~sendreply_x = 0; {
 
 				~sendreply_x=~sendreply_x+1;
 
@@ -538,15 +520,6 @@ s.waitForBoot({
 	OSCFunc({~f1 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f1');
 	OSCFunc({~f2 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f2');
 	OSCFunc({~f3 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f3');
-	OSCFunc({~f4 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f4');
-	OSCFunc({~f5 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f5');
-	OSCFunc({~f6 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f6');
-	OSCFunc({~f7 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f7');
-	OSCFunc({~f8 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f8');
-	OSCFunc({~f9 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f9');
-	OSCFunc({~f10 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f10');
-	OSCFunc({~f11 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f11');
-	OSCFunc({~f12 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f12');
 
 
 	//set base (lowest) frequencies, set starting values for synthdef, and load synthdef on server boot
@@ -575,7 +548,7 @@ s.waitForBoot({
 
 	//vertical grid (inactive)
 
-	/*~b1 = Window.screenBounds.width/(12*4) /*25.462962962963*/; ~btu = 31; ~btd = 375; ~bw = 0.5; ~bh = 120; ~bcolor = Color.grey;
+	/*~b1 = Window.screenBounds.width/(12*4) /*25.462962962963*/; ~btu = 31; ~btd = 375; ~bw = 0.5; ~bh = 80; ~bcolor = Color.grey;
 	View(w, Rect(~b1, ~btu, ~bw, ~bh)).background = ~bcolor;
 	View(w, Rect(~b1, ~btd, ~bw, ~bh)).background = ~bcolor;
 	54.do({View(w, Rect(~b1 = ~b1+(Window.screenBounds.width/(12*4)), ~btu, ~bw, ~bh)).background = ~bcolor;});
@@ -593,35 +566,16 @@ s.waitForBoot({
 
 	~dc1 = ~tgrid-5; ~dc2 = ~bgrid-5; ~dca = 10;
 
-	13.do(x=~tgrid-10; {View(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
-	13.do(x=~bgrid-10; {View(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
+	4.do(x=~tgrid-10; {View(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
+	4.do(x=~bgrid-10; {View(w, Rect(1, x=x+10, Window.screenBounds.width, 0.5)).background = Color.new255(51, 51, 51)});
 
 	~z1 = (View(w, Rect((if(~f1 == nil, {f1.value},{~f1.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
 	~z2 = (View(w, Rect((if(~f2 == nil, {f2.value},{~f2.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
 	~z3 = (View(w, Rect((if(~f3 == nil, {f3.value},{~f3.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z4 = (View(w, Rect((if(~f4 == nil, {f4.value},{~f4.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z5 = (View(w, Rect((if(~f5 == nil, {f5.value},{~f5.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z6 = (View(w, Rect((if(~f6 == nil, {f6.value},{~f6.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z7 = (View(w, Rect((if(~f7 == nil, {f7.value},{~f7.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z8 = (View(w, Rect((if(~f8 == nil, {f8.value},{~f8.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z9 = (View(w, Rect((if(~f9 == nil, {f9.value},{~f9.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z10 = (View(w, Rect((if(~f10 == nil, {f10.value},{~f10.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z11 = (View(w, Rect((if(~f11 == nil, {f11.value},{~f11.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
-	~z12 = (View(w, Rect((if(~f12 == nil, {f12.value},{~f12.value}).explin(~outmin1,~outmax1,0,Window.screenBounds.width)), ~dc1=~dc1+10, ~nw, 2)).background = Color.white;);
 	~zmid = (View(w, Rect(x, 280, ~nw, 2)).background = Color.clear;);
 	~z25 = (View(w, Rect((if(~f1 == nil, {f1.value},{~f1.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
 	~z26 = (View(w, Rect((if(~f2 == nil, {f2.value},{~f2.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
 	~z27 = (View(w, Rect((if(~f3 == nil, {f3.value},{~f3.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z28 = (View(w, Rect((if(~f4 == nil, {f4.value},{~f4.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z29 = (View(w, Rect((if(~f5 == nil, {f5.value},{~f5.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z30 = (View(w, Rect((if(~f6 == nil, {f6.value},{~f6.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z31 = (View(w, Rect((if(~f7 == nil, {f7.value},{~f7.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z32 = (View(w, Rect((if(~f8 == nil, {f8.value},{~f8.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z33 = (View(w, Rect((if(~f9 == nil, {f9.value},{~f9.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z34 = (View(w, Rect((if(~f10 == nil, {f10.value},{~f10.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z35 = (View(w, Rect((if(~f11 == nil, {f11.value},{~f11.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-	~z36 = (View(w, Rect((if(~f12 == nil, {f12.value},{~f12.value}).explin(~outmin2,~outmax2,0,Window.screenBounds.width)), ~dc2=~dc2+10, ~nw, 2)).background = Color.white;);
-
 
 	~dc1 = ~tgrid-5; ~dc2 = ~bgrid-5; ~dca = 10;
 
@@ -632,9 +586,9 @@ s.waitForBoot({
 		case
 		{((~l1a.isRunning == false) and: (~l1a1.isRunning == false)) or: ~l1a1.isRunning == true}{
 			if(~l1a1.isRunning == true, {
-				(1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,s1,s2,s3,s4,s5,s6,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12;
-					#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8,~vol9,~vol10,~vol11,~vol12];
-					#f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12 = [ 0,0,0,0,0,0,0,0,0,0,0,0 ];
+				(1.do({var vol1,vol2,vol3,s1,s2,s3,s4,s5,s6,f1,f2,f3;
+					#vol1,vol2,vol3 = [~vol1,~vol2,~vol3];
+					#f1,f2,f3 = [ 0,0,0 ];
 					s.makeBundle(0, {
 						~l1a1.set(\dur, f1,     \vol, vol1);  ~l1b1.set(\dur, f1,  \vol, vol1);
 						~l1c1.set(\dur, f1/~icd3,       \vol, vol1);  ~l1d1.set(\dur, f1/~icd3,  \vol, vol1);
@@ -645,45 +599,18 @@ s.waitForBoot({
 						~l3a1.set(\dur, f3,     \vol, vol3);          ~l3b1.set(\dur, f3,  \vol, vol3);
 						~l3c1.set(\dur, f3/~icd3,       \vol, vol3);  ~l3d1.set(\dur, f3/~icd3,  \vol, vol3);
 						~l3e1.set(\dur, f3/~icd6,       \vol, vol3);  ~l3f1.set(\dur, f3/~icd6,  \vol, vol3);
-						~l4a1.set(\dur, f4,    \vol, vol4);           ~l4b1.set(\dur, f4,  \vol, vol4);
-						~l4c1.set(\dur, f4/~icd3,       \vol, vol4);  ~l4d1.set(\dur, f4/~icd3,  \vol, vol4);
-						~l4e1.set(\dur, f4/~icd6,       \vol, vol4);  ~l4f1.set(\dur, f4/~icd6,  \vol, vol4);
-						~l5a1.set(\dur, f5,    \vol, vol5);           ~l5b1.set(\dur, f5,  \vol, vol5);
-						~l5c1.set(\dur, f5/~icd3,       \vol, vol5);  ~l5d1.set(\dur, f5/~icd3,  \vol, vol5);
-						~l5e1.set(\dur, f5/~icd6,       \vol, vol5);  ~l5f1.set(\dur, f5/~icd6,  \vol, vol5);
-						~l6a1.set(\dur, f6,    \vol, vol6);           ~l6b1.set(\dur, f6,  \vol, vol6);
-						~l6c1.set(\dur, f6/~icd3,       \vol, vol6);  ~l6d1.set(\dur, f6/~icd3,  \vol, vol6);
-						~l6e1.set(\dur, f6/~icd6,       \vol, vol6);  ~l6f1.set(\dur, f6/~icd6,  \vol, vol6);
-						~l7a1.set(\dur, f7,    \vol, vol7);           ~l7b1.set(\dur, f7,  \vol, vol7);
-						~l7c1.set(\dur, f7/~icd3,       \vol, vol7);  ~l7d1.set(\dur, f7/~icd3,  \vol, vol7);
-						~l7e1.set(\dur, f7/~icd6,       \vol, vol7);  ~l7f1.set(\dur, f7/~icd6,  \vol, vol7);
-						~l8a1.set(\dur, f8,    \vol, vol8);           ~l8b1.set(\dur, f8,  \vol, vol8);
-						~l8c1.set(\dur, f8/~icd3,       \vol, vol8);  ~l8d1.set(\dur, f8/~icd3,  \vol, vol8);
-						~l8e1.set(\dur, f8/~icd6,       \vol, vol8);  ~l8f1.set(\dur, f8/~icd6,  \vol, vol8);
-						~l9a1.set(\dur, f9,    \vol, vol9);          ~l9b1.set(\dur, f9,  \vol, vol9);
-						~l9c1.set(\dur, f9/~icd3,       \vol, vol9); ~l9d1.set(\dur, f9/~icd3,  \vol, vol9);
-						~l9e1.set(\dur, f9/~icd6,       \vol, vol9); ~l9f1.set(\dur, f9/~icd6,  \vol, vol9);
-						~l10a1.set(\dur, f10,  \vol, vol10);         ~l10b1.set(\dur, f10,  \vol, vol10);
-						~l10c1.set(\dur, f10/~icd3,     \vol, vol10);~l10d1.set(\dur, f10/~icd3,  \vol, vol10);
-						~l10e1.set(\dur, f10/~icd6,     \vol, vol10);~l10f1.set(\dur, f10/~icd6,  \vol, vol10);
-						~l11a1.set(\dur, f11,  \vol, vol11);         ~l11b1.set(\dur, f11,  \vol, vol11);
-						~l11c1.set(\dur, f11/~icd3,     \vol, vol11);~l11d1.set(\dur, f11/~icd3,  \vol, vol11);
-						~l11e1.set(\dur, f11/~icd6,     \vol, vol11);~l11f1.set(\dur, f11/~icd6,  \vol, vol11);
-						~l12a1.set(\dur, f12,  \vol, vol12);         ~l12b1.set(\dur, f12,  \vol, vol12);
-						~l12c1.set(\dur, f12/~icd3,     \vol, vol12);~l12d1.set(\dur, f12/~icd3,  \vol, vol12);
-						~l12e1.set(\dur, f12/~icd6,     \vol, vol12);~l12f1.set(\dur, f12/~icd6,  \vol, vol12);
 					});
 				}););
 			});
 
 			(
-				1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,s1,s2,s3,s4,s5,s6,s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8,s1_9,s1_10,s1_11,s1_12;
-					#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8,~vol9,~vol10,~vol11,~vol12];
+				1.do({var vol1,vol2,vol3,s1,s2,s3,s4,s5,s6,s1_1,s1_2,s1_3;
+					#vol1,vol2,vol3 = [~vol1,~vol2,~vol3];
 					#s1,s2,s3,s4,s5,s6 = [\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1];
 					case
-					{~sendreplysynthdef_on == 0}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8,s1_9,s1_10,s1_11,s1_12 = \gsineicfld6!12;}
-					{~sendreplysynthdef_on == 1}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8,s1_9,s1_10,s1_11,s1_12 =
-						[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3, \gsineicfld6_f4, \gsineicfld6_f5, \gsineicfld6_f6, \gsineicfld6_f7, \gsineicfld6_f8, \gsineicfld6_f9, \gsineicfld6_f10, \gsineicfld6_f11, \gsineicfld6_f12];};
+					{~sendreplysynthdef_on == 0}{#s1_1,s1_2,s1_3 = \gsineicfld6!3;}
+					{~sendreplysynthdef_on == 1}{#s1_1,s1_2,s1_3 =
+						[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3];};
 					s.makeBundle(0, {
 						~l1a = Synth(s1_1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b = Synth(s2, [\dur, ~f1,    \vol, vol1]);
 						~l1c = Synth(s3, [\dur, ~f1/~icd3,  \vol, vol1]);   ~l1d = Synth(s4, [\dur, ~f1/~icd3,  \vol, vol1]);
@@ -694,46 +621,19 @@ s.waitForBoot({
 						~l3a = Synth(s1_3, [\dur, ~f3,    \vol, vol3]);        ~l3b = Synth(s2, [\dur, ~f3,   \vol, vol3]);
 						~l3c = Synth(s3, [\dur, ~f3/~icd3,  \vol, vol3]);   ~l3d = Synth(s4, [\dur, ~f3/~icd3, \vol, vol3]);
 						~l3e = Synth(s5, [\dur, ~f3/~icd6,  \vol, vol3]);   ~l3f = Synth(s6, [\dur, ~f3/~icd6, \vol, vol3]);
-						~l4a = Synth(s1_4, [\dur, ~f4,    \vol, vol4]);       ~l4b = Synth(s2, [\dur, ~f4,   \vol, vol4]);
-						~l4c = Synth(s3, [\dur, ~f4/~icd3,  \vol, vol4]);  ~l4d = Synth(s4, [\dur, ~f4/~icd3, \vol, vol4]);
-						~l4e = Synth(s5, [\dur, ~f4/~icd6,  \vol, vol4]);   ~l4f = Synth(s6, [\dur, ~f4/~icd6, \vol, vol4]);
-						~l5a = Synth(s1_5, [\dur, ~f5,    \vol, vol5]);       ~l5b = Synth(s2, [\dur, ~f5,   \vol, vol5]);
-						~l5c = Synth(s3, [\dur, ~f5/~icd3,  \vol, vol5]);   ~l5d = Synth(s4, [\dur, ~f5/~icd3, \vol, vol5]);
-						~l5e = Synth(s5, [\dur, ~f5/~icd6,  \vol, vol5]);   ~l5f = Synth(s6, [\dur, ~f5/~icd6, \vol, vol5]);
-						~l6a = Synth(s1_6, [\dur, ~f6,    \vol, vol6]);       ~l6b = Synth(s2, [\dur, ~f6,   \vol, vol6]);
-						~l6c = Synth(s3, [\dur, ~f6/~icd3,  \vol, vol6]);   ~l6d = Synth(s4, [\dur, ~f6/~icd3, \vol, vol6]);
-						~l6e = Synth(s5, [\dur, ~f6/~icd6,  \vol, vol6]);   ~l6f = Synth(s6, [\dur, ~f6/~icd6, \vol, vol6]);
-						~l7a = Synth(s1_7, [\dur, ~f7,    \vol, vol7]);       ~l7b = Synth(s2, [\dur, ~f7,   \vol, vol7]);
-						~l7c = Synth(s3, [\dur, ~f7/~icd3,  \vol, vol7]);   ~l7d = Synth(s4, [\dur, ~f7/~icd3, \vol, vol7]);
-						~l7e = Synth(s5, [\dur, ~f7/~icd6,  \vol, vol7]);   ~l7f = Synth(s6, [\dur, ~f7/~icd6, \vol, vol7]);
-						~l8a = Synth(s1_8, [\dur, ~f8,    \vol, vol8]);       ~l8b = Synth(s2, [\dur, ~f8,   \vol, vol8]);
-						~l8c = Synth(s3, [\dur, ~f8/~icd3,  \vol, vol8]);   ~l8d = Synth(s4, [\dur, ~f8/~icd3, \vol, vol8]);
-						~l8e = Synth(s5, [\dur, ~f8/~icd6,  \vol, vol8]);   ~l8f = Synth(s6, [\dur, ~f8/~icd6, \vol, vol8]);
-						~l9a = Synth(s1_9, [\dur, ~f9,    \vol, vol9]);       ~l9b = Synth(s2, [\dur, ~f9,   \vol, vol9]);
-						~l9c = Synth(s3, [\dur, ~f9/~icd3,  \vol, vol9]);   ~l9d = Synth(s4, [\dur, ~f9/~icd3, \vol, vol9]);
-						~l9e = Synth(s5, [\dur, ~f9/~icd6,  \vol, vol9]);   ~l9f = Synth(s6, [\dur, ~f9/~icd6, \vol, vol9]);
-						~l10a = Synth(s1_10, [\dur,~f10,  \vol, vol10]);       ~l10b = Synth(s2, [\dur, ~f10, \vol, vol10]);
-						~l10c = Synth(s3, [\dur, ~f10/~icd3,  \vol, vol10]);~l10d = Synth(s4, [\dur, ~f10/~icd3,  \vol, vol10]);
-						~l10e = Synth(s5, [\dur, ~f10/~icd6,  \vol, vol10]);~l10f = Synth(s6, [\dur, ~f10/~icd6,  \vol, vol10]);
-						~l11a = Synth(s1_11, [\dur,~f11,   \vol, vol11]);      ~l11b = Synth(s2, [\dur, ~f11,    \vol, vol11]);
-						~l11c = Synth(s3, [\dur, ~f11/~icd3,  \vol, vol11]);~l11d = Synth(s4, [\dur, ~f11/~icd3,  \vol, vol11]);
-						~l11e = Synth(s5, [\dur, ~f11/~icd6,  \vol, vol11]);~l11f = Synth(s6, [\dur, ~f11/~icd6,  \vol, vol11]);
-						~l12a = Synth(s1_12, [\dur,~f12,   \vol, vol12]);      ~l12b = Synth(s2, [\dur, ~f12,    \vol, vol12]);
-						~l12c = Synth(s3, [\dur, ~f12/~icd3,  \vol, vol12]);~l12d = Synth(s4, [\dur, ~f12/~icd3,  \vol, vol12]);
-						~l12e = Synth(s5, [\dur, ~f12/~icd6,  \vol, vol12]);~l12f = Synth(s6, [\dur, ~f12/~icd6,  \vol, vol12]);
 					});
 				});
 			);
 			if(~l1a1.isRunning == true, {
 				AppClock.sched(0.161803398875,{
-					([~l1a1,~l1b1,~l1c1,~l1d1,~l1e1,~l1f1,~l2a1,~l2b1,~l2c1,~l2d1,~l2e1,~l2f1,~l3a1,~l3b1,~l3c1,~l3d1,~l3e1,~l3f1,~l4a1,~l4b1,~l4c1,~l4d1,~l4e1,~l4f1,~l5a1,~l5b1,~l5c1,~l5d1,~l5e1,~l5f1,~l6a1,~l6b1,~l6c1,~l6d1,~l6e1,~l6f1,~l7a1,~l7b1,~l7c1,~l7d1,~l7e1,~l7f1,~l8a1,~l8b1,~l8c1,~l8d1,~l8e1,~l8f1,~l9a1,~l9b1,~l9c1,~l9d1,~l9e1,~l9f1,~l10a1,~l10b1,~l10c1,~l10d1,~l10e1,~l10f1,~l11a1,~l11b1,~l11c1,~l11d1,~l11e1,~l11f1,~l12a1,~l12b1,~l12c1,~l12d1,~l12e1,~l12f1 ].do(_.free)); ~slideroutine.stop;
+					([~l1a1,~l1b1,~l1c1,~l1d1,~l1e1,~l1f1,~l2a1,~l2b1,~l2c1,~l2d1,~l2e1,~l2f1,~l3a1,~l3b1,~l3c1,~l3d1,~l3e1,~l3f1 ].do(_.free)); ~slideroutine.stop;
 				});
 			});
 		}
 		{~l1a.isRunning == true}{
-			(1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,s1,s2,s3,s4,s5,s6,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12;
-				#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8,~vol9,~vol10,~vol11,~vol12];
-				#f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12 = [ 0,0,0,0,0,0,0,0,0,0,0,0 ];
+			(1.do({var vol1,vol2,vol3,s1,s2,s3,s4,s5,s6,f1,f2,f3;
+				#vol1,vol2,vol3 = [~vol1,~vol2,~vol3];
+				#f1,f2,f3 = [ 0,0,0 ];
 				s.makeBundle(0, {
 					~l1a.set(\dur, f1,     \vol, vol1);  ~l1b.set(\dur, f1,  \vol, vol1);
 					~l1c.set(\dur, f1/~icd3,       \vol, vol1);  ~l1d.set(\dur, f1/~icd3,  \vol, vol1);
@@ -744,44 +644,17 @@ s.waitForBoot({
 					~l3a.set(\dur, f3,     \vol, vol3);          ~l3b.set(\dur, f3,  \vol, vol3);
 					~l3c.set(\dur, f3/~icd3,       \vol, vol3);  ~l3d.set(\dur, f3/~icd3,  \vol, vol3);
 					~l3e.set(\dur, f3/~icd6,       \vol, vol3);  ~l3f.set(\dur, f3/~icd6,  \vol, vol3);
-					~l4a.set(\dur, f4,    \vol, vol4);           ~l4b.set(\dur, f4,  \vol, vol4);
-					~l4c.set(\dur, f4/~icd3,       \vol, vol4);  ~l4d.set(\dur, f4/~icd3,  \vol, vol4);
-					~l4e.set(\dur, f4/~icd6,       \vol, vol4);  ~l4f.set(\dur, f4/~icd6,  \vol, vol4);
-					~l5a.set(\dur, f5,    \vol, vol5);           ~l5b.set(\dur, f5,  \vol, vol5);
-					~l5c.set(\dur, f5/~icd3,       \vol, vol5);  ~l5d.set(\dur, f5/~icd3,  \vol, vol5);
-					~l5e.set(\dur, f5/~icd6,       \vol, vol5);  ~l5f.set(\dur, f5/~icd6,  \vol, vol5);
-					~l6a.set(\dur, f6,    \vol, vol6);           ~l6b.set(\dur, f6,  \vol, vol6);
-					~l6c.set(\dur, f6/~icd3,       \vol, vol6);  ~l6d.set(\dur, f6/~icd3,  \vol, vol6);
-					~l6e.set(\dur, f6/~icd6,       \vol, vol6);  ~l6f.set(\dur, f6/~icd6,  \vol, vol6);
-					~l7a.set(\dur, f7,    \vol, vol7);           ~l7b.set(\dur, f7,  \vol, vol7);
-					~l7c.set(\dur, f7/~icd3,       \vol, vol7);  ~l7d.set(\dur, f7/~icd3,  \vol, vol7);
-					~l7e.set(\dur, f7/~icd6,       \vol, vol7);  ~l7f.set(\dur, f7/~icd6,  \vol, vol7);
-					~l8a.set(\dur, f8,    \vol, vol8);           ~l8b.set(\dur, f8,  \vol, vol8);
-					~l8c.set(\dur, f8/~icd3,       \vol, vol8);  ~l8d.set(\dur, f8/~icd3,  \vol, vol8);
-					~l8e.set(\dur, f8/~icd6,       \vol, vol8);  ~l8f.set(\dur, f8/~icd6,  \vol, vol8);
-					~l9a.set(\dur, f9,    \vol, vol9);          ~l9b.set(\dur, f9,  \vol, vol9);
-					~l9c.set(\dur, f9/~icd3,       \vol, vol9); ~l9d.set(\dur, f9/~icd3,  \vol, vol9);
-					~l9e.set(\dur, f9/~icd6,       \vol, vol9); ~l9f.set(\dur, f9/~icd6,  \vol, vol9);
-					~l10a.set(\dur, f10,  \vol, vol10);         ~l10b.set(\dur, f10,  \vol, vol10);
-					~l10c.set(\dur, f10/~icd3,     \vol, vol10);~l10d.set(\dur, f10/~icd3,  \vol, vol10);
-					~l10e.set(\dur, f10/~icd6,     \vol, vol10);~l10f.set(\dur, f10/~icd6,  \vol, vol10);
-					~l11a.set(\dur, f11,  \vol, vol11);         ~l11b.set(\dur, f11,  \vol, vol11);
-					~l11c.set(\dur, f11/~icd3,     \vol, vol11,);~l11d.set(\dur, f11/~icd3,  \vol, vol11);
-					~l11e.set(\dur, f11/~icd6,     \vol, vol11);~l11f.set(\dur, f11/~icd6,  \vol, vol11);
-					~l12a.set(\dur, f12,  \vol, vol12);         ~l12b.set(\dur, f12,  \vol, vol12);
-					~l12c.set(\dur, f12/~icd3,     \vol, vol12,);~l12d.set(\dur, f12/~icd3,  \vol, vol12);
-					~l12e.set(\dur, f12/~icd6,     \vol, vol12);~l12f.set(\dur, f12/~icd6,  \vol, vol12);
 				});
 			}););
 
 			(
-				1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,s1,s2,s3,s4,s5,s6,s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8,s1_9,s1_10,s1_11,s1_12;
-					#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8,~vol9,~vol10,~vol11,~vol12];
+				1.do({var vol1,vol2,vol3,s1,s2,s3,s4,s5,s6,s1_1,s1_2,s1_3;
+					#vol1,vol2,vol3 = [~vol1,~vol2,~vol3];
 					#s1,s2,s3,s4,s5,s6 = [\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1];
 					case
-					{~sendreplysynthdef_on == 0}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8,s1_9,s1_10,s1_11,s1_12 = \gsineicfld6!12;}
-					{~sendreplysynthdef_on == 1}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8,s1_9,s1_10,s1_11,s1_12 =
-						[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3, \gsineicfld6_f4, \gsineicfld6_f5, \gsineicfld6_f6, \gsineicfld6_f7, \gsineicfld6_f8, \gsineicfld6_f9, \gsineicfld6_f10, \gsineicfld6_f11, \gsineicfld6_f12];};
+					{~sendreplysynthdef_on == 0}{#s1_1,s1_2,s1_3 = \gsineicfld6!3;}
+					{~sendreplysynthdef_on == 1}{#s1_1,s1_2,s1_3 =
+						[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3];};
 					s.makeBundle(0, {
 						~l1a1 = Synth(s1_1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b1 = Synth(s2, [\dur, ~f1,    \vol, vol1]);
 						~l1c1 = Synth(s3, [\dur, ~f1/~icd3,  \vol, vol1]);   ~l1d1 = Synth(s4, [\dur, ~f1/~icd3,  \vol, vol1]);
@@ -792,53 +665,17 @@ s.waitForBoot({
 						~l3a1 = Synth(s1_3, [\dur, ~f3,    \vol, vol3]);        ~l3b1 = Synth(s2, [\dur, ~f3,   \vol, vol3]);
 						~l3c1 = Synth(s3, [\dur, ~f3/~icd3,  \vol, vol3]);   ~l3d1 = Synth(s4, [\dur, ~f3/~icd3, \vol, vol3]);
 						~l3e1 = Synth(s5, [\dur, ~f3/~icd6,  \vol, vol3]);   ~l3f1 = Synth(s6, [\dur, ~f3/~icd6, \vol, vol3]);
-						~l4a1 = Synth(s1_4, [\dur, ~f4,    \vol, vol4]);       ~l4b1 = Synth(s2, [\dur, ~f4,   \vol, vol4]);
-						~l4c1 = Synth(s3, [\dur, ~f4/~icd3,  \vol, vol4]);  ~l4d1 = Synth(s4, [\dur, ~f4/~icd3, \vol, vol4]);
-						~l4e1 = Synth(s5, [\dur, ~f4/~icd6,  \vol, vol4]);   ~l4f1 = Synth(s6, [\dur, ~f4/~icd6, \vol, vol4]);
-						~l5a1 = Synth(s1_5, [\dur, ~f5,    \vol, vol5]);       ~l5b1 = Synth(s2, [\dur, ~f5,   \vol, vol5]);
-						~l5c1 = Synth(s3, [\dur, ~f5/~icd3,  \vol, vol5]);   ~l5d1 = Synth(s4, [\dur, ~f5/~icd3, \vol, vol5]);
-						~l5e1 = Synth(s5, [\dur, ~f5/~icd6,  \vol, vol5]);   ~l5f1 = Synth(s6, [\dur, ~f5/~icd6, \vol, vol5]);
-						~l6a1 = Synth(s1_6, [\dur, ~f6,    \vol, vol6]);       ~l6b1 = Synth(s2, [\dur, ~f6,   \vol, vol6]);
-						~l6c1 = Synth(s3, [\dur, ~f6/~icd3,  \vol, vol6]);   ~l6d1 = Synth(s4, [\dur, ~f6/~icd3, \vol, vol6]);
-						~l6e1 = Synth(s5, [\dur, ~f6/~icd6,  \vol, vol6]);   ~l6f1 = Synth(s6, [\dur, ~f6/~icd6, \vol, vol6]);
-						~l7a1 = Synth(s1_7, [\dur, ~f7,    \vol, vol7]);       ~l7b1 = Synth(s2, [\dur, ~f7,   \vol, vol7]);
-						~l7c1 = Synth(s3, [\dur, ~f7/~icd3,  \vol, vol7]);   ~l7d1 = Synth(s4, [\dur, ~f7/~icd3, \vol, vol7]);
-						~l7e1 = Synth(s5, [\dur, ~f7/~icd6,  \vol, vol7]);   ~l7f1 = Synth(s6, [\dur, ~f7/~icd6, \vol, vol7]);
-						~l8a1 = Synth(s1_8, [\dur, ~f8,    \vol, vol8]);       ~l8b1 = Synth(s2, [\dur, ~f8,   \vol, vol8]);
-						~l8c1 = Synth(s3, [\dur, ~f8/~icd3,  \vol, vol8]);   ~l8d1 = Synth(s4, [\dur, ~f8/~icd3, \vol, vol8]);
-						~l8e1 = Synth(s5, [\dur, ~f8/~icd6,  \vol, vol8]);   ~l8f1 = Synth(s6, [\dur, ~f8/~icd6, \vol, vol8]);
-						~l9a1 = Synth(s1_9, [\dur, ~f9,    \vol, vol9]);       ~l9b1 = Synth(s2, [\dur, ~f9,   \vol, vol9]);
-						~l9c1 = Synth(s3, [\dur, ~f9/~icd3,  \vol, vol9]);   ~l9d1 = Synth(s4, [\dur, ~f9/~icd3, \vol, vol9]);
-						~l9e1 = Synth(s5, [\dur, ~f9/~icd6,  \vol, vol9]);   ~l9f1 = Synth(s6, [\dur, ~f9/~icd6, \vol, vol9]);
-						~l10a1 = Synth(s1_10, [\dur,~f10,  \vol, vol10]);       ~l10b1 = Synth(s2, [\dur, ~f10, \vol, vol10]);
-						~l10c1 = Synth(s3, [\dur, ~f10/~icd3,  \vol, vol10]);~l10d1 = Synth(s4, [\dur, ~f10/~icd3,  \vol, vol10]);
-						~l10e1 = Synth(s5, [\dur, ~f10/~icd6,  \vol, vol10]);~l10f1 = Synth(s6, [\dur, ~f10/~icd6,  \vol, vol10]);
-						~l11a1 = Synth(s1_11, [\dur,~f11,   \vol, vol11]);      ~l11b1 = Synth(s2, [\dur, ~f11,    \vol, vol11]);
-						~l11c1 = Synth(s3, [\dur, ~f11/~icd3,  \vol, vol11]);~l11d1 = Synth(s4, [\dur, ~f11/~icd3,  \vol, vol11]);
-						~l11e1 = Synth(s5, [\dur, ~f11/~icd6,  \vol, vol11]);~l11f1 = Synth(s6, [\dur, ~f11/~icd6,  \vol, vol11]);
-						~l12a1 = Synth(s1_12, [\dur,~f12,   \vol, vol12]);      ~l12b1 = Synth(s2, [\dur, ~f12,    \vol, vol12]);
-						~l12c1 = Synth(s3, [\dur, ~f12/~icd3,  \vol, vol12]);~l12d1 = Synth(s4, [\dur, ~f12/~icd3,  \vol, vol12]);
-						~l12e1 = Synth(s5, [\dur, ~f12/~icd6,  \vol, vol12]);~l12f1 = Synth(s6, [\dur, ~f12/~icd6,  \vol, vol12]);
 					});
 				});
 			);
 			AppClock.sched(0.161803398875,{
-				([~l1a,~l1b,~l1c,~l1d,~l1e,~l1f,~l2a,~l2b,~l2c,~l2d,~l2e,~l2f,~l3a,~l3b,~l3c,~l3d,~l3e,~l3f,~l4a,~l4b,~l4c,~l4d,~l4e,~l4f,~l5a,~l5b,~l5c,~l5d,~l5e,~l5f,~l6a,~l6b,~l6c,~l6d,~l6e,~l6f,~l7a,~l7b,~l7c,~l7d,~l7e,~l7f,~l8a,~l8b,~l8c,~l8d,~l8e,~l8f,~l9a,~l9b,~l9c,~l9d,~l9e,~l9f,~l10a,~l10b,~l10c,~l10d,~l10e,~l10f,~l11a,~l11b,~l11c,~l11d,~l11e,~l11f,~l12a,~l12b,~l12c,~l12d,~l12e,~l12f].do(_.free)); ~slideroutine.stop;
+				([~l1a,~l1b,~l1c,~l1d,~l1e,~l1f,~l2a,~l2b,~l2c,~l2d,~l2e,~l2f,~l3a,~l3b,~l3c,~l3d,~l3e,~l3f].do(_.free)); ~slideroutine.stop;
 			});
 		};
 
 		if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 		if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
 		if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
-		if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
-		if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
-		if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-		if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
-		if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
-		if((~f9 > ~outmaxa) or: (~f9 < ~outmina), {~z33.close;~z9.close;~z33 = (View(w, Rect((~f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (View(w, Rect((~f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
-		if((~f10 > ~outmaxa) or: (~f10 < ~outmina), {~z34.close;~z10.close;~z34 = (View(w, Rect((~f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (View(w, Rect((~f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
-		if((~f11 > ~outmaxa) or: (~f11 < ~outmina), {~z35.close;~z11.close;~z35 = (View(w, Rect((~f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (View(w, Rect((~f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+110, ~nw, 2)).background = Color.white;);});
-		if((~f12 > ~outmaxa) or: (~f12 < ~outmina), {~z36.close;~z12.close;~z36 = (View(w, Rect((~f12.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+120, ~nw, 2)).background = Color.white;);}, {~z12.close;~z36.close;~z12 = (View(w, Rect((~f12.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+120, ~nw, 2)).background = Color.white;);});
 
 		b3.value = 1;
 	};
@@ -846,8 +683,8 @@ s.waitForBoot({
 	~synthflow = {
 		case
 		{~l1a1.isRunning == true}{
-			(1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,s1,s2,s3,s4,s5,s6;
-				#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8,~vol9,~vol10,~vol11,~vol12];
+			(1.do({var vol1,vol2,vol3,s1,s2,s3,s4,s5,s6;
+				#vol1,vol2,vol3 = [~vol1,~vol2,~vol3];
 				s.makeBundle(0, {
 					~l1a1.set(\dur, ~f1,     \vol, vol1);  ~l1b1.set(\dur, ~f1,  \vol, vol1);
 					~l1c1.set(\dur, ~f1/~icd3,       \vol, vol1);  ~l1d1.set(\dur, ~f1/~icd3,  \vol, vol1);
@@ -858,39 +695,12 @@ s.waitForBoot({
 					~l3a1.set(\dur, ~f3,     \vol, vol3);          ~l3b1.set(\dur, ~f3,  \vol, vol3);
 					~l3c1.set(\dur, ~f3/~icd3,       \vol, vol3);  ~l3d1.set(\dur, ~f3/~icd3,  \vol, vol3);
 					~l3e1.set(\dur, ~f3/~icd6,       \vol, vol3);  ~l3f1.set(\dur, ~f3/~icd6,  \vol, vol3);
-					~l4a1.set(\dur, ~f4,    \vol, vol4);           ~l4b1.set(\dur, ~f4,  \vol, vol4);
-					~l4c1.set(\dur, ~f4/~icd3,       \vol, vol4);  ~l4d1.set(\dur, ~f4/~icd3,  \vol, vol4);
-					~l4e1.set(\dur, ~f4/~icd6,       \vol, vol4);  ~l4f1.set(\dur, ~f4/~icd6,  \vol, vol4);
-					~l5a1.set(\dur, ~f5,    \vol, vol5);           ~l5b1.set(\dur, ~f5,  \vol, vol5);
-					~l5c1.set(\dur, ~f5/~icd3,       \vol, vol5);  ~l5d1.set(\dur, ~f5/~icd3,  \vol, vol5);
-					~l5e1.set(\dur, ~f5/~icd6,       \vol, vol5);  ~l5f1.set(\dur, ~f5/~icd6,  \vol, vol5);
-					~l6a1.set(\dur, ~f6,    \vol, vol6);           ~l6b1.set(\dur, ~f6,  \vol, vol6);
-					~l6c1.set(\dur, ~f6/~icd3,       \vol, vol6);  ~l6d1.set(\dur, ~f6/~icd3,  \vol, vol6);
-					~l6e1.set(\dur, ~f6/~icd6,       \vol, vol6);  ~l6f1.set(\dur, ~f6/~icd6,  \vol, vol6);
-					~l7a1.set(\dur, ~f7,    \vol, vol7);           ~l7b1.set(\dur, ~f7,  \vol, vol7);
-					~l7c1.set(\dur, ~f7/~icd3,       \vol, vol7);  ~l7d1.set(\dur, ~f7/~icd3,  \vol, vol7);
-					~l7e1.set(\dur, ~f7/~icd6,       \vol, vol7);  ~l7f1.set(\dur, ~f7/~icd6,  \vol, vol7);
-					~l8a1.set(\dur, ~f8,    \vol, vol8);           ~l8b1.set(\dur, ~f8,  \vol, vol8);
-					~l8c1.set(\dur, ~f8/~icd3,       \vol, vol8);  ~l8d1.set(\dur, ~f8/~icd3,  \vol, vol8);
-					~l8e1.set(\dur, ~f8/~icd6,       \vol, vol8);  ~l8f1.set(\dur, ~f8/~icd6,  \vol, vol8);
-					~l9a1.set(\dur, ~f9,    \vol, vol9);          ~l9b1.set(\dur, ~f9,  \vol, vol9);
-					~l9c1.set(\dur, ~f9/~icd3,       \vol, vol9); ~l9d1.set(\dur, ~f9/~icd3,  \vol, vol9);
-					~l9e1.set(\dur, ~f9/~icd6,       \vol, vol9); ~l9f1.set(\dur, ~f9/~icd6,  \vol, vol9);
-					~l10a1.set(\dur, ~f10,  \vol, vol10);         ~l10b1.set(\dur, ~f10,  \vol, vol10);
-					~l10c1.set(\dur, ~f10/~icd3,     \vol, vol10);~l10d1.set(\dur, ~f10/~icd3,  \vol, vol10);
-					~l10e1.set(\dur, ~f10/~icd6,     \vol, vol10);~l10f1.set(\dur, ~f10/~icd6,  \vol, vol10);
-					~l11a1.set(\dur, ~f11,  \vol, vol11);         ~l11b1.set(\dur, ~f11,  \vol, vol11);
-					~l11c1.set(\dur, ~f11/~icd3,     \vol, vol11);~l11d1.set(\dur, ~f11/~icd3,  \vol, vol11);
-					~l11e1.set(\dur, ~f11/~icd6,     \vol, vol11);~l11f1.set(\dur, ~f11/~icd6,  \vol, vol11);
-					~l12a1.set(\dur, ~f12,  \vol, vol12);         ~l12b1.set(\dur, ~f12,  \vol, vol12);
-					~l12c1.set(\dur, ~f12/~icd3,     \vol, vol12);~l12d1.set(\dur, ~f12/~icd3,  \vol, vol12);
-					~l12e1.set(\dur, ~f12/~icd6,     \vol, vol12);~l12f1.set(\dur, ~f12/~icd6,  \vol, vol12);
 				});
 			}););
 		}
 		{~l1a.isRunning == true} {
-			(1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,s1,s2,s3,s4,s5,s6;
-				#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8,~vol9,~vol10,~vol11,~vol12];
+			(1.do({var vol1,vol2,vol3,s1,s2,s3,s4,s5,s6;
+				#vol1,vol2,vol3 = [~vol1,~vol2,~vol3];
 				s.makeBundle(0, {
 					~l1a.set(\dur, ~f1,     \vol, vol1);  ~l1b.set(\dur, ~f1,  \vol, vol1);
 					~l1c.set(\dur, ~f1/~icd3,       \vol, vol1);  ~l1d.set(\dur, ~f1/~icd3,  \vol, vol1);
@@ -901,33 +711,6 @@ s.waitForBoot({
 					~l3a.set(\dur, ~f3,     \vol, vol3);          ~l3b.set(\dur, ~f3,  \vol, vol3);
 					~l3c.set(\dur, ~f3/~icd3,       \vol, vol3);  ~l3d.set(\dur, ~f3/~icd3,  \vol, vol3);
 					~l3e.set(\dur, ~f3/~icd6,       \vol, vol3);  ~l3f.set(\dur, ~f3/~icd6,  \vol, vol3);
-					~l4a.set(\dur, ~f4,    \vol, vol4);           ~l4b.set(\dur, ~f4,  \vol, vol4);
-					~l4c.set(\dur, ~f4/~icd3,       \vol, vol4);  ~l4d.set(\dur, ~f4/~icd3,  \vol, vol4);
-					~l4e.set(\dur, ~f4/~icd6,       \vol, vol4);  ~l4f.set(\dur, ~f4/~icd6,  \vol, vol4);
-					~l5a.set(\dur, ~f5,    \vol, vol5);           ~l5b.set(\dur, ~f5,  \vol, vol5);
-					~l5c.set(\dur, ~f5/~icd3,       \vol, vol5);  ~l5d.set(\dur, ~f5/~icd3,  \vol, vol5);
-					~l5e.set(\dur, ~f5/~icd6,       \vol, vol5);  ~l5f.set(\dur, ~f5/~icd6,  \vol, vol5);
-					~l6a.set(\dur, ~f6,    \vol, vol6);           ~l6b.set(\dur, ~f6,  \vol, vol6);
-					~l6c.set(\dur, ~f6/~icd3,       \vol, vol6);  ~l6d.set(\dur, ~f6/~icd3,  \vol, vol6);
-					~l6e.set(\dur, ~f6/~icd6,       \vol, vol6);  ~l6f.set(\dur, ~f6/~icd6,  \vol, vol6);
-					~l7a.set(\dur, ~f7,    \vol, vol7);           ~l7b.set(\dur, ~f7,  \vol, vol7);
-					~l7c.set(\dur, ~f7/~icd3,       \vol, vol7);  ~l7d.set(\dur, ~f7/~icd3,  \vol, vol7);
-					~l7e.set(\dur, ~f7/~icd6,       \vol, vol7);  ~l7f.set(\dur, ~f7/~icd6,  \vol, vol7);
-					~l8a.set(\dur, ~f8,    \vol, vol8);           ~l8b.set(\dur, ~f8,  \vol, vol8);
-					~l8c.set(\dur, ~f8/~icd3,       \vol, vol8);  ~l8d.set(\dur, ~f8/~icd3,  \vol, vol8);
-					~l8e.set(\dur, ~f8/~icd6,       \vol, vol8);  ~l8f.set(\dur, ~f8/~icd6,  \vol, vol8);
-					~l9a.set(\dur, ~f9,    \vol, vol9);          ~l9b.set(\dur, ~f9,  \vol, vol9);
-					~l9c.set(\dur, ~f9/~icd3,       \vol, vol9); ~l9d.set(\dur, ~f9/~icd3,  \vol, vol9);
-					~l9e.set(\dur, ~f9/~icd6,       \vol, vol9); ~l9f.set(\dur, ~f9/~icd6,  \vol, vol9);
-					~l10a.set(\dur, ~f10,  \vol, vol10);         ~l10b.set(\dur, ~f10,  \vol, vol10);
-					~l10c.set(\dur, ~f10/~icd3,     \vol, vol10);~l10d.set(\dur, ~f10/~icd3,  \vol, vol10);
-					~l10e.set(\dur, ~f10/~icd6,     \vol, vol10);~l10f.set(\dur, ~f10/~icd6,  \vol, vol10);
-					~l11a.set(\dur, ~f11,  \vol, vol11);         ~l11b.set(\dur, ~f11,  \vol, vol11);
-					~l11c.set(\dur, ~f11/~icd3,     \vol, vol11);~l11d.set(\dur, ~f11/~icd3,  \vol, vol11);
-					~l11e.set(\dur, ~f11/~icd6,     \vol, vol11);~l11f.set(\dur, ~f11/~icd6,  \vol, vol11);
-					~l12a.set(\dur, ~f12,  \vol, vol12);         ~l12b.set(\dur, ~f12,  \vol, vol12);
-					~l12c.set(\dur, ~f12/~icd3,     \vol, vol12);~l12d.set(\dur, ~f12/~icd3,  \vol, vol12);
-					~l12e.set(\dur, ~f12/~icd6,     \vol, vol12);~l12f.set(\dur, ~f12/~icd6,  \vol, vol12);
 				});
 			}););
 		};
@@ -935,26 +718,16 @@ s.waitForBoot({
 		if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 		if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
 		if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
-		if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
-		if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
-		if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-		if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
-		if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
-		if((~f9 > ~outmaxa) or: (~f9 < ~outmina), {~z33.close;~z9.close;~z33 = (View(w, Rect((~f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (View(w, Rect((~f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
-		if((~f10 > ~outmaxa) or: (~f10 < ~outmina), {~z34.close;~z10.close;~z34 = (View(w, Rect((~f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (View(w, Rect((~f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
-		if((~f11 > ~outmaxa) or: (~f11 < ~outmina), {~z35.close;~z11.close;~z35 = (View(w, Rect((~f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (View(w, Rect((~f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+110, ~nw, 2)).background = Color.white;);});
-		if((~f12 > ~outmaxa) or: (~f12 < ~outmina), {~z36.close;~z12.close;~z36 = (View(w, Rect((~f12.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+120, ~nw, 2)).background = Color.white;);}, {~z12.close;~z36.close;~z12 = (View(w, Rect((~f12.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+120, ~nw, 2)).background = Color.white;);});
-
 	};
 
 	~synthslide = {
 		case
 		{~l1a1.isRunning == true}{(//fprog
-			~slideroutine = Routine({1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,s1,s2,s3,s4,s5,s6;
-				#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8,~vol9,~vol10,~vol11,~vol12];
+			~slideroutine = Routine({1.do({var vol1,vol2,vol3,s1,s2,s3,s4,s5,s6;
+				#vol1,vol2,vol3 = [~vol1,~vol2,~vol3];
 				~slidedo.do({~slidecount=~slidecount-1;
 					(
-						[ ~f1=~f1+g,~f2=~f2+h,~f3=~f3+i,~f4=~f4+j,~f5=~f5+k,~f6=~f6+l,~f7=~f7+m,~f8=~f8+n,~f9=~f9+o,~f10=~f10+p,~f11=~f11+q,~f12=~f12+r ];
+						[ ~f1=~f1+g,~f2=~f2+h,~f3=~f3+i ];
 						s.makeBundle(0, {
 							~l1a1.set(\dur, ~f1,     \vol, vol1);  ~l1b1.set(\dur, ~f1,  \vol, vol1);
 							~l1c1.set(\dur, ~f1/~icd3,       \vol, vol1);  ~l1d1.set(\dur, ~f1/~icd3,  \vol, vol1);
@@ -965,33 +738,6 @@ s.waitForBoot({
 							~l3a1.set(\dur, ~f3,     \vol, vol3);          ~l3b1.set(\dur, ~f3,  \vol, vol3);
 							~l3c1.set(\dur, ~f3/~icd3,       \vol, vol3);  ~l3d1.set(\dur, ~f3/~icd3,  \vol, vol3);
 							~l3e1.set(\dur, ~f3/~icd6,       \vol, vol3);  ~l3f1.set(\dur, ~f3/~icd6,  \vol, vol3);
-							~l4a1.set(\dur, ~f4,    \vol, vol4);           ~l4b1.set(\dur, ~f4,  \vol, vol4);
-							~l4c1.set(\dur, ~f4/~icd3,       \vol, vol4);  ~l4d1.set(\dur, ~f4/~icd3,  \vol, vol4);
-							~l4e1.set(\dur, ~f4/~icd6,       \vol, vol4);  ~l4f1.set(\dur, ~f4/~icd6,  \vol, vol4);
-							~l5a1.set(\dur, ~f5,    \vol, vol5);           ~l5b1.set(\dur, ~f5,  \vol, vol5);
-							~l5c1.set(\dur, ~f5/~icd3,       \vol, vol5);  ~l5d1.set(\dur, ~f5/~icd3,  \vol, vol5);
-							~l5e1.set(\dur, ~f5/~icd6,       \vol, vol5);  ~l5f1.set(\dur, ~f5/~icd6,  \vol, vol5);
-							~l6a1.set(\dur, ~f6,    \vol, vol6);           ~l6b1.set(\dur, ~f6,  \vol, vol6);
-							~l6c1.set(\dur, ~f6/~icd3,       \vol, vol6);  ~l6d1.set(\dur, ~f6/~icd3,  \vol, vol6);
-							~l6e1.set(\dur, ~f6/~icd6,       \vol, vol6);  ~l6f1.set(\dur, ~f6/~icd6,  \vol, vol6);
-							~l7a1.set(\dur, ~f7,    \vol, vol7);           ~l7b1.set(\dur, ~f7,  \vol, vol7);
-							~l7c1.set(\dur, ~f7/~icd3,       \vol, vol7);  ~l7d1.set(\dur, ~f7/~icd3,  \vol, vol7);
-							~l7e1.set(\dur, ~f7/~icd6,       \vol, vol7);  ~l7f1.set(\dur, ~f7/~icd6,  \vol, vol7);
-							~l8a1.set(\dur, ~f8,    \vol, vol8);           ~l8b1.set(\dur, ~f8,  \vol, vol8);
-							~l8c1.set(\dur, ~f8/~icd3,       \vol, vol8);  ~l8d1.set(\dur, ~f8/~icd3,  \vol, vol8);
-							~l8e1.set(\dur, ~f8/~icd6,       \vol, vol8);  ~l8f1.set(\dur, ~f8/~icd6,  \vol, vol8);
-							~l9a1.set(\dur, ~f9,    \vol, vol9);          ~l9b1.set(\dur, ~f9,  \vol, vol9);
-							~l9c1.set(\dur, ~f9/~icd3,       \vol, vol9); ~l9d1.set(\dur, ~f9/~icd3,  \vol, vol9);
-							~l9e1.set(\dur, ~f9/~icd6,       \vol, vol9); ~l9f1.set(\dur, ~f9/~icd6,  \vol, vol9);
-							~l10a1.set(\dur, ~f10,  \vol, vol10);         ~l10b1.set(\dur, ~f10,  \vol, vol10);
-							~l10c1.set(\dur, ~f10/~icd3,     \vol, vol10);~l10d1.set(\dur, ~f10/~icd3,  \vol, vol10);
-							~l10e1.set(\dur, ~f10/~icd6,     \vol, vol10);~l10f1.set(\dur, ~f10/~icd6,  \vol, vol10);
-							~l11a1.set(\dur, ~f11,  \vol, vol11);         ~l11b1.set(\dur, ~f11,  \vol, vol11);
-							~l11c1.set(\dur, ~f11/~icd3,     \vol, vol11);~l11d1.set(\dur, ~f11/~icd3,  \vol, vol11);
-							~l11e1.set(\dur, ~f11/~icd6,     \vol, vol11);~l11f1.set(\dur, ~f11/~icd6,  \vol, vol11);
-							~l12a1.set(\dur, ~f12,  \vol, vol12);         ~l12b1.set(\dur, ~f12,  \vol, vol12);
-							~l12c1.set(\dur, ~f12/~icd3,     \vol, vol12);~l12d1.set(\dur, ~f12/~icd3,  \vol, vol12);
-							~l12e1.set(\dur, ~f12/~icd6,     \vol, vol12);~l12f1.set(\dur, ~f12/~icd6,  \vol, vol12);
 						});
 					);
 
@@ -999,24 +745,15 @@ s.waitForBoot({
 						if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 						if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
 						if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
-						if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
-						if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
-						if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-						if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
-						if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
-						if((~f9 > ~outmaxa) or: (~f9 < ~outmina), {~z33.close;~z9.close;~z33 = (View(w, Rect((~f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (View(w, Rect((~f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
-						if((~f10 > ~outmaxa) or: (~f10 < ~outmina), {~z34.close;~z10.close;~z34 = (View(w, Rect((~f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (View(w, Rect((~f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
-						if((~f11 > ~outmaxa) or: (~f11 < ~outmina), {~z35.close;~z11.close;~z35 = (View(w, Rect((~f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (View(w, Rect((~f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+110, ~nw, 2)).background = Color.white;);});
-						if((~f12 > ~outmaxa) or: (~f12 < ~outmina), {~z36.close;~z12.close;~z36 = (View(w, Rect((~f12.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+120, ~nw, 2)).background = Color.white;);}, {~z12.close;~z36.close;~z12 = (View(w, Rect((~f12.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+120, ~nw, 2)).background = Color.white;);});
 					});}.defer;
 
 					(~slidetime/~slidedo).wait;});});}).play;);}
 		{~l1a.isRunning == true} {(//fprog
-			~slideroutine = Routine({1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,s1,s2,s3,s4,s5,s6;
-				#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8,~vol9,~vol10,~vol11,~vol12];
+			~slideroutine = Routine({1.do({var vol1,vol2,vol3,s1,s2,s3,s4,s5,s6;
+				#vol1,vol2,vol3= [~vol1,~vol2,~vol3];
 				~slidedo.do({~slidecount=~slidecount-1;
 					(
-						[ ~f1=~f1+g,~f2=~f2+h,~f3=~f3+i,~f4=~f4+j,~f5=~f5+k,~f6=~f6+l,~f7=~f7+m,~f8=~f8+n,~f9=~f9+o,~f10=~f10+p,~f11=~f11+q,~f12=~f12+r ];
+						[ ~f1=~f1+g,~f2=~f2+h,~f3=~f3+i ];
 						s.makeBundle(0, {
 							~l1a.set(\dur, ~f1,     \vol, vol1);  ~l1b.set(\dur, ~f1,  \vol, vol1);
 							~l1c.set(\dur, ~f1/~icd3,       \vol, vol1);  ~l1d.set(\dur, ~f1/~icd3,  \vol, vol1);
@@ -1027,50 +764,12 @@ s.waitForBoot({
 							~l3a.set(\dur, ~f3,     \vol, vol3);          ~l3b.set(\dur, ~f3,  \vol, vol3);
 							~l3c.set(\dur, ~f3/~icd3,       \vol, vol3);  ~l3d.set(\dur, ~f3/~icd3,  \vol, vol3);
 							~l3e.set(\dur, ~f3/~icd6,       \vol, vol3);  ~l3f.set(\dur, ~f3/~icd6,  \vol, vol3);
-							~l4a.set(\dur, ~f4,    \vol, vol4);           ~l4b.set(\dur, ~f4,  \vol, vol4);
-							~l4c.set(\dur, ~f4/~icd3,       \vol, vol4);  ~l4d.set(\dur, ~f4/~icd3,  \vol, vol4);
-							~l4e.set(\dur, ~f4/~icd6,       \vol, vol4);  ~l4f.set(\dur, ~f4/~icd6,  \vol, vol4);
-							~l5a.set(\dur, ~f5,    \vol, vol5);           ~l5b.set(\dur, ~f5,  \vol, vol5);
-							~l5c.set(\dur, ~f5/~icd3,       \vol, vol5);  ~l5d.set(\dur, ~f5/~icd3,  \vol, vol5);
-							~l5e.set(\dur, ~f5/~icd6,       \vol, vol5);  ~l5f.set(\dur, ~f5/~icd6,  \vol, vol5);
-							~l6a.set(\dur, ~f6,    \vol, vol6);           ~l6b.set(\dur, ~f6,  \vol, vol6);
-							~l6c.set(\dur, ~f6/~icd3,       \vol, vol6);  ~l6d.set(\dur, ~f6/~icd3,  \vol, vol6);
-							~l6e.set(\dur, ~f6/~icd6,       \vol, vol6);  ~l6f.set(\dur, ~f6/~icd6,  \vol, vol6);
-							~l7a.set(\dur, ~f7,    \vol, vol7);           ~l7b.set(\dur, ~f7,  \vol, vol7);
-							~l7c.set(\dur, ~f7/~icd3,       \vol, vol7);  ~l7d.set(\dur, ~f7/~icd3,  \vol, vol7);
-							~l7e.set(\dur, ~f7/~icd6,       \vol, vol7);  ~l7f.set(\dur, ~f7/~icd6,  \vol, vol7);
-							~l8a.set(\dur, ~f8,    \vol, vol8);           ~l8b.set(\dur, ~f8,  \vol, vol8);
-							~l8c.set(\dur, ~f8/~icd3,       \vol, vol8);  ~l8d.set(\dur, ~f8/~icd3,  \vol, vol8);
-							~l8e.set(\dur, ~f8/~icd6,       \vol, vol8);  ~l8f.set(\dur, ~f8/~icd6,  \vol, vol8);
-							~l9a.set(\dur, ~f9,    \vol, vol9);          ~l9b.set(\dur, ~f9,  \vol, vol9);
-							~l9c.set(\dur, ~f9/~icd3,       \vol, vol9); ~l9d.set(\dur, ~f9/~icd3,  \vol, vol9);
-							~l9e.set(\dur, ~f9/~icd6,       \vol, vol9); ~l9f.set(\dur, ~f9/~icd6,  \vol, vol9);
-							~l10a.set(\dur, ~f10,  \vol, vol10);         ~l10b.set(\dur, ~f10,  \vol, vol10);
-							~l10c.set(\dur, ~f10/~icd3,     \vol, vol10);~l10d.set(\dur, ~f10/~icd3,  \vol, vol10);
-							~l10e.set(\dur, ~f10/~icd6,     \vol, vol10);~l10f.set(\dur, ~f10/~icd6,  \vol, vol10);
-							~l11a.set(\dur, ~f11,  \vol, vol11);         ~l11b.set(\dur, ~f11,  \vol, vol11);
-							~l11c.set(\dur, ~f11/~icd3,     \vol, vol11);~l11d.set(\dur, ~f11/~icd3,  \vol, vol11);
-							~l11e.set(\dur, ~f11/~icd6,     \vol, vol11);~l11f.set(\dur, ~f11/~icd6,  \vol, vol11);
-							~l12a.set(\dur, ~f12,  \vol, vol12);         ~l12b.set(\dur, ~f12,  \vol, vol12);
-							~l12c.set(\dur, ~f12/~icd3,     \vol, vol12);~l12d.set(\dur, ~f12/~icd3,  \vol, vol12);
-							~l12e.set(\dur, ~f12/~icd6,     \vol, vol12);~l12f.set(\dur, ~f12/~icd6,  \vol, vol12);
 						});
-
 					);
 
-					{if(~slidecount==0,{
-						if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+					{if(~slidecount==0,{if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 						if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
 						if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
-						if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
-						if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
-						if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-						if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
-						if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
-						if((~f9 > ~outmaxa) or: (~f9 < ~outmina), {~z33.close;~z9.close;~z33 = (View(w, Rect((~f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (View(w, Rect((~f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
-						if((~f10 > ~outmaxa) or: (~f10 < ~outmina), {~z34.close;~z10.close;~z34 = (View(w, Rect((~f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (View(w, Rect((~f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
-						if((~f11 > ~outmaxa) or: (~f11 < ~outmina), {~z35.close;~z11.close;~z35 = (View(w, Rect((~f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (View(w, Rect((~f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+110, ~nw, 2)).background = Color.white;);});
-						if((~f12 > ~outmaxa) or: (~f12 < ~outmina), {~z36.close;~z12.close;~z36 = (View(w, Rect((~f12.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+120, ~nw, 2)).background = Color.white;);}, {~z12.close;~z36.close;~z12 = (View(w, Rect((~f12.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+120, ~nw, 2)).background = Color.white;);});
 					});}.defer;
 
 					(~slidetime/~slidedo).wait;});});}).play;);};
@@ -1079,9 +778,9 @@ s.waitForBoot({
 	~synthpause = {(
 		case
 		{~l1a1.isRunning == true}{
-			(1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,s1,s2,s3,s4,s5,s6,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12;
-				#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8,~vol9,~vol10,~vol11,~vol12];
-				#f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12 = [ 0,0,0,0,0,0,0,0,0,0,0,0 ];
+			(1.do({var vol1,vol2,vol3,s1,s2,s3,s4,s5,s6,f1,f2,f3;
+				#vol1,vol2,vol3 = [~vol1,~vol2,~vol3];
+				#f1,f2,f3 = [ 0,0,0 ];
 				s.makeBundle(0, {
 					~l1a1.set(\dur, f1,     \vol, vol1);          ~l1b1.set(\dur, f1,  \vol, vol1);
 					~l1c1.set(\dur, f1/~icd3,       \vol, vol1);  ~l1d1.set(\dur, f1/~icd3,  \vol, vol1);
@@ -1092,40 +791,13 @@ s.waitForBoot({
 					~l3a1.set(\dur, f3,     \vol, vol3);          ~l3b1.set(\dur, f3,  \vol, vol3);
 					~l3c1.set(\dur, f3/~icd3,       \vol, vol3);  ~l3d1.set(\dur, f3/~icd3,  \vol, vol3);
 					~l3e1.set(\dur, f3/~icd6,       \vol, vol3);  ~l3f1.set(\dur, f3/~icd6,  \vol, vol3);
-					~l4a1.set(\dur, f4,    \vol, vol4);           ~l4b1.set(\dur, f4,  \vol, vol4);
-					~l4c1.set(\dur, f4/~icd3,       \vol, vol4);  ~l4d1.set(\dur, f4/~icd3,  \vol, vol4);
-					~l4e1.set(\dur, f4/~icd6,       \vol, vol4);  ~l4f1.set(\dur, f4/~icd6,  \vol, vol4);
-					~l5a1.set(\dur, f5,    \vol, vol5);           ~l5b1.set(\dur, f5,  \vol, vol5);
-					~l5c1.set(\dur, f5/~icd3,       \vol, vol5);  ~l5d1.set(\dur, f5/~icd3,  \vol, vol5);
-					~l5e1.set(\dur, f5/~icd6,       \vol, vol5);  ~l5f1.set(\dur, f5/~icd6,  \vol, vol5);
-					~l6a1.set(\dur, f6,    \vol, vol6);           ~l6b1.set(\dur, f6,  \vol, vol6);
-					~l6c1.set(\dur, f6/~icd3,       \vol, vol6);  ~l6d1.set(\dur, f6/~icd3,  \vol, vol6);
-					~l6e1.set(\dur, f6/~icd6,       \vol, vol6);  ~l6f1.set(\dur, f6/~icd6,  \vol, vol6);
-					~l7a1.set(\dur, f7,    \vol, vol7);           ~l7b1.set(\dur, f7,  \vol, vol7);
-					~l7c1.set(\dur, f7/~icd3,       \vol, vol7);  ~l7d1.set(\dur, f7/~icd3,  \vol, vol7);
-					~l7e1.set(\dur, f7/~icd6,       \vol, vol7);  ~l7f1.set(\dur, f7/~icd6,  \vol, vol7);
-					~l8a1.set(\dur, f8,    \vol, vol8);           ~l8b1.set(\dur, f8,  \vol, vol8);
-					~l8c1.set(\dur, f8/~icd3,       \vol, vol8);  ~l8d1.set(\dur, f8/~icd3,  \vol, vol8);
-					~l8e1.set(\dur, f8/~icd6,       \vol, vol8);  ~l8f1.set(\dur, f8/~icd6,  \vol, vol8);
-					~l9a1.set(\dur, f9,    \vol, vol9);          ~l9b1.set(\dur, f9,  \vol, vol9);
-					~l9c1.set(\dur, f9/~icd3,       \vol, vol9); ~l9d1.set(\dur, f9/~icd3,  \vol, vol9);
-					~l9e1.set(\dur, f9/~icd6,       \vol, vol9); ~l9f1.set(\dur, f9/~icd6,  \vol, vol9);
-					~l10a1.set(\dur, f10,  \vol, vol10);         ~l10b1.set(\dur, f10,  \vol, vol10);
-					~l10c1.set(\dur, f10/~icd3,     \vol, vol10);~l10d1.set(\dur, f10/~icd3,  \vol, vol10);
-					~l10e1.set(\dur, f10/~icd6,     \vol, vol10);~l10f1.set(\dur, f10/~icd6,  \vol, vol10);
-					~l11a1.set(\dur, f11,  \vol, vol11);         ~l11b1.set(\dur, f11,  \vol, vol11);
-					~l11c1.set(\dur, f11/~icd3,     \vol, vol11);~l11d1.set(\dur, f11/~icd3,  \vol, vol11);
-					~l11e1.set(\dur, f11/~icd6,     \vol, vol11);~l11f1.set(\dur, f11/~icd6,  \vol, vol11);
-					~l12a1.set(\dur, f12,  \vol, vol12);         ~l12b1.set(\dur, f12,  \vol, vol12);
-					~l12c1.set(\dur, f12/~icd3,     \vol, vol12);~l12d1.set(\dur, f12/~icd3,  \vol, vol12);
-					~l12e1.set(\dur, f12/~icd6,     \vol, vol12);~l12f1.set(\dur, f12/~icd6,  \vol, vol12);
 				});
 			}););
 		}
 		{~l1a.isRunning == true} {
-			(1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,s1,s2,s3,s4,s5,s6,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12;
-				#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8,~vol9,~vol10,~vol11,~vol12];
-				#f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12 = [ 0,0,0,0,0,0,0,0,0,0,0,0 ];
+			(1.do({var vol1,vol2,vol3,s1,s2,s3,s4,s5,s6,f1,f2,f3;
+				#vol1,vol2,vol3 = [~vol1,~vol2,~vol3];
+				#f1,f2,f3 = [ 0,0,0 ];
 				s.makeBundle(0, {
 					~l1a.set(\dur, f1,     \vol, vol1);  ~l1b.set(\dur, f1,  \vol, vol1);
 					~l1c.set(\dur, f1/~icd3,       \vol, vol1);  ~l1d.set(\dur, f1/~icd3,  \vol, vol1);
@@ -1136,33 +808,6 @@ s.waitForBoot({
 					~l3a.set(\dur, f3,     \vol, vol3);          ~l3b.set(\dur, f3,  \vol, vol3);
 					~l3c.set(\dur, f3/~icd3,       \vol, vol3);  ~l3d.set(\dur, f3/~icd3,  \vol, vol3);
 					~l3e.set(\dur, f3/~icd6,       \vol, vol3);  ~l3f.set(\dur, f3/~icd6,  \vol, vol3);
-					~l4a.set(\dur, f4,    \vol, vol4);           ~l4b.set(\dur, f4,  \vol, vol4);
-					~l4c.set(\dur, f4/~icd3,       \vol, vol4);  ~l4d.set(\dur, f4/~icd3,  \vol, vol4);
-					~l4e.set(\dur, f4/~icd6,       \vol, vol4);  ~l4f.set(\dur, f4/~icd6,  \vol, vol4);
-					~l5a.set(\dur, f5,    \vol, vol5);           ~l5b.set(\dur, f5,  \vol, vol5);
-					~l5c.set(\dur, f5/~icd3,       \vol, vol5);  ~l5d.set(\dur, f5/~icd3,  \vol, vol5);
-					~l5e.set(\dur, f5/~icd6,       \vol, vol5);  ~l5f.set(\dur, f5/~icd6,  \vol, vol5);
-					~l6a.set(\dur, f6,    \vol, vol6);           ~l6b.set(\dur, f6,  \vol, vol6);
-					~l6c.set(\dur, f6/~icd3,       \vol, vol6);  ~l6d.set(\dur, f6/~icd3,  \vol, vol6);
-					~l6e.set(\dur, f6/~icd6,       \vol, vol6);  ~l6f.set(\dur, f6/~icd6,  \vol, vol6);
-					~l7a.set(\dur, f7,    \vol, vol7);           ~l7b.set(\dur, f7,  \vol, vol7);
-					~l7c.set(\dur, f7/~icd3,       \vol, vol7);  ~l7d.set(\dur, f7/~icd3,  \vol, vol7);
-					~l7e.set(\dur, f7/~icd6,       \vol, vol7);  ~l7f.set(\dur, f7/~icd6,  \vol, vol7);
-					~l8a.set(\dur, f8,    \vol, vol8);           ~l8b.set(\dur, f8,  \vol, vol8);
-					~l8c.set(\dur, f8/~icd3,       \vol, vol8);  ~l8d.set(\dur, f8/~icd3,  \vol, vol8);
-					~l8e.set(\dur, f8/~icd6,       \vol, vol8);  ~l8f.set(\dur, f8/~icd6,  \vol, vol8);
-					~l9a.set(\dur, f9,    \vol, vol9);          ~l9b.set(\dur, f9,  \vol, vol9);
-					~l9c.set(\dur, f9/~icd3,       \vol, vol9); ~l9d.set(\dur, f9/~icd3,  \vol, vol9);
-					~l9e.set(\dur, f9/~icd6,       \vol, vol9); ~l9f.set(\dur, f9/~icd6,  \vol, vol9);
-					~l10a.set(\dur, f10,  \vol, vol10);         ~l10b.set(\dur, f10,  \vol, vol10);
-					~l10c.set(\dur, f10/~icd3,     \vol, vol10);~l10d.set(\dur, f10/~icd3,  \vol, vol10);
-					~l10e.set(\dur, f10/~icd6,     \vol, vol10);~l10f.set(\dur, f10/~icd6,  \vol, vol10);
-					~l11a.set(\dur, f11,  \vol, vol11);         ~l11b.set(\dur, f11,  \vol, vol11);
-					~l11c.set(\dur, f11/~icd3,     \vol, vol11);~l11d.set(\dur, f11/~icd3,  \vol, vol11);
-					~l11e.set(\dur, f11/~icd6,     \vol, vol11);~l11f.set(\dur, f11/~icd6,  \vol, vol11);
-					~l12a.set(\dur, f12,  \vol, vol12);         ~l12b.set(\dur, f12,  \vol, vol12);
-					~l12c.set(\dur, f12/~icd3,     \vol, vol12);~l12d.set(\dur, f12/~icd3,  \vol, vol12);
-					~l12e.set(\dur, f12/~icd6,     \vol, vol12);~l12f.set(\dur, f12/~icd6,  \vol, vol12);
 				});
 			}););
 		};
@@ -1173,9 +818,9 @@ s.waitForBoot({
 		(
 			case
 			{~l1a1.isRunning == true}{
-				(1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,s1,s2,s3,s4,s5,s6,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12;
-					#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8,~vol9,~vol10,~vol11,~vol12];
-					#f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12 = [ 0,0,0,0,0,0,0,0,0,0,0,0 ];
+				(1.do({var vol1,vol2,vol3,s1,s2,s3,s4,s5,s6,f1,f2,f3;
+					#vol1,vol2,vol3 = [~vol1,~vol2,~vol3];
+					#f1,f2,f3 = [ 0,0,0 ];
 					s.makeBundle(0, {
 						~l1a1.set(\dur, f1,     \vol, vol1);  ~l1b1.set(\dur, f1,  \vol, vol1);
 						~l1c1.set(\dur, f1/~icd3,       \vol, vol1);  ~l1d1.set(\dur, f1/~icd3,  \vol, vol1);
@@ -1186,43 +831,16 @@ s.waitForBoot({
 						~l3a1.set(\dur, f3,     \vol, vol3);          ~l3b1.set(\dur, f3,  \vol, vol3);
 						~l3c1.set(\dur, f3/~icd3,       \vol, vol3);  ~l3d1.set(\dur, f3/~icd3,  \vol, vol3);
 						~l3e1.set(\dur, f3/~icd6,       \vol, vol3);  ~l3f1.set(\dur, f3/~icd6,  \vol, vol3);
-						~l4a1.set(\dur, f4,    \vol, vol4);           ~l4b1.set(\dur, f4,  \vol, vol4);
-						~l4c1.set(\dur, f4/~icd3,       \vol, vol4);  ~l4d1.set(\dur, f4/~icd3,  \vol, vol4);
-						~l4e1.set(\dur, f4/~icd6,       \vol, vol4);  ~l4f1.set(\dur, f4/~icd6,  \vol, vol4);
-						~l5a1.set(\dur, f5,    \vol, vol5);           ~l5b1.set(\dur, f5,  \vol, vol5);
-						~l5c1.set(\dur, f5/~icd3,       \vol, vol5);  ~l5d1.set(\dur, f5/~icd3,  \vol, vol5);
-						~l5e1.set(\dur, f5/~icd6,       \vol, vol5);  ~l5f1.set(\dur, f5/~icd6,  \vol, vol5);
-						~l6a1.set(\dur, f6,    \vol, vol6);           ~l6b1.set(\dur, f6,  \vol, vol6);
-						~l6c1.set(\dur, f6/~icd3,       \vol, vol6);  ~l6d1.set(\dur, f6/~icd3,  \vol, vol6);
-						~l6e1.set(\dur, f6/~icd6,       \vol, vol6);  ~l6f1.set(\dur, f6/~icd6,  \vol, vol6);
-						~l7a1.set(\dur, f7,    \vol, vol7);           ~l7b1.set(\dur, f7,  \vol, vol7);
-						~l7c1.set(\dur, f7/~icd3,       \vol, vol7);  ~l7d1.set(\dur, f7/~icd3,  \vol, vol7);
-						~l7e1.set(\dur, f7/~icd6,       \vol, vol7);  ~l7f1.set(\dur, f7/~icd6,  \vol, vol7);
-						~l8a1.set(\dur, f8,    \vol, vol8);           ~l8b1.set(\dur, f8,  \vol, vol8);
-						~l8c1.set(\dur, f8/~icd3,       \vol, vol8);  ~l8d1.set(\dur, f8/~icd3,  \vol, vol8);
-						~l8e1.set(\dur, f8/~icd6,       \vol, vol8);  ~l8f1.set(\dur, f8/~icd6,  \vol, vol8);
-						~l9a1.set(\dur, f9,    \vol, vol9);          ~l9b1.set(\dur, f9,  \vol, vol9);
-						~l9c1.set(\dur, f9/~icd3,       \vol, vol9); ~l9d1.set(\dur, f9/~icd3,  \vol, vol9);
-						~l9e1.set(\dur, f9/~icd6,       \vol, vol9); ~l9f1.set(\dur, f9/~icd6,  \vol, vol9);
-						~l10a1.set(\dur, f10,  \vol, vol10);         ~l10b1.set(\dur, f10,  \vol, vol10);
-						~l10c1.set(\dur, f10/~icd3,     \vol, vol10);~l10d1.set(\dur, f10/~icd3,  \vol, vol10);
-						~l10e1.set(\dur, f10/~icd6,     \vol, vol10);~l10f1.set(\dur, f10/~icd6,  \vol, vol10);
-						~l11a1.set(\dur, f11,  \vol, vol11);         ~l11b1.set(\dur, f11,  \vol, vol11);
-						~l11c1.set(\dur, f11/~icd3,     \vol, vol11);~l11d1.set(\dur, f11/~icd3,  \vol, vol11);
-						~l11e1.set(\dur, f11/~icd6,     \vol, vol11);~l11f1.set(\dur, f11/~icd6,  \vol, vol11);
-						~l12a1.set(\dur, f12,  \vol, vol12);         ~l12b1.set(\dur, f12,  \vol, vol12);
-						~l12c1.set(\dur, f12/~icd3,     \vol, vol12);~l12d1.set(\dur, f12/~icd3,  \vol, vol12);
-						~l12e1.set(\dur, f12/~icd6,     \vol, vol12);~l12f1.set(\dur, f12/~icd6,  \vol, vol12);
 					});
 				}););
 				AppClock.sched(0.161803398875,{
-					([~l1a1,~l1b1,~l1c1,~l1d1,~l1e1,~l1f1,~l2a1,~l2b1,~l2c1,~l2d1,~l2e1,~l2f1,~l3a1,~l3b1,~l3c1,~l3d1,~l3e1,~l3f1,~l4a1,~l4b1,~l4c1,~l4d1,~l4e1,~l4f1,~l5a1,~l5b1,~l5c1,~l5d1,~l5e1,~l5f1,~l6a1,~l6b1,~l6c1,~l6d1,~l6e1,~l6f1,~l7a1,~l7b1,~l7c1,~l7d1,~l7e1,~l7f1,~l8a1,~l8b1,~l8c1,~l8d1,~l8e1,~l8f1,~l9a1,~l9b1,~l9c1,~l9d1,~l9e1,~l9f1,~l10a1,~l10b1,~l10c1,~l10d1,~l10e1,~l10f1,~l11a1,~l11b1,~l11c1,~l11d1,~l11e1,~l11f1,~l12a1,~l12b1,~l12c1,~l12d1,~l12e1,~l12f1 ].do(_.free)); ~slideroutine.stop;
+					([~l1a1,~l1b1,~l1c1,~l1d1,~l1e1,~l1f1,~l2a1,~l2b1,~l2c1,~l2d1,~l2e1,~l2f1,~l3a1,~l3b1,~l3c1,~l3d1,~l3e1,~l3f1 ].do(_.free)); ~slideroutine.stop;
 				});
 			}
 			{~l1a.isRunning == true}{
-				(1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,s1,s2,s3,s4,s5,s6,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12;
-					#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8,~vol9,~vol10,~vol11,~vol12];
-					#f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12 = [ 0,0,0,0,0,0,0,0,0,0,0,0 ];
+				(1.do({var vol1,vol2,vol3,s1,s2,s3,s4,s5,s6,f1,f2,f3;
+					#vol1,vol2,vol3 = [~vol1,~vol2,~vol3];
+					#f1,f2,f3 = [ 0,0,0 ];
 					s.makeBundle(0, {
 						~l1a.set(\dur, f1,     \vol, vol1);  ~l1b.set(\dur, f1,  \vol, vol1);
 						~l1c.set(\dur, f1/~icd3,       \vol, vol1);  ~l1d.set(\dur, f1/~icd3,  \vol, vol1);
@@ -1233,37 +851,10 @@ s.waitForBoot({
 						~l3a.set(\dur, f3,     \vol, vol3);          ~l3b.set(\dur, f3,  \vol, vol3);
 						~l3c.set(\dur, f3/~icd3,       \vol, vol3);  ~l3d.set(\dur, f3/~icd3,  \vol, vol3);
 						~l3e.set(\dur, f3/~icd6,       \vol, vol3);  ~l3f.set(\dur, f3/~icd6,  \vol, vol3);
-						~l4a.set(\dur, f4,    \vol, vol4);           ~l4b.set(\dur, f4,  \vol, vol4);
-						~l4c.set(\dur, f4/~icd3,       \vol, vol4);  ~l4d.set(\dur, f4/~icd3,  \vol, vol4);
-						~l4e.set(\dur, f4/~icd6,       \vol, vol4);  ~l4f.set(\dur, f4/~icd6,  \vol, vol4);
-						~l5a.set(\dur, f5,    \vol, vol5);           ~l5b.set(\dur, f5,  \vol, vol5);
-						~l5c.set(\dur, f5/~icd3,       \vol, vol5);  ~l5d.set(\dur, f5/~icd3,  \vol, vol5);
-						~l5e.set(\dur, f5/~icd6,       \vol, vol5);  ~l5f.set(\dur, f5/~icd6,  \vol, vol5);
-						~l6a.set(\dur, f6,    \vol, vol6);           ~l6b.set(\dur, f6,  \vol, vol6);
-						~l6c.set(\dur, f6/~icd3,       \vol, vol6);  ~l6d.set(\dur, f6/~icd3,  \vol, vol6);
-						~l6e.set(\dur, f6/~icd6,       \vol, vol6);  ~l6f.set(\dur, f6/~icd6,  \vol, vol6);
-						~l7a.set(\dur, f7,    \vol, vol7);           ~l7b.set(\dur, f7,  \vol, vol7);
-						~l7c.set(\dur, f7/~icd3,       \vol, vol7);  ~l7d.set(\dur, f7/~icd3,  \vol, vol7);
-						~l7e.set(\dur, f7/~icd6,       \vol, vol7);  ~l7f.set(\dur, f7/~icd6,  \vol, vol7);
-						~l8a.set(\dur, f8,    \vol, vol8);           ~l8b.set(\dur, f8,  \vol, vol8);
-						~l8c.set(\dur, f8/~icd3,       \vol, vol8);  ~l8d.set(\dur, f8/~icd3,  \vol, vol8);
-						~l8e.set(\dur, f8/~icd6,       \vol, vol8);  ~l8f.set(\dur, f8/~icd6,  \vol, vol8);
-						~l9a.set(\dur, f9,    \vol, vol9);          ~l9b.set(\dur, f9,  \vol, vol9);
-						~l9c.set(\dur, f9/~icd3,       \vol, vol9); ~l9d.set(\dur, f9/~icd3,  \vol, vol9);
-						~l9e.set(\dur, f9/~icd6,       \vol, vol9); ~l9f.set(\dur, f9/~icd6,  \vol, vol9);
-						~l10a.set(\dur, f10,  \vol, vol10);         ~l10b.set(\dur, f10,  \vol, vol10);
-						~l10c.set(\dur, f10/~icd3,     \vol, vol10);~l10d.set(\dur, f10/~icd3,  \vol, vol10);
-						~l10e.set(\dur, f10/~icd6,     \vol, vol10);~l10f.set(\dur, f10/~icd6,  \vol, vol10);
-						~l11a.set(\dur, f11,  \vol, vol11);         ~l11b.set(\dur, f11,  \vol, vol11);
-						~l11c.set(\dur, f11/~icd3,     \vol, vol11);~l11d.set(\dur, f11/~icd3,  \vol, vol11);
-						~l11e.set(\dur, f11/~icd6,     \vol, vol11);~l11f.set(\dur, f11/~icd6,  \vol, vol11);
-						~l12a.set(\dur, f12,  \vol, vol12);         ~l12b.set(\dur, f12,  \vol, vol12);
-						~l12c.set(\dur, f12/~icd3,     \vol, vol12);~l12d.set(\dur, f12/~icd3,  \vol, vol12);
-						~l12e.set(\dur, f12/~icd6,     \vol, vol12);~l12f.set(\dur, f12/~icd6,  \vol, vol12);
 					});
 				}););
 				AppClock.sched(0.161803398875,{
-					([~l1a,~l1b,~l1c,~l1d,~l1e,~l1f,~l2a,~l2b,~l2c,~l2d,~l2e,~l2f,~l3a,~l3b,~l3c,~l3d,~l3e,~l3f,~l4a,~l4b,~l4c,~l4d,~l4e,~l4f,~l5a,~l5b,~l5c,~l5d,~l5e,~l5f,~l6a,~l6b,~l6c,~l6d,~l6e,~l6f,~l7a,~l7b,~l7c,~l7d,~l7e,~l7f,~l8a,~l8b,~l8c,~l8d,~l8e,~l8f,~l9a,~l9b,~l9c,~l9d,~l9e,~l9f,~l10a,~l10b,~l10c,~l10d,~l10e,~l10f,~l11a,~l11b,~l11c,~l11d,~l11e,~l11f,~l12a,~l12b,~l12c,~l12d,~l12e,~l12f].do(_.free)); ~slideroutine.stop;
+					([~l1a,~l1b,~l1c,~l1d,~l1e,~l1f,~l2a,~l2b,~l2c,~l2d,~l2e,~l2f,~l3a,~l3b,~l3c,~l3d,~l3e,~l3f].do(_.free)); ~slideroutine.stop;
 				});
 			};
 		);
@@ -1321,7 +912,7 @@ s.waitForBoot({
 
 	~numsynthsfunc = {
 		if((~numsynths != nil) or: (~numsynths.isPlaying == true), {~numsynths.stop;});
-		~numsynths = Routine({inf.do({if((s.numSynths > 73) and: (3.wait; s.numSynths > 73) and: (6.wait; s.numSynths > 73), {
+		~numsynths = Routine({inf.do({if((s.numSynths > 49) and: (3.wait; s.numSynths > 49) and: (6.wait; s.numSynths > 49), {
 
 			AppClock.sched(0, {
 				if(~numsynthmessage != nil, {~numsynthmessage.close;});
@@ -1357,28 +948,10 @@ s.waitForBoot({
 			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z1.close;~z1 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z2.close;~z2 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z3.close;~z3 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z4.close;~z4 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z5.close;~z5 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z6.close;~z6 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z7.close;~z7 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z8.close;~z8 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z9.close;~z9 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z10.close;~z10 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z11.close;~z11 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z12.close;~z12 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 			{y>~tgrid and: y<~bgrid} {nil}
 			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z1.close;~z1 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z2.close;~z2 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z3.close;~z3 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z4.close;~z4 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z5.close;~z5 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z6.close;~z6 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z7.close;~z7 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z8.close;~z8 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z9.close;~z9 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z10.close;~z10 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z11.close;~z11 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z12.close;~z12 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
+			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z3.close;~z3 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)};
 		}, {});
 
 		~tgrid = 30;
@@ -1411,69 +984,6 @@ s.waitForBoot({
 				~l3d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
 				~l3e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
 				~l3f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l4a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l4b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f4=q.value; ~undof4=~f4;
-				~l4c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l4d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l4e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l4f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l5a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l5b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f5=q.value; ~undof5=~f5;
-				~l5c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l5d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l5e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l5f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l6a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l6b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f6=q.value; ~undof6=~f6;
-				~l6c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l6d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l6e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l6f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l7a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l7b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f7=q.value; ~undof7=~f7;
-				~l7c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l7d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l7e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l7f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l8a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l8b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f8=q.value; ~undof8=~f8;
-				~l8c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l8d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l8e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l8f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l9a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l9b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f9=q.value; ~undof9=~f9;
-				~l9c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l9d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l9e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l9f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l10a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l10b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f10=q.value; ~undof10=~f10;
-				~l10c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l10d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l10e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l10f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l11a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l11b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f11=q.value; ~undof11=~f11;
-				~l11c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l11d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l11e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l11f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l12a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l12b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f12=q.value; ~undof12=~f12;
-				~l12c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l12d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l12e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l12f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
 			{y>~tgrid and: y<~bgrid} {nil}
 			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
 				~l1a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
@@ -1495,70 +1005,7 @@ s.waitForBoot({
 				~l3c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
 				~l3d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
 				~l3e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l3f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l4a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l4b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f4=q.value; ~undof4=~f4;
-				~l4c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l4d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l4e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l4f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l5a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l5b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f5=q.value; ~undof5=~f5;
-				~l5c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l5d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l5e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l5f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l6a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l6b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f6=q.value; ~undof6=~f6;
-				~l6c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l6d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l6e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l6f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l7a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l7b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f7=q.value; ~undof7=~f7;
-				~l7c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l7d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l7e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l7f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l8a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l8b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f8=q.value; ~undof8=~f8;
-				~l8c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l8d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l8e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l8f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l9a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l9b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f9=q.value; ~undof9=~f9;
-				~l9c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l9d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l9e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l9f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l10a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l10b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f10=q.value; ~undof10=~f10;
-				~l10c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l10d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l10e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l10f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l11a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l11b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f11=q.value; ~undof11=~f11;
-				~l11c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l11d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l11e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l11f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l12a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l12b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f12=q.value; ~undof12=~f12;
-				~l12c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l12d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l12e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l12f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
+				~l3f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
 		}
 		{~l1a1.isRunning == true}{
 			case
@@ -1584,69 +1031,6 @@ s.waitForBoot({
 				~l3d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
 				~l3e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
 				~l3f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l4a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l4b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f4=q.value; ~undof4=~f4;
-				~l4c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l4d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l4e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l4f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l5a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l5b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f5=q.value; ~undof5=~f5;
-				~l5c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l5d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l5e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l5f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l6a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l6b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f6=q.value; ~undof6=~f6;
-				~l6c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l6d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l6e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l6f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l7a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l7b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f7=q.value; ~undof7=~f7;
-				~l7c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l7d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l7e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l7f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l8a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l8b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f8=q.value; ~undof8=~f8;
-				~l8c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l8d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l8e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l8f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l9a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l9b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f9=q.value; ~undof9=~f9;
-				~l9c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l9d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l9e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l9f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l10a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l10b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f10=q.value; ~undof10=~f10;
-				~l10c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l10d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l10e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l10f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l11a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l11b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f11=q.value; ~undof11=~f11;
-				~l11c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l11d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l11e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l11f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l12a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l12b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f12=q.value; ~undof12=~f12;
-				~l12c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l12d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l12e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l12f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
 			{y>~tgrid and: y<~bgrid} {nil}
 			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
 				~l1a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
@@ -1668,70 +1052,7 @@ s.waitForBoot({
 				~l3c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
 				~l3d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
 				~l3e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l3f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l4a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l4b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f4=q.value; ~undof4=~f4;
-				~l4c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l4d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l4e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l4f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l5a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l5b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f5=q.value; ~undof5=~f5;
-				~l5c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l5d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l5e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l5f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l6a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l6b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f6=q.value; ~undof6=~f6;
-				~l6c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l6d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l6e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l6f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l7a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l7b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f7=q.value; ~undof7=~f7;
-				~l7c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l7d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l7e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l7f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l8a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l8b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f8=q.value; ~undof8=~f8;
-				~l8c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l8d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l8e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l8f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l9a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l9b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f9=q.value; ~undof9=~f9;
-				~l9c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l9d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l9e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l9f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l10a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l10b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f10=q.value; ~undof10=~f10;
-				~l10c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l10d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l10e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l10f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l11a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l11b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f11=q.value; ~undof11=~f11;
-				~l11c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l11d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l11e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l11f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l12a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l12b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f12=q.value; ~undof12=~f12;
-				~l12c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l12d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l12e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l12f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
+				~l3f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
 		};
 	};
 
@@ -1754,28 +1075,10 @@ s.waitForBoot({
 		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z1.close;~z25.close;~z1 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z2.close;~z26.close;~z2 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z3.close;~z27.close;~z3 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z4.close;~z28.close;~z4 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z5.close;~z29.close;~z5 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z6.close;~z30.close;~z6 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z7.close;~z31.close;~z7 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z8.close;~z32.close;~z8 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z9.close;~z33.close;~z9 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z10.close;~z34.close;~z10 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z11.close;~z35.close;~z11 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)}  {~z12.close;~z36.close;~z12 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 		{y>~tgrid and: y<~bgrid} {nil}
 		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z1.close;~z25.close;~z1 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
 		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z2.close;~z26.close;~z2 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z3.close;~z27.close;~z3 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z4.close;~z28.close;~z4 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z5.close;~z29.close;~z5 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z6.close;~z30.close;~z6 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z7.close;~z31.close;~z7 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z8.close;~z32.close;~z8 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z9.close;~z33.close;~z9 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z10.close;~z34.close;~z10 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z11.close;~z35.close;~z11 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)}
-		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z12.close;~z36.close;~z12 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)};
+		{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {~z3.close;~z27.close;~z3 = (View(w, Rect(x, y, ~nw, 2)).background = Color.white;)};
 		w.refresh;
 
 		~tgrid = 30;
@@ -1808,69 +1111,6 @@ s.waitForBoot({
 				~l3d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
 				~l3e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
 				~l3f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l4a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l4b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f4=q.value; ~undof4=~f4;
-				~l4c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l4d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l4e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l4f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l5a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l5b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f5=q.value; ~undof5=~f5;
-				~l5c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l5d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l5e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l5f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l6a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l6b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f6=q.value; ~undof6=~f6;
-				~l6c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l6d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l6e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l6f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l7a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l7b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f7=q.value; ~undof7=~f7;
-				~l7c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l7d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l7e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l7f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l8a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l8b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f8=q.value; ~undof8=~f8;
-				~l8c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l8d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l8e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l8f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l9a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l9b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f9=q.value; ~undof9=~f9;
-				~l9c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l9d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l9e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l9f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l10a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l10b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f10=q.value; ~undof10=~f10;
-				~l10c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l10d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l10e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l10f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l11a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l11b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f11=q.value; ~undof11=~f11;
-				~l11c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l11d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l11e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l11f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l12a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l12b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f12=q.value; ~undof12=~f12;
-				~l12c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l12d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l12e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l12f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
 			{y>~tgrid and: y<~bgrid} {nil}
 			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
 				~l1a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
@@ -1892,70 +1132,7 @@ s.waitForBoot({
 				~l3c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
 				~l3d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
 				~l3e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l3f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l4a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l4b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f4=q.value; ~undof4=~f4;
-				~l4c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l4d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l4e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l4f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l5a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l5b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f5=q.value; ~undof5=~f5;
-				~l5c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l5d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l5e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l5f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l6a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l6b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f6=q.value; ~undof6=~f6;
-				~l6c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l6d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l6e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l6f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l7a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l7b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f7=q.value; ~undof7=~f7;
-				~l7c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l7d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l7e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l7f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l8a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l8b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f8=q.value; ~undof8=~f8;
-				~l8c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l8d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l8e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l8f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l9a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l9b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f9=q.value; ~undof9=~f9;
-				~l9c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l9d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l9e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l9f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l10a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l10b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f10=q.value; ~undof10=~f10;
-				~l10c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l10d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l10e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l10f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l11a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l11b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f11=q.value; ~undof11=~f11;
-				~l11c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l11d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l11e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l11f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l12a.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l12b.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f12=q.value; ~undof12=~f12;
-				~l12c.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l12d.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l12e.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l12f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
+				~l3f.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
 		}
 		{~l1a1.isRunning == true}{
 			case
@@ -1981,69 +1158,6 @@ s.waitForBoot({
 				~l3d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
 				~l3e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
 				~l3f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l4a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l4b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f4=q.value; ~undof4=~f4;
-				~l4c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l4d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l4e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l4f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l5a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l5b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f5=q.value; ~undof5=~f5;
-				~l5c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l5d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l5e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l5f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l6a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l6b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f6=q.value; ~undof6=~f6;
-				~l6c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l6d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l6e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l6f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l7a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l7b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f7=q.value; ~undof7=~f7;
-				~l7c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l7d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l7e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l7f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l8a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l8b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f8=q.value; ~undof8=~f8;
-				~l8c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l8d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l8e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l8f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l9a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l9b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f9=q.value; ~undof9=~f9;
-				~l9c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l9d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l9e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l9f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l10a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l10b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f10=q.value; ~undof10=~f10;
-				~l10c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l10d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l10e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l10f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l11a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l11b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f11=q.value; ~undof11=~f11;
-				~l11c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l11d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l11e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l11f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
-			{y>=(~tgrid) and: y<=(~tgrid=~tgrid+10)} {
-				~l12a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)));
-				~l12b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value); ~f12=q.value; ~undof12=~f12;
-				~l12c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd3);
-				~l12d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd3);
-				~l12e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1))/~icd6);
-				~l12f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin1,~outmax1)).value/~icd6);}
 			{y>~tgrid and: y<~bgrid} {nil}
 			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
 				~l1a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
@@ -2065,70 +1179,7 @@ s.waitForBoot({
 				~l3c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
 				~l3d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
 				~l3e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l3f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l4a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l4b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f4=q.value; ~undof4=~f4;
-				~l4c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l4d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l4e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l4f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l5a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l5b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f5=q.value; ~undof5=~f5;
-				~l5c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l5d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l5e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l5f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l6a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l6b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f6=q.value; ~undof6=~f6;
-				~l6c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l6d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l6e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l6f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l7a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l7b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f7=q.value; ~undof7=~f7;
-				~l7c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l7d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l7e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l7f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l8a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l8b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f8=q.value; ~undof8=~f8;
-				~l8c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l8d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l8e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l8f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l9a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l9b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f9=q.value; ~undof9=~f9;
-				~l9c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l9d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l9e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l9f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l10a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l10b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f10=q.value; ~undof10=~f10;
-				~l10c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l10d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l10e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l10f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l11a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l11b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f11=q.value; ~undof11=~f11;
-				~l11c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l11d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l11e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l11f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);}
-			{y>=(~bgrid) and: y<=(~bgrid=~bgrid+10)} {
-				~l12a1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)));
-				~l12b1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value); ~f12=q.value; ~undof12=~f12;
-				~l12c1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd3);
-				~l12d1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd3);
-				~l12e1.set(\dur, ((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2))/~icd6);
-				~l12f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
+				~l3f1.set(\dur, q=((x/(Window.screenBounds.width)).linexp(0,1,~outmin2,~outmax2)).value/~icd6);};
 		};
 	};
 
@@ -2149,35 +1200,34 @@ s.waitForBoot({
 
 			~tsc = TextView(w, Rect(0,5, Window.screenBounds.width, 354)).background_(Color.black);
 			(~tsc.string =
-
 				"current chord/frequencies: "++"\n"++"\n"++
 
-				"[~f1="++~f1.asString++",~f2="++~f2.asString++",~f3="++~f3.asString++",~f4="++~f4.asString++",~f5="++~f5.asString++",~f6="++~f6.asString++",~f7="++~f7.asString++",~f8="++~f8.asString++",~f9="++~f9.asString++",~f10="++~f10.asString++",~f11="++~f11.asString++",~f12="++~f12.asString++"]"++"\n"++"\n"++
+				"[~f1="++~f1.asString++",~f2="++~f2.asString++",~f3="++~f3.asString++"]"++"\n"++"\n"++
 
 				"saved open/flow 1-8 frequencies (in script format): "++"\n"++"\n"++
 
-				"[~f1="++~fp1.asString++",~f2="++~fp2.asString++",~f3="++~fp3.asString++",~f4="++~fp4.asString++",~f5="++~fp5.asString++",~f6="++~fp6.asString++",~f7="++~fp7.asString++",~f8="++~fp8.asString++",~f9="++~fp9.asString++",~f10="++~fp10.asString++",~f11="++~fp11.asString++",~f12="++~fp12.asString++"];"++" "++"~synthopen.value; ~trace.value; (a).wait;"++"\n"++
-				"[~f1="++~fp1b.asString++",~f2="++~fp2b.asString++",~f3="++~fp3b.asString++",~f4="++~fp4b.asString++",~f5="++~fp5b.asString++",~f6="++~fp6b.asString++",~f7="++~fp7b.asString++",~f8="++~fp8b.asString++",~f9="++~fp9b.asString++",~f10="++~fp10b.asString++",~f11="++~fp11b.asString++",~f12="++~fp12b.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
-				"[~f1="++~fp1c.asString++",~f2="++~fp2c.asString++",~f3="++~fp3c.asString++",~f4="++~fp4c.asString++",~f5="++~fp5c.asString++",~f6="++~fp6c.asString++",~f7="++~fp7c.asString++",~f8="++~fp8c.asString++",~f9="++~fp9c.asString++",~f10="++~fp10c.asString++",~f11="++~fp11c.asString++",~f12="++~fp12c.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
-				"[~f1="++~fp1d.asString++",~f2="++~fp2d.asString++",~f3="++~fp3d.asString++",~f4="++~fp4d.asString++",~f5="++~fp5d.asString++",~f6="++~fp6d.asString++",~f7="++~fp7d.asString++",~f8="++~fp8d.asString++",~f9="++~fp9d.asString++",~f10="++~fp10d.asString++",~f11="++~fp11d.asString++",~f12="++~fp12d.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
-				"[~f1="++~fp1e.asString++",~f2="++~fp2e.asString++",~f3="++~fp3e.asString++",~f4="++~fp4e.asString++",~f5="++~fp5e.asString++",~f6="++~fp6e.asString++",~f7="++~fp7e.asString++",~f8="++~fp8e.asString++",~f9="++~fp9e.asString++",~f10="++~fp10e.asString++",~f11="++~fp11e.asString++",~f12="++~fp12e.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
-				"[~f1="++~fp1f.asString++",~f2="++~fp2f.asString++",~f3="++~fp3f.asString++",~f4="++~fp4f.asString++",~f5="++~fp5f.asString++",~f6="++~fp6f.asString++",~f7="++~fp7f.asString++",~f8="++~fp8f.asString++",~f9="++~fp9f.asString++",~f10="++~fp10f.asString++",~f11="++~fp11f.asString++",~f12="++~fp12f.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
-				"[~f1="++~fp1g.asString++",~f2="++~fp2g.asString++",~f3="++~fp3g.asString++",~f4="++~fp4g.asString++",~f5="++~fp5g.asString++",~f6="++~fp6g.asString++",~f7="++~fp7g.asString++",~f8="++~fp8g.asString++",~f9="++~fp9g.asString++",~f10="++~fp10g.asString++",~f11="++~fp11g.asString++",~f12="++~fp12g.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
-				"[~f1="++~fp1h.asString++",~f2="++~fp2h.asString++",~f3="++~fp3h.asString++",~f4="++~fp4h.asString++",~f5="++~fp5h.asString++",~f6="++~fp6h.asString++",~f7="++~fp7h.asString++",~f8="++~fp8h.asString++",~f9="++~fp9h.asString++",~f10="++~fp10h.asString++",~f11="++~fp11h.asString++",~f12="++~fp12h.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++"\n"++
+				"[~f1="++~fp1.asString++",~f2="++~fp2.asString++",~f3="++~fp3.asString++"];"++" "++"~synthopen.value; ~trace.value; (a).wait;"++"\n"++
+				"[~f1="++~fp1b.asString++",~f2="++~fp2b.asString++",~f3="++~fp3b.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
+				"[~f1="++~fp1c.asString++",~f2="++~fp2c.asString++",~f3="++~fp3c.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
+				"[~f1="++~fp1d.asString++",~f2="++~fp2d.asString++",~f3="++~fp3d.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
+				"[~f1="++~fp1e.asString++",~f2="++~fp2e.asString++",~f3="++~fp3e.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
+				"[~f1="++~fp1f.asString++",~f2="++~fp2f.asString++",~f3="++~fp3f.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
+				"[~f1="++~fp1g.asString++",~f2="++~fp2g.asString++",~f3="++~fp3g.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++
+				"[~f1="++~fp1h.asString++",~f2="++~fp2h.asString++",~f3="++~fp3h.asString++"];"++" "++"~synthflow.value; ~trace.value; (a).wait;"++"\n"++"\n"++
 
 				"saved slide 1-8 frequencies (in script format): "++"\n"++"\n"++
 
-				"#o,p,q,r,s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; [~f1="++~fp1.asString++",~f2="++~fp2.asString++",~f3="++~fp3.asString++",~f4="++~fp4.asString++",~f5="++~fp5.asString++",~f6="++~fp6.asString++",~f7="++~fp7.asString++",~f8="++~fp8.asString++",~f9="++~fp9.asString++",~f10="++~fp10.asString++",~f11="++~fp11.asString++",~f12="++~fp12.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
-				"#o,p,q,r,s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; [~f1="++~fp1b.asString++",~f2="++~fp2b.asString++",~f3="++~fp3b.asString++",~f4="++~fp4b.asString++",~f5="++~fp5b.asString++",~f6="++~fp6b.asString++",~f7="++~fp7b.asString++",~f8="++~fp8b.asString++",~f9="++~fp9b.asString++",~f10="++~fp10b.asString++",~f11="++~fp11b.asString++",~f12="++~fp12b.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
-				"#o,p,q,r,s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; [~f1="++~fp1c.asString++",~f2="++~fp2c.asString++",~f3="++~fp3c.asString++",~f4="++~fp4c.asString++",~f5="++~fp5c.asString++",~f6="++~fp6c.asString++",~f7="++~fp7c.asString++",~f8="++~fp8c.asString++",~f9="++~fp9c.asString++",~f10="++~fp10c.asString++",~f11="++~fp11c.asString++",~f12="++~fp12c.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
-				"#o,p,q,r,s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; [~f1="++~fp1d.asString++",~f2="++~fp2d.asString++",~f3="++~fp3d.asString++",~f4="++~fp4d.asString++",~f5="++~fp5d.asString++",~f6="++~fp6d.asString++",~f7="++~fp7d.asString++",~f8="++~fp8d.asString++",~f9="++~fp9d.asString++",~f10="++~fp10d.asString++",~f11="++~fp11d.asString++",~f12="++~fp12d.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
-				"#o,p,q,r,s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; [~f1="++~fp1e.asString++",~f2="++~fp2e.asString++",~f3="++~fp3e.asString++",~f4="++~fp4e.asString++",~f5="++~fp5e.asString++",~f6="++~fp6e.asString++",~f7="++~fp7e.asString++",~f8="++~fp8e.asString++",~f9="++~fp9e.asString++",~f10="++~fp10e.asString++",~f11="++~fp11e.asString++",~f12="++~fp12e.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
-				"#o,p,q,r,s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; [~f1="++~fp1f.asString++",~f2="++~fp2f.asString++",~f3="++~fp3f.asString++",~f4="++~fp4f.asString++",~f5="++~fp5f.asString++",~f6="++~fp6f.asString++",~f7="++~fp7f.asString++",~f8="++~fp8f.asString++",~f9="++~fp9f.asString++",~f10="++~fp10f.asString++",~f11="++~fp11f.asString++",~f12="++~fp12f.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
-				"#o,p,q,r,s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; [~f1="++~fp1g.asString++",~f2="++~fp2g.asString++",~f3="++~fp3g.asString++",~f4="++~fp4g.asString++",~f5="++~fp5g.asString++",~f6="++~fp6g.asString++",~f7="++~fp7g.asString++",~f8="++~fp8g.asString++",~f9="++~fp9g.asString++",~f10="++~fp10g.asString++",~f11="++~fp11g.asString++",~f12="++~fp12g.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
-				"#o,p,q,r,s,t,u,v,w,x,y,z = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; [~f1="++~fp1h.asString++",~f2="++~fp2h.asString++",~f3="++~fp3h.asString++",~f4="++~fp4h.asString++",~f5="++~fp5h.asString++",~f6="++~fp6h.asString++",~f7="++~fp7h.asString++",~f8="++~fp8h.asString++",~f9="++~fp9h.asString++",~f10="++~fp10h.asString++",~f11="++~fp11h.asString++",~f12="++~fp12h.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"
+				"#s,t,u = [ ~f1,~f2,~f3 ]; [~f1="++~fp1.asString++",~f2="++~fp2.asString++",~f3="++~fp3.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
+				"#s,t,u = [ ~f1,~f2,~f3 ]; [~f1="++~fp1b.asString++",~f2="++~fp2b.asString++",~f3="++~fp3b.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
+				"#s,t,u = [ ~f1,~f2,~f3 ]; [~f1="++~fp1c.asString++",~f2="++~fp2c.asString++",~f3="++~fp3c.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
+				"#s,t,u = [ ~f1,~f2,~f3 ]; [~f1="++~fp1d.asString++",~f2="++~fp2d.asString++",~f3="++~fp3d.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
+				"#s,t,u = [ ~f1,~f2,~f3 ]; [~f1="++~fp1e.asString++",~f2="++~fp2e.asString++",~f3="++~fp3e.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
+				"#s,t,u = [ ~f1,~f2,~f3 ]; [~f1="++~fp1f.asString++",~f2="++~fp2f.asString++",~f3="++~fp3f.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
+				"#s,t,u = [ ~f1,~f2,~f3 ]; [~f1="++~fp1g.asString++",~f2="++~fp2g.asString++",~f3="++~fp3g.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"++"\n"++
+				"#s,t,u = [ ~f1,~f2,~f3 ]; [~f1="++~fp1h.asString++",~f2="++~fp2h.asString++",~f3="++~fp3h.asString++"];"++" "++"~slidetime = 1; ~slidedo = 432; ~synthslide.value; ~trace.value; (a).wait;"
 			);
 			~tsc.stringColor = Color.white;
-			[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].postln;},
+			[ ~f1,~f2,~f3 ].postln;},
 		{~tsc.close;});
 	});
 
@@ -2219,7 +1269,7 @@ s.waitForBoot({
 			~l1a = Synth(\gsineicfld, [\dur, 432]).register;~l1a1 = Synth(\gsineicfld, [\dur, 432]).register;[~l1a, ~l1a1].do(_.free);~l1a = Synth(\gsineicfld, [\dur, 432]).register;~l1a1 = Synth(\gsineicfld, [\dur, 432]).register;[~l1a, ~l1a1].do(_.free);
 			~synthopen.value;
 			~numsynths.stop; ~numsynthsfunc.value;
-			if(~midifunc != nil, {~midifunc.value});
+			~midifunc.value;
 		},
 		{~synthfree.value; b4.value = 0;})
 	});
@@ -2579,7 +1629,7 @@ s.waitForBoot({
 
 	~bplaceo1 = Button.new(w,Rect(~bp01l,~bp01t,~bp01h,~bp01w)).states_([["o1",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1,~f2=~fp2,~f3=~fp3,~f4=~fp4,~f5=~fp5,~f6=~fp6,~f7=~fp7,~f8=~fp8,~f9=~fp9,~f10=~fp10,~f11=~fp11,~f12=~fp12];
+		[~f1=~fp1,~f2=~fp2,~f3=~fp3];
 
 		~synthopen.value;
 		~currentsynth = "o1"; ~synthmonitorfunc.value;
@@ -2596,7 +1646,7 @@ s.waitForBoot({
 
 	~bplaceo2 = Button.new(w,Rect(~bp02l,~bp02t,~bp02h,~bp02w)).states_([["o2",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1b,~f2=~fp2b,~f3=~fp3b,~f4=~fp4b,~f5=~fp5b,~f6=~fp6b,~f7=~fp7b,~f8=~fp8b,~f9=~fp9b,~f10=~fp10b,~f11=~fp11b,~f12=~fp12b];
+		[~f1=~fp1b,~f2=~fp2b,~f3=~fp3b];
 
 		~synthopen.value;
 		~currentsynth = "o2"; ~synthmonitorfunc.value;
@@ -2612,7 +1662,7 @@ s.waitForBoot({
 	});
 	~bplaceo3 = Button.new(w,Rect(~bp03l,~bp03t,~bp03h,~bp03w)).states_([["o3",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1c,~f2=~fp2c,~f3=~fp3c,~f4=~fp4c,~f5=~fp5c,~f6=~fp6c,~f7=~fp7c,~f8=~fp8c,~f9=~fp9c,~f10=~fp10c,~f11=~fp11c,~f12=~fp12c];
+		[~f1=~fp1c,~f2=~fp2c,~f3=~fp3c];
 
 		~synthopen.value;
 		~currentsynth = "o3"; ~synthmonitorfunc.value;
@@ -2628,7 +1678,7 @@ s.waitForBoot({
 	});
 	~bplaceo4 = Button.new(w,Rect(~bp04l,~bp04t,~bp04h,~bp04w)).states_([["o4",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1d,~f2=~fp2d,~f3=~fp3d,~f4=~fp4d,~f5=~fp5d,~f6=~fp6d,~f7=~fp7d,~f8=~fp8d,~f9=~fp9d,~f10=~fp10d,~f11=~fp11d,~f12=~fp12d];
+		[~f1=~fp1d,~f2=~fp2d,~f3=~fp3d];
 
 		~synthopen.value;
 		~currentsynth = "o4"; ~synthmonitorfunc.value;
@@ -2646,7 +1696,7 @@ s.waitForBoot({
 
 	~bplaceo5 = Button.new(w,Rect(~bp05l,~bp05t,~bp05h,~bp05w)).states_([["o5",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1e,~f2=~fp2e,~f3=~fp3e,~f4=~fp4e,~f5=~fp5e,~f6=~fp6e,~f7=~fp7e,~f8=~fp8e,~f9=~fp9e,~f10=~fp10e,~f11=~fp11e,~f12=~fp12e];
+		[~f1=~fp1e,~f2=~fp2e,~f3=~fp3e];
 
 		~synthopen.value;
 		~currentsynth = "o5"; ~synthmonitorfunc.value;
@@ -2663,7 +1713,7 @@ s.waitForBoot({
 	});
 	~bplaceo6 = Button.new(w,Rect(~bp06l,~bp06t,~bp06h,~bp06w)).states_([["o6",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1f,~f2=~fp2f,~f3=~fp3f,~f4=~fp4f,~f5=~fp5f,~f6=~fp6f,~f7=~fp7f,~f8=~fp8f,~f9=~fp9f,~f10=~fp10f,~f11=~fp11f,~f12=~fp12f];
+		[~f1=~fp1f,~f2=~fp2f,~f3=~fp3f];
 
 		~synthopen.value;
 		~currentsynth = "o6"; ~synthmonitorfunc.value;
@@ -2679,7 +1729,7 @@ s.waitForBoot({
 	});
 	~bplaceo7 = Button.new(w,Rect(~bp07l,~bp07t,~bp07h,~bp07w)).states_([["o7",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1g,~f2=~fp2g,~f3=~fp3g,~f4=~fp4g,~f5=~fp5g,~f6=~fp6g,~f7=~fp7g,~f8=~fp8g,~f9=~fp9g,~f10=~fp10g,~f11=~fp11g,~f12=~fp12g];
+		[~f1=~fp1g,~f2=~fp2g,~f3=~fp3g];
 
 		~synthopen.value;
 		~currentsynth = "o7"; ~synthmonitorfunc.value;
@@ -2695,7 +1745,7 @@ s.waitForBoot({
 	});
 	~bplaceo8 = Button.new(w,Rect(~bp08l,~bp08t,~bp08h,~bp08w)).states_([["o8",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1h,~f2=~fp2h,~f3=~fp3h,~f4=~fp4h,~f5=~fp5h,~f6=~fp6h,~f7=~fp7h,~f8=~fp8h,~f9=~fp9h,~f10=~fp10h,~f11=~fp11h,~f12=~fp12h];
+		[~f1=~fp1h,~f2=~fp2h,~f3=~fp3h];
 
 		~synthopen.value;
 		~currentsynth = "o8"; ~synthmonitorfunc.value;
@@ -2715,7 +1765,7 @@ s.waitForBoot({
 
 	~bplacef1 = Button.new(w,Rect(~bpf1l,~bpf1t,~bpf1h,~bpf1w)).states_([["f1",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1,~f2=~fp2,~f3=~fp3,~f4=~fp4,~f5=~fp5,~f6=~fp6,~f7=~fp7,~f8=~fp8,~f9=~fp9,~f10=~fp10,~f11=~fp11,~f12=~fp12];
+		[~f1=~fp1,~f2=~fp2,~f3=~fp3];
 
 		~synthflow.value;
 		~currentsynth = "f1"; ~synthmonitorfunc.value;
@@ -2731,7 +1781,7 @@ s.waitForBoot({
 	});
 	~bplacef2 = Button.new(w,Rect(~bpf2l,~bpf2t,~bpf2h,~bpf2w)).states_([["f2",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1b,~f2=~fp2b,~f3=~fp3b,~f4=~fp4b,~f5=~fp5b,~f6=~fp6b,~f7=~fp7b,~f8=~fp8b,~f9=~fp9b,~f10=~fp10b,~f11=~fp11b,~f12=~fp12b];
+		[~f1=~fp1b,~f2=~fp2b,~f3=~fp3b];
 
 		~synthflow.value;
 		~currentsynth = "f2"; ~synthmonitorfunc.value;
@@ -2748,7 +1798,7 @@ s.waitForBoot({
 
 	~bplacef3 = Button.new(w,Rect(~bpf3l,~bpf3t,~bpf3h,~bpf3w)).states_([["f3",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1c,~f2=~fp2c,~f3=~fp3c,~f4=~fp4c,~f5=~fp5c,~f6=~fp6c,~f7=~fp7c,~f8=~fp8c,~f9=~fp9c,~f10=~fp10c,~f11=~fp11c,~f12=~fp12c];
+		[~f1=~fp1c,~f2=~fp2c,~f3=~fp3c];
 
 		~synthflow.value;
 		~currentsynth = "f3"; ~synthmonitorfunc.value;
@@ -2764,7 +1814,7 @@ s.waitForBoot({
 	});
 	~bplacef4 = Button.new(w,Rect(~bpf4l,~bpf4t,~bpf4h,~bpf4w)).states_([["f4",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1d,~f2=~fp2d,~f3=~fp3d,~f4=~fp4d,~f5=~fp5d,~f6=~fp6d,~f7=~fp7d,~f8=~fp8d,~f9=~fp9d,~f10=~fp10d,~f11=~fp11d,~f12=~fp12d];
+		[~f1=~fp1d,~f2=~fp2d,~f3=~fp3d];
 
 		~synthflow.value;
 		~currentsynth = "f4"; ~synthmonitorfunc.value;
@@ -2781,7 +1831,7 @@ s.waitForBoot({
 
 	~bplacef5 = Button.new(w,Rect(~bpf5l,~bpf5t,~bpf5h,~bpf5w)).states_([["f5",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1e,~f2=~fp2e,~f3=~fp3e,~f4=~fp4e,~f5=~fp5e,~f6=~fp6e,~f7=~fp7e,~f8=~fp8e,~f9=~fp9e,~f10=~fp10e,~f11=~fp11e,~f12=~fp12e];
+		[~f1=~fp1e,~f2=~fp2e,~f3=~fp3e];
 
 		~synthflow.value;
 		~currentsynth = "f5"; ~synthmonitorfunc.value;
@@ -2798,7 +1848,7 @@ s.waitForBoot({
 
 	~bplacef6 = Button.new(w,Rect(~bpf6l,~bpf6t,~bpf6h,~bpf6w)).states_([["f6",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1f,~f2=~fp2f,~f3=~fp3f,~f4=~fp4f,~f5=~fp5f,~f6=~fp6f,~f7=~fp7f,~f8=~fp8f,~f9=~fp9f,~f10=~fp10f,~f11=~fp11f,~f12=~fp12f];
+		[~f1=~fp1f,~f2=~fp2f,~f3=~fp3f];
 
 		~synthflow.value;
 		~currentsynth = "f6"; ~synthmonitorfunc.value;
@@ -2816,7 +1866,7 @@ s.waitForBoot({
 
 	~bplacef7 = Button.new(w,Rect(~bpf7l,~bpf7t,~bpf7h,~bpf7w)).states_([["f7",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1g,~f2=~fp2g,~f3=~fp3g,~f4=~fp4g,~f5=~fp5g,~f6=~fp6g,~f7=~fp7g,~f8=~fp8g,~f9=~fp9g,~f10=~fp10g,~f11=~fp11g,~f12=~fp12g];
+		[~f1=~fp1g,~f2=~fp2g,~f3=~fp3g];
 
 		~synthflow.value;
 		~currentsynth = "f7"; ~synthmonitorfunc.value;
@@ -2832,7 +1882,7 @@ s.waitForBoot({
 	});
 	~bplacef8 = Button.new(w,Rect(~bpf8l,~bpf8t,~bpf8h,~bpf8w)).states_([["f8",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
-		[~f1=~fp1h,~f2=~fp2h,~f3=~fp3h,~f4=~fp4h,~f5=~fp5h,~f6=~fp6h,~f7=~fp7h,~f8=~fp8h,~f9=~fp9h,~f10=~fp10h,~f11=~fp11h,~f12=~fp12h];
+		[~f1=~fp1h,~f2=~fp2h,~f3=~fp3h];
 
 		~synthflow.value;
 		~currentsynth = "f8"; ~synthmonitorfunc.value;
@@ -2853,8 +1903,8 @@ s.waitForBoot({
 	~bplaces1 = Button.new(w,Rect(~bpf1l,~bpf1t+~bpf1w,~bpf1h,~bpf1w)).states_([["s1",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		if(~slidetime1 == nil, {~slidetime1 = 4}); if(~slidedo1 == nil, {~slidedo1 = 2000;}); ~slidecount = ~slidedo1;
-		#g,h,i,j,k,l,m,n,o,p,q,r = (([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]-
-			[ ~fp1,~fp2,~fp3,~fp4,~fp5,~fp6,~fp7,~fp8,~fp9,~fp10,~fp11,~fp12 ])*(-1)/~slidedo1);
+		#g,h,i = (([ ~f1,~f2,~f3 ]-
+			[ ~fp1,~fp2,~fp3 ])*(-1)/~slidedo1);
 
 		~slidetime =~slidetime1; ~slidedo = ~slidedo1;
 
@@ -2876,8 +1926,8 @@ s.waitForBoot({
 	~bplaces2 = Button.new(w,Rect(~bpf2l,~bpf2t+~bpf2w,~bpf2h,~bpf2w)).states_([["s2",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		if(~slidetime2 == nil, {~slidetime2 = 4}); if(~slidedo2 == nil, {~slidedo2 = 2000;}); ~slidecount = ~slidedo2;
-		#g,h,i,j,k,l,m,n,o,p,q,r = (([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]-
-			[ ~fp1b,~fp2b,~fp3b,~fp4b,~fp5b,~fp6b,~fp7b,~fp8b,~fp9b,~fp10b,~fp11b,~fp12b ])*(-1)/~slidedo2);
+		#g,h,i = (([ ~f1,~f2,~f3 ]-
+			[ ~fp1b,~fp2b,~fp3b ])*(-1)/~slidedo2);
 
 		~slidetime = ~slidetime2; ~slidedo = ~slidedo2;
 
@@ -2899,8 +1949,8 @@ s.waitForBoot({
 	~bplaces3 = Button.new(w,Rect(~bpf3l,~bpf3t+~bpf3w,~bpf3h,~bpf3w)).states_([["s3",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		if(~slidetime3 == nil, {~slidetime3 = 4}); if(~slidedo3 == nil, {~slidedo3 = 2000;}); ~slidecount = ~slidedo3;
-		#g,h,i,j,k,l,m,n,o,p,q,r = (([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]-
-			[ ~fp1c,~fp2c,~fp3c,~fp4c,~fp5c,~fp6c,~fp7c,~fp8c,~fp9c,~fp10c,~fp11c,~fp12c ])*(-1)/~slidedo3);
+		#g,h,i = (([ ~f1,~f2,~f3 ]-
+			[ ~fp1c,~fp2c,~fp3c ])*(-1)/~slidedo3);
 
 		~slidetime = ~slidetime3; ~slidedo = ~slidedo3;
 
@@ -2922,8 +1972,8 @@ s.waitForBoot({
 	~bplaces4 = Button.new(w,Rect(~bpf4l,~bpf4t+~bpf4w,~bpf4h,~bpf4w)).states_([["s4",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		if(~slidetime4 == nil, {~slidetime4 = 4}); if(~slidedo4 == nil, {~slidedo4 = 2000;}); ~slidecount = ~slidedo4;
-		#g,h,i,j,k,l,m,n,o,p,q,r = (([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]-
-			[ ~fp1d,~fp2d,~fp3d,~fp4d,~fp5d,~fp6d,~fp7d,~fp8d,~fp9d,~fp10d,~fp11d,~fp12d ])*(-1)/~slidedo4);
+		#g,h,i = (([ ~f1,~f2,~f3 ]-
+			[ ~fp1d,~fp2d,~fp3d ])*(-1)/~slidedo4);
 
 		~slidetime = ~slidetime4; ~slidedo = ~slidedo4;
 
@@ -2944,8 +1994,8 @@ s.waitForBoot({
 	~bplaces5 = Button.new(w,Rect(~bpf5l,~bpf5t+~bpf5w,~bpf5h,~bpf5w)).states_([["s5",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		if(~slidetime5 == nil, {~slidetime5 = 4}); if(~slidedo5 == nil, {~slidedo5 = 2000;}); ~slidecount = ~slidedo5;
-		#g,h,i,j,k,l,m,n,o,p,q,r = (([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]-
-			[ ~fp1e,~fp2e,~fp3e,~fp4e,~fp5e,~fp6e,~fp7e,~fp8e,~fp9e,~fp10e,~fp11e,~fp12e ])*(-1)/~slidedo5);
+		#g,h,i = (([ ~f1,~f2,~f3 ]-
+			[ ~fp1e,~fp2e,~fp3e ])*(-1)/~slidedo5);
 
 		~slidetime = ~slidetime5; ~slidedo = ~slidedo5;
 
@@ -2967,8 +2017,8 @@ s.waitForBoot({
 	~bplaces6 = Button.new(w,Rect(~bpf6l,~bpf6t+~bpf6w,~bpf6h,~bpf6w)).states_([["s6",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		if(~slidetime6 == nil, {~slidetime6 = 4}); if(~slidedo6 == nil, {~slidedo6 = 2000;}); ~slidecount = ~slidedo6;
-		#g,h,i,j,k,l,m,n,o,p,q,r = (([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]-
-			[ ~fp1f,~fp2f,~fp3f,~fp4f,~fp5f,~fp6f,~fp7f,~fp8f,~fp9f,~fp10f,~fp11f,~fp12f ])*(-1)/~slidedo6);
+		#g,h,i = (([ ~f1,~f2,~f3 ]-
+			[ ~fp1f,~fp2f,~fp3f ])*(-1)/~slidedo6);
 
 		~slidetime = ~slidetime6; ~slidedo = ~slidedo6;
 		~slideroutine.stop;
@@ -2989,8 +2039,8 @@ s.waitForBoot({
 	~bplaces7 = Button.new(w,Rect(~bpf7l,~bpf7t+~bpf7w,~bpf7h,~bpf7w)).states_([["s7",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		if(~slidetime7 == nil, {~slidetime7 = 4}); if(~slidedo7 == nil, {~slidedo7 = 2000;}); ~slidecount = ~slidedo7;
-		#g,h,i,j,k,l,m,n,o,p,q,r = (([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]-
-			[ ~fp1g,~fp2g,~fp3g,~fp4g,~fp5g,~fp6g,~fp7g,~fp8g,~fp9g,~fp10g,~fp11g,~fp12g ])*(-1)/~slidedo7);
+		#g,h,i = (([ ~f1,~f2,~f3 ]-
+			[ ~fp1g,~fp2g,~fp3g ])*(-1)/~slidedo7);
 
 		~slidetime = ~slidetime7; ~slidedo = ~slidedo7;
 		~slideroutine.stop;
@@ -3011,8 +2061,8 @@ s.waitForBoot({
 	~bplaces8 = Button.new(w,Rect(~bpf8l,~bpf8t+~bpf8w,~bpf8h,~bpf8w)).states_([["s8",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		if(~slidetime8 == nil, {~slidetime8 = 4}); if(~slidedo8 == nil, {~slidedo8 = 2000;}); ~slidecount = ~slidedo8;
-		#g,h,i,j,k,l,m,n,o,p,q,r = (([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]-
-			[ ~fp1h,~fp2h,~fp3h,~fp4h,~fp5h,~fp6h,~fp7h,~fp8h,~fp9h,~fp10h,~fp11h,~fp12h ])*(-1)/~slidedo8);
+		#g,h,i = (([ ~f1,~f2,~f3 ]-
+			[ ~fp1h,~fp2h,~fp3h])*(-1)/~slidedo8);
 
 		~slidetime = ~slidetime8; ~slidedo = ~slidedo8;
 
@@ -3108,11 +2158,6 @@ s.waitForBoot({
 						t1 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s1 time").stringColor_(Color.white);
 						t2 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s2 time").stringColor_(Color.white);
 						t3 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s3 time").stringColor_(Color.white);
-						t4 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s4 time").stringColor_(Color.white);
-						t5 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s5 time").stringColor_(Color.white);
-						t6 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s6 time").stringColor_(Color.white);
-						t7 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s7 time").stringColor_(Color.white);
-						t8 = StaticText(~slideview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("s8 time").stringColor_(Color.white);
 
 						top = 0;
 
@@ -3120,11 +2165,6 @@ s.waitForBoot({
 						st1=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime1).maxDecimals_(9);
 						st2=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime2).maxDecimals_(9);
 						st3=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime3).maxDecimals_(9);
-						st4=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime4).maxDecimals_(9);
-						st5=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime5).maxDecimals_(9);
-						st6=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime6).maxDecimals_(9);
-						st7=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime7).maxDecimals_(9);
-						st8=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime8).maxDecimals_(9);
 
 						top = 0;
 
@@ -3132,11 +2172,6 @@ s.waitForBoot({
 						i1 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s1 incr").stringColor_(Color.white);
 						i2 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s2 incr").stringColor_(Color.white);
 						i3 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s3 incr").stringColor_(Color.white);
-						i4 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s4 incr").stringColor_(Color.white);
-						i5 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s5 incr").stringColor_(Color.white);
-						i6 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s6 incr").stringColor_(Color.white);
-						i7 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s7 incr").stringColor_(Color.white);
-						i8 = StaticText(~slideview, Rect(leftdo , top=top+height, width, height)).background_(Color.black).string_("s8 incr").stringColor_(Color.white);
 
 						top = 0;
 
@@ -3144,53 +2179,29 @@ s.waitForBoot({
 						si1=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo1);
 						si2=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo2);
 						si3=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo3);
-						si4=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo4);
-						si5=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo5);
-						si6=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo6);
-						si7=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo7);
-						si8=NumberBox(~slideview, Rect(leftdobox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidedo8);
 
 						stall.action_({arg val;
 							~slidetimeall = val.value;
 							~slidetime1 = val.value;
 							~slidetime2 = val.value;
 							~slidetime3 = val.value;
-							~slidetime4 = val.value;
-							~slidetime5 = val.value;
-							~slidetime6 = val.value;
-							~slidetime7 = val.value;
-							~slidetime8 = val.value;
 							~slideview.close; ~slidevals.valueAction_(1);
 						});
 						st1.action_({arg val; ~slidetime1 = val.value;});
 						st2.action_({arg val; ~slidetime2 = val.value;});
 						st3.action_({arg val; ~slidetime3 = val.value;});
-						st4.action_({arg val; ~slidetime4 = val.value;});
-						st5.action_({arg val; ~slidetime5 = val.value;});
-						st6.action_({arg val; ~slidetime6 = val.value;});
-						st7.action_({arg val; ~slidetime7 = val.value;});
-						st8.action_({arg val; ~slidetime8 = val.value;});
+
 
 						siall.action_({arg val;
 							~slidedoall = val.value;
 							~slidedo1 = val.value;
 							~slidedo2 = val.value;
 							~slidedo3 = val.value;
-							~slidedo4 = val.value;
-							~slidedo5 = val.value;
-							~slidedo6 = val.value;
-							~slidedo7 = val.value;
-							~slidedo8 = val.value;
 							~slideview.close; ~slidevals.valueAction_(1);
 						});
 						si1.action_({arg val; ~slidedo1 = val.value;});
 						si2.action_({arg val; ~slidedo2 = val.value;});
 						si3.action_({arg val; ~slidedo3 = val.value;});
-						si4.action_({arg val; ~slidedo4 = val.value;});
-						si5.action_({arg val; ~slidedo5 = val.value;});
-						si6.action_({arg val; ~slidedo6 = val.value;});
-						si7.action_({arg val; ~slidedo7 = val.value;});
-						si8.action_({arg val; ~slidedo8 = val.value;});
 
 						~slideview.background_(Color.black);
 
@@ -3208,13 +2219,13 @@ s.waitForBoot({
 
 			//set individual or all synth frequencies button
 
-			~beforefreqsetfreqs = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ];
+			~beforefreqsetfreqs = [ ~f1,~f2,~f3 ];
 
 			~synthfreqset = Button.new(~extraoptionsview,Rect(0,0,120,20)).states_([["set frequencies",Color.white,Color.black],["set frequencies",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 				if(button.value == 1, {
 					({
-						arg  top = 0,width=88, revertwidth=75, height = 16,  heightbox = 16, lefttime = 0 , lefttimebox = width+5,  widthbox=140, leftdo = lefttimebox+widthbox+5, leftdobox = leftdo+57, inc=0, lw = 0,  uw = 0, numw = 40;
+						arg  top = 0,width=88, revertwidth=75, height = 16,  heightbox = 16, lefttime = 0 , lefttimebox = width+5,  widthbox=165, leftdo = lefttimebox+widthbox+5, leftdobox = leftdo+57, inc=0, lw = 0,  uw = 0, numw = 40;
 						var tall, stall, iall, siall, st1, st2, st3, st4, st5, st6, st7, st8, st9, st10, st11, st12, si1, si2, si3, si4, si5, si6, si7, si8, t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12;
 						~synthfreqsetview = View(w, Rect(Window.screenBounds.width-(340+46),Window.screenBounds.height-(340+46/1.6180339887499)-150,340+46,380+46/1.6180339887499)).front;
 						/*w.view.decorator=FlowLayout(w.view.bounds);
@@ -3223,15 +2234,6 @@ s.waitForBoot({
 						t1 = StaticText(~synthfreqsetview, Rect(lefttime , top=top, width, height)).background_(Color.black).string_("freq 1 (f1)").stringColor_(Color.white);
 						t2 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 2 (f2)").stringColor_(Color.white);
 						t3 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 3 (f3)").stringColor_(Color.white);
-						t4 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 4 (f4)").stringColor_(Color.white);
-						t5 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 5 (f5)").stringColor_(Color.white);
-						t6 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 6 (f6)").stringColor_(Color.white);
-						t7 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 7 (f7)").stringColor_(Color.white);
-						t8 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 8 (f8)").stringColor_(Color.white);
-						t9 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 9 (f9)").stringColor_(Color.white);
-						t10 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 10 (f10)").stringColor_(Color.white);
-						t11 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 11 (f11)").stringColor_(Color.white);
-						t12 = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("freq 12 (f12)").stringColor_(Color.white);
 						tall = StaticText(~synthfreqsetview, Rect(lefttime , top=top+height+10, width, height)).background_(Color.black).string_("all freqs").stringColor_(Color.white);
 
 						top = 0;
@@ -3239,15 +2241,6 @@ s.waitForBoot({
 						st1=TextField(~synthfreqsetview, Rect(lefttimebox , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f1);
 						st2=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f2);
 						st3=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f3);
-						st4=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f4);
-						st5=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f5);
-						st6=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f6);
-						st7=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f7);
-						st8=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f8);
-						st9=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f9);
-						st10=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f10);
-						st11=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f11);
-						st12=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f12);
 						stall=TextField(~synthfreqsetview, Rect(lefttimebox , top=top+heightbox+10, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~f1);
 
 						top = 0;
@@ -3255,32 +2248,13 @@ s.waitForBoot({
 						i1 = Button.new(~synthfreqsetview, Rect(leftdo , top=top, revertwidth, height)).states_([["f1 revert",Color.white,Color.black],["f1 revert",Color.white,Color.black]]).action_({arg button; if(~f1_revert != nil, {if(~f1 != ~f1_revert, {~f1_un_revert = ~f1; ~f1 = ~f1_revert;}, {if(~f1_un_revert != nil, {~f1 = ~f1_un_revert;});}); ~synthflow.value; st1.string = ~f1.asString;});});
 						i2 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f2 revert",Color.white,Color.black],["f2 revert",Color.white,Color.black]]).action_({arg button; if(~f2_revert != nil, {if(~f2 != ~f2_revert, {~f2_un_revert = ~f2; ~f2 = ~f2_revert;}, {if(~f2_un_revert != nil, {~f2 = ~f2_un_revert;});}); ~synthflow.value; st2.string = ~f2.asString;});});
 						i3 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f3 revert",Color.white,Color.black],["f3 revert",Color.white,Color.black]]).action_({arg button; if(~f3_revert != nil, {if(~f3 != ~f3_revert, {~f3_un_revert = ~f3; ~f3 = ~f3_revert;}, {if(~f3_un_revert != nil, {~f3 = ~f3_un_revert;});}); ~synthflow.value; st3.string = ~f3.asString;});});
-						i4 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f4 revert",Color.white,Color.black],["f4 revert",Color.white,Color.black]]).action_({arg button; if(~f4_revert != nil, {if(~f4 != ~f4_revert, {~f4_un_revert = ~f4; ~f4 = ~f4_revert;}, {if(~f4_un_revert != nil, {~f4 = ~f4_un_revert;});}); ~synthflow.value; st4.string = ~f4.asString;});});
-						i5 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f5 revert",Color.white,Color.black],["f5 revert",Color.white,Color.black]]).action_({arg button; if(~f5_revert != nil, {if(~f5 != ~f5_revert, {~f5_un_revert = ~f5; ~f5 = ~f5_revert;}, {if(~f5_un_revert != nil, {~f5 = ~f5_un_revert;});}); ~synthflow.value; st5.string = ~f5.asString;});});
-						i6 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f6 revert",Color.white,Color.black],["f6 revert",Color.white,Color.black]]).action_({arg button; if(~f6_revert != nil, {if(~f6 != ~f6_revert, {~f6_un_revert = ~f6; ~f6 = ~f6_revert;}, {if(~f6_un_revert != nil, {~f6 = ~f6_un_revert;});}); ~synthflow.value; st6.string = ~f6.asString;});});
-						i7 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f7 revert",Color.white,Color.black],["f7 revert",Color.white,Color.black]]).action_({arg button; if(~f7_revert != nil, {if(~f7 != ~f7_revert, {~f7_un_revert = ~f7; ~f7 = ~f7_revert;}, {if(~f7_un_revert != nil, {~f7 = ~f7_un_revert;});}); ~synthflow.value; st7.string = ~f7.asString;});});
-						i8 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f8 revert",Color.white,Color.black],["f8 revert",Color.white,Color.black]]).action_({arg button; if(~f8_revert != nil, {if(~f8 != ~f8_revert, {~f8_un_revert = ~f8; ~f8 = ~f8_revert;}, {if(~f8_un_revert != nil, {~f8 = ~f8_un_revert;});}); ~synthflow.value; st8.string = ~f8.asString;});});
-						i9 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f9 revert",Color.white,Color.black],["f9 revert",Color.white,Color.black]]).action_({arg button; if(~f9_revert != nil, {if(~f9 != ~f9_revert, {~f9_un_revert = ~f9; ~f9 = ~f9_revert;}, {if(~f9_un_revert != nil, {~f9 = ~f9_un_revert;});}); ~synthflow.value; st9.string = ~f9.asString;});});
-						i10 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f10 revert",Color.white,Color.black],["f10 revert",Color.white,Color.black]]).action_({arg button; if(~f10_revert != nil, {if(~f10 != ~f10_revert, {~f10_un_revert = ~f10; ~f10 = ~f10_revert;}, {if(~f10_un_revert != nil, {~f10 = ~f10_un_revert;});}); ~synthflow.value; st10.string = ~f10.asString;});});
-						i11 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f11 revert",Color.white,Color.black],["f11 revert",Color.white,Color.black]]).action_({arg button; if(~f11_revert != nil, {if(~f11 != ~f11_revert, {~f11_un_revert = ~f11; ~f11 = ~f11_revert;}, {if(~f11_un_revert != nil, {~f11 = ~f11_un_revert;});}); ~synthflow.value; st11.string = ~f11.asString;});});
-						i12 = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height, revertwidth, height)).states_([["f12 revert",Color.white,Color.black],["f12 revert",Color.white,Color.black]]).action_({arg button; if(~f12_revert != nil, {if(~f12 != ~f12_revert, {~f12_un_revert = ~f12; ~f12 = ~f12_revert;}, {if(~f12_un_revert != nil, {~f12 = ~f12_un_revert;});}); ~synthflow.value; st12.string = ~f12.asString;});});
-						iall = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height+10, revertwidth, height)).states_([["all revert",Color.white,Color.black],["all revert",Color.white,Color.black]]).action_({arg button; if(~f_all_revert != nil, {if([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ] != ~f_all_revert.flatten, {~f_all_un_revert = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ].flatten; 12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~f_all_revert.flatten.at(x-1);)});}, {if(~f_all_un_revert != nil, {12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~f_all_un_revert.flatten.at(x-1);)});});}); ~synthflow.value; stall.string = ~f1.asString;});});
+						iall = Button.new(~synthfreqsetview, Rect(leftdo , top=top+height+10, revertwidth, height)).states_([["all revert",Color.white,Color.black],["all revert",Color.white,Color.black]]).action_({arg button; if(~f_all_revert != nil, {if([ ~f1,~f2,~f3 ] != ~f_all_revert.flatten, {~f_all_un_revert = [ ~f1,~f2,~f3 ].flatten; 8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~f_all_revert.flatten.at(x-1);)});}, {if(~f_all_un_revert != nil, {8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~f_all_un_revert.flatten.at(x-1);)});});}); ~synthflow.value; stall.string = ~f1.asString;});});
 
 
-						stall.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f_all_revert = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; 12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~freqsetvalue;)}); ~synthflow.value; stall.string = ~freqsetvalue.asString;});
+						stall.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f_all_revert = [ ~f1,~f2,~f3 ]; 8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~freqsetvalue;)}); ~synthflow.value; stall.string = ~freqsetvalue.asString;});
 						st1.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f1_revert = ~f1; ~f1 = ~freqsetvalue; ~synthflow.value; st1.string = ~freqsetvalue.asString;});
 						st2.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f2_revert = ~f2; ~f2 = ~freqsetvalue; ~synthflow.value; st2.string = ~freqsetvalue.asString;});
 						st3.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f3_revert = ~f3; ~f3 = ~freqsetvalue; ~synthflow.value; st3.string = ~freqsetvalue.asString;});
-						st4.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f4_revert = ~f4; ~f4 = ~freqsetvalue; ~synthflow.value; st4.string = ~freqsetvalue.asString;});
-						st5.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f5_revert = ~f5; ~f5 = ~freqsetvalue; ~synthflow.value; st5.string = ~freqsetvalue.asString;});
-						st6.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f6_revert = ~f6; ~f6 = ~freqsetvalue; ~synthflow.value; st6.string = ~freqsetvalue.asString;});
-						st7.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f7_revert = ~f7; ~f7 = ~freqsetvalue; ~synthflow.value; st7.string = ~freqsetvalue.asString;});
-						st8.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f8_revert = ~f8; ~f8 = ~freqsetvalue; ~synthflow.value; st8.string = ~freqsetvalue.asString;});
-						st9.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f9_revert = ~f9; ~f9 = ~freqsetvalue; ~synthflow.value; st9.string = ~freqsetvalue.asString;});
-						st10.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f10_revert = ~f10; ~f10 = ~freqsetvalue; ~synthflow.value; st10.string = ~freqsetvalue.asString;});
-						st11.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f11_revert = ~f11; ~f11 = ~freqsetvalue; ~synthflow.value; st11.string = ~freqsetvalue.asString;});
-						st12.action_({arg val; ~freqsetvalue = val.value; ~freqset_textfield_func.value; ~f12_revert = ~f12; ~f12 = ~freqsetvalue; ~synthflow.value; st12.string = ~freqsetvalue.asString;});
-
 
 						~synthfreqsetview.background_(Color.black);
 
@@ -3291,7 +2265,7 @@ s.waitForBoot({
 
 						~beforefreqsetrevert = Button.new(~synthfreqsetview,Rect(lefttime, top+(40/~gm)-height, revertwidth+150, height)).states_([["restore freqs before opening eo",Color.white,Color.black],["revert",Color.white,Color.black]]).action_({arg button;
 
-							if([ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ] != ~beforefreqsetfreqs.flatten, {~beforefreqsetfreqs_unrestore = [ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]; 12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~beforefreqsetfreqs.flatten.at(x-1);)});}, {if(~beforefreqsetfreqs_unrestore != nil, {12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~beforefreqsetfreqs_unrestore.flatten.at(x-1);)});});}); ~synthflow.value;
+							if([ ~f1,~f2,~f3 ] != ~beforefreqsetfreqs.flatten, {~beforefreqsetfreqs_unrestore = [ ~f1,~f2,~f3 ]; 8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~beforefreqsetfreqs.flatten.at(x-1);)});}, {if(~beforefreqsetfreqs_unrestore != nil, {8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~beforefreqsetfreqs_unrestore.flatten.at(x-1);)});});}); ~synthflow.value;
 						});
 
 
@@ -3314,7 +2288,7 @@ s.waitForBoot({
 
 	//mute/unmute 1-8 buttons
 
-	mute1 = Button.new(w,Rect(~bpl+(0),~bpt+69+5-(16/1.6180339887499),16,16/1.6180339887499)).states_([["1",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
+	mute1 = Button.new(w,Rect(~bpl+(16*1),~bpt+69+5,16,16/1.6180339887499)).states_([["1",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 		case
 		{~l1a1.isRunning == true}{
 			if(button.value == 0, {
@@ -3354,7 +2328,7 @@ s.waitForBoot({
 		};
 	});
 
-	mute2 = Button.new(w,Rect(~bpl+(16*1),~bpt+69+5-(16/1.6180339887499),16,16/1.6180339887499)).states_([["2",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
+	mute2 = Button.new(w,Rect(~bpl+(16*2),~bpt+69+5,16,16/1.6180339887499)).states_([["2",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 		case
 		{~l1a1.isRunning == true}{
 			if(button.value == 0, {
@@ -3393,7 +2367,7 @@ s.waitForBoot({
 			});
 		};
 	});
-	mute3 = Button.new(w,Rect(~bpl+(16*2),~bpt+69+5-(16/1.6180339887499),16,16/1.6180339887499)).states_([["3",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
+	mute3 = Button.new(w,Rect(~bpl+(16*3),~bpt+69+5,16,16/1.6180339887499)).states_([["3",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 		case
 		{~l1a1.isRunning == true}{
 			if(button.value == 0, {
@@ -3432,420 +2406,256 @@ s.waitForBoot({
 			});
 		};
 	});
-	mute4 = Button.new(w,Rect(~bpl+(16*3),~bpt+69+5-(16/1.6180339887499),16,16/1.6180339887499)).states_([["4",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
-		case
-		{~l1a1.isRunning == true}{
-			if(button.value == 0, {
-				(~vol4 = ~vol;
-					1.do({
-						~l4a1.set(\vol, ~vol4);  ~l4b1.set(\vol, ~vol4);
-						~l4c1.set(\vol, ~vol4);  ~l4d1.set(\vol, ~vol4);
-						~l4e1.set(\vol, ~vol4);  ~l4f1.set(\vol, ~vol4);
-
-				}););
-			}, {(~vol4 = 0;
-				1.do({
-					~l4a1.set(\vol, ~vol4);  ~l4b1.set(\vol, ~vol4);
-					~l4c1.set(\vol, ~vol4);  ~l4d1.set(\vol, ~vol4);
-					~l4e1.set(\vol, ~vol4);  ~l4f1.set(\vol, ~vol4);
-
-			}););
-			});
-		}
-		{~l1a.isRunning == true}{
-			if(button.value == 0, {
-				(~vol4 = ~vol;
-					1.do({
-						~l4a.set(\vol, ~vol4);  ~l4b.set(\vol, ~vol4);
-						~l4c.set(\vol, ~vol4);  ~l4d.set(\vol, ~vol4);
-						~l4e.set(\vol, ~vol4);  ~l4f.set(\vol, ~vol4);
-
-				}););
-			}, {(~vol4 = 0;
-				1.do({
-					~l4a.set(\vol, ~vol4);  ~l4b.set(\vol, ~vol4);
-					~l4c.set(\vol, ~vol4);  ~l4d.set(\vol, ~vol4);
-					~l4e.set(\vol, ~vol4);  ~l4f.set(\vol, ~vol4);
-
-			}););
-			});
-		};
-	});
-	mute5 = Button.new(w,Rect(~bpl+(16*4),~bpt+69+5-(16/1.6180339887499),16,16/1.6180339887499)).states_([["5",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
-		case
-		{~l1a1.isRunning == true}{
-			if(button.value == 0, {
-				(~vol5 = ~vol;
-					1.do({
-						~l5a1.set(\vol, ~vol5);  ~l5b1.set(\vol, ~vol5);
-						~l5c1.set(\vol, ~vol5);  ~l5d1.set(\vol, ~vol5);
-						~l5e1.set(\vol, ~vol5);  ~l5f1.set(\vol, ~vol5);
-
-				}););
-			}, {(~vol5 = 0;
-				1.do({
-					~l5a1.set(\vol, ~vol5);  ~l5b1.set(\vol, ~vol5);
-					~l5c1.set(\vol, ~vol5);  ~l5d1.set(\vol, ~vol5);
-					~l5e1.set(\vol, ~vol5);  ~l5f1.set(\vol, ~vol5);
-
-			}););
-			});
-		}
-		{~l1a.isRunning == true}{
-			if(button.value == 0, {
-				(~vol5 = ~vol;
-					1.do({
-						~l5a.set(\vol, ~vol5);  ~l5b.set(\vol, ~vol5);
-						~l5c.set(\vol, ~vol5);  ~l5d.set(\vol, ~vol5);
-						~l5e.set(\vol, ~vol5);  ~l5f.set(\vol, ~vol5);
-
-				}););
-			}, {(~vol5 = 0;
-				1.do({
-					~l5a.set(\vol, ~vol5);  ~l5b.set(\vol, ~vol5);
-					~l5c.set(\vol, ~vol5);  ~l5d.set(\vol, ~vol5);
-					~l5e.set(\vol, ~vol5);  ~l5f.set(\vol, ~vol5);
-
-			}););
-			});
-		};
-	});
-	mute6 = Button.new(w,Rect(~bpl+(16*5),~bpt+69+5-(16/1.6180339887499),16,16/1.6180339887499)).states_([["6",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
-		case
-		{~l1a1.isRunning == true}{
-			if(button.value == 0, {
-				(~vol6 = ~vol;
-					1.do({
-						~l6a1.set(\vol, ~vol6);  ~l6b1.set(\vol, ~vol6);
-						~l6c1.set(\vol, ~vol6);  ~l6d1.set(\vol, ~vol6);
-						~l6e1.set(\vol, ~vol6);  ~l6f1.set(\vol, ~vol6);
-
-				}););
-			}, {(~vol6 = 0;
-				1.do({
-					~l6a1.set(\vol, ~vol6);  ~l6b1.set(\vol, ~vol6);
-					~l6c1.set(\vol, ~vol6);  ~l6d1.set(\vol, ~vol6);
-					~l6e1.set(\vol, ~vol6);  ~l6f1.set(\vol, ~vol6);
-
-			}););
-			});
-		}
-		{~l1a.isRunning == true}{
-			if(button.value == 0, {
-				(~vol6 = ~vol;
-					1.do({
-						~l6a.set(\vol, ~vol6);  ~l6b.set(\vol, ~vol6);
-						~l6c.set(\vol, ~vol6);  ~l6d.set(\vol, ~vol6);
-						~l6e.set(\vol, ~vol6);  ~l6f.set(\vol, ~vol6);
-
-				}););
-			}, {(~vol6 = 0;
-				1.do({
-					~l6a.set(\vol, ~vol6);  ~l6b.set(\vol, ~vol6);
-					~l6c.set(\vol, ~vol6);  ~l6d.set(\vol, ~vol6);
-					~l6e.set(\vol, ~vol6);  ~l6f.set(\vol, ~vol6);
-
-			}););
-			});
-		};
-
-	});
-	mute7 = Button.new(w,Rect(~bpl+(16*6),~bpt+69+5-(16/1.6180339887499),16,16/1.6180339887499)).states_([["7",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
-		case
-		{~l1a1.isRunning == true}{
-			if(button.value == 0, {
-				(~vol7 = ~vol;
-					1.do({
-						~l7a1.set(\vol, ~vol7);  ~l7b1.set(\vol, ~vol7);
-						~l7c1.set(\vol, ~vol7);  ~l7d1.set(\vol, ~vol7);
-						~l7e1.set(\vol, ~vol7);  ~l7f1.set(\vol, ~vol7);
-
-				}););
-			}, {(~vol7 = 0;
-				1.do({
-					~l7a1.set(\vol, ~vol7);  ~l7b1.set(\vol, ~vol7);
-					~l7c1.set(\vol, ~vol7);  ~l7d1.set(\vol, ~vol7);
-					~l7e1.set(\vol, ~vol7);  ~l7f1.set(\vol, ~vol7);
-
-			}););
-			});
-		}
-		{~l1a.isRunning == true}{
-			if(button.value == 0, {
-				(~vol7 = ~vol;
-					1.do({
-						~l7a.set(\vol, ~vol7);  ~l7b.set(\vol, ~vol7);
-						~l7c.set(\vol, ~vol7);  ~l7d.set(\vol, ~vol7);
-						~l7e.set(\vol, ~vol7);  ~l7f.set(\vol, ~vol7);
-
-				}););
-			}, {(~vol7 = 0;
-				1.do({
-					~l7a.set(\vol, ~vol7);  ~l7b.set(\vol, ~vol7);
-					~l7c.set(\vol, ~vol7);  ~l7d.set(\vol, ~vol7);
-					~l7e.set(\vol, ~vol7);  ~l7f.set(\vol, ~vol7);
-
-			}););
-			});
-		};
-	});
-	mute8 = Button.new(w,Rect(~bpl+(16*7),~bpt+69+5-(16/1.6180339887499),16,16/1.6180339887499)).states_([["8",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
-		case
-		{~l1a1.isRunning == true}{
-			if(button.value == 0, {
-				(~vol8 = ~vol;
-					1.do({
-						~l8a1.set(\vol, ~vol8);  ~l8b1.set(\vol, ~vol8);
-						~l8c1.set(\vol, ~vol8);  ~l8d1.set(\vol, ~vol8);
-						~l8e1.set(\vol, ~vol8);  ~l8f1.set(\vol, ~vol8);
-
-				}););
-			}, {(~vol8 = 0;
-				1.do({
-					~l8a1.set(\vol, ~vol8);  ~l8b1.set(\vol, ~vol8);
-					~l8c1.set(\vol, ~vol8);  ~l8d1.set(\vol, ~vol8);
-					~l8e1.set(\vol, ~vol8);  ~l8f1.set(\vol, ~vol8);
-
-			}););
-			});
-		}
-		{~l1a.isRunning == true}{
-			if(button.value == 0, {
-				(~vol8 = ~vol;
-					1.do({
-						~l8a.set(\vol, ~vol8);  ~l8b.set(\vol, ~vol8);
-						~l8c.set(\vol, ~vol8);  ~l8d.set(\vol, ~vol8);
-						~l8e.set(\vol, ~vol8);  ~l8f.set(\vol, ~vol8);
-
-				}););
-			}, {(~vol8 = 0;
-				1.do({
-					~l8a.set(\vol, ~vol8);  ~l8b.set(\vol, ~vol8);
-					~l8c.set(\vol, ~vol8);  ~l8d.set(\vol, ~vol8);
-					~l8e.set(\vol, ~vol8);  ~l8f.set(\vol, ~vol8);
-
-			}););
-			});
-		};
-	});
-	mute9 = Button.new(w,Rect(~bpl+(16*8),~bpt+69+5-(16/1.6180339887499),16,16/1.6180339887499)).states_([["9",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
-		case
-		{~l1a1.isRunning == true}{
-			if(button.value == 0, {
-				(~vol9 = ~vol;
-					1.do({
-						~l9a1.set(\vol, ~vol9);  ~l9b1.set(\vol, ~vol9);
-						~l9c1.set(\vol, ~vol9);  ~l9d1.set(\vol, ~vol9);
-						~l9e1.set(\vol, ~vol9);  ~l9f1.set(\vol, ~vol9);
-
-				}););
-			}, {(~vol9 = 0;
-				1.do({
-					~l9a1.set(\vol, ~vol9);  ~l9b1.set(\vol, ~vol9);
-					~l9c1.set(\vol, ~vol9);  ~l9d1.set(\vol, ~vol9);
-					~l9e1.set(\vol, ~vol9);  ~l9f1.set(\vol, ~vol9);
-
-			}););
-			});
-		}
-		{~l1a.isRunning == true}{
-			if(button.value == 0, {
-				(~vol9 = ~vol;
-					1.do({
-						~l9a.set(\vol, ~vol9);  ~l9b.set(\vol, ~vol9);
-						~l9c.set(\vol, ~vol9);  ~l9d.set(\vol, ~vol9);
-						~l9e.set(\vol, ~vol9);  ~l9f.set(\vol, ~vol9);
-
-				}););
-			}, {(~vol9 = 0;
-				1.do({
-					~l9a.set(\vol, ~vol9);  ~l9b.set(\vol, ~vol9);
-					~l9c.set(\vol, ~vol9);  ~l9d.set(\vol, ~vol9);
-					~l9e.set(\vol, ~vol9);  ~l9f.set(\vol, ~vol9);
-
-			}););
-			});
-		};
-	});
-	mute10 = Button.new(w,Rect(~bpl+(0),~bpt+69+5,16,16/1.6180339887499)).states_([["10",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
-		case
-		{~l1a1.isRunning == true}{
-			if(button.value == 0, {
-				(~vol10 = ~vol;
-					1.do({
-						~l10a1.set(\vol, ~vol10);  ~l10b1.set(\vol, ~vol10);
-						~l10c1.set(\vol, ~vol10);  ~l10d1.set(\vol, ~vol10);
-						~l10e1.set(\vol, ~vol10);  ~l10f1.set(\vol, ~vol10);
-
-				}););
-			}, {(~vol10 = 0;
-				1.do({
-					~l10a1.set(\vol, ~vol10);  ~l10b1.set(\vol, ~vol10);
-					~l10c1.set(\vol, ~vol10);  ~l10d1.set(\vol, ~vol10);
-					~l10e1.set(\vol, ~vol10);  ~l10f1.set(\vol, ~vol10);
-
-			}););
-			});
-		}
-		{~l1a.isRunning == true}{
-			if(button.value == 0, {
-				(~vol10 = ~vol;
-					1.do({
-						~l10a.set(\vol, ~vol10);  ~l10b.set(\vol, ~vol10);
-						~l10c.set(\vol, ~vol10);  ~l10d.set(\vol, ~vol10);
-						~l10e.set(\vol, ~vol10);  ~l10f.set(\vol, ~vol10);
-
-				}););
-			}, {(~vol10 = 0;
-				1.do({
-					~l10a.set(\vol, ~vol10);  ~l10b.set(\vol, ~vol10);
-					~l10c.set(\vol, ~vol10);  ~l10d.set(\vol, ~vol10);
-					~l10e.set(\vol, ~vol10);  ~l10f.set(\vol, ~vol10);
-
-			}););
-			});
-		};
-	});
-	mute11 = Button.new(w,Rect(~bpl+(16),~bpt+69+5,16,16/1.6180339887499)).states_([["11",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
-		case
-		{~l1a1.isRunning == true}{
-			if(button.value == 0, {
-				(~vol11 = ~vol;
-					1.do({
-						~l11a1.set(\vol, ~vol11);  ~l11b1.set(\vol, ~vol11);
-						~l11c1.set(\vol, ~vol11);  ~l11d1.set(\vol, ~vol11);
-						~l11e1.set(\vol, ~vol11);  ~l11f1.set(\vol, ~vol11);
-
-				}););
-			}, {(~vol11 = 0;
-				1.do({
-					~l11a1.set(\vol, ~vol11);  ~l8b1.set(\vol, ~vol11);
-					~l11c1.set(\vol, ~vol11);  ~l8d1.set(\vol, ~vol11);
-					~l11e1.set(\vol, ~vol11);  ~l8f1.set(\vol, ~vol11);
-
-			}););
-			});
-		}
-		{~l1a.isRunning == true}{
-			if(button.value == 0, {
-				(~vol11 = ~vol;
-					1.do({
-						~l11a.set(\vol, ~vol11);  ~l11b.set(\vol, ~vol11);
-						~l11c.set(\vol, ~vol11);  ~l11d.set(\vol, ~vol11);
-						~l11e.set(\vol, ~vol11);  ~l11f.set(\vol, ~vol11);
-
-				}););
-			}, {(~vol11 = 0;
-				1.do({
-					~l11a.set(\vol, ~vol11);  ~l11b.set(\vol, ~vol11);
-					~l11c.set(\vol, ~vol11);  ~l11d.set(\vol, ~vol11);
-					~l11e.set(\vol, ~vol11);  ~l11f.set(\vol, ~vol11);
-
-			}););
-			});
-		};
-	});
-	mute12 = Button.new(w,Rect(~bpl+(16*2),~bpt+69+5,16,16/1.6180339887499)).states_([["12",Color.white,Color.black],["",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
-		case
-		{~l1a1.isRunning == true}{
-			if(button.value == 0, {
-				(~vol12 = ~vol;
-					1.do({
-						~l12a1.set(\vol, ~vol12);  ~l12b1.set(\vol, ~vol12);
-						~l12c1.set(\vol, ~vol12);  ~l12d1.set(\vol, ~vol12);
-						~l12e1.set(\vol, ~vol12);  ~l12f1.set(\vol, ~vol12);
-
-				}););
-			}, {(~vol12 = 0;
-				1.do({
-					~l12a1.set(\vol, ~vol12);  ~l12b1.set(\vol, ~vol12);
-					~l12c1.set(\vol, ~vol12);  ~l12d1.set(\vol, ~vol12);
-					~l12e1.set(\vol, ~vol12);  ~l12f1.set(\vol, ~vol12);
-
-			}););
-			});
-		}
-		{~l1a.isRunning == true}{
-			if(button.value == 0, {
-				(~vol12 = ~vol;
-					1.do({
-						~l12a.set(\vol, ~vol12);  ~l12b.set(\vol, ~vol12);
-						~l12c.set(\vol, ~vol12);  ~l12d.set(\vol, ~vol12);
-						~l12e.set(\vol, ~vol12);  ~l12f.set(\vol, ~vol12);
-
-				}););
-			}, {(~vol12 = 0;
-				1.do({
-					~l12a.set(\vol, ~vol12);  ~l12b.set(\vol, ~vol12);
-					~l12c.set(\vol, ~vol12);  ~l12d.set(\vol, ~vol12);
-					~l12e.set(\vol, ~vol12);  ~l12f.set(\vol, ~vol12);
-
-			}););
-			});
-		};
-	});
 
 
 	//mute/unmute all button
 
-	muteall = Button.new(w,Rect(~bpl+(16*3),~bpt+69+5,16,16/1.6180339887499)).states_([["m",Color.white,Color.black],["u",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
+	muteall = Button.new(w,Rect(~bpl+(0),~bpt+69+5,16,16/1.6180339887499)).states_([["m",Color.white,Color.black],["u",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
 
 		if(button.value == 0, {
 			mute1.value = 0;
 			mute2.value = 0;
 			mute3.value = 0;
-			mute4.value = 0;
-			mute5.value = 0;
-			mute6.value = 0;
-			mute7.value = 0;
-			mute8.value = 0;
-			mute9.value = 0;
-			mute10.value = 0;
-			mute11.value = 0;
-			mute12.value = 0;
 
 			~vol1 = ~vol;
 			~vol2 = ~vol;
 			~vol3 = ~vol;
-			~vol4 = ~vol;
-			~vol5 = ~vol;
-			~vol6 = ~vol;
-			~vol7 = ~vol;
-			~vol8 = ~vol;
-			~vol9 = ~vol;
-			~vol10 = ~vol;
-			~vol11 = ~vol;
-			~vol12 = ~vol;
+
 		},
 		{
 			mute1.value = 1;
 			mute2.value = 1;
 			mute3.value = 1;
-			mute4.value = 1;
-			mute5.value = 1;
-			mute6.value = 1;
-			mute7.value = 1;
-			mute8.value = 1;
-			mute9.value = 1;
-			mute10.value = 1;
-			mute11.value = 1;
-			mute12.value = 1;
 
 			~vol1 = 0;
 			~vol2 = 0;
 			~vol3 = 0;
-			~vol4 = 0;
-			~vol5 = 0;
-			~vol6 = 0;
-			~vol7 = 0;
-			~vol8 = 0;
-			~vol9 = 0;
-			~vol10 = 0;
-			~vol11 = 0;
-			~vol12 = 0;
+
 		});
 		~synthflow.value;
 	});
+
+
+	//midi Korg NanoKontrol function
+
+	~midifunc = {
+		~snb = 0;
+		/*~etemp = EqualTemperament(12, calibratefreq: 432, calibratenote: 69);*/
+
+
+		//midi set frequency
+
+		MIDIFunc.cc({if(~snb == 0, {~snb = 1},{~snb = 0});}, ccNum: 60);
+		MIDIdef.cc('l1', { |val|
+			case
+			{~l1a.isRunning == true}{
+				~l1a.set(\dur, ~f1 = \dur.asSpec.map(val / 127));
+				~l1b.set(\dur,      \dur.asSpec.map(val / 127));
+				~l1c.set(\dur,      \dur.asSpec.map(val / 127)/~icd3);
+				~l1d.set(\dur,      \dur.asSpec.map(val / 127)/~icd3);
+				~l1e.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
+				~l1f.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
+			}{~l1a1.isRunning == true}{
+				~l1a1.set(\dur, ~f1 = \dur.asSpec.map(val / 127));
+				~l1b1.set(\dur,      \dur.asSpec.map(val / 127));
+				~l1c1.set(\dur,      \dur.asSpec.map(val / 127)/~icd3);
+				~l1d1.set(\dur,      \dur.asSpec.map(val / 127)/~icd3);
+				~l1e1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
+				~l1f1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
+			};
+			~tunefreq1 = ~f1; ~f1 = ~f1+~f1t;
+			{if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+			}.defer;
+		}, ccNum: [0]);
+		MIDIdef.cc('l2', { |val|
+			case
+			{~l1a.isRunning == true}{
+				~l2a.set(\dur, ~f2 = \dur.asSpec.map(val / 127));
+				~l2b.set(\dur,      \dur.asSpec.map(val / 127));
+				~l2c.set(\dur,      \dur.asSpec.map(val / 127)/~icd3);
+				~l2d.set(\dur,      \dur.asSpec.map(val / 127)/~icd3);
+				~l2e.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
+				~l2f.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
+			}{~l1a1.isRunning == true}{
+				~l2a1.set(\dur, ~f2 = \dur.asSpec.map(val / 127));
+				~l2b1.set(\dur,      \dur.asSpec.map(val / 127));
+				~l2c1.set(\dur,      \dur.asSpec.map(val / 127)/~icd3);
+				~l2d1.set(\dur,      \dur.asSpec.map(val / 127)/~icd3);
+				~l2e1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
+				~l2f1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
+			};
+			~tunefreq2 = ~f2; ~f2 = ~f2+~f2t;
+			{if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
+			}.defer;
+		}, ccNum: [1]);
+		MIDIdef.cc('l3', { |val|
+			case
+			{~l1a.isRunning == true}{
+				~l3a.set(\dur, ~f3 = \dur.asSpec.map(val / 127));
+				~l3b.set(\dur,      \dur.asSpec.map(val / 127));
+				~l3c.set(\dur,      \dur.asSpec.map(val / 127)/~icd3);
+				~l3d.set(\dur,      \dur.asSpec.map(val / 127)/~icd3);
+				~l3e.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
+				~l3f.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
+			}{~l1a1.isRunning == true}{
+				~l3a1.set(\dur, ~f3 = \dur.asSpec.map(val / 127));
+				~l3b1.set(\dur,      \dur.asSpec.map(val / 127));
+				~l3c1.set(\dur,      \dur.asSpec.map(val / 127)/~icd3);
+				~l3d1.set(\dur,      \dur.asSpec.map(val / 127)/~icd3);
+				~l3e1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
+				~l3f1.set(\dur,      \dur.asSpec.map(val / 127)/~icd6);
+			};
+			~tunefreq3 = ~f3; ~f3 = ~f3+~f3t;
+			{if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+			}.defer;
+		}, ccNum: 2);
+
+
+		//if midi tuning frequency values are nil
+
+		if(~f1t == nil, {~f1t = 0});
+		if(~f2t == nil, {~f2t = 0});
+		if(~f3t == nil, {~f3t = 0});
+
+
+		//midi set tuning frequency
+
+		MIDIFunc.cc({|val|
+			~f1 = ~f1-~f1t;
+			Spec.add(\tune, ([0, ~tunefreq1*~stepratio-~tunefreq1, \lin]));
+			case
+			{~l1a.isRunning == true}{
+				~l1a.set(\tune, ~f1t = \tune.asSpec.map(val / 127));
+				~l1b.set(\tune,      \tune.asSpec.map(val / 127));
+				~l1c.set(\tune,      \tune.asSpec.map(val / 127)/~icd3);
+				~l1d.set(\tune,      \tune.asSpec.map(val / 127)/~icd3);
+				~l1e.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
+				~l1f.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
+			}{~l1a1.isRunning == true}{
+				~l1a1.set(\tune, ~f1t = \tune.asSpec.map(val / 127));
+				~l1b1.set(\tune,      \tune.asSpec.map(val / 127));
+				~l1c1.set(\tune,      \tune.asSpec.map(val / 127)/~icd3);
+				~l1d1.set(\tune,      \tune.asSpec.map(val / 127)/~icd3);
+				~l1e1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
+				~l1f1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
+			};
+			~f1 = ~f1+~f1t;
+			{if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+			}.defer;
+		}, ccNum: 16);
+		MIDIFunc.cc({|val|
+			~f2 = ~f2-~f2t;
+			Spec.add(\tune, ([0, ~tunefreq2*~stepratio-~tunefreq2, \lin]));
+			case
+			{~l1a.isRunning == true}{
+				~l2a.set(\tune, ~f2t = \tune.asSpec.map(val / 127));
+				~l2b.set(\tune,      \tune.asSpec.map(val / 127));
+				~l2c.set(\tune,      \tune.asSpec.map(val / 127)/~icd3);
+				~l2d.set(\tune,      \tune.asSpec.map(val / 127)/~icd3);
+				~l2e.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
+				~l2f.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
+			}{~l1a1.isRunning == true}{
+				~l2a1.set(\tune, ~f2t = \tune.asSpec.map(val / 127));
+				~l2b1.set(\tune,      \tune.asSpec.map(val / 127));
+				~l2c1.set(\tune,      \tune.asSpec.map(val / 127)/~icd3);
+				~l2d1.set(\tune,      \tune.asSpec.map(val / 127)/~icd3);
+				~l2e1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
+				~l2f1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
+			};
+			~f2 = ~f2+~f2t;
+			{if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
+			}.defer;
+		}, ccNum: 17);
+		MIDIFunc.cc({|val|
+			~f3 = ~f3-~f3t;
+			Spec.add(\tune, ([0, ~tunefreq3*~stepratio-~tunefreq3, \lin]));
+			case
+			{~l1a.isRunning == true}{
+				~l3a.set(\tune, ~f3t = \tune.asSpec.map(val / 127));
+				~l3b.set(\tune,      \tune.asSpec.map(val / 127));
+				~l3c.set(\tune,      \tune.asSpec.map(val / 127)/~icd3);
+				~l3d.set(\tune,      \tune.asSpec.map(val / 127)/~icd3);
+				~l3e.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
+				~l3f.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
+			}{~l1a1.isRunning == true}{
+				~l3a1.set(\tune, ~f3t = \tune.asSpec.map(val / 127));
+				~l3b1.set(\tune,      \tune.asSpec.map(val / 127));
+				~l3c1.set(\tune,      \tune.asSpec.map(val / 127)/~icd3);
+				~l3d1.set(\tune,      \tune.asSpec.map(val / 127)/~icd3);
+				~l3e1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
+				~l3f1.set(\tune,      \tune.asSpec.map(val / 127)/~icd6);
+			};
+			~f3 = ~f3+~f3t;
+			{if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+			}.defer;
+		}, ccNum: 18);
+
+
+		//Korg NanoKontrol button assignments
+
+
+		//start/stop synth and pause/unpause synth buttons
+
+		MIDIFunc.cc({|val| {case{b3.value == 0}{b3.valueAction = 1};}.defer;}, ccNum: 41);
+		MIDIFunc.cc({|val| {case{b3.value == 1}{b3.valueAction = 0};}.defer;}, ccNum: 42);
+		MIDIFunc.cc({|val| {case{b4.value == 0}{b4.valueAction = 1};}.defer;}, ccNum: 43);
+		MIDIFunc.cc({|val| {case{b4.value == 1}{b4.valueAction = 0};}.defer;}, ccNum: 44);
+
+
+		//open/flow/slide buttons (inactive)
+
+		/*MIDIFunc.cc({|val| {~bplaceo1.valueAction=0}.defer;}, ccNum: 32);
+		MIDIFunc.cc({|val| {~bplaceo2.valueAction=0}.defer;}, ccNum: 33);
+		MIDIFunc.cc({|val| {~bplaceo3.valueAction=0}.defer;}, ccNum: 34);
+		MIDIFunc.cc({|val| {~bplaceo4.valueAction=0}.defer;}, ccNum: 35);
+		MIDIFunc.cc({|val| {~bplaceo5.valueAction=0}.defer;}, ccNum: 36);
+		MIDIFunc.cc({|val| {~bplaceo6.valueAction=0}.defer;}, ccNum: 37);
+		MIDIFunc.cc({|val| {~bplaceo7.valueAction=0}.defer;}, ccNum: 38);
+		MIDIFunc.cc({|val| {~bplaceo8.valueAction=0}.defer;}, ccNum: 39);
+		MIDIFunc.cc({|val| {~bplacef1.valueAction=0}.defer;}, ccNum: 48);
+		MIDIFunc.cc({|val| {~bplacef2.valueAction=0}.defer;}, ccNum: 49);
+		MIDIFunc.cc({|val| {~bplacef3.valueAction=0}.defer;}, ccNum: 50);
+		MIDIFunc.cc({|val| {~bplacef4.valueAction=0}.defer;}, ccNum: 51);
+		MIDIFunc.cc({|val| {~bplacef5.valueAction=0}.defer;}, ccNum: 52);
+		MIDIFunc.cc({|val| {~bplacef6.valueAction=0}.defer;}, ccNum: 53);
+		MIDIFunc.cc({|val| {~bplacef7.valueAction=0}.defer;}, ccNum: 54);
+		MIDIFunc.cc({|val| {~bplacef8.valueAction=0}.defer;}, ccNum: 55);
+		MIDIFunc.cc({|val| {~bplaces1.valueAction=0}.defer;}, ccNum: 64);
+		MIDIFunc.cc({|val| {~bplaces2.valueAction=0}.defer;}, ccNum: 65);
+		MIDIFunc.cc({|val| {~bplaces3.valueAction=0}.defer;}, ccNum: 66);
+		MIDIFunc.cc({|val| {~bplaces4.valueAction=0}.defer;}, ccNum: 67);
+		MIDIFunc.cc({|val| {~bplaces5.valueAction=0}.defer;}, ccNum: 68);
+		MIDIFunc.cc({|val| {~bplaces6.valueAction=0}.defer;}, ccNum: 69);
+		MIDIFunc.cc({|val| {~bplaces7.valueAction=0}.defer;}, ccNum: 70);
+		MIDIFunc.cc({|val| {~bplaces8.valueAction=0}.defer;}, ccNum: 71);
+		*/
+
+
+		//mute/unmute buttons
+
+		MIDIFunc.cc({|val| {mute1.valueAction = 1;}.defer;}, ccNum: 48);
+		MIDIFunc.cc({|val| {mute2.valueAction = 1;}.defer;}, ccNum: 49);
+		MIDIFunc.cc({|val| {mute3.valueAction = 1;}.defer;}, ccNum: 50);
+		MIDIFunc.cc({|val| {mute1.valueAction = 1;mute2.valueAction = 1;mute3.valueAction = 1;}.defer;}, ccNum: 58);
+		MIDIFunc.cc({|val| {mute1.valueAction = 0;}.defer;}, ccNum: 32);
+		MIDIFunc.cc({|val| {mute2.valueAction = 0;}.defer;}, ccNum: 33);
+		MIDIFunc.cc({|val| {mute3.valueAction = 0;}.defer;}, ccNum: 34);
+		MIDIFunc.cc({|val| {mute1.valueAction = 0;mute2.valueAction = 0;mute3.valueAction = 0;}.defer;}, ccNum: 59);
+
+		/*MIDIFunc.cc({ |val| ([~a2,~b2,~c2,~d2,~e2,~f2]).postln;}, ccNum: [0]);*/
+		/*MIDIFunc.cc({ |val|~l1.set(\tune, 0);}, ccNum: [32]);*/
+		/*MIDIFunc.cc({ |val| ([(~w),(~x),(~y),(~z),(~u),(~v),~r,~s]).postln;}, ccNum: [64]);*/
+		/*~basefreq= 432.cpsmidi-69;*/
+		/*Spec.add(\dur, ~etemp.cps([0, 127, \exp]));*/
+
+		Spec.add(\dur, ([~freqmap.at(0), ~freqmap.at(127), \exp]));
+		/*Spec.add(\tune, ([0, 128, \lin]));*/
+	};
+
+
+	//evaluate midi function
+
+	~midifunc.value;
 
 
 	//keyboard number buttons to choose synth
@@ -3853,187 +2663,24 @@ s.waitForBoot({
 	keycodeb = Button.new(w,Rect(Window.screenBounds.width-20-16,~bpt+160,16,16/1.6180339887499)).states_([
 		["1",Color.white,Color.black],
 		["2",Color.white,Color.black],
-		["3",Color.white,Color.black],
-		["4",Color.white,Color.black],
-		["5",Color.white,Color.black],
-		["6",Color.white,Color.black],
-		["7",Color.white,Color.black],
-		["8",Color.white,Color.black],
-		["9",Color.white,Color.black],
-		["10",Color.white,Color.black],
-		["11",Color.white,Color.black],
-		["12",Color.white,Color.black]]).action_({arg button;
+		["3",Color.white,Color.black]]).action_({arg button;
 
 		case
 		{button.value == 0}{
 			~z25.background = Color.green; ~z1.background = Color.green;
 			~z26.background = Color.white; ~z2.background = Color.white;
 			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
 		}
 		{button.value == 1}{
 			~z25.background = Color.white; ~z1.background = Color.white;
 			~z26.background = Color.green; ~z2.background = Color.green;
 			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
 		}
 		{button.value == 2}{
 			~z25.background = Color.white; ~z1.background = Color.white;
 			~z26.background = Color.white; ~z2.background = Color.white;
 			~z27.background = Color.green; ~z3.background = Color.green;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 3}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.green; ~z4.background = Color.green;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 4}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.green; ~z5.background = Color.green;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 5}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.green; ~z6.background = Color.green;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 6}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.green; ~z7.background = Color.green;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 7}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.green; ~z8.background = Color.green;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 8}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.green; ~z9.background = Color.green;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 9}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.green; ~z10.background = Color.green;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 10}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.green; ~z11.background = Color.green;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 11}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.green; ~z12.background = Color.green;
-		}
-
+		};
 	});
 
 
@@ -4112,15 +2759,6 @@ s.waitForBoot({
 		{unicode == ~one_unicode}{keycodeb.valueAction_(0)}
 		{unicode == ~two_unicode}{keycodeb.valueAction_(1)}
 		{unicode == ~three_unicode}{keycodeb.valueAction_(2)}
-		{unicode == ~four_unicode}{keycodeb.valueAction_(3)}
-		{unicode == ~five_unicode}{keycodeb.valueAction_(4)}
-		{unicode == ~six_unicode}{keycodeb.valueAction_(5)}
-		{unicode == ~seven_unicode}{keycodeb.valueAction_(6)}
-		{unicode == ~eight_unicode}{keycodeb.valueAction_(7)}
-		{unicode == ~nine_unicode}{keycodeb.valueAction_(8)}
-		{unicode == ~ten_unicode}{keycodeb.valueAction_(9)}
-		{unicode == ~eleven_unicode}{keycodeb.valueAction_(10)}
-		{unicode == ~twelve_unicode}{keycodeb.valueAction_(11)}
 
 
 		//keyboard up/down arrow actions
@@ -4155,15 +2793,6 @@ s.waitForBoot({
 				~z25.background = Color.green; ~z1.background = Color.green;
 				~z26.background = Color.white; ~z2.background = Color.white;
 				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
 		});});
 		if((~f1 <= ~freqmap.at(0)), {~freqmap.at(0)},
 			{if((keycodeb.value == 0) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
@@ -4191,14 +2820,6 @@ s.waitForBoot({
 				~z26.background = Color.white; ~z2.background = Color.white;
 				~z27.background = Color.white; ~z3.background = Color.white;
 				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
 		});});
 
 		if((~f2 >= ~freqmap.at(127)), {~freqmap.at(127)},
@@ -4225,15 +2846,6 @@ s.waitForBoot({
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.green; ~z2.background = Color.green;
 				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
 		});});
 		if((~f2 <= ~freqmap.at(0)), {~freqmap.at(0)},
 			{if((keycodeb.value == 1) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
@@ -4260,15 +2872,6 @@ s.waitForBoot({
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.green; ~z2.background = Color.green;
 				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
 		});});
 
 		if((~f3 >= ~freqmap.at(127)), {~freqmap.at(127)},
@@ -4295,15 +2898,6 @@ s.waitForBoot({
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
 				~z27.background = Color.green; ~z3.background = Color.green;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
 		});});
 		if((~f3 <= ~freqmap.at(0)), {~freqmap.at(0)},
 			{if((keycodeb.value == 2) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
@@ -4330,649 +2924,7 @@ s.waitForBoot({
 				~z25.background = Color.white; ~z1.background = Color.white;
 				~z26.background = Color.white; ~z2.background = Color.white;
 				~z27.background = Color.green; ~z3.background = Color.green;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
 		});});
-
-		if((~f4 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 3) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval4 = ~f4.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l4a.set(\dur, ~f4 = ~freqmap.at(~freqmapval4 = ~freqmapval4.value+1));
-					~l4b.set(\dur, ~f4);
-					~l4c.set(\dur, ~f4/~icd3);
-					~l4d.set(\dur, ~f4/~icd3);
-					~l4e.set(\dur, ~f4/~icd6);
-					~l4f.set(\dur, ~f4/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l4a1.set(\dur, ~f4 = ~freqmap.at(~freqmapval4 = ~freqmapval4.value+1));
-					~l4b1.set(\dur, ~f4);
-					~l4c1.set(\dur, ~f4/~icd3);
-					~l4d1.set(\dur, ~f4/~icd3);
-					~l4e1.set(\dur, ~f4/~icd6);
-					~l4f1.set(\dur, ~f4/~icd6);
-				};
-				if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.green; ~z4.background = Color.green;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f4 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 3) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval4 = ~f4.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l4a.set(\dur, ~f4 = ~freqmap.at(~freqmapval4 = ~freqmapval4.value-1));
-					~l4b.set(\dur, ~f4);
-					~l4c.set(\dur, ~f4/~icd3);
-					~l4d.set(\dur, ~f4/~icd3);
-					~l4e.set(\dur, ~f4/~icd6);
-					~l4f.set(\dur, ~f4/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l4a1.set(\dur, ~f4 = ~freqmap.at(~freqmapval4 = ~freqmapval4.value-1));
-					~l4b1.set(\dur, ~f4);
-					~l4c1.set(\dur, ~f4/~icd3);
-					~l4d1.set(\dur, ~f4/~icd3);
-					~l4e1.set(\dur, ~f4/~icd6);
-					~l4f1.set(\dur, ~f4/~icd6);
-				};
-				if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.green; ~z4.background = Color.green;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-
-		if((~f5 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 4) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval5 = ~f5.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l5a.set(\dur, ~f5 = ~freqmap.at(~freqmapval5 = ~freqmapval5.value+1));
-					~l5b.set(\dur, ~f5);
-					~l5c.set(\dur, ~f5/~icd3);
-					~l5d.set(\dur, ~f5/~icd3);
-					~l5e.set(\dur, ~f5/~icd6);
-					~l5f.set(\dur, ~f5/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l5a1.set(\dur, ~f5 = ~freqmap.at(~freqmapval5 = ~freqmapval5.value+1));
-					~l5b1.set(\dur, ~f5);
-					~l5c1.set(\dur, ~f5/~icd3);
-					~l5d1.set(\dur, ~f5/~icd3);
-					~l5e1.set(\dur, ~f5/~icd6);
-					~l5f1.set(\dur, ~f5/~icd6);
-				};
-				if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.green; ~z5.background = Color.green;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f5 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 4) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval5 = ~f5.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l5a.set(\dur, ~f5 = ~freqmap.at(~freqmapval5 = ~freqmapval5.value-1));
-					~l5b.set(\dur, ~f5);
-					~l5c.set(\dur, ~f5/~icd3);
-					~l5d.set(\dur, ~f5/~icd3);
-					~l5e.set(\dur, ~f5/~icd6);
-					~l5f.set(\dur, ~f5/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l5a1.set(\dur, ~f5 = ~freqmap.at(~freqmapval5 = ~freqmapval5.value-1));
-					~l5b1.set(\dur, ~f5);
-					~l5c1.set(\dur, ~f5/~icd3);
-					~l5d1.set(\dur, ~f5/~icd3);
-					~l5e1.set(\dur, ~f5/~icd6);
-					~l5f1.set(\dur, ~f5/~icd6);
-				};
-				if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.green; ~z5.background = Color.green;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-
-		if((~f6 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 5) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval6 = ~f6.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l6a.set(\dur, ~f6 = ~freqmap.at(~freqmapval6 = ~freqmapval6.value+1));
-					~l6b.set(\dur, ~f6);
-					~l6c.set(\dur, ~f6/~icd3);
-					~l6d.set(\dur, ~f6/~icd3);
-					~l6e.set(\dur, ~f6/~icd6);
-					~l6f.set(\dur, ~f6/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l6a1.set(\dur, ~f6 = ~freqmap.at(~freqmapval6 = ~freqmapval6.value+1));
-					~l6b1.set(\dur, ~f6);
-					~l6c1.set(\dur, ~f6/~icd3);
-					~l6d1.set(\dur, ~f6/~icd3);
-					~l6e1.set(\dur, ~f6/~icd6);
-					~l6f1.set(\dur, ~f6/~icd6);
-				};
-				if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.green; ~z6.background = Color.green;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f6 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 5) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval6 = ~f6.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l6a.set(\dur, ~f6 = ~freqmap.at(~freqmapval6 = ~freqmapval6.value-1));
-					~l6b.set(\dur, ~f6);
-					~l6c.set(\dur, ~f6/~icd3);
-					~l6d.set(\dur, ~f6/~icd3);
-					~l6e.set(\dur, ~f6/~icd6);
-					~l6f.set(\dur, ~f6/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l6a1.set(\dur, ~f6 = ~freqmap.at(~freqmapval6 = ~freqmapval6.value-1));
-					~l6b1.set(\dur, ~f6);
-					~l6c1.set(\dur, ~f6/~icd3);
-					~l6d1.set(\dur, ~f6/~icd3);
-					~l6e1.set(\dur, ~f6/~icd6);
-					~l6f1.set(\dur, ~f6/~icd6);
-				};
-				if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.green; ~z6.background = Color.green;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-
-		if((~f7 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 6) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval7 = ~f7.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l7a.set(\dur, ~f7 = ~freqmap.at(~freqmapval7 = ~freqmapval7.value+1));
-					~l7b.set(\dur, ~f7);
-					~l7c.set(\dur, ~f7/~icd3);
-					~l7d.set(\dur, ~f7/~icd3);
-					~l7e.set(\dur, ~f7/~icd6);
-					~l7f.set(\dur, ~f7/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l7a1.set(\dur, ~f7 = ~freqmap.at(~freqmapval7 = ~freqmapval7.value+1));
-					~l7b1.set(\dur, ~f7);
-					~l7c1.set(\dur, ~f7/~icd3);
-					~l7d1.set(\dur, ~f7/~icd3);
-					~l7e1.set(\dur, ~f7/~icd6);
-					~l7f1.set(\dur, ~f7/~icd6);
-				};
-				if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.green; ~z7.background = Color.green;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f7 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 6) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval7 = ~f7.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l7a.set(\dur, ~f7 = ~freqmap.at(~freqmapval7 = ~freqmapval7.value-1));
-					~l7b.set(\dur, ~f7);
-					~l7c.set(\dur, ~f7/~icd3);
-					~l7d.set(\dur, ~f7/~icd3);
-					~l7e.set(\dur, ~f7/~icd6);
-					~l7f.set(\dur, ~f7/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l7a1.set(\dur, ~f7 = ~freqmap.at(~freqmapval7 = ~freqmapval7.value-1));
-					~l7b1.set(\dur, ~f7);
-					~l7c1.set(\dur, ~f7/~icd3);
-					~l7d1.set(\dur, ~f7/~icd3);
-					~l7e1.set(\dur, ~f7/~icd6);
-					~l7f1.set(\dur, ~f7/~icd6);
-				};
-				if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.green; ~z7.background = Color.green;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-
-		if((~f8 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 7) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval8 = ~f8.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l8a.set(\dur, ~f8 = ~freqmap.at(~freqmapval8 = ~freqmapval8.value+1));
-					~l8b.set(\dur, ~f8);
-					~l8c.set(\dur, ~f8/~icd3);
-					~l8d.set(\dur, ~f8/~icd3);
-					~l8e.set(\dur, ~f8/~icd6);
-					~l8f.set(\dur, ~f8/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l8a1.set(\dur, ~f8 = ~freqmap.at(~freqmapval8 = ~freqmapval8.value+1));
-					~l8b1.set(\dur, ~f8);
-					~l8c1.set(\dur, ~f8/~icd3);
-					~l8d1.set(\dur, ~f8/~icd3);
-					~l8e1.set(\dur, ~f8/~icd6);
-					~l8f1.set(\dur, ~f8/~icd6);
-				};
-				if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.green; ~z8.background = Color.green;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f8 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 7) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval8 = ~f8.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l8a.set(\dur, ~f8 = ~freqmap.at(~freqmapval8 = ~freqmapval8.value-1));
-					~l8b.set(\dur, ~f8);
-					~l8c.set(\dur, ~f8/~icd3);
-					~l8d.set(\dur, ~f8/~icd3);
-					~l8e.set(\dur, ~f8/~icd6);
-					~l8f.set(\dur, ~f8/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l8a1.set(\dur, ~f8 = ~freqmap.at(~freqmapval8 = ~freqmapval8.value-1));
-					~l8b1.set(\dur, ~f8);
-					~l8c1.set(\dur, ~f8/~icd3);
-					~l8d1.set(\dur, ~f8/~icd3);
-					~l8e1.set(\dur, ~f8/~icd6);
-					~l8f1.set(\dur, ~f8/~icd6);
-				};
-				if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.green; ~z8.background = Color.green;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-
-		if((~f9 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 8) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval9 = ~f9.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l9a.set(\dur, ~f9 = ~freqmap.at(~freqmapval9 = ~freqmapval9.value+1));
-					~l9b.set(\dur, ~f9);
-					~l9c.set(\dur, ~f9/~icd3);
-					~l9d.set(\dur, ~f9/~icd3);
-					~l9e.set(\dur, ~f9/~icd6);
-					~l9f.set(\dur, ~f9/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l9a1.set(\dur, ~f9 = ~freqmap.at(~freqmapval9 = ~freqmapval9.value+1));
-					~l9b1.set(\dur, ~f9);
-					~l9c1.set(\dur, ~f9/~icd3);
-					~l9d1.set(\dur, ~f9/~icd3);
-					~l9e1.set(\dur, ~f9/~icd6);
-					~l9f1.set(\dur, ~f9/~icd6);
-				};
-				if((~f9 > ~outmaxa) or: (~f9 < ~outmina), {~z33.close;~z9.close;~z33 = (View(w, Rect((~f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (View(w, Rect((~f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.green; ~z9.background = Color.green;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f9 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 8) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval9 = ~f9.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l9a.set(\dur, ~f9 = ~freqmap.at(~freqmapval9 = ~freqmapval9.value-1));
-					~l9b.set(\dur, ~f9);
-					~l9c.set(\dur, ~f9/~icd3);
-					~l9d.set(\dur, ~f9/~icd3);
-					~l9e.set(\dur, ~f9/~icd6);
-					~l9f.set(\dur, ~f9/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l9a1.set(\dur, ~f9 = ~freqmap.at(~freqmapval9 = ~freqmapval9.value-1));
-					~l9b1.set(\dur, ~f9);
-					~l9c1.set(\dur, ~f9/~icd3);
-					~l9d1.set(\dur, ~f9/~icd3);
-					~l9e1.set(\dur, ~f9/~icd6);
-					~l9f1.set(\dur, ~f9/~icd6);
-				};
-				if((~f9 > ~outmaxa) or: (~f9 < ~outmina), {~z33.close;~z9.close;~z33 = (View(w, Rect((~f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (View(w, Rect((~f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.green; ~z9.background = Color.green;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-
-		if((~f10 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 9) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval10 = ~f10.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l10a.set(\dur, ~f10 = ~freqmap.at(~freqmapval10 = ~freqmapval10.value+1));
-					~l10b.set(\dur, ~f10);
-					~l10c.set(\dur, ~f10/~icd3);
-					~l10d.set(\dur, ~f10/~icd3);
-					~l10e.set(\dur, ~f10/~icd6);
-					~l10f.set(\dur, ~f10/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l10a1.set(\dur, ~f10 = ~freqmap.at(~freqmapval10 = ~freqmapval10.value+1));
-					~l10b1.set(\dur, ~f10);
-					~l10c1.set(\dur, ~f10/~icd3);
-					~l10d1.set(\dur, ~f10/~icd3);
-					~l10e1.set(\dur, ~f10/~icd6);
-					~l10f1.set(\dur, ~f10/~icd6);
-				};
-				if((~f10 > ~outmaxa) or: (~f10 < ~outmina), {~z34.close;~z10.close;~z34 = (View(w, Rect((~f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (View(w, Rect((~f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.green; ~z10.background = Color.green;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f10 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 9) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval10 = ~f10.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l10a.set(\dur, ~f10 = ~freqmap.at(~freqmapval10 = ~freqmapval10.value-1));
-					~l10b.set(\dur, ~f10);
-					~l10c.set(\dur, ~f10/~icd3);
-					~l10d.set(\dur, ~f10/~icd3);
-					~l10e.set(\dur, ~f10/~icd6);
-					~l10f.set(\dur, ~f10/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l10a1.set(\dur, ~f10 = ~freqmap.at(~freqmapval10 = ~freqmapval10.value-1));
-					~l10b1.set(\dur, ~f10);
-					~l10c1.set(\dur, ~f10/~icd3);
-					~l10d1.set(\dur, ~f10/~icd3);
-					~l10e1.set(\dur, ~f10/~icd6);
-					~l10f1.set(\dur, ~f10/~icd6);
-				};
-				if((~f10 > ~outmaxa) or: (~f10 < ~outmina), {~z34.close;~z10.close;~z34 = (View(w, Rect((~f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (View(w, Rect((~f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.green; ~z10.background = Color.green;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-
-		if((~f11 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 10) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval11 = ~f11.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l11a.set(\dur, ~f11 = ~freqmap.at(~freqmapval11 = ~freqmapval11.value+1));
-					~l11b.set(\dur, ~f11);
-					~l11c.set(\dur, ~f11/~icd3);
-					~l11d.set(\dur, ~f11/~icd3);
-					~l11e.set(\dur, ~f11/~icd6);
-					~l11f.set(\dur, ~f11/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l11a1.set(\dur, ~f11 = ~freqmap.at(~freqmapval11 = ~freqmapval11.value+1));
-					~l11b1.set(\dur, ~f11);
-					~l11c1.set(\dur, ~f11/~icd3);
-					~l11d1.set(\dur, ~f11/~icd3);
-					~l11e1.set(\dur, ~f11/~icd6);
-					~l11f1.set(\dur, ~f11/~icd6);
-				};
-				if((~f11 > ~outmaxa) or: (~f11 < ~outmina), {~z35.close;~z11.close;~z35 = (View(w, Rect((~f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (View(w, Rect((~f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+110, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.green; ~z11.background = Color.green;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f11 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 10) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval11 = ~f11.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l11a.set(\dur, ~f11 = ~freqmap.at(~freqmapval11 = ~freqmapval11.value-1));
-					~l11b.set(\dur, ~f11);
-					~l11c.set(\dur, ~f11/~icd3);
-					~l11d.set(\dur, ~f11/~icd3);
-					~l11e.set(\dur, ~f11/~icd6);
-					~l11f.set(\dur, ~f11/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l11a1.set(\dur, ~f11 = ~freqmap.at(~freqmapval11 = ~freqmapval11.value-1));
-					~l11b1.set(\dur, ~f11);
-					~l11c1.set(\dur, ~f11/~icd3);
-					~l11d1.set(\dur, ~f11/~icd3);
-					~l11e1.set(\dur, ~f11/~icd6);
-					~l11f1.set(\dur, ~f11/~icd6);
-				};
-				if((~f11 > ~outmaxa) or: (~f11 < ~outmina), {~z35.close;~z11.close;~z35 = (View(w, Rect((~f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (View(w, Rect((~f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+110, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.green; ~z11.background = Color.green;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-
-		if((~f12 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 11) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval12 = ~f12.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l12a.set(\dur, ~f12 = ~freqmap.at(~freqmapval12 = ~freqmapval12.value+1));
-					~l12b.set(\dur, ~f12);
-					~l12c.set(\dur, ~f12/~icd3);
-					~l12d.set(\dur, ~f12/~icd3);
-					~l12e.set(\dur, ~f12/~icd6);
-					~l12f.set(\dur, ~f12/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l12a1.set(\dur, ~f12 = ~freqmap.at(~freqmapval12 = ~freqmapval12.value+1));
-					~l12b1.set(\dur, ~f12);
-					~l12c1.set(\dur, ~f12/~icd3);
-					~l12d1.set(\dur, ~f12/~icd3);
-					~l12e1.set(\dur, ~f12/~icd6);
-					~l12f1.set(\dur, ~f12/~icd6);
-				};
-				if((~f12 > ~outmaxa) or: (~f12 < ~outmina), {~z36.close;~z12.close;~z36 = (View(w, Rect((~f12.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+120, ~nw, 2)).background = Color.white;);}, {~z12.close;~z36.close;~z12 = (View(w, Rect((~f12.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+120, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.green; ~z12.background = Color.green;
-		});});
-		if((~f12 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 11) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval12 = ~f12.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l12a.set(\dur, ~f12 = ~freqmap.at(~freqmapval12 = ~freqmapval12.value-1));
-					~l12b.set(\dur, ~f12);
-					~l12c.set(\dur, ~f12/~icd3);
-					~l12d.set(\dur, ~f12/~icd3);
-					~l12e.set(\dur, ~f12/~icd6);
-					~l12f.set(\dur, ~f12/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l12a1.set(\dur, ~f12 = ~freqmap.at(~freqmapval12 = ~freqmapval12.value-1));
-					~l12b1.set(\dur, ~f12);
-					~l12c1.set(\dur, ~f12/~icd3);
-					~l12d1.set(\dur, ~f12/~icd3);
-					~l12e1.set(\dur, ~f12/~icd6);
-					~l12f1.set(\dur, ~f12/~icd6);
-				};
-				if((~f12 > ~outmaxa) or: (~f12 < ~outmina), {~z36.close;~z12.close;~z36 = (View(w, Rect((~f12.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+120, ~nw, 2)).background = Color.white;);}, {~z12.close;~z36.close;~z12 = (View(w, Rect((~f12.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+120, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.green; ~z12.background = Color.green;
-		});});
-
-
-
 	};
 
 
@@ -5304,7 +3256,6 @@ s.waitForBoot({
 				st8=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtime8);
 				stall=NumberBox(~rview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~rtimeall);
 
-
 				~si1a.action_({~si1aset.value});
 				~si1b.action_({~si1bset.value});
 				~si2.action_({~si2set.value});
@@ -5443,10 +3394,9 @@ s.waitForBoot({
 		"cpu: "+s.avgCPU.asString+"%"++"\n" ++
 		"ugens: "+s.numUGens.asString++"\n" ++
 		"synths: "+s.numSynths.asString++"\n" ++
-		/*"f1 = "++~f1.round(0.01)++", f2 = "++~f2.round(0.01)++", f3 = "++~f3.round(0.01)++", f4 = "++~f4.round(0.01)++", f5 = "++~f5.round(0.01)++", f6 = "++~f6.round(0.01)++","++
-		"f7 = "++~f7.round(0.01)++", f8 = "++~f8.round(0.01)++", f9 = "++~f9.round(0.01)++", f10 = "++~f10.round(0.01)++", f11 = "++~f11.round(0.01)++", f12 = "++~f12.round(0.01);
-		*/		~f1.round(0.01)++", "++~f2.round(0.01)++", "++~f3.round(0.01)++", "++~f4.round(0.01)++", "++~f5.round(0.01)++", "++~f6.round(0.01)++", "++~f7.round(0.01)++", "++~f8.round(0.01)++", "++~f9.round(0.01)++", "++~f10.round(0.01)++", "++~f11.round(0.01)++", "++~f12.round(0.01);
-		/*[ ~f1.round(0.01), ~f2.round(0.01), ~f3.round(0.01),~f4.round(0.01),~f5.round(0.01),~f6.round(0.01),~f7.round(0.01),~f8.round(0.01),~f9.round(0.01),~f10.round(0.01),~f11.round(0.01),~f12.round(0.01) ].asString;
+		/*"f1 = "++~f1.round(0.01)++", f2 = "++~f2.round(0.01)++", f3 = "++~f3.round(0.01)++", f4 = "++~f4.round(0.01)++", f5 = "++~f5.round(0.01)++", f6 = "++~f6.round(0.01)++","++"f7 = "++~f7.round(0.01)++", f8 = "++~f8.round(0.01);
+		*/		~f1.round(0.01)++", "++~f2.round(0.01)++", "++~f3.round(0.01);
+		/*[ ~f1.round(0.01), ~f2.round(0.01), ~f3.round(0.01),~f4.round(0.01),~f5.round(0.01),~f6.round(0.01),~f7.round(0.01),~f8.round(0.01) ].asString;
 		*/	~cpumonitor.font = Font(size: 14);
 	};
 
@@ -5491,14 +3441,14 @@ s.waitForBoot({
 				"     automate: setting for automated mid-timewave sequence events. press set to load."++"\n"++"\n"++
 				"s1-s8: set/save note positions"++"\n"++"\n"++
 				"g1-g8: groups of saved note positions"++"\n"++"\n"++
-				"uc-u8: undo changes to set note positions. press set to load."++"\n"++"\n"++
+				"uc-u8: undo changes to set note positions. press set to load"++"\n"++"\n"++
 				"rc, /rc: start recording/stop recording"++"\n"++"\n"++
 				"prc: pause recording"++"\n"++"\n"++
 				"o1-o8: play set/saved note positions by opening a new synth set"++"\n"++"\n"++
 				"f1-f8: flow transition to set/saved note positions"++"\n"++"\n"++
 				"s1-s8: slide transition to set/saved note positions"++"\n"++"\n"++
 				"m/u: mute/unmute all"++"\n"++"\n"++
-				"1-12: mute or unmute individual synth"++"\n"++"\n"++
+				"1-3: mute or unmute individual synth"++"\n"++"\n"++
 				"cm: cpu percentage/number of ugens/number of synths display"++"\n"++"\n"++
 				"rw: random western scale"++"\n"++"\n"++
 				"re: random eastern scale"++"\n"++"\n"++
@@ -5513,7 +3463,7 @@ s.waitForBoot({
 				"ctrl-period/cmd-period: stop synth/free server"++"\n"++"\n"++
 				"left/right arrow(or J and L): move down/up note"++"\n"++"\n"++
 				"up/down arrow(or I and K): change synth for left/right arrow note function"++"\n"++"\n"++
-				"#1-= on keyboard: choose synth for left/right arrow note function"++"\n"++"\n"++
+				"#1-3 on keyboard: choose synth for left/right arrow note function"++"\n"++"\n"++
 				"r: routine/loop function - rslot for synth set, rtime for time between transitions"++"\n"++"\n"++
 				"m: mute/unmute all"++"\n"++"\n"++
 				"c: copy function"++"\n"++"\n"++
@@ -5532,7 +3482,7 @@ s.waitForBoot({
 	~randombutton1 = Button.new(w,Rect(Window.screenBounds.width-20-20-20-20,~bpt+69+5-(20/~gm),20,20/1.6180339887499)).states_([["rw",Color.white,Color.black]]).action_({arg button;
 
 		if((~l1a.isRunning == true) or: (~l1a1.isRunning == true), {
-			12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~freqmap.at(rrand(36, 91));)});
+			8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~freqmap.at(rrand(36, 91));)});
 			~synthflow.value;
 		});
 	});
@@ -5543,7 +3493,7 @@ s.waitForBoot({
 	~randombutton2 = Button.new(w,Rect(Window.screenBounds.width-20-20-20,~bpt+69+5-(20/~gm),20,20/1.6180339887499)).states_([["re",Color.white,Color.black]]).action_({arg button;
 
 		if((~l1a.isRunning == true) or: (~l1a1.isRunning == true), {
-			12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut((~freqmap.at(127)/8).rand;)});
+			8.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut((~freqmap.at(127)/8).rand;)});
 			~synthflow.value;
 		});
 	});
@@ -5947,7 +3897,7 @@ s.waitForBoot({
 
 	//pause record button
 
-	~pauserecord = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+28+39,Window.screenBounds.height-52+19.777087639995,28,28/1.6180339887499)).states_([["prc",Color.white,Color.black],["/prc",Color.black,Color.blue]]).action_({arg button; if(button == 1, {s.pauseRecording;}, {s.record});});
+	~pauserecord = Button.new(w,Rect(Window.screenBounds.width-(Window.screenBounds.width/3)+28+39,Window.screenBounds.height-52+19.777087639995,28,28/1.6180339887499)).states_([["prc",Color.white,Color.black],["/prc",Color.black,Color.blue]]).action_({arg button; if(button == 1, {Server.default.pauseRecording;}, {Server.default.record});});
 
 
 	//minimize GUI window button
