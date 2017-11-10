@@ -43,7 +43,9 @@ s.waitForBoot({
 
 	//timewave starting base (lowest) frequency
 
-	~base_frequency = ~freqmap.at(38); //default 38 (72.081352125182 hz), replace "~freqmap.at(#)" for custom value
+	x = 432; y = 432; ~basefreqmap = Array.fill(32, {x=x/1.0835058821738}).reverse++[432]++Array.fill(25, {y=y*1.0835058821738}); //create basefreqmap array
+
+	~base_frequency = ~basefreqmap.at(8); //default 8 (63.027950580203). replace "~basefreqmap.at(#)" for custom value.
 
 
 	//starting synthdef setting
@@ -60,7 +62,7 @@ s.waitForBoot({
 
 	if(~low_pass_filter_on == nil, {~low_pass_filter_on = 1}); //set starting low-pass filter on/off. 1 means on - switch to 0 for off.
 
-	if(~low_pass_filter_set_value == nil, {~low_pass_filter_freq_limit = 2100; //frequency limit for low-pass filter in synthdefs. default is 2100.
+	if(~low_pass_filter_set_value == nil, {~low_pass_filter_freq_limit = 1728; //frequency limit for low-pass filter in synthdefs. default is 1728.
 	});
 
 
@@ -2313,7 +2315,7 @@ s.waitForBoot({
 				//pop-menu for timewave base (lowest) frequency
 
 				~bfreqstart = ~basefreq;
-				~bfreq = PopUpMenu(~settingsview, Rect(lefttimebox , top=top+heightbox+5, widthbox, heightbox)).items_(~bfreqv = (-1); [~basefreq.asString]++Array.fill(140, {~freqmap.at(~bfreqv=~bfreqv+1).asString})).background_(Color.black).stringColor_(Color.white).action_({arg button;
+				~bfreq = PopUpMenu(~settingsview, Rect(lefttimebox , top=top+heightbox+5, widthbox, heightbox)).items_(~bfreqv = (-1); [~basefreq.asString]++Array.fill(140, {~basefreqmap.at(~bfreqv=~bfreqv+1).asString})).background_(Color.black).stringColor_(Color.white).action_({arg button;
 
 					if(~st != nil, {~st.close});
 					~st = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
@@ -2416,7 +2418,7 @@ s.waitForBoot({
 
 				~set1=Button(~settingsview,Rect(lefttimebox+widthbox-60, top=top+height+20, 60, 60/~gm)).states_([["set",Color.white,Color.black]]).mouseDownAction_({
 
-					if(~bfreq.value > 0, {~basefreq = ~freqmap.at(~bfreq.value - 1)}, {~basefreq = ~bfreqstart});
+					if(~bfreq.value > 0, {~basefreq = ~basefreqmap.at(~bfreq.value - 1)}, {~basefreq = ~bfreqstart});
 
 					(#a,b,c,d,e,f =	[ ~basefreq,~basefreq,~basefreq,~basefreq,~basefreq,~basefreq  ]; ~a = a; ~b = b; ~c =c; ~d = d; ~e = e;~f=f;);
 
@@ -2471,11 +2473,10 @@ s.waitForBoot({
 					{~menu2.value == 23}{~gsinenum = 23; ~gsine.value;}
 					{~menu2.value == 24}{~gsinenum = 24; ~gsine.value;};
 
-					if(~st != nil, {~st.close});
-					~st = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
-					~st.stringColor = Color.white;
-					~st.string = "loaded.";
-					AppClock.sched(~gm,{~st.close;});
+					~st_load = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
+					~st_load.stringColor = Color.white;
+					~st_load.string = "loaded.";
+					AppClock.sched(~gm,{if(~st != nil, {~st.close}); ~st_load.close;});
 
 				});
 
@@ -5487,7 +5488,7 @@ s.waitForBoot({
 				"     KWS number: change number of kw(King Wen) sequences in a timewave half-cycle (or amplitude x2). press set to load."++"\n"++"\n"++
 				"     base(lowest) freq(hz): set the base(lowest) frequency of timewave cycle. press set to load."++"\n"++"\n"++
 				"     synthdef type: psine1-psine3 (based on phi, with low-pass filter), hsine1-hsine3 (based on 19.47:360, with low-pass filter), psineuf1-psineuf3 (based on phi, without low-pass filter),"++"\n"++"     hsineuf1-hsineuf3 (based on 19.47:360, without low-pass filter) - set synthdef type. press set to load."++"\n"++"\n"++
-				"     lp filter limit(hz): change the low-pass filter frequency limit. default is 2100. press set to load."++"\n"++"\n"++
+				"     lp filter limit(hz): change the low-pass filter frequency limit. default is 1728. press set to load."++"\n"++"\n"++
 				"     automate: setting for automated mid-timewave sequence events. press set to load."++"\n"++"\n"++
 				"s1-s8: set/save note positions"++"\n"++"\n"++
 				"g1-g8: groups of saved note positions"++"\n"++"\n"++
