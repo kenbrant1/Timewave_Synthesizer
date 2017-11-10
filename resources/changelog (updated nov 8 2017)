@@ -1,12 +1,12 @@
 Timewave synth changelog
 
 
-11/08/2017 (USA time) - Added feature in synthdefs for mid-timewave sequence events such as randomization of frequencies during run-time. Also added invdividual frequency editor, and changed GUI layout for the added functions.
+Nov. 08 2017 - Added feature in synthdefs for mid-timewave sequence events such as randomization of frequencies during run-time. Also added invdividual frequency editor, and changed GUI layout for the added functions.
 
-11/01/2017 (USA time) - Enabled edit saved and starting chords/frequencies.
+Nov. 01 2017 - Enabled edit saved and starting chords/frequencies.
 
-10/31/2017 (USA time) - Fixed bugs with starting synthdef. Added new low-pass filter input into the GUI.
+Oct. 31 2017 - Fixed bugs with starting synthdef. Added new low-pass filter input into the GUI.
 
-10/29/2017 (USA time) - Reduced code space for synthdefs. Reduced file size while maintianing existing program functions and adding some inputs in code.
+Oct. 29 2017 - Reduced code space for synthdefs. Reduced file size while maintianing existing program functions and adding some inputs in code.
 
-10/28/2017 (USA time) - Added new synthdef settings with step ratios based on 19.47 : 360. Also added options for low-pass filters in synthdefs.
+Oct. 28 2017 - Added new synthdef settings with step ratios based on 19.47 : 360. Also added options for low-pass filters in synthdefs.
