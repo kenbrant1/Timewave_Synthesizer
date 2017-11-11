@@ -43,9 +43,9 @@ s.waitForBoot({
 
 	//timewave starting base (lowest) frequency
 
-	x = 432; y = 432; ~basefreqmap = Array.fill(32, {x=x/1.0835058821738}).reverse++[432]++Array.fill(25, {y=y*1.0835058821738}); //create basefreqmap array
+	x = 432; y = 63.027950580135; z = 63.027950580135; ~basefreqmap = Array.fill(8, {z=z/1.0835058821738}).reverse++[63.027950580135]++Array.fill(23, {y=y*1.0835058821738})++[432]++Array.fill(25, {x=x*1.0835058821738}); //create basefreqmap array
 
-	~base_frequency = ~basefreqmap.at(8); //default 8 (63.027950580203). replace "~basefreqmap.at(#)" for custom value.
+	~base_frequency = ~basefreqmap.at(8); //default 8 (63.027950580135). replace "~basefreqmap.at(#)" for custom value.
 
 
 	//starting synthdef setting
