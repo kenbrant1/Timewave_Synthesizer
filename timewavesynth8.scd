@@ -12,7 +12,7 @@
 
 //This synth is compatible with the Korg NanoKontrol 2
 
-s.options.memSize = 2097152/4;
+s.options.memSize = 2097152/2;
 MIDIIn.connectAll;
 
 (
@@ -43,9 +43,9 @@ s.waitForBoot({
 
 	//timewave starting base (lowest) frequency
 
-	x = 432; y = 63.027950580135; z = 63.027950580135; ~basefreqmap = Array.fill(8, {z=z/1.0835058821738}).reverse++[63.027950580135]++Array.fill(23, {y=y*1.0835058821738})++[432]++Array.fill(25, {x=x*1.0835058821738}); //create basefreqmap array
+	x = 432; y = 432; ~basefreqmap = Array.fill(32, {x=x/1.0835058821738}).reverse++[432]++Array.fill(25, {y=y*1.0835058821738}); //create basefreqmap array
 
-	~base_frequency = ~basefreqmap.at(8); //default 8 (63.027950580135). replace "~basefreqmap.at(#)" for custom value.
+	~base_frequency = ~basefreqmap.at(8); //default 8 (63.027950580203). replace "~basefreqmap.at(#)" for custom value.
 
 
 	//starting synthdef setting
@@ -69,6 +69,8 @@ s.waitForBoot({
 	//default sendreply toggle
 
 	if(~sendreplysynthdef_on == nil, {~sendreplysynthdef_on = 0; //switch for mid-timewave sequence events. 0 is off, 1 is on. default is 0
+	});
+	if(~sendreplyfunc_choose == nil, {~sendreplyfunc_choose = 0; //switch for specific mid-timewave sequence events function. default is 0
 	});
 	if(~sendreplyfuncswitch == nil, {~sendreplyfuncswitch = 1; //1 is random western scale note change per timewave half-cycle, 2 is eastern scale. default is 1
 	});
@@ -280,71 +282,15 @@ s.waitForBoot({
 	12.do(x = 0; {("u"++(x=x+1)++"g").asSymbol.envirPut([~fp1g,~fp2g,~fp3g,~fp4g,~fp5g,~fp6g,~fp7g,~fp8g,~fp9g,~fp10g,~fp11g,~fp12g].at(x-1))});
 	12.do(x = 0; {("u"++(x=x+1)++"h").asSymbol.envirPut([~fp1h,~fp2h,~fp3h,~fp4h,~fp5h,~fp6h,~fp7h,~fp8h,~fp9h,~fp10h,~fp11h,~fp12h].at(x-1))});
 
-	if([~sg1a1,~sg1a2,~sg1a3,~sg1a4,~sg1a5,~sg1a6,~sg1a7,~sg1a8,~sg1a9,~sg1a10,~sg1a11,~sg1a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1a1=~f1,~sg1a2=~f2,~sg1a3=~f3,~sg1a4=~f4,~sg1a5=~f5,~sg1a6=~f6,~sg1a7=~f7,~sg1a8=~f8];});
-	if([~sg1b1,~sg1b2,~sg1b3,~sg1b4,~sg1b5,~sg1b6,~sg1b7,~sg1b8,~sg1b9,~sg1b10,~sg1b11,~sg1b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1b1=~f1,~sg1b2=~f2,~sg1b3=~f3,~sg1b4=~f4,~sg1b5=~f5,~sg1b6=~f6,~sg1b7=~f7,~sg1b8=~f8];});
-	if([~sg1c1,~sg1c2,~sg1c3,~sg1c4,~sg1c5,~sg1c6,~sg1c7,~sg1c8,~sg1c9,~sg1c10,~sg1c11,~sg1c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1c1=~f1,~sg1c2=~f2,~sg1c3=~f3,~sg1c4=~f4,~sg1c5=~f5,~sg1c6=~f6,~sg1c7=~f7,~sg1c8=~f8];});
-	if([~sg1d1,~sg1d2,~sg1d3,~sg1d4,~sg1d5,~sg1d6,~sg1d7,~sg1d8,~sg1d9,~sg1d10,~sg1d11,~sg1d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1d1=~f1,~sg1d2=~f2,~sg1d3=~f3,~sg1d4=~f4,~sg1d5=~f5,~sg1d6=~f6,~sg1d7=~f7,~sg1d8=~f8];});
-	if([~sg1e1,~sg1e2,~sg1e3,~sg1e4,~sg1e5,~sg1e6,~sg1e7,~sg1e8,~sg1e9,~sg1e10,~sg1e11,~sg1e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1e1=~f1,~sg1e2=~f2,~sg1e3=~f3,~sg1e4=~f4,~sg1e5=~f5,~sg1e6=~f6,~sg1e7=~f7,~sg1e8=~f8];});
-	if([~sg1f1,~sg1f2,~sg1f3,~sg1f4,~sg1f5,~sg1f6,~sg1f7,~sg1f8,~sg1f9,~sg1f10,~sg1f11,~sg1f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1f1=~f1,~sg1f2=~f2,~sg1f3=~f3,~sg1f4=~f4,~sg1f5=~f5,~sg1f6=~f6,~sg1f7=~f7,~sg1f8=~f8];});
-	if([~sg1g1,~sg1g2,~sg1g3,~sg1g4,~sg1g5,~sg1g6,~sg1g7,~sg1g8,~sg1g9,~sg1g10,~sg1g11,~sg1g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1g1=~f1,~sg1g2=~f2,~sg1g3=~f3,~sg1g4=~f4,~sg1g5=~f5,~sg1g6=~f6,~sg1g7=~f7,~sg1g8=~f8];});
-	if([~sg1h1,~sg1h2,~sg1h3,~sg1h4,~sg1h5,~sg1h6,~sg1h7,~sg1h8,~sg1h9,~sg1h10,~sg1h11,~sg1h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg1h1=~f1,~sg1h2=~f2,~sg1h3=~f3,~sg1h4=~f4,~sg1h5=~f5,~sg1h6=~f6,~sg1h7=~f7,~sg1h8=~f8];});
-	if([~sg2a1,~sg2a2,~sg2a3,~sg2a4,~sg2a5,~sg2a6,~sg2a7,~sg2a8,~sg2a9,~sg2a10,~sg2a11,~sg2a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2a1=~f1,~sg2a2=~f2,~sg2a3=~f3,~sg2a4=~f4,~sg2a5=~f5,~sg2a6=~f6,~sg2a7=~f7,~sg2a8=~f8];});
-	if([~sg2b1,~sg2b2,~sg2b3,~sg2b4,~sg2b5,~sg2b6,~sg2b7,~sg2b8,~sg2b9,~sg2b10,~sg2b11,~sg2b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2b1=~f1,~sg2b2=~f2,~sg2b3=~f3,~sg2b4=~f4,~sg2b5=~f5,~sg2b6=~f6,~sg2b7=~f7,~sg2b8=~f8];});
-	if([~sg2c1,~sg2c2,~sg2c3,~sg2c4,~sg2c5,~sg2c6,~sg2c7,~sg2c8,~sg2c9,~sg2c10,~sg2c11,~sg2c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2c1=~f1,~sg2c2=~f2,~sg2c3=~f3,~sg2c4=~f4,~sg2c5=~f5,~sg2c6=~f6,~sg2c7=~f7,~sg2c8=~f8];});
-	if([~sg2d1,~sg2d2,~sg2d3,~sg2d4,~sg2d5,~sg2d6,~sg2d7,~sg2d8,~sg2d9,~sg2d10,~sg2d11,~sg2d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2d1=~f1,~sg2d2=~f2,~sg2d3=~f3,~sg2d4=~f4,~sg2d5=~f5,~sg2d6=~f6,~sg2d7=~f7,~sg2d8=~f8];});
-	if([~sg2e1,~sg2e2,~sg2e3,~sg2e4,~sg2e5,~sg2e6,~sg2e7,~sg2e8,~sg2e9,~sg2e10,~sg2e11,~sg2e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2e1=~f1,~sg2e2=~f2,~sg2e3=~f3,~sg2e4=~f4,~sg2e5=~f5,~sg2e6=~f6,~sg2e7=~f7,~sg2e8=~f8];});
-	if([~sg2f1,~sg2f2,~sg2f3,~sg2f4,~sg2f5,~sg2f6,~sg2f7,~sg2f8,~sg2f9,~sg2f10,~sg2f11,~sg2f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2f1=~f1,~sg2f2=~f2,~sg2f3=~f3,~sg2f4=~f4,~sg2f5=~f5,~sg2f6=~f6,~sg2f7=~f7,~sg2f8=~f8];});
-	if([~sg2g1,~sg2g2,~sg2g3,~sg2g4,~sg2g5,~sg2g6,~sg2g7,~sg2g8,~sg2g9,~sg2g10,~sg2g11,~sg2g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2g1=~f1,~sg2g2=~f2,~sg2g3=~f3,~sg2g4=~f4,~sg2g5=~f5,~sg2g6=~f6,~sg2g7=~f7,~sg2g8=~f8];});
-	if([~sg2h1,~sg2h2,~sg2h3,~sg2h4,~sg2h5,~sg2h6,~sg2h7,~sg2h8,~sg2h9,~sg2h10,~sg2h11,~sg2h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg2h1=~f1,~sg2h2=~f2,~sg2h3=~f3,~sg2h4=~f4,~sg2h5=~f5,~sg2h6=~f6,~sg2h7=~f7,~sg2h8=~f8];});
-	if([~sg3a1,~sg3a2,~sg3a3,~sg3a4,~sg3a5,~sg3a6,~sg3a7,~sg3a8,~sg3a9,~sg3a10,~sg3a11,~sg3a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3a1=~f1,~sg3a2=~f2,~sg3a3=~f3,~sg3a4=~f4,~sg3a5=~f5,~sg3a6=~f6,~sg3a7=~f7,~sg3a8=~f8];});
-	if([~sg3b1,~sg3b2,~sg3b3,~sg3b4,~sg3b5,~sg3b6,~sg3b7,~sg3b8,~sg3b9,~sg3b10,~sg3b11,~sg3b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3b1=~f1,~sg3b2=~f2,~sg3b3=~f3,~sg3b4=~f4,~sg3b5=~f5,~sg3b6=~f6,~sg3b7=~f7,~sg3b8=~f8];});
-	if([~sg3c1,~sg3c2,~sg3c3,~sg3c4,~sg3c5,~sg3c6,~sg3c7,~sg3c8,~sg3c9,~sg3c10,~sg3c11,~sg3c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3c1=~f1,~sg3c2=~f2,~sg3c3=~f3,~sg3c4=~f4,~sg3c5=~f5,~sg3c6=~f6,~sg3c7=~f7,~sg3c8=~f8];});
-	if([~sg3d1,~sg3d2,~sg3d3,~sg3d4,~sg3d5,~sg3d6,~sg3d7,~sg3d8,~sg3d9,~sg3d10,~sg3d11,~sg3d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3d1=~f1,~sg3d2=~f2,~sg3d3=~f3,~sg3d4=~f4,~sg3d5=~f5,~sg3d6=~f6,~sg3d7=~f7,~sg3d8=~f8];});
-	if([~sg3e1,~sg3e2,~sg3e3,~sg3e4,~sg3e5,~sg3e6,~sg3e7,~sg3e8,~sg3e9,~sg3e10,~sg3e11,~sg3e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3e1=~f1,~sg3e2=~f2,~sg3e3=~f3,~sg3e4=~f4,~sg3e5=~f5,~sg3e6=~f6,~sg3e7=~f7,~sg3e8=~f8];});
-	if([~sg3f1,~sg3f2,~sg3f3,~sg3f4,~sg3f5,~sg3f6,~sg3f7,~sg3f8,~sg3f9,~sg3f10,~sg3f11,~sg3f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3f1=~f1,~sg3f2=~f2,~sg3f3=~f3,~sg3f4=~f4,~sg3f5=~f5,~sg3f6=~f6,~sg3f7=~f7,~sg3f8=~f8];});
-	if([~sg3g1,~sg3g2,~sg3g3,~sg3g4,~sg3g5,~sg3g6,~sg3g7,~sg3g8,~sg3g9,~sg3g10,~sg3g11,~sg3g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3g1=~f1,~sg3g2=~f2,~sg3g3=~f3,~sg3g4=~f4,~sg3g5=~f5,~sg3g6=~f6,~sg3g7=~f7,~sg3g8=~f8];});
-	if([~sg3h1,~sg3h2,~sg3h3,~sg3h4,~sg3h5,~sg3h6,~sg3h7,~sg3h8,~sg3h9,~sg3h10,~sg3h11,~sg3h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg3h1=~f1,~sg3h2=~f2,~sg3h3=~f3,~sg3h4=~f4,~sg3h5=~f5,~sg3h6=~f6,~sg3h7=~f7,~sg3h8=~f8];});
-	if([~sg4a1,~sg4a2,~sg4a3,~sg4a4,~sg4a5,~sg4a6,~sg4a7,~sg4a8,~sg4a9,~sg4a10,~sg4a11,~sg4a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4a1=~f1,~sg4a2=~f2,~sg4a3=~f3,~sg4a4=~f4,~sg4a5=~f5,~sg4a6=~f6,~sg4a7=~f7,~sg4a8=~f8];});
-	if([~sg4b1,~sg4b2,~sg4b3,~sg4b4,~sg4b5,~sg4b6,~sg4b7,~sg4b8,~sg4b9,~sg4b10,~sg4b11,~sg4b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4b1=~f1,~sg4b2=~f2,~sg4b3=~f3,~sg4b4=~f4,~sg4b5=~f5,~sg4b6=~f6,~sg4b7=~f7,~sg4b8=~f8];});
-	if([~sg4c1,~sg4c2,~sg4c3,~sg4c4,~sg4c5,~sg4c6,~sg4c7,~sg4c8,~sg4c9,~sg4c10,~sg4c11,~sg4c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4c1=~f1,~sg4c2=~f2,~sg4c3=~f3,~sg4c4=~f4,~sg4c5=~f5,~sg4c6=~f6,~sg4c7=~f7,~sg4c8=~f8];});
-	if([~sg4d1,~sg4d2,~sg4d3,~sg4d4,~sg4d5,~sg4d6,~sg4d7,~sg4d8,~sg4d9,~sg4d10,~sg4d11,~sg4d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4d1=~f1,~sg4d2=~f2,~sg4d3=~f3,~sg4d4=~f4,~sg4d5=~f5,~sg4d6=~f6,~sg4d7=~f7,~sg4d8=~f8];});
-	if([~sg4e1,~sg4e2,~sg4e3,~sg4e4,~sg4e5,~sg4e6,~sg4e7,~sg4e8,~sg4e9,~sg4e10,~sg4e11,~sg4e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4e1=~f1,~sg4e2=~f2,~sg4e3=~f3,~sg4e4=~f4,~sg4e5=~f5,~sg4e6=~f6,~sg4e7=~f7,~sg4e8=~f8];});
-	if([~sg4f1,~sg4f2,~sg4f3,~sg4f4,~sg4f5,~sg4f6,~sg4f7,~sg4f8,~sg4f9,~sg4f10,~sg4f11,~sg4f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4f1=~f1,~sg4f2=~f2,~sg4f3=~f3,~sg4f4=~f4,~sg4f5=~f5,~sg4f6=~f6,~sg4f7=~f7,~sg4f8=~f8];});
-	if([~sg4g1,~sg4g2,~sg4g3,~sg4g4,~sg4g5,~sg4g6,~sg4g7,~sg4g8,~sg4g9,~sg4g10,~sg4g11,~sg4g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4g1=~f1,~sg4g2=~f2,~sg4g3=~f3,~sg4g4=~f4,~sg4g5=~f5,~sg4g6=~f6,~sg4g7=~f7,~sg4g8=~f8];});
-	if([~sg4h1,~sg4h2,~sg4h3,~sg4h4,~sg4h5,~sg4h6,~sg4h7,~sg4h8,~sg4h9,~sg4h10,~sg4h11,~sg4h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg4h1=~f1,~sg4h2=~f2,~sg4h3=~f3,~sg4h4=~f4,~sg4h5=~f5,~sg4h6=~f6,~sg4h7=~f7,~sg4h8=~f8];});
-	if([~sg5a1,~sg5a2,~sg5a3,~sg5a4,~sg5a5,~sg5a6,~sg5a7,~sg5a8,~sg5a9,~sg5a10,~sg5a11,~sg5a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5a1=~f1,~sg5a2=~f2,~sg5a3=~f3,~sg5a4=~f4,~sg5a5=~f5,~sg5a6=~f6,~sg5a7=~f7,~sg5a8=~f8];});
-	if([~sg5b1,~sg5b2,~sg5b3,~sg5b4,~sg5b5,~sg5b6,~sg5b7,~sg5b8,~sg5b9,~sg5b10,~sg5b11,~sg5b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5b1=~f1,~sg5b2=~f2,~sg5b3=~f3,~sg5b4=~f4,~sg5b5=~f5,~sg5b6=~f6,~sg5b7=~f7,~sg5b8=~f8];});
-	if([~sg5c1,~sg5c2,~sg5c3,~sg5c4,~sg5c5,~sg5c6,~sg5c7,~sg5c8,~sg5c9,~sg5c10,~sg5c11,~sg5c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5c1=~f1,~sg5c2=~f2,~sg5c3=~f3,~sg5c4=~f4,~sg5c5=~f5,~sg5c6=~f6,~sg5c7=~f7,~sg5c8=~f8];});
-	if([~sg5d1,~sg5d2,~sg5d3,~sg5d4,~sg5d5,~sg5d6,~sg5d7,~sg5d8,~sg5d9,~sg5d10,~sg5d11,~sg5d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5d1=~f1,~sg5d2=~f2,~sg5d3=~f3,~sg5d4=~f4,~sg5d5=~f5,~sg5d6=~f6,~sg5d7=~f7,~sg5d8=~f8];});
-	if([~sg5e1,~sg5e2,~sg5e3,~sg5e4,~sg5e5,~sg5e6,~sg5e7,~sg5e8,~sg5e9,~sg5e10,~sg5e11,~sg5e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5e1=~f1,~sg5e2=~f2,~sg5e3=~f3,~sg5e4=~f4,~sg5e5=~f5,~sg5e6=~f6,~sg5e7=~f7,~sg5e8=~f8];});
-	if([~sg5f1,~sg5f2,~sg5f3,~sg5f4,~sg5f5,~sg5f6,~sg5f7,~sg5f8,~sg5f9,~sg5f10,~sg5f11,~sg5f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5f1=~f1,~sg5f2=~f2,~sg5f3=~f3,~sg5f4=~f4,~sg5f5=~f5,~sg5f6=~f6,~sg5f7=~f7,~sg5f8=~f8];});
-	if([~sg5g1,~sg5g2,~sg5g3,~sg5g4,~sg5g5,~sg5g6,~sg5g7,~sg5g8,~sg5g9,~sg5g10,~sg5g11,~sg5g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5g1=~f1,~sg5g2=~f2,~sg5g3=~f3,~sg5g4=~f4,~sg5g5=~f5,~sg5g6=~f6,~sg5g7=~f7,~sg5g8=~f8];});
-	if([~sg5h1,~sg5h2,~sg5h3,~sg5h4,~sg5h5,~sg5h6,~sg5h7,~sg5h8,~sg5h9,~sg5h10,~sg5h11,~sg5h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg5h1=~f1,~sg5h2=~f2,~sg5h3=~f3,~sg5h4=~f4,~sg5h5=~f5,~sg5h6=~f6,~sg5h7=~f7,~sg5h8=~f8];});
-	if([~sg6a1,~sg6a2,~sg6a3,~sg6a4,~sg6a5,~sg6a6,~sg6a7,~sg6a8,~sg6a9,~sg6a10,~sg6a11,~sg6a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6a1=~f1,~sg6a2=~f2,~sg6a3=~f3,~sg6a4=~f4,~sg6a5=~f5,~sg6a6=~f6,~sg6a7=~f7,~sg6a8=~f8];});
-	if([~sg6b1,~sg6b2,~sg6b3,~sg6b4,~sg6b5,~sg6b6,~sg6b7,~sg6b8,~sg6b9,~sg6b10,~sg6b11,~sg6b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6b1=~f1,~sg6b2=~f2,~sg6b3=~f3,~sg6b4=~f4,~sg6b5=~f5,~sg6b6=~f6,~sg6b7=~f7,~sg6b8=~f8];});
-	if([~sg6c1,~sg6c2,~sg6c3,~sg6c4,~sg6c5,~sg6c6,~sg6c7,~sg6c8,~sg6c9,~sg6c10,~sg6c11,~sg6c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6c1=~f1,~sg6c2=~f2,~sg6c3=~f3,~sg6c4=~f4,~sg6c5=~f5,~sg6c6=~f6,~sg6c7=~f7,~sg6c8=~f8];});
-	if([~sg6d1,~sg6d2,~sg6d3,~sg6d4,~sg6d5,~sg6d6,~sg6d7,~sg6d8,~sg6d9,~sg6d10,~sg6d11,~sg6d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6d1=~f1,~sg6d2=~f2,~sg6d3=~f3,~sg6d4=~f4,~sg6d5=~f5,~sg6d6=~f6,~sg6d7=~f7,~sg6d8=~f8];});
-	if([~sg6e1,~sg6e2,~sg6e3,~sg6e4,~sg6e5,~sg6e6,~sg6e7,~sg6e8,~sg6e9,~sg6e10,~sg6e11,~sg6e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6e1=~f1,~sg6e2=~f2,~sg6e3=~f3,~sg6e4=~f4,~sg6e5=~f5,~sg6e6=~f6,~sg6e7=~f7,~sg6e8=~f8];});
-	if([~sg6f1,~sg6f2,~sg6f3,~sg6f4,~sg6f5,~sg6f6,~sg6f7,~sg6f8,~sg6f9,~sg6f10,~sg6f11,~sg6f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6f1=~f1,~sg6f2=~f2,~sg6f3=~f3,~sg6f4=~f4,~sg6f5=~f5,~sg6f6=~f6,~sg6f7=~f7,~sg6f8=~f8];});
-	if([~sg6g1,~sg6g2,~sg6g3,~sg6g4,~sg6g5,~sg6g6,~sg6g7,~sg6g8,~sg6g9,~sg6g10,~sg6g11,~sg6g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6g1=~f1,~sg6g2=~f2,~sg6g3=~f3,~sg6g4=~f4,~sg6g5=~f5,~sg6g6=~f6,~sg6g7=~f7,~sg6g8=~f8];});
-	if([~sg6h1,~sg6h2,~sg6h3,~sg6h4,~sg6h5,~sg6h6,~sg6h7,~sg6h8,~sg6h9,~sg6h10,~sg6h11,~sg6h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg6h1=~f1,~sg6h2=~f2,~sg6h3=~f3,~sg6h4=~f4,~sg6h5=~f5,~sg6h6=~f6,~sg6h7=~f7,~sg6h8=~f8];});
-	if([~sg7a1,~sg7a2,~sg7a3,~sg7a4,~sg7a5,~sg7a6,~sg7a7,~sg7a8,~sg7a9,~sg7a10,~sg7a11,~sg7a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7a1=~f1,~sg7a2=~f2,~sg7a3=~f3,~sg7a4=~f4,~sg7a5=~f5,~sg7a6=~f6,~sg7a7=~f7,~sg7a8=~f8];});
-	if([~sg7b1,~sg7b2,~sg7b3,~sg7b4,~sg7b5,~sg7b6,~sg7b7,~sg7b8,~sg7b9,~sg7b10,~sg7b11,~sg7b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7b1=~f1,~sg7b2=~f2,~sg7b3=~f3,~sg7b4=~f4,~sg7b5=~f5,~sg7b6=~f6,~sg7b7=~f7,~sg7b8=~f8];});
-	if([~sg7c1,~sg7c2,~sg7c3,~sg7c4,~sg7c5,~sg7c6,~sg7c7,~sg7c8,~sg7c9,~sg7c10,~sg7c11,~sg7c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7c1=~f1,~sg7c2=~f2,~sg7c3=~f3,~sg7c4=~f4,~sg7c5=~f5,~sg7c6=~f6,~sg7c7=~f7,~sg7c8=~f8];});
-	if([~sg7d1,~sg7d2,~sg7d3,~sg7d4,~sg7d5,~sg7d6,~sg7d7,~sg7d8,~sg7d9,~sg7d10,~sg7d11,~sg7d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7d1=~f1,~sg7d2=~f2,~sg7d3=~f3,~sg7d4=~f4,~sg7d5=~f5,~sg7d6=~f6,~sg7d7=~f7,~sg7d8=~f8];});
-	if([~sg7e1,~sg7e2,~sg7e3,~sg7e4,~sg7e5,~sg7e6,~sg7e7,~sg7e8,~sg7e9,~sg7e10,~sg7e11,~sg7e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7e1=~f1,~sg7e2=~f2,~sg7e3=~f3,~sg7e4=~f4,~sg7e5=~f5,~sg7e6=~f6,~sg7e7=~f7,~sg7e8=~f8];});
-	if([~sg7f1,~sg7f2,~sg7f3,~sg7f4,~sg7f5,~sg7f6,~sg7f7,~sg7f8,~sg7f9,~sg7f10,~sg7f11,~sg7f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7f1=~f1,~sg7f2=~f2,~sg7f3=~f3,~sg7f4=~f4,~sg7f5=~f5,~sg7f6=~f6,~sg7f7=~f7,~sg7f8=~f8];});
-	if([~sg7g1,~sg7g2,~sg7g3,~sg7g4,~sg7g5,~sg7g6,~sg7g7,~sg7g8,~sg7g9,~sg7g10,~sg7g11,~sg7g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7g1=~f1,~sg7g2=~f2,~sg7g3=~f3,~sg7g4=~f4,~sg7g5=~f5,~sg7g6=~f6,~sg7g7=~f7,~sg7g8=~f8];});
-	if([~sg7h1,~sg7h2,~sg7h3,~sg7h4,~sg7h5,~sg7h6,~sg7h7,~sg7h8,~sg7h9,~sg7h10,~sg7h11,~sg7h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg7h1=~f1,~sg7h2=~f2,~sg7h3=~f3,~sg7h4=~f4,~sg7h5=~f5,~sg7h6=~f6,~sg7h7=~f7,~sg7h8=~f8];});
-	if([~sg8a1,~sg8a2,~sg8a3,~sg8a4,~sg8a5,~sg8a6,~sg8a7,~sg8a8,~sg8a9,~sg8a10,~sg8a11,~sg8a12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8a1=~f1,~sg8a2=~f2,~sg8a3=~f3,~sg8a4=~f4,~sg8a5=~f5,~sg8a6=~f6,~sg8a7=~f7,~sg8a8=~f8];});
-	if([~sg8b1,~sg8b2,~sg8b3,~sg8b4,~sg8b5,~sg8b6,~sg8b7,~sg8b8,~sg8b9,~sg8b10,~sg8b11,~sg8b12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8b1=~f1,~sg8b2=~f2,~sg8b3=~f3,~sg8b4=~f4,~sg8b5=~f5,~sg8b6=~f6,~sg8b7=~f7,~sg8b8=~f8];});
-	if([~sg8c1,~sg8c2,~sg8c3,~sg8c4,~sg8c5,~sg8c6,~sg8c7,~sg8c8,~sg8c9,~sg8c10,~sg8c11,~sg8c12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8c1=~f1,~sg8c2=~f2,~sg8c3=~f3,~sg8c4=~f4,~sg8c5=~f5,~sg8c6=~f6,~sg8c7=~f7,~sg8c8=~f8];});
-	if([~sg8d1,~sg8d2,~sg8d3,~sg8d4,~sg8d5,~sg8d6,~sg8d7,~sg8d8,~sg8d9,~sg8d10,~sg8d11,~sg8d12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8d1=~f1,~sg8d2=~f2,~sg8d3=~f3,~sg8d4=~f4,~sg8d5=~f5,~sg8d6=~f6,~sg8d7=~f7,~sg8d8=~f8];});
-	if([~sg8e1,~sg8e2,~sg8e3,~sg8e4,~sg8e5,~sg8e6,~sg8e7,~sg8e8,~sg8e9,~sg8e10,~sg8e11,~sg8e12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8e1=~f1,~sg8e2=~f2,~sg8e3=~f3,~sg8e4=~f4,~sg8e5=~f5,~sg8e6=~f6,~sg8e7=~f7,~sg8e8=~f8];});
-	if([~sg8f1,~sg8f2,~sg8f3,~sg8f4,~sg8f5,~sg8f6,~sg8f7,~sg8f8,~sg8f9,~sg8f10,~sg8f11,~sg8f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8f1=~f1,~sg8f2=~f2,~sg8f3=~f3,~sg8f4=~f4,~sg8f5=~f5,~sg8f6=~f6,~sg8f7=~f7,~sg8f8=~f8];});
-	if([~sg8g1,~sg8g2,~sg8g3,~sg8g4,~sg8g5,~sg8g6,~sg8g7,~sg8g8,~sg8g9,~sg8g10,~sg8g11,~sg8g12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8g1=~f1,~sg8g2=~f2,~sg8g3=~f3,~sg8g4=~f4,~sg8g5=~f5,~sg8g6=~f6,~sg8g7=~f7,~sg8g8=~f8];});
-	if([~sg8h1,~sg8h2,~sg8h3,~sg8h4,~sg8h5,~sg8h6,~sg8h7,~sg8h8,~sg8h9,~sg8h10,~sg8h11,~sg8h12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], {[~sg8h1=~f1,~sg8h2=~f2,~sg8h3=~f3,~sg8h4=~f4,~sg8h5=~f5,~sg8h6=~f6,~sg8h7=~f7,~sg8h8=~f8];});
-
+	/*if(96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"a"++(z=z+1)).asSymbol.envirGet; if(z>=12, {x= x+1; y = 0; z = 0;});}).collect.every({arg item; item == nil;}), {96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"a"++(z=z+1)).asSymbol.envirPut([~fp1,~fp2,~fp3,~fp4,~fp5,~fp6,~fp7,~fp8,~fp9,~fp10,~fp11,~fp12].at(y=y+1)); if(z>=12, {x= x+1; y = 0; z = 0;});});});
+	if(96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"b"++(z=z+1)).asSymbol.envirGet; if(z>=12, {x= x+1; y = 0; z = 0;});}).collect.every({arg item; item == nil;}), {96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"a"++(z=z+1)).asSymbol.envirPut([~fp1,~fp2,~fp3,~fp4,~fp5,~fp6,~fp7,~fp8,~fp9,~fp10,~fp11,~fp12].at(y=y+1)); if(z>=12, {x= x+1; y = 0; z = 0;});});});
+	if(96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"c"++(z=z+1)).asSymbol.envirGet; if(z>=12, {x= x+1; y = 0; z = 0;});}).collect.every({arg item; item == nil;}), {96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"a"++(z=z+1)).asSymbol.envirPut([~fp1,~fp2,~fp3,~fp4,~fp5,~fp6,~fp7,~fp8,~fp9,~fp10,~fp11,~fp12].at(y=y+1)); if(z>=12, {x= x+1; y = 0; z = 0;});});});
+	if(96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"d"++(z=z+1)).asSymbol.envirGet; if(z>=12, {x= x+1; y = 0; z = 0;});}).collect.every({arg item; item == nil;}), {96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"a"++(z=z+1)).asSymbol.envirPut([~fp1,~fp2,~fp3,~fp4,~fp5,~fp6,~fp7,~fp8,~fp9,~fp10,~fp11,~fp12].at(y=y+1)); if(z>=12, {x= x+1; y = 0; z = 0;});});});
+	if(96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"e"++(z=z+1)).asSymbol.envirGet; if(z>=12, {x= x+1; y = 0; z = 0;});}).collect.every({arg item; item == nil;}), {96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"a"++(z=z+1)).asSymbol.envirPut([~fp1,~fp2,~fp3,~fp4,~fp5,~fp6,~fp7,~fp8,~fp9,~fp10,~fp11,~fp12].at(y=y+1)); if(z>=12, {x= x+1; y = 0; z = 0;});});});
+	if(96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"f"++(z=z+1)).asSymbol.envirGet; if(z>=12, {x= x+1; y = 0; z = 0;});}).collect.every({arg item; item == nil;}), {96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"a"++(z=z+1)).asSymbol.envirPut([~fp1,~fp2,~fp3,~fp4,~fp5,~fp6,~fp7,~fp8,~fp9,~fp10,~fp11,~fp12].at(y=y+1)); if(z>=12, {x= x+1; y = 0; z = 0;});});});
+	if(96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"g"++(z=z+1)).asSymbol.envirGet; if(z>=12, {x= x+1; y = 0; z = 0;});}).collect.every({arg item; item == nil;}), {96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"a"++(z=z+1)).asSymbol.envirPut([~fp1,~fp2,~fp3,~fp4,~fp5,~fp6,~fp7,~fp8,~fp9,~fp10,~fp11,~fp12].at(y=y+1)); if(z>=12, {x= x+1; y = 0; z = 0;});});});
+	if(96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"h"++(z=z+1)).asSymbol.envirGet; if(z>=12, {x= x+1; y = 0; z = 0;});}).collect.every({arg item; item == nil;}), {96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"a"++(z=z+1)).asSymbol.envirPut([~fp1,~fp2,~fp3,~fp4,~fp5,~fp6,~fp7,~fp8,~fp9,~fp10,~fp11,~fp12].at(y=y+1)); if(z>=12, {x= x+1; y = 0; z = 0;});});});
+	*/
 
 	//set n1-n9 ratio values
 
@@ -483,28 +429,20 @@ s.waitForBoot({
 
 		if(~sendreplysynthdef_on == 1, {
 
-			~synthflow_random_sendreply_answer_f1 = '/synthflow_random_sendreply_answer_f1';
-			~synthflow_random_sendreply_answer_f2 = '/synthflow_random_sendreply_answer_f2';
-			~synthflow_random_sendreply_answer_f3 = '/synthflow_random_sendreply_answer_f3';
-			~synthflow_random_sendreply_answer_f4 = '/synthflow_random_sendreply_answer_f4';
-			~synthflow_random_sendreply_answer_f5 = '/synthflow_random_sendreply_answer_f5';
-			~synthflow_random_sendreply_answer_f6 = '/synthflow_random_sendreply_answer_f6';
-			~synthflow_random_sendreply_answer_f7 = '/synthflow_random_sendreply_answer_f7';
-			~synthflow_random_sendreply_answer_f8 = '/synthflow_random_sendreply_answer_f8';
 
 			8.do(~sendreply_x = 0; {
 
 				~sendreply_x=~sendreply_x+1;
 
-				SynthDef(\gsineicfld6_f++(~sendreply_x), {arg graindur = 0.04, dur = 2000, atk = 0.007, rel = 0.01, gate = 1, amp = 1, i = 1, vol = ~vol, rate = 20, tune = 0,dseqval,
+				SynthDef(\gsineicfld1_f++(~sendreply_x), {arg graindur = 0.04, dur = 2000, atk = 0.007, rel = 0.01, gate = 1, amp = 1, i = 1, vol = ~vol, rate = 20, tune = 0,dseqval,
 					a, b, c, d, e, f, pan=0, fc = 1;
 					var s1, out, env1, s2, dseq;
-					9.do(x = 0; {("n"++(x=x+1)).asSymbol.envirPut(~n_value6)});
+					9.do(x = 0; {("n"++(x=x+1)).asSymbol.envirPut(~n_value1)});
 					dseq = Dseq(
 						case
 						{~kws_setting == 1}{~kws_setting_1_a.value;}
 						{~kws_setting == 2}{~kws_setting_2_a.value;}
-						{~kws_setting == 3}{~kws_setting_3_a.value;} ++ Array.fill((~gsinenum*~third_harmonic -1), {
+						{~kws_setting == 3}{~kws_setting_3_a.value;} ++ Array.fill((~gsinenum*~first_harmonic -1), {
 							case
 							{~kws_setting == 1}{~kws_setting_1_b.value;}
 							{~kws_setting == 2}{~kws_setting_2_b.value;}
@@ -512,7 +450,11 @@ s.waitForBoot({
 					s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur),Demand.ar(Impulse.ar(dur), 0, dseq));
 					if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit);}, {s1 = s1});
 					OffsetOut.ar(0, s1.dup*vol);
-					SendReply.ar(PulseDivider.ar(Impulse.ar(dur), (~kws_setting_1_a.value.size*(~gsinenum*~third_harmonic))), ("synthflow_random_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet, [ dseq]);
+					SendReply.ar(PulseDivider.ar(Impulse.ar(dur), (~kws_setting_1_a.value.size*(~gsinenum*~first_harmonic))),
+						case
+						{~sendreplyfunc_choose == 0}{("synthflow_gmf_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
+						{~sendreplyfunc_choose == 1}{("synthflow_random_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;};
+					);
 				}, [\ir]).add;
 
 			});
@@ -520,23 +462,75 @@ s.waitForBoot({
 	};
 
 
-	//sendyreply functions
+	//sendreply functions
 
-	~send_reply_func_western = {~freqmap.at(rrand(60, 91));};
-	~send_reply_func_eastern = {(rrand(~freqmap.at(60), ~freqmap.at(91);))};
+	~sendreplyfunc_choose = 0;
+
+	~send_reply_random_func_western = {~freqmap.at(rrand(60, 91));};
+	~send_reply_random_func_eastern = {(rrand(~freqmap.at(60), ~freqmap.at(91);))};
+
+	if(~sendreply_gm_fth_y_1 == nil, {8.do(x = 0; {("sendreply_gm_fth_y_"++(x=x+1)).asSymbol.envirPut((-1);)});});
+	~sendreply_gm_fth_func_1 = {if((x <= 1539.4729849465) and: (x >= 256.86873684059), {
+		x = x*[[a = 1.6842135623729, a = 0.5937489296732].choose, [a = 1.4142135623729, a = 0.70710678118665].choose].at(y=y+1); if(y>=1, {y=(-1)});
+
+	}, {
+		if(x > 1539.4729849465, {
+			case
+			{(a == 1.6842135623729) or: (a == 0.5937489296732)}{x = x/2; x = x*[a = 1.4142135623729, a = 0.70710678118665].choose; y=y+1; if(y>=1, {y=(-1)});}
+			{(a == 1.4142135623729) or: (a == 0.70710678118665)}{x = x/2; x = x*[a = 1.6842135623729, a = 0.5937489296732].choose; y=y+1; if(y>=1, {y=(-1)});};
+		}, {
+			case
+			{(a == 1.6842135623729) or: (a == 0.5937489296732)}{x = x*2; x = x*[a = 1.4142135623729, a = 0.70710678118665].choose; y=y+1; if(y>=1, {y=(-1)});}
+			{(a == 1.4142135623729) or: (a == 0.70710678118665)}{x = x*2; x = x*[a = 1.6842135623729, a = 0.5937489296732].choose; y=y+1; if(y>=1, {y=(-1)});};
+		});
+	});
+	};
+	~sendreply_gm_fth_func_2 = {if((x <= 1539.4729849465) and: (x >= 256.86873684059), {
+		x = x*[a = 1.6842135623729, a = 0.5937489296732].choose;}, {
+		if(x > 1539.4729849465, {x = x/2; x = x*[1.6842135623729, 0.5937489296732].choose;}, {x = x*2; x = x*[1.6842135623729, 0.5937489296732].choose;});
+	});
+	};
+	if(~sendreply_gm_fth_func == nil, {~sendreply_gm_fth_func = ~sendreply_gm_fth_func_1});
 
 	case
-	{~sendreplyfuncswitch == 1;}{~send_reply_func = ~send_reply_func_western;}
-	{~sendreplyfuncswitch == 2;}{~send_reply_func = ~send_reply_func_eastern;};
+	{~sendreplyfuncswitch == 1;}{~send_reply_random_func = ~send_reply_random_func_western;}
+	{~sendreplyfuncswitch == 2;}{~send_reply_random_func = ~send_reply_random_func_eastern;};
 
-	OSCFunc({~f1 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f1');
-	OSCFunc({~f2 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f2');
-	OSCFunc({~f3 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f3');
-	OSCFunc({~f4 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f4');
-	OSCFunc({~f5 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f5');
-	OSCFunc({~f6 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f6');
-	OSCFunc({~f7 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f7');
-	OSCFunc({~f8 = ~send_reply_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f8');
+	~synthflow_random_sendreply_answer_f1 = '/synthflow_random_sendreply_answer_f1';
+	~synthflow_random_sendreply_answer_f2 = '/synthflow_random_sendreply_answer_f2';
+	~synthflow_random_sendreply_answer_f3 = '/synthflow_random_sendreply_answer_f3';
+	~synthflow_random_sendreply_answer_f4 = '/synthflow_random_sendreply_answer_f4';
+	~synthflow_random_sendreply_answer_f5 = '/synthflow_random_sendreply_answer_f5';
+	~synthflow_random_sendreply_answer_f6 = '/synthflow_random_sendreply_answer_f6';
+	~synthflow_random_sendreply_answer_f7 = '/synthflow_random_sendreply_answer_f7';
+	~synthflow_random_sendreply_answer_f8 = '/synthflow_random_sendreply_answer_f8';
+
+	~synthflow_gmf_sendreply_answer_f1 = '/synthflow_gmf_sendreply_answer_f1';
+	~synthflow_gmf_sendreply_answer_f2 = '/synthflow_gmf_sendreply_answer_f2';
+	~synthflow_gmf_sendreply_answer_f3 = '/synthflow_gmf_sendreply_answer_f3';
+	~synthflow_gmf_sendreply_answer_f4 = '/synthflow_gmf_sendreply_answer_f4';
+	~synthflow_gmf_sendreply_answer_f5 = '/synthflow_gmf_sendreply_answer_f5';
+	~synthflow_gmf_sendreply_answer_f6 = '/synthflow_gmf_sendreply_answer_f6';
+	~synthflow_gmf_sendreply_answer_f7 = '/synthflow_gmf_sendreply_answer_f7';
+	~synthflow_gmf_sendreply_answer_f8 = '/synthflow_gmf_sendreply_answer_f8';
+
+	OSCFunc({~f1 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f1');
+	OSCFunc({~f2 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f2');
+	OSCFunc({~f3 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f3');
+	OSCFunc({~f4 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f4');
+	OSCFunc({~f5 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f5');
+	OSCFunc({~f6 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f6');
+	OSCFunc({~f7 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f7');
+	OSCFunc({~f8 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f8');
+
+	OSCFunc({x = ~f1; y = ~sendreply_gm_fth_y_1; ~sendreply_gm_fth_func.value; ~f1 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_1 = y;}, '/synthflow_gmf_sendreply_answer_f1');
+	OSCFunc({x = ~f2; y = ~sendreply_gm_fth_y_2; ~sendreply_gm_fth_func.value; ~f2 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_2 = y;}, '/synthflow_gmf_sendreply_answer_f2');
+	OSCFunc({x = ~f3; y = ~sendreply_gm_fth_y_3; ~sendreply_gm_fth_func.value; ~f3 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_3 = y;}, '/synthflow_gmf_sendreply_answer_f3');
+	OSCFunc({x = ~f4; y = ~sendreply_gm_fth_y_4; ~sendreply_gm_fth_func.value; ~f4 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_4 = y;}, '/synthflow_gmf_sendreply_answer_f4');
+	OSCFunc({x = ~f5; y = ~sendreply_gm_fth_y_5; ~sendreply_gm_fth_func.value; ~f5 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_5 = y;}, '/synthflow_gmf_sendreply_answer_f5');
+	OSCFunc({x = ~f6; y = ~sendreply_gm_fth_y_6; ~sendreply_gm_fth_func.value; ~f6 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_6 = y;}, '/synthflow_gmf_sendreply_answer_f6');
+	OSCFunc({x = ~f7; y = ~sendreply_gm_fth_y_7; ~sendreply_gm_fth_func.value; ~f7 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_7 = y;}, '/synthflow_gmf_sendreply_answer_f7');
+	OSCFunc({x = ~f8; y = ~sendreply_gm_fth_y_8; ~sendreply_gm_fth_func.value; ~f8 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_8 = y;}, '/synthflow_gmf_sendreply_answer_f8');
 
 
 	//set base (lowest) frequencies, set starting values for synthdef, and load synthdef on server boot
@@ -647,38 +641,38 @@ s.waitForBoot({
 			});
 
 			(
-				1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,s1,s2,s3,s4,s5,s6,s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8;
+				1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,s1,s2,s3,s4,s5,s6,s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8;
 					#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8];
 					#s1,s2,s3,s4,s5,s6 = [\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1];
 					case
-					{~sendreplysynthdef_on == 0}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8 = \gsineicfld6!8;}
-					{~sendreplysynthdef_on == 1}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8 =
-						[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3, \gsineicfld6_f4, \gsineicfld6_f5, \gsineicfld6_f6, \gsineicfld6_f7, \gsineicfld6_f8];};
+					{~sendreplysynthdef_on == 0}{#s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8 = \gsineicfld1!8;}
+					{~sendreplysynthdef_on == 1}{#s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8 =
+						[\gsineicfld1_f1, \gsineicfld1_f2, \gsineicfld1_f3, \gsineicfld1_f4, \gsineicfld1_f5, \gsineicfld1_f6, \gsineicfld1_f7, \gsineicfld1_f8];};
 					s.makeBundle(0, {
-						~l1a = Synth(s1_1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b = Synth(s2, [\dur, ~f1,    \vol, vol1]);
+						~l1a = Synth(s1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b = Synth(s2, [\dur, ~f1,    \vol, vol1]);
 						~l1c = Synth(s3, [\dur, ~f1/~icd3,  \vol, vol1]);   ~l1d = Synth(s4, [\dur, ~f1/~icd3,  \vol, vol1]);
-						~l1e = Synth(s5, [\dur, ~f1/~icd6,  \vol, vol1]);   ~l1f = Synth(s6, [\dur, ~f1/~icd6,  \vol, vol1]);
-						~l2a = Synth(s1_2, [\dur, ~f2,    \vol, vol2]);        ~l2b = Synth(s2, [\dur, ~f2,    \vol, vol2]);
+						~l1e = Synth(s5_1, [\dur, ~f1/~icd6,  \vol, vol1]);   ~l1f = Synth(s6, [\dur, ~f1/~icd6,  \vol, vol1]);
+						~l2a = Synth(s1, [\dur, ~f2,    \vol, vol2]);        ~l2b = Synth(s2, [\dur, ~f2,    \vol, vol2]);
 						~l2c = Synth(s3, [\dur, ~f2/~icd3,  \vol, vol2]);   ~l2d = Synth(s4, [\dur, ~f2/~icd3,  \vol, vol2]);
-						~l2e = Synth(s5, [\dur, ~f2/~icd6,  \vol, vol2]);   ~l2f = Synth(s6, [\dur, ~f2/~icd6,  \vol, vol2]);
-						~l3a = Synth(s1_3, [\dur, ~f3,    \vol, vol3]);        ~l3b = Synth(s2, [\dur, ~f3,   \vol, vol3]);
+						~l2e = Synth(s5_2, [\dur, ~f2/~icd6,  \vol, vol2]);   ~l2f = Synth(s6, [\dur, ~f2/~icd6,  \vol, vol2]);
+						~l3a = Synth(s1, [\dur, ~f3,    \vol, vol3]);        ~l3b = Synth(s2, [\dur, ~f3,   \vol, vol3]);
 						~l3c = Synth(s3, [\dur, ~f3/~icd3,  \vol, vol3]);   ~l3d = Synth(s4, [\dur, ~f3/~icd3, \vol, vol3]);
-						~l3e = Synth(s5, [\dur, ~f3/~icd6,  \vol, vol3]);   ~l3f = Synth(s6, [\dur, ~f3/~icd6, \vol, vol3]);
-						~l4a = Synth(s1_4, [\dur, ~f4,    \vol, vol4]);       ~l4b = Synth(s2, [\dur, ~f4,   \vol, vol4]);
+						~l3e = Synth(s5_3, [\dur, ~f3/~icd6,  \vol, vol3]);   ~l3f = Synth(s6, [\dur, ~f3/~icd6, \vol, vol3]);
+						~l4a = Synth(s1, [\dur, ~f4,    \vol, vol4]);       ~l4b = Synth(s2, [\dur, ~f4,   \vol, vol4]);
 						~l4c = Synth(s3, [\dur, ~f4/~icd3,  \vol, vol4]);  ~l4d = Synth(s4, [\dur, ~f4/~icd3, \vol, vol4]);
-						~l4e = Synth(s5, [\dur, ~f4/~icd6,  \vol, vol4]);   ~l4f = Synth(s6, [\dur, ~f4/~icd6, \vol, vol4]);
-						~l5a = Synth(s1_5, [\dur, ~f5,    \vol, vol5]);       ~l5b = Synth(s2, [\dur, ~f5,   \vol, vol5]);
+						~l4e = Synth(s5_4, [\dur, ~f4/~icd6,  \vol, vol4]);   ~l4f = Synth(s6, [\dur, ~f4/~icd6, \vol, vol4]);
+						~l5a = Synth(s1, [\dur, ~f5,    \vol, vol5]);       ~l5b = Synth(s2, [\dur, ~f5,   \vol, vol5]);
 						~l5c = Synth(s3, [\dur, ~f5/~icd3,  \vol, vol5]);   ~l5d = Synth(s4, [\dur, ~f5/~icd3, \vol, vol5]);
-						~l5e = Synth(s5, [\dur, ~f5/~icd6,  \vol, vol5]);   ~l5f = Synth(s6, [\dur, ~f5/~icd6, \vol, vol5]);
-						~l6a = Synth(s1_6, [\dur, ~f6,    \vol, vol6]);       ~l6b = Synth(s2, [\dur, ~f6,   \vol, vol6]);
+						~l5e = Synth(s5_5, [\dur, ~f5/~icd6,  \vol, vol5]);   ~l5f = Synth(s6, [\dur, ~f5/~icd6, \vol, vol5]);
+						~l6a = Synth(s1, [\dur, ~f6,    \vol, vol6]);       ~l6b = Synth(s2, [\dur, ~f6,   \vol, vol6]);
 						~l6c = Synth(s3, [\dur, ~f6/~icd3,  \vol, vol6]);   ~l6d = Synth(s4, [\dur, ~f6/~icd3, \vol, vol6]);
-						~l6e = Synth(s5, [\dur, ~f6/~icd6,  \vol, vol6]);   ~l6f = Synth(s6, [\dur, ~f6/~icd6, \vol, vol6]);
-						~l7a = Synth(s1_7, [\dur, ~f7,    \vol, vol7]);       ~l7b = Synth(s2, [\dur, ~f7,   \vol, vol7]);
+						~l6e = Synth(s5_6, [\dur, ~f6/~icd6,  \vol, vol6]);   ~l6f = Synth(s6, [\dur, ~f6/~icd6, \vol, vol6]);
+						~l7a = Synth(s1, [\dur, ~f7,    \vol, vol7]);       ~l7b = Synth(s2, [\dur, ~f7,   \vol, vol7]);
 						~l7c = Synth(s3, [\dur, ~f7/~icd3,  \vol, vol7]);   ~l7d = Synth(s4, [\dur, ~f7/~icd3, \vol, vol7]);
-						~l7e = Synth(s5, [\dur, ~f7/~icd6,  \vol, vol7]);   ~l7f = Synth(s6, [\dur, ~f7/~icd6, \vol, vol7]);
-						~l8a = Synth(s1_8, [\dur, ~f8,    \vol, vol8]);  ~l8b = Synth(s2, [\dur, ~f8,   \vol, vol8]);
+						~l7e = Synth(s5_7, [\dur, ~f7/~icd6,  \vol, vol7]);   ~l7f = Synth(s6, [\dur, ~f7/~icd6, \vol, vol7]);
+						~l8a = Synth(s1, [\dur, ~f8,    \vol, vol8]);  ~l8b = Synth(s2, [\dur, ~f8,   \vol, vol8]);
 						~l8c = Synth(s3, [\dur, ~f8/~icd3,  \vol, vol8]);   ~l8d = Synth(s4, [\dur, ~f8/~icd3, \vol, vol8]);
-						~l8e = Synth(s5, [\dur, ~f8/~icd6,  \vol, vol8]);   ~l8f = Synth(s6, [\dur, ~f8/~icd6, \vol, vol8]);
+						~l8e = Synth(s5_8, [\dur, ~f8/~icd6,  \vol, vol8]);   ~l8f = Synth(s6, [\dur, ~f8/~icd6, \vol, vol8]);
 					});
 				});
 			);
@@ -721,38 +715,38 @@ s.waitForBoot({
 			}););
 
 			(
-				1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,s1,s2,s3,s4,s5,s6,s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8;
+				1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,s1,s2,s3,s4,s5,s6,s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8;
 					#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8];
 					#s1,s2,s3,s4,s5,s6 = [\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1];
 					case
-					{~sendreplysynthdef_on == 0}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8 = \gsineicfld6!8;}
-					{~sendreplysynthdef_on == 1}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8 =
-						[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3, \gsineicfld6_f4, \gsineicfld6_f5, \gsineicfld6_f6, \gsineicfld6_f7, \gsineicfld6_f8];};
+					{~sendreplysynthdef_on == 0}{#s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8 = \gsineicfld1!8;}
+					{~sendreplysynthdef_on == 1}{#s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8 =
+						[\gsineicfld1_f1, \gsineicfld1_f2, \gsineicfld1_f3, \gsineicfld1_f4, \gsineicfld1_f5, \gsineicfld1_f6, \gsineicfld1_f7, \gsineicfld1_f8];};
 					s.makeBundle(0, {
-						~l1a1 = Synth(s1_1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b1 = Synth(s2, [\dur, ~f1,    \vol, vol1]);
+						~l1a1 = Synth(s1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b1 = Synth(s2, [\dur, ~f1,    \vol, vol1]);
 						~l1c1 = Synth(s3, [\dur, ~f1/~icd3,  \vol, vol1]);   ~l1d1 = Synth(s4, [\dur, ~f1/~icd3,  \vol, vol1]);
-						~l1e1 = Synth(s5, [\dur, ~f1/~icd6,  \vol, vol1]);   ~l1f1 = Synth(s6, [\dur, ~f1/~icd6,  \vol, vol1]);
-						~l2a1 = Synth(s1_2, [\dur, ~f2,    \vol, vol2]);        ~l2b1 = Synth(s2, [\dur, ~f2,    \vol, vol2]);
+						~l1e1 = Synth(s5_1, [\dur, ~f1/~icd6,  \vol, vol1]);   ~l1f1 = Synth(s6, [\dur, ~f1/~icd6,  \vol, vol1]);
+						~l2a1 = Synth(s1, [\dur, ~f2,    \vol, vol2]);        ~l2b1 = Synth(s2, [\dur, ~f2,    \vol, vol2]);
 						~l2c1 = Synth(s3, [\dur, ~f2/~icd3,  \vol, vol2]);   ~l2d1 = Synth(s4, [\dur, ~f2/~icd3,  \vol, vol2]);
-						~l2e1 = Synth(s5, [\dur, ~f2/~icd6,  \vol, vol2]);   ~l2f1 = Synth(s6, [\dur, ~f2/~icd6,  \vol, vol2]);
-						~l3a1 = Synth(s1_3, [\dur, ~f3,    \vol, vol3]);        ~l3b1 = Synth(s2, [\dur, ~f3,   \vol, vol3]);
+						~l2e1 = Synth(s5_2, [\dur, ~f2/~icd6,  \vol, vol2]);   ~l2f1 = Synth(s6, [\dur, ~f2/~icd6,  \vol, vol2]);
+						~l3a1 = Synth(s1, [\dur, ~f3,    \vol, vol3]);        ~l3b1 = Synth(s2, [\dur, ~f3,   \vol, vol3]);
 						~l3c1 = Synth(s3, [\dur, ~f3/~icd3,  \vol, vol3]);   ~l3d1 = Synth(s4, [\dur, ~f3/~icd3, \vol, vol3]);
-						~l3e1 = Synth(s5, [\dur, ~f3/~icd6,  \vol, vol3]);   ~l3f1 = Synth(s6, [\dur, ~f3/~icd6, \vol, vol3]);
-						~l4a1 = Synth(s1_4, [\dur, ~f4,    \vol, vol4]);       ~l4b1 = Synth(s2, [\dur, ~f4,   \vol, vol4]);
+						~l3e1 = Synth(s5_3, [\dur, ~f3/~icd6,  \vol, vol3]);   ~l3f1 = Synth(s6, [\dur, ~f3/~icd6, \vol, vol3]);
+						~l4a1 = Synth(s1, [\dur, ~f4,    \vol, vol4]);       ~l4b1 = Synth(s2, [\dur, ~f4,   \vol, vol4]);
 						~l4c1 = Synth(s3, [\dur, ~f4/~icd3,  \vol, vol4]);  ~l4d1 = Synth(s4, [\dur, ~f4/~icd3, \vol, vol4]);
-						~l4e1 = Synth(s5, [\dur, ~f4/~icd6,  \vol, vol4]);   ~l4f1 = Synth(s6, [\dur, ~f4/~icd6, \vol, vol4]);
-						~l5a1 = Synth(s1_5, [\dur, ~f5,    \vol, vol5]);       ~l5b1 = Synth(s2, [\dur, ~f5,   \vol, vol5]);
+						~l4e1 = Synth(s5_4, [\dur, ~f4/~icd6,  \vol, vol4]);   ~l4f1 = Synth(s6, [\dur, ~f4/~icd6, \vol, vol4]);
+						~l5a1 = Synth(s1, [\dur, ~f5,    \vol, vol5]);       ~l5b1 = Synth(s2, [\dur, ~f5,   \vol, vol5]);
 						~l5c1 = Synth(s3, [\dur, ~f5/~icd3,  \vol, vol5]);   ~l5d1 = Synth(s4, [\dur, ~f5/~icd3, \vol, vol5]);
-						~l5e1 = Synth(s5, [\dur, ~f5/~icd6,  \vol, vol5]);   ~l5f1 = Synth(s6, [\dur, ~f5/~icd6, \vol, vol5]);
-						~l6a1 = Synth(s1_6, [\dur, ~f6,    \vol, vol6]);       ~l6b1 = Synth(s2, [\dur, ~f6,   \vol, vol6]);
+						~l5e1 = Synth(s5_5, [\dur, ~f5/~icd6,  \vol, vol5]);   ~l5f1 = Synth(s6, [\dur, ~f5/~icd6, \vol, vol5]);
+						~l6a1 = Synth(s1, [\dur, ~f6,    \vol, vol6]);       ~l6b1 = Synth(s2, [\dur, ~f6,   \vol, vol6]);
 						~l6c1 = Synth(s3, [\dur, ~f6/~icd3,  \vol, vol6]);   ~l6d1 = Synth(s4, [\dur, ~f6/~icd3, \vol, vol6]);
-						~l6e1 = Synth(s5, [\dur, ~f6/~icd6,  \vol, vol6]);   ~l6f1 = Synth(s6, [\dur, ~f6/~icd6, \vol, vol6]);
-						~l7a1 = Synth(s1_7, [\dur, ~f7,    \vol, vol7]);       ~l7b1 = Synth(s2, [\dur, ~f7,   \vol, vol7]);
+						~l6e1 = Synth(s5_6, [\dur, ~f6/~icd6,  \vol, vol6]);   ~l6f1 = Synth(s6, [\dur, ~f6/~icd6, \vol, vol6]);
+						~l7a1 = Synth(s1, [\dur, ~f7,    \vol, vol7]);       ~l7b1 = Synth(s2, [\dur, ~f7,   \vol, vol7]);
 						~l7c1 = Synth(s3, [\dur, ~f7/~icd3,  \vol, vol7]);   ~l7d1 = Synth(s4, [\dur, ~f7/~icd3, \vol, vol7]);
-						~l7e1 = Synth(s5, [\dur, ~f7/~icd6,  \vol, vol7]);   ~l7f1 = Synth(s6, [\dur, ~f7/~icd6, \vol, vol7]);
-						~l8a1 = Synth(s1_8, [\dur, ~f8,    \vol, vol8]);  ~l8b1 = Synth(s2, [\dur, ~f8,   \vol, vol8]);
+						~l7e1 = Synth(s5_7, [\dur, ~f7/~icd6,  \vol, vol7]);   ~l7f1 = Synth(s6, [\dur, ~f7/~icd6, \vol, vol7]);
+						~l8a1 = Synth(s1, [\dur, ~f8,    \vol, vol8]);  ~l8b1 = Synth(s2, [\dur, ~f8,   \vol, vol8]);
 						~l8c1 = Synth(s3, [\dur, ~f8/~icd3,  \vol, vol8]);   ~l8d1 = Synth(s4, [\dur, ~f8/~icd3, \vol, vol8]);
-						~l8e1 = Synth(s5, [\dur, ~f8/~icd6,  \vol, vol8]);   ~l8f1 = Synth(s6, [\dur, ~f8/~icd6, \vol, vol8]);
+						~l8e1 = Synth(s5_8, [\dur, ~f8/~icd6,  \vol, vol8]);   ~l8f1 = Synth(s6, [\dur, ~f8/~icd6, \vol, vol8]);
 					});
 				});
 			);
@@ -1815,40 +1809,6 @@ s.waitForBoot({
 
 	//generate values for number of KW(King Wen) sequences in a timewave half-cycle (or amplitude x2) pop-up menu
 
-	x=0;
-	~menu2values = Array.fill(24, {(x=x+1).asString++" kws"});
-
-
-	//number of KW(King Wen) sequences in a timewave half-cycle (or amplitude x2) upon starting value
-
-	case
-	{~gsinenum == nil}{~menu2start = ~menu2values.at(~synthdefnum-1)}
-	{~gsinenum == 1}{~menu2start = ~menu2values.at(0)}
-	{~gsinenum == 2}{~menu2start = ~menu2values.at(1)}
-	{~gsinenum == 3}{~menu2start = ~menu2values.at(2)}
-	{~gsinenum == 4}{~menu2start = ~menu2values.at(3)}
-	{~gsinenum == 5}{~menu2start = ~menu2values.at(4)}
-	{~gsinenum == 6}{~menu2start = ~menu2values.at(5)}
-	{~gsinenum == 7}{~menu2start = ~menu2values.at(6)}
-	{~gsinenum == 8}{~menu2start = ~menu2values.at(7)}
-	{~gsinenum == 9}{~menu2start = ~menu2values.at(8)}
-	{~gsinenum == 10}{~menu2start = ~menu2values.at(9)}
-	{~gsinenum == 11}{~menu2start = ~menu2values.at(10)}
-	{~gsinenum == 12}{~menu2start = ~menu2values.at(11)}
-	{~gsinenum == 13}{~menu2start = ~menu2values.at(12)}
-	{~gsinenum == 14}{~menu2start = ~menu2values.at(13)}
-	{~gsinenum == 15}{~menu2start = ~menu2values.at(14)}
-	{~gsinenum == 16}{~menu2start = ~menu2values.at(15)}
-	{~gsinenum == 17}{~menu2start = ~menu2values.at(16)}
-	{~gsinenum == 18}{~menu2start = ~menu2values.at(17)}
-	{~gsinenum == 19}{~menu2start = ~menu2values.at(18)}
-	{~gsinenum == 20}{~menu2start = ~menu2values.at(19)}
-	{~gsinenum == 21}{~menu2start = ~menu2values.at(20)}
-	{~gsinenum == 22}{~menu2start = ~menu2values.at(21)}
-	{~gsinenum == 23}{~menu2start = ~menu2values.at(22)}
-	{~gsinenum == 24}{~menu2start = ~menu2values.at(23)};
-	if(~menu2synthdefstart.value == nil, {~menu2synthdefstart = ~synthdefnum}, {~menu2synthdefstart = ~gsinenum});
-
 	if(~low_pass_filter_set_value == nil, {~low_pass_filter_set_value = ~low_pass_filter_freq_limit});
 	if(~low_pass_filter_set_value != ~low_pass_filter_freq_limit, {~low_pass_filter_set_value = ~low_pass_filter_freq_limit});
 
@@ -1880,7 +1840,7 @@ s.waitForBoot({
 
 				//number of KW(King Wen) sequences in a timewave half-cycle (or amplitude x2) pop-up menu
 
-				~menu2 = PopUpMenu(~settingsview,Rect(lefttimebox , top=top, widthbox, heightbox)).items_(~mvalue = (-1); [~menu2start.asString]++Array.fill(24, {~menu2values.at(~mvalue = ~mvalue+1);});).background_(Color.black).stringColor_(Color.white).action_({arg button;
+				~menu2 = PopUpMenu(~settingsview,Rect(lefttimebox , top=top, widthbox, heightbox)).items_(x = 0; Array.fill(24, {(x=x+1).asString++" kws"});).background_(Color.black).stringColor_(Color.white).action_({arg button;
 
 					if(~st != nil, {~st.close});
 					~st = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
@@ -1889,11 +1849,12 @@ s.waitForBoot({
 					AppClock.sched(~gm,{~st.close;});
 				});
 
+				~menu2.value = ~gsinenum-1;
 
-				//pop-menu for timewave base (lowest) frequency
 
-				~bfreqstart = ~basefreq;
-				~bfreq = PopUpMenu(~settingsview, Rect(lefttimebox , top=top+heightbox+5, widthbox, heightbox)).items_(~bfreqv = (-1); [~basefreq.asString]++Array.fill(140, {~basefreqmap.at(~bfreqv=~bfreqv+1).asString})).background_(Color.black).stringColor_(Color.white).action_({arg button;
+				//pop-menu for timewave base(lowest) frequency
+
+				~bfreq = PopUpMenu(~settingsview, Rect(lefttimebox , top=top+heightbox+5, widthbox, heightbox)).items_(~bfreqv = (-1); Array.fill(~basefreqmap.size, {~basefreqmap.at(~bfreqv=~bfreqv+1).asString})).background_(Color.black).stringColor_(Color.white).action_({arg button;
 
 					if(~st != nil, {~st.close});
 					~st = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
@@ -1901,6 +1862,8 @@ s.waitForBoot({
 					~st.string = "basefreq selected";
 					AppClock.sched(~gm,{~st.close;});
 				});
+
+				if(~bfreqval != nil, {~bfreq.value = ~bfreqval}, {~bfreq.value = ~basefreqmap.indexOf(~base_frequency);});
 
 
 				//synthdef pop-up menu
@@ -1970,12 +1933,14 @@ s.waitForBoot({
 
 				//switch to sendreply functions
 
-				~sendreplymenu = PopUpMenu(~settingsview,Rect(lefttimebox , top=top+heightbox+5, widthbox, heightbox)).items_(["off","western scale","eastern scale"]).background_(Color.black).stringColor_(Color.white).action_({arg button;
+				~sendreplymenu = PopUpMenu(~settingsview,Rect(lefttimebox , top=top+heightbox+5, widthbox, heightbox)).items_(["off","phi/fth trans","phi trans","western scale","eastern scale"]).background_(Color.black).stringColor_(Color.white).action_({arg button;
 
 					case
 					{button.value == 0;}{~sendreplymenu_value = 0;}
 					{button.value == 1;}{~sendreplymenu_value = 1;}
-					{button.value == 2;}{~sendreplymenu_value = 2;};
+					{button.value == 2;}{~sendreplymenu_value = 2;}
+					{button.value == 3;}{~sendreplymenu_value = 3;}
+					{button.value == 4;}{~sendreplymenu_value = 4;};
 
 					if(~st != nil, {~st.close});
 					~st = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
@@ -1989,14 +1954,16 @@ s.waitForBoot({
 				case
 				{~sendreplymenu_value == 0}{~sendreplymenu.value = 0;}
 				{~sendreplymenu_value == 1}{~sendreplymenu.value = 1;}
-				{~sendreplymenu_value == 2}{~sendreplymenu.value = 2;};
+				{~sendreplymenu_value == 2}{~sendreplymenu.value = 2;}
+				{~sendreplymenu_value == 3}{~sendreplymenu.value = 3;}
+				{~sendreplymenu_value == 4}{~sendreplymenu.value = 4;};
 
 
 				//set button for all settings
 
 				~set1=Button(~settingsview,Rect(lefttimebox+widthbox-60, top=top+height+20, 60, 60/~gm)).states_([["set",Color.white,Color.black]]).mouseDownAction_({
 
-					if(~bfreq.value > 0, {~basefreq = ~basefreqmap.at(~bfreq.value - 1)}, {~basefreq = ~bfreqstart});
+					~basefreq = ~basefreqmap.at(~bfreq.value;); ~bfreqval = ~bfreq.value;
 
 					(#a,b,c,d,e,f =	[ ~basefreq,~basefreq,~basefreq,~basefreq,~basefreq,~basefreq  ]; ~a = a; ~b = b; ~c =c; ~d = d; ~e = e;~f=f;);
 
@@ -2018,38 +1985,39 @@ s.waitForBoot({
 
 					case
 					{~sendreplymenu.value ==  0}{~sendreplysynthdef_on = 0;}
-					{~sendreplymenu.value ==  1}{~sendreplysynthdef_on = 1; ~send_reply_func = ~send_reply_func_western; ~sendreplyfuncswitch = 1;}
-					{~sendreplymenu.value ==  2}{~sendreplysynthdef_on = 1; ~send_reply_func = ~send_reply_func_eastern; ~sendreplyfuncswitch = 2;};
+					{~sendreplymenu.value ==  1}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 0; ~sendreply_gm_fth_func = ~sendreply_gm_fth_func_1}
+					{~sendreplymenu.value ==  2}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 0; ~sendreply_gm_fth_func = ~sendreply_gm_fth_func_2}
+					{~sendreplymenu.value ==  3}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 1; ~send_reply_random_func = ~send_reply_random_func_western; ~sendreplyfuncswitch = 1;}
+					{~sendreplymenu.value ==  4}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 1; ~send_reply_random_func = ~send_reply_random_func_eastern; ~sendreplyfuncswitch = 2;};
 
 
 					//evaluate synthdefs(gsine)
 
 					case
-					{~menu2.value == 0}{~gsinenum = ~menu2synthdefstart; ~gsine.value;}
-					{~menu2.value == 1}{~gsinenum = 1; ~gsine.value;}
-					{~menu2.value == 2}{~gsinenum = 2; ~gsine.value;}
-					{~menu2.value == 3}{~gsinenum = 3; ~gsine.value;}
-					{~menu2.value == 4}{~gsinenum = 4; ~gsine.value;}
-					{~menu2.value == 5}{~gsinenum = 5; ~gsine.value;}
-					{~menu2.value == 6}{~gsinenum = 6; ~gsine.value;}
-					{~menu2.value == 7}{~gsinenum = 7; ~gsine.value;}
-					{~menu2.value == 8}{~gsinenum = 8; ~gsine.value;}
-					{~menu2.value == 9}{~gsinenum = 9; ~gsine.value;}
-					{~menu2.value == 10}{~gsinenum = 10; ~gsine.value;}
-					{~menu2.value == 11}{~gsinenum = 11; ~gsine.value;}
-					{~menu2.value == 12}{~gsinenum = 12; ~gsine.value;}
-					{~menu2.value == 13}{~gsinenum = 13; ~gsine.value;}
-					{~menu2.value == 14}{~gsinenum = 14; ~gsine.value;}
-					{~menu2.value == 15}{~gsinenum = 15; ~gsine.value;}
-					{~menu2.value == 16}{~gsinenum = 16; ~gsine.value;}
-					{~menu2.value == 17}{~gsinenum = 17; ~gsine.value;}
-					{~menu2.value == 18}{~gsinenum = 18; ~gsine.value;}
-					{~menu2.value == 19}{~gsinenum = 19; ~gsine.value;}
-					{~menu2.value == 20}{~gsinenum = 20; ~gsine.value;}
-					{~menu2.value == 21}{~gsinenum = 21; ~gsine.value;}
-					{~menu2.value == 22}{~gsinenum = 22; ~gsine.value;}
-					{~menu2.value == 23}{~gsinenum = 23; ~gsine.value;}
-					{~menu2.value == 24}{~gsinenum = 24; ~gsine.value;};
+					{~menu2.value == 0}{~gsinenum = 1; ~gsine.value;}
+					{~menu2.value == 1}{~gsinenum = 2; ~gsine.value;}
+					{~menu2.value == 2}{~gsinenum = 3; ~gsine.value;}
+					{~menu2.value == 3}{~gsinenum = 4; ~gsine.value;}
+					{~menu2.value == 4}{~gsinenum = 5; ~gsine.value;}
+					{~menu2.value == 5}{~gsinenum = 6; ~gsine.value;}
+					{~menu2.value == 6}{~gsinenum = 7; ~gsine.value;}
+					{~menu2.value == 7}{~gsinenum = 8; ~gsine.value;}
+					{~menu2.value == 8}{~gsinenum = 9; ~gsine.value;}
+					{~menu2.value == 9}{~gsinenum = 10; ~gsine.value;}
+					{~menu2.value == 10}{~gsinenum = 11; ~gsine.value;}
+					{~menu2.value == 11}{~gsinenum = 12; ~gsine.value;}
+					{~menu2.value == 12}{~gsinenum = 13; ~gsine.value;}
+					{~menu2.value == 13}{~gsinenum = 14; ~gsine.value;}
+					{~menu2.value == 14}{~gsinenum = 15; ~gsine.value;}
+					{~menu2.value == 15}{~gsinenum = 16; ~gsine.value;}
+					{~menu2.value == 16}{~gsinenum = 17; ~gsine.value;}
+					{~menu2.value == 17}{~gsinenum = 18; ~gsine.value;}
+					{~menu2.value == 18}{~gsinenum = 19; ~gsine.value;}
+					{~menu2.value == 19}{~gsinenum = 20; ~gsine.value;}
+					{~menu2.value == 20}{~gsinenum = 21; ~gsine.value;}
+					{~menu2.value == 21}{~gsinenum = 22; ~gsine.value;}
+					{~menu2.value == 22}{~gsinenum = 23; ~gsine.value;}
+					{~menu2.value == 23}{~gsinenum = 24; ~gsine.value;};
 
 					~st_load = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
 					~st_load.stringColor = Color.white;
@@ -2864,13 +2832,13 @@ s.waitForBoot({
 			});
 
 
-			Button.new(~extraoptionsview,Rect(0,80,120,20)).states_([["close eo",Color.white,Color.black],["close eo",Color.white,Color.black]]).action_({arg button; button.value.postln}).action_({arg button;
+			Button.new(~extraoptionsview,Rect(0,80,120,20)).states_([["close eo",Color.white,Color.black],["close eo",Color.white,Color.black]]).action_({arg button;
 
-				~extraoptionsview.close; ~slideview.close; ~synthfreqsetview.close; ~extraoptions.value = 0;
+				~extraoptionsview.close; if(~slideview != nil, {~slideview.close;}); if(~synthfreqsetview != nil, {~synthfreqsetview.close;}); ~extraoptions.value = 0;
 
 			});
 
-		}, {~extraoptionsview.close; ~slideview.close; ~synthfreqset.close;});
+		}, {~extraoptionsview.close; if(~slideview != nil, {~slideview.close;}); if(~synthfreqsetview != nil, {~synthfreqsetview.close;});});
 	});
 
 
@@ -4845,7 +4813,7 @@ s.waitForBoot({
 	~cpumonitorfunc =  {
 		~cpumonitor.close;
 		~cpumonitor = StaticText(w, Rect(20,~bpt-100,800,124/1.6180339887499)).background_(Color.black).stringColor_(Color.white);
-		if(~settingsbutton.value == 1, {~cpumonitorroutine.stop; ~cpumonitor.close; ~cpumonitorbutton.value = 0;});
+		if(~settingsbutton.value == 1, {~cpumonitorbutton.valueAction = 0;});
 		~cpumonitor.string =
 		"cpu: "+s.avgCPU.asString+"%"++"\n" ++
 		"ugens: "+s.numUGens.asString++"\n" ++
@@ -4868,6 +4836,7 @@ s.waitForBoot({
 	~cpumonitorbutton = Button.new(w,Rect(Window.screenBounds.width-20-20-20-20,~bpt+69+5,20,20/1.6180339887499)).states_([["cm",Color.white,Color.black],["cm",Color.white,Color.black]]).action_({arg button;
 
 		if(button.value == 1, {
+			if(~settingsbutton.value == 1, {~settingsbutton.valueAction = 0;});
 			~cpumonitorroutine.reset;
 			~cpumonitorroutine.play;
 		}, {~cpumonitorroutine.stop; ~cpumonitor.close;});
