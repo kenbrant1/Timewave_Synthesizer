@@ -61,8 +61,8 @@ s.waitForBoot({
 	//low-pass filter settings
 
 	if(~low_pass_filter_on == nil, {~low_pass_filter_on = 1}); //set starting low-pass filter on/off. 1 means on - switch to 0 for off.
-
-	if(~low_pass_filter_set_value == nil, {~low_pass_filter_freq_limit = 1728; //frequency limit for low-pass filter in synthdefs. default is 1728.
+	~default_low_pass_filter_freq_limit = 1225.4350578653;
+	if(~low_pass_filter_set_value == nil, {~low_pass_filter_freq_limit = ~default_low_pass_filter_freq_limit; //frequency limit for low-pass filter in synthdefs. default is 1225.4350578653.
 	});
 
 
@@ -74,11 +74,13 @@ s.waitForBoot({
 	});
 	if(~sendreplyfuncswitch == nil, {~sendreplyfuncswitch = 1; //1 is random western scale note change per timewave half-cycle, 2 is eastern scale. default is 1
 	});
+	if(~sendreply_period == nil, {~sendreply_period = 1; //default is 1. this determines when sendreply triggers for the "automate" function. 1 is in 1 full timewave cycle, 0.5 is in 1/2 timewave cycle, 1.5 is 1 1/2 cycles, 2 is in 2 cycles, etc.
+	});
 
 
 	//volume
 
-	~vol = 0.005; //default 0.005
+	~vol = 0.007; //default 0.007
 	12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
 
 
@@ -450,7 +452,7 @@ s.waitForBoot({
 					s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur),Demand.ar(Impulse.ar(dur), 0, dseq));
 					if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit);}, {s1 = s1});
 					OffsetOut.ar(0, s1.dup*vol);
-					SendReply.ar(PulseDivider.ar(Impulse.ar(dur), (~kws_setting_1_a.value.size*(~gsinenum*~first_harmonic))),
+					SendReply.ar(PulseDivider.ar(Impulse.ar(dur), (~kws_setting_1_a.value.size*(~gsinenum*~first_harmonic))*2*~sendreply_period),
 						case
 						{~sendreplyfunc_choose == 0}{("synthflow_gmf_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
 						{~sendreplyfunc_choose == 1}{("synthflow_random_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;};
@@ -514,24 +516,26 @@ s.waitForBoot({
 	~synthflow_gmf_sendreply_answer_f7 = '/synthflow_gmf_sendreply_answer_f7';
 	~synthflow_gmf_sendreply_answer_f8 = '/synthflow_gmf_sendreply_answer_f8';
 
-	OSCFunc({~f1 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f1');
-	OSCFunc({~f2 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f2');
-	OSCFunc({~f3 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f3');
-	OSCFunc({~f4 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f4');
-	OSCFunc({~f5 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f5');
-	OSCFunc({~f6 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f6');
-	OSCFunc({~f7 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f7');
-	OSCFunc({~f8 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f8');
+	~sendreply_oscfunc_array = {
 
-	OSCFunc({x = ~f1; y = ~sendreply_gm_fth_y_1; ~sendreply_gm_fth_func.value; ~f1 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_1 = y;}, '/synthflow_gmf_sendreply_answer_f1');
-	OSCFunc({x = ~f2; y = ~sendreply_gm_fth_y_2; ~sendreply_gm_fth_func.value; ~f2 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_2 = y;}, '/synthflow_gmf_sendreply_answer_f2');
-	OSCFunc({x = ~f3; y = ~sendreply_gm_fth_y_3; ~sendreply_gm_fth_func.value; ~f3 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_3 = y;}, '/synthflow_gmf_sendreply_answer_f3');
-	OSCFunc({x = ~f4; y = ~sendreply_gm_fth_y_4; ~sendreply_gm_fth_func.value; ~f4 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_4 = y;}, '/synthflow_gmf_sendreply_answer_f4');
-	OSCFunc({x = ~f5; y = ~sendreply_gm_fth_y_5; ~sendreply_gm_fth_func.value; ~f5 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_5 = y;}, '/synthflow_gmf_sendreply_answer_f5');
-	OSCFunc({x = ~f6; y = ~sendreply_gm_fth_y_6; ~sendreply_gm_fth_func.value; ~f6 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_6 = y;}, '/synthflow_gmf_sendreply_answer_f6');
-	OSCFunc({x = ~f7; y = ~sendreply_gm_fth_y_7; ~sendreply_gm_fth_func.value; ~f7 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_7 = y;}, '/synthflow_gmf_sendreply_answer_f7');
-	OSCFunc({x = ~f8; y = ~sendreply_gm_fth_y_8; ~sendreply_gm_fth_func.value; ~f8 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_8 = y;}, '/synthflow_gmf_sendreply_answer_f8');
+		OSCFunc({~f1 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f1');
+		OSCFunc({~f2 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f2');
+		OSCFunc({~f3 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f3');
+		OSCFunc({~f4 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f4');
+		OSCFunc({~f5 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f5');
+		OSCFunc({~f6 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f6');
+		OSCFunc({~f7 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f7');
+		OSCFunc({~f8 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f8');
 
+		OSCFunc({x = ~f1; y = ~sendreply_gm_fth_y_1; ~sendreply_gm_fth_func.value; ~f1 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_1 = y;}, '/synthflow_gmf_sendreply_answer_f1');
+		OSCFunc({x = ~f2; y = ~sendreply_gm_fth_y_2; ~sendreply_gm_fth_func.value; ~f2 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_2 = y;}, '/synthflow_gmf_sendreply_answer_f2');
+		OSCFunc({x = ~f3; y = ~sendreply_gm_fth_y_3; ~sendreply_gm_fth_func.value; ~f3 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_3 = y;}, '/synthflow_gmf_sendreply_answer_f3');
+		OSCFunc({x = ~f4; y = ~sendreply_gm_fth_y_4; ~sendreply_gm_fth_func.value; ~f4 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_4 = y;}, '/synthflow_gmf_sendreply_answer_f4');
+		OSCFunc({x = ~f5; y = ~sendreply_gm_fth_y_5; ~sendreply_gm_fth_func.value; ~f5 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_5 = y;}, '/synthflow_gmf_sendreply_answer_f5');
+		OSCFunc({x = ~f6; y = ~sendreply_gm_fth_y_6; ~sendreply_gm_fth_func.value; ~f6 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_6 = y;}, '/synthflow_gmf_sendreply_answer_f6');
+		OSCFunc({x = ~f7; y = ~sendreply_gm_fth_y_7; ~sendreply_gm_fth_func.value; ~f7 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_7 = y;}, '/synthflow_gmf_sendreply_answer_f7');
+		OSCFunc({x = ~f8; y = ~sendreply_gm_fth_y_8; ~sendreply_gm_fth_func.value; ~f8 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_8 = y;}, '/synthflow_gmf_sendreply_answer_f8');
+	};
 
 	//set base (lowest) frequencies, set starting values for synthdef, and load synthdef on server boot
 
@@ -647,7 +651,7 @@ s.waitForBoot({
 					case
 					{~sendreplysynthdef_on == 0}{#s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8 = \gsineicfld1!8;}
 					{~sendreplysynthdef_on == 1}{#s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8 =
-						[\gsineicfld1_f1, \gsineicfld1_f2, \gsineicfld1_f3, \gsineicfld1_f4, \gsineicfld1_f5, \gsineicfld1_f6, \gsineicfld1_f7, \gsineicfld1_f8];};
+						[\gsineicfld1_f1, \gsineicfld1_f2, \gsineicfld1_f3, \gsineicfld1_f4, \gsineicfld1_f5, \gsineicfld1_f6, \gsineicfld1_f7, \gsineicfld1_f8]; ~sendreply_oscfunc_array.value;};
 					s.makeBundle(0, {
 						~l1a = Synth(s1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b = Synth(s2, [\dur, ~f1,    \vol, vol1]);
 						~l1c = Synth(s3, [\dur, ~f1/~icd3,  \vol, vol1]);   ~l1d = Synth(s4, [\dur, ~f1/~icd3,  \vol, vol1]);
@@ -721,7 +725,7 @@ s.waitForBoot({
 					case
 					{~sendreplysynthdef_on == 0}{#s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8 = \gsineicfld1!8;}
 					{~sendreplysynthdef_on == 1}{#s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8 =
-						[\gsineicfld1_f1, \gsineicfld1_f2, \gsineicfld1_f3, \gsineicfld1_f4, \gsineicfld1_f5, \gsineicfld1_f6, \gsineicfld1_f7, \gsineicfld1_f8];};
+						[\gsineicfld1_f1, \gsineicfld1_f2, \gsineicfld1_f3, \gsineicfld1_f4, \gsineicfld1_f5, \gsineicfld1_f6, \gsineicfld1_f7, \gsineicfld1_f8]; ~sendreply_oscfunc_array.value;};
 					s.makeBundle(0, {
 						~l1a1 = Synth(s1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b1 = Synth(s2, [\dur, ~f1,    \vol, vol1]);
 						~l1c1 = Synth(s3, [\dur, ~f1/~icd3,  \vol, vol1]);   ~l1d1 = Synth(s4, [\dur, ~f1/~icd3,  \vol, vol1]);
@@ -1822,7 +1826,7 @@ s.waitForBoot({
 			({
 				arg  top = 0,width=150, revertwidth=75, height = 25,  heightbox = 25, lefttime = 0 , lefttimebox = width+5,  widthbox=165, leftdo = lefttimebox+widthbox+5, leftdobox = leftdo+57, inc=0, lw = 0,  uw = 0, numw = 40;
 				var tall, stall, iall, siall, st1, st2, st3, st4, st5, st6, st7, st8, st9, st10, st11, st12, si1, si2, si3, si4, si5, si6, si7, si8, t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12;
-				~settingsview = View(w, Rect(20+60*2+15+25,Window.screenBounds.height-340,340,340/1.6180339887499)).front;
+				~settingsview = View(w, Rect(20+60*2+15+25,Window.screenBounds.height-340,380,380/1.6180339887499)).front;
 				/*w.view.decorator=FlowLayout(w.view.bounds);
 				w.view.decorator.gap=2@2;*/
 
@@ -1833,6 +1837,7 @@ s.waitForBoot({
 				t3 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height)).background_(Color.black).string_("synthdef type").stringColor_(Color.white);
 				t4 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height)).background_(Color.black).string_("lp filter limit(hz)").stringColor_(Color.white);
 				t5 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height)).background_(Color.black).string_("automate").stringColor_(Color.white);
+				t6 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("automate period").stringColor_(Color.white);
 
 
 				top = 0;
@@ -1957,6 +1962,28 @@ s.waitForBoot({
 				{~sendreplymenu_value == 2}{~sendreplymenu.value = 2;}
 				{~sendreplymenu_value == 3}{~sendreplymenu.value = 3;}
 				{~sendreplymenu_value == 4}{~sendreplymenu.value = 4;};
+
+
+				//set automate note-change period for sendreply
+
+				~sendreplyperiodtextfield = TextField(~settingsview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox));
+				~sendreplyperiodtextfield.string = ~sendreply_period.asString;
+				~sendreplyperiodtextfield.background_(Color.black);
+				~sendreplyperiodtextfield.stringColor_(Color.white);
+				~sendreplyperiodtextfield.action = {arg value; ~freqsetvalue = value.value;
+
+					~freqset_textfield_func.value; //this function is found after line 2900
+
+					~sendreply_period = ~freqsetvalue.value;
+
+					~sendreplyperiodtextfield.string = ~sendreply_period.asString;
+
+					if(~st != nil, {~st.close});
+					~st = StaticText(~settingsview, Rect(lefttime, top, 240, 35)).background_(Color.black);
+					~st.stringColor = Color.white;
+					~st.string = "automate note-change period selected";
+					AppClock.sched(~gm,{~st.close;});
+				};
 
 
 				//set button for all settings
@@ -4862,8 +4889,9 @@ s.waitForBoot({
 				"     KWS number: change number of kw(King Wen) sequences in a timewave half-cycle (or amplitude x2). press set to load."++"\n"++"\n"++
 				"     base(lowest) freq(hz): set the base(lowest) frequency of timewave cycle. press set to load."++"\n"++"\n"++
 				"     synthdef type: psine1-psine3 (based on phi, with low-pass filter), hsine1-hsine3 (based on 19.47:360, with low-pass filter), psineuf1-psineuf3 (based on phi, without low-pass filter),"++"\n"++"     hsineuf1-hsineuf3 (based on 19.47:360, without low-pass filter) - set synthdef type. press set to load."++"\n"++"\n"++
-				"     lp filter limit(hz): change the low-pass filter frequency limit. default is 1728. press set to load."++"\n"++"\n"++
+				"     lp filter limit(hz): change the low-pass filter frequency limit. default is "++~default_low_pass_filter_freq_limit.asString++". press set to load."++"\n"++"\n"++
 				"     automate: setting for automated mid-timewave sequence events. press set to load."++"\n"++"\n"++
+				"     automate period: setting for determining when sendreply triggers for the automate function. 1 is in 1 full timewave cycle, 0.5 is in 1/2 timewave cycle, 1.5 is 1 1/2 cycles, 2 is in 2 cycles, etc."++"\n"++"\n"++
 				"s1-s8: set/save note positions"++"\n"++"\n"++
 				"g1-g8: groups of saved note positions"++"\n"++"\n"++
 				"uc-u8: undo changes to set note positions. press set to load"++"\n"++"\n"++

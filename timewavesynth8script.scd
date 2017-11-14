@@ -10,7 +10,7 @@ Press "Ctrl/Cmd - Period" to stop synth/free the sever.
 You can compose a piece, and find guides for doing so, inside the "//3 - TASK" function. */
 
 ((//3 - TASK
-	t = Task({/*trace*/ ~st = 0; ~trace = {("event-"++(~st = ~st + 1).asString).postln;}; 8.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(/*volume*/ 0.005)});
+	t = Task({/*trace*/ ~st = 0; ~trace = {("event-"++(~st = ~st + 1).asString).postln;}; 8.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(/*volume*/ 0.007)});
 		1.do({
 
 			//duration of each chord
@@ -32,7 +32,7 @@ You can compose a piece, and find guides for doing so, inside the "//3 - TASK" f
 
 			//stop everything
 			~synthfree.value; 2.wait; s.stopRecording;
-			8.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(0.005)});
+			8.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(0.007)});
 
 });}););
 t.play;
@@ -79,38 +79,38 @@ s.stopRecording; // STOP RECORDING
 		});
 
 		(
-			1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,s1,s2,s3,s4,s5,s6,s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8;
+			1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,s1,s2,s3,s4,s5,s6,s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8;
 				#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8];
 				#s1,s2,s3,s4,s5,s6 = [\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1];
 				case
-				{~sendreplysynthdef_on == 0}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8 = \gsineicfld6!8;}
-				{~sendreplysynthdef_on == 1}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8 =
-					[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3, \gsineicfld6_f4, \gsineicfld6_f5, \gsineicfld6_f6, \gsineicfld6_f7, \gsineicfld6_f8];};
+				{~sendreplysynthdef_on == 0}{#s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8 = \gsineicfld1!8;}
+				{~sendreplysynthdef_on == 1}{#s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8 =
+					[\gsineicfld1_f1, \gsineicfld1_f2, \gsineicfld1_f3, \gsineicfld1_f4, \gsineicfld1_f5, \gsineicfld1_f6, \gsineicfld1_f7, \gsineicfld1_f8]; ~sendreply_oscfunc_array.value;};
 				s.makeBundle(0, {
-					~l1a = Synth(s1_1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b = Synth(s2, [\dur, ~f1,    \vol, vol1]);
+					~l1a = Synth(s1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b = Synth(s2, [\dur, ~f1,    \vol, vol1]);
 					~l1c = Synth(s3, [\dur, ~f1/~icd3,  \vol, vol1]);   ~l1d = Synth(s4, [\dur, ~f1/~icd3,  \vol, vol1]);
-					~l1e = Synth(s5, [\dur, ~f1/~icd6,  \vol, vol1]);   ~l1f = Synth(s6, [\dur, ~f1/~icd6,  \vol, vol1]);
-					~l2a = Synth(s1_2, [\dur, ~f2,    \vol, vol2]);        ~l2b = Synth(s2, [\dur, ~f2,    \vol, vol2]);
+					~l1e = Synth(s5_1, [\dur, ~f1/~icd6,  \vol, vol1]);   ~l1f = Synth(s6, [\dur, ~f1/~icd6,  \vol, vol1]);
+					~l2a = Synth(s1, [\dur, ~f2,    \vol, vol2]);        ~l2b = Synth(s2, [\dur, ~f2,    \vol, vol2]);
 					~l2c = Synth(s3, [\dur, ~f2/~icd3,  \vol, vol2]);   ~l2d = Synth(s4, [\dur, ~f2/~icd3,  \vol, vol2]);
-					~l2e = Synth(s5, [\dur, ~f2/~icd6,  \vol, vol2]);   ~l2f = Synth(s6, [\dur, ~f2/~icd6,  \vol, vol2]);
-					~l3a = Synth(s1_3, [\dur, ~f3,    \vol, vol3]);        ~l3b = Synth(s2, [\dur, ~f3,   \vol, vol3]);
+					~l2e = Synth(s5_2, [\dur, ~f2/~icd6,  \vol, vol2]);   ~l2f = Synth(s6, [\dur, ~f2/~icd6,  \vol, vol2]);
+					~l3a = Synth(s1, [\dur, ~f3,    \vol, vol3]);        ~l3b = Synth(s2, [\dur, ~f3,   \vol, vol3]);
 					~l3c = Synth(s3, [\dur, ~f3/~icd3,  \vol, vol3]);   ~l3d = Synth(s4, [\dur, ~f3/~icd3, \vol, vol3]);
-					~l3e = Synth(s5, [\dur, ~f3/~icd6,  \vol, vol3]);   ~l3f = Synth(s6, [\dur, ~f3/~icd6, \vol, vol3]);
-					~l4a = Synth(s1_4, [\dur, ~f4,    \vol, vol4]);       ~l4b = Synth(s2, [\dur, ~f4,   \vol, vol4]);
+					~l3e = Synth(s5_3, [\dur, ~f3/~icd6,  \vol, vol3]);   ~l3f = Synth(s6, [\dur, ~f3/~icd6, \vol, vol3]);
+					~l4a = Synth(s1, [\dur, ~f4,    \vol, vol4]);       ~l4b = Synth(s2, [\dur, ~f4,   \vol, vol4]);
 					~l4c = Synth(s3, [\dur, ~f4/~icd3,  \vol, vol4]);  ~l4d = Synth(s4, [\dur, ~f4/~icd3, \vol, vol4]);
-					~l4e = Synth(s5, [\dur, ~f4/~icd6,  \vol, vol4]);   ~l4f = Synth(s6, [\dur, ~f4/~icd6, \vol, vol4]);
-					~l5a = Synth(s1_5, [\dur, ~f5,    \vol, vol5]);       ~l5b = Synth(s2, [\dur, ~f5,   \vol, vol5]);
+					~l4e = Synth(s5_4, [\dur, ~f4/~icd6,  \vol, vol4]);   ~l4f = Synth(s6, [\dur, ~f4/~icd6, \vol, vol4]);
+					~l5a = Synth(s1, [\dur, ~f5,    \vol, vol5]);       ~l5b = Synth(s2, [\dur, ~f5,   \vol, vol5]);
 					~l5c = Synth(s3, [\dur, ~f5/~icd3,  \vol, vol5]);   ~l5d = Synth(s4, [\dur, ~f5/~icd3, \vol, vol5]);
-					~l5e = Synth(s5, [\dur, ~f5/~icd6,  \vol, vol5]);   ~l5f = Synth(s6, [\dur, ~f5/~icd6, \vol, vol5]);
-					~l6a = Synth(s1_6, [\dur, ~f6,    \vol, vol6]);       ~l6b = Synth(s2, [\dur, ~f6,   \vol, vol6]);
+					~l5e = Synth(s5_5, [\dur, ~f5/~icd6,  \vol, vol5]);   ~l5f = Synth(s6, [\dur, ~f5/~icd6, \vol, vol5]);
+					~l6a = Synth(s1, [\dur, ~f6,    \vol, vol6]);       ~l6b = Synth(s2, [\dur, ~f6,   \vol, vol6]);
 					~l6c = Synth(s3, [\dur, ~f6/~icd3,  \vol, vol6]);   ~l6d = Synth(s4, [\dur, ~f6/~icd3, \vol, vol6]);
-					~l6e = Synth(s5, [\dur, ~f6/~icd6,  \vol, vol6]);   ~l6f = Synth(s6, [\dur, ~f6/~icd6, \vol, vol6]);
-					~l7a = Synth(s1_7, [\dur, ~f7,    \vol, vol7]);       ~l7b = Synth(s2, [\dur, ~f7,   \vol, vol7]);
+					~l6e = Synth(s5_6, [\dur, ~f6/~icd6,  \vol, vol6]);   ~l6f = Synth(s6, [\dur, ~f6/~icd6, \vol, vol6]);
+					~l7a = Synth(s1, [\dur, ~f7,    \vol, vol7]);       ~l7b = Synth(s2, [\dur, ~f7,   \vol, vol7]);
 					~l7c = Synth(s3, [\dur, ~f7/~icd3,  \vol, vol7]);   ~l7d = Synth(s4, [\dur, ~f7/~icd3, \vol, vol7]);
-					~l7e = Synth(s5, [\dur, ~f7/~icd6,  \vol, vol7]);   ~l7f = Synth(s6, [\dur, ~f7/~icd6, \vol, vol7]);
-					~l8a = Synth(s1_8, [\dur, ~f8,    \vol, vol8]);  ~l8b = Synth(s2, [\dur, ~f8,   \vol, vol8]);
+					~l7e = Synth(s5_7, [\dur, ~f7/~icd6,  \vol, vol7]);   ~l7f = Synth(s6, [\dur, ~f7/~icd6, \vol, vol7]);
+					~l8a = Synth(s1, [\dur, ~f8,    \vol, vol8]);  ~l8b = Synth(s2, [\dur, ~f8,   \vol, vol8]);
 					~l8c = Synth(s3, [\dur, ~f8/~icd3,  \vol, vol8]);   ~l8d = Synth(s4, [\dur, ~f8/~icd3, \vol, vol8]);
-					~l8e = Synth(s5, [\dur, ~f8/~icd6,  \vol, vol8]);   ~l8f = Synth(s6, [\dur, ~f8/~icd6, \vol, vol8]);
+					~l8e = Synth(s5_8, [\dur, ~f8/~icd6,  \vol, vol8]);   ~l8f = Synth(s6, [\dur, ~f8/~icd6, \vol, vol8]);
 				});
 			});
 		);
@@ -153,38 +153,38 @@ s.stopRecording; // STOP RECORDING
 		}););
 
 		(
-			1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,s1,s2,s3,s4,s5,s6,s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8;
+			1.do({var vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,s1,s2,s3,s4,s5,s6,s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8;
 				#vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8 = [~vol1,~vol2,~vol3,~vol4,~vol5,~vol6,~vol7,~vol8];
 				#s1,s2,s3,s4,s5,s6 = [\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1];
 				case
-				{~sendreplysynthdef_on == 0}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8 = \gsineicfld6!8;}
-				{~sendreplysynthdef_on == 1}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8 =
-					[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3, \gsineicfld6_f4, \gsineicfld6_f5, \gsineicfld6_f6, \gsineicfld6_f7, \gsineicfld6_f8];};
+				{~sendreplysynthdef_on == 0}{#s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8 = \gsineicfld1!8;}
+				{~sendreplysynthdef_on == 1}{#s5_1,s5_2,s5_3,s5_4,s5_5,s5_6,s5_7,s5_8 =
+					[\gsineicfld1_f1, \gsineicfld1_f2, \gsineicfld1_f3, \gsineicfld1_f4, \gsineicfld1_f5, \gsineicfld1_f6, \gsineicfld1_f7, \gsineicfld1_f8]; ~sendreply_oscfunc_array.value;};
 				s.makeBundle(0, {
-					~l1a1 = Synth(s1_1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b1 = Synth(s2, [\dur, ~f1,    \vol, vol1]);
+					~l1a1 = Synth(s1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b1 = Synth(s2, [\dur, ~f1,    \vol, vol1]);
 					~l1c1 = Synth(s3, [\dur, ~f1/~icd3,  \vol, vol1]);   ~l1d1 = Synth(s4, [\dur, ~f1/~icd3,  \vol, vol1]);
-					~l1e1 = Synth(s5, [\dur, ~f1/~icd6,  \vol, vol1]);   ~l1f1 = Synth(s6, [\dur, ~f1/~icd6,  \vol, vol1]);
-					~l2a1 = Synth(s1_2, [\dur, ~f2,    \vol, vol2]);        ~l2b1 = Synth(s2, [\dur, ~f2,    \vol, vol2]);
+					~l1e1 = Synth(s5_1, [\dur, ~f1/~icd6,  \vol, vol1]);   ~l1f1 = Synth(s6, [\dur, ~f1/~icd6,  \vol, vol1]);
+					~l2a1 = Synth(s1, [\dur, ~f2,    \vol, vol2]);        ~l2b1 = Synth(s2, [\dur, ~f2,    \vol, vol2]);
 					~l2c1 = Synth(s3, [\dur, ~f2/~icd3,  \vol, vol2]);   ~l2d1 = Synth(s4, [\dur, ~f2/~icd3,  \vol, vol2]);
-					~l2e1 = Synth(s5, [\dur, ~f2/~icd6,  \vol, vol2]);   ~l2f1 = Synth(s6, [\dur, ~f2/~icd6,  \vol, vol2]);
-					~l3a1 = Synth(s1_3, [\dur, ~f3,    \vol, vol3]);        ~l3b1 = Synth(s2, [\dur, ~f3,   \vol, vol3]);
+					~l2e1 = Synth(s5_2, [\dur, ~f2/~icd6,  \vol, vol2]);   ~l2f1 = Synth(s6, [\dur, ~f2/~icd6,  \vol, vol2]);
+					~l3a1 = Synth(s1, [\dur, ~f3,    \vol, vol3]);        ~l3b1 = Synth(s2, [\dur, ~f3,   \vol, vol3]);
 					~l3c1 = Synth(s3, [\dur, ~f3/~icd3,  \vol, vol3]);   ~l3d1 = Synth(s4, [\dur, ~f3/~icd3, \vol, vol3]);
-					~l3e1 = Synth(s5, [\dur, ~f3/~icd6,  \vol, vol3]);   ~l3f1 = Synth(s6, [\dur, ~f3/~icd6, \vol, vol3]);
-					~l4a1 = Synth(s1_4, [\dur, ~f4,    \vol, vol4]);       ~l4b1 = Synth(s2, [\dur, ~f4,   \vol, vol4]);
+					~l3e1 = Synth(s5_3, [\dur, ~f3/~icd6,  \vol, vol3]);   ~l3f1 = Synth(s6, [\dur, ~f3/~icd6, \vol, vol3]);
+					~l4a1 = Synth(s1, [\dur, ~f4,    \vol, vol4]);       ~l4b1 = Synth(s2, [\dur, ~f4,   \vol, vol4]);
 					~l4c1 = Synth(s3, [\dur, ~f4/~icd3,  \vol, vol4]);  ~l4d1 = Synth(s4, [\dur, ~f4/~icd3, \vol, vol4]);
-					~l4e1 = Synth(s5, [\dur, ~f4/~icd6,  \vol, vol4]);   ~l4f1 = Synth(s6, [\dur, ~f4/~icd6, \vol, vol4]);
-					~l5a1 = Synth(s1_5, [\dur, ~f5,    \vol, vol5]);       ~l5b1 = Synth(s2, [\dur, ~f5,   \vol, vol5]);
+					~l4e1 = Synth(s5_4, [\dur, ~f4/~icd6,  \vol, vol4]);   ~l4f1 = Synth(s6, [\dur, ~f4/~icd6, \vol, vol4]);
+					~l5a1 = Synth(s1, [\dur, ~f5,    \vol, vol5]);       ~l5b1 = Synth(s2, [\dur, ~f5,   \vol, vol5]);
 					~l5c1 = Synth(s3, [\dur, ~f5/~icd3,  \vol, vol5]);   ~l5d1 = Synth(s4, [\dur, ~f5/~icd3, \vol, vol5]);
-					~l5e1 = Synth(s5, [\dur, ~f5/~icd6,  \vol, vol5]);   ~l5f1 = Synth(s6, [\dur, ~f5/~icd6, \vol, vol5]);
-					~l6a1 = Synth(s1_6, [\dur, ~f6,    \vol, vol6]);       ~l6b1 = Synth(s2, [\dur, ~f6,   \vol, vol6]);
+					~l5e1 = Synth(s5_5, [\dur, ~f5/~icd6,  \vol, vol5]);   ~l5f1 = Synth(s6, [\dur, ~f5/~icd6, \vol, vol5]);
+					~l6a1 = Synth(s1, [\dur, ~f6,    \vol, vol6]);       ~l6b1 = Synth(s2, [\dur, ~f6,   \vol, vol6]);
 					~l6c1 = Synth(s3, [\dur, ~f6/~icd3,  \vol, vol6]);   ~l6d1 = Synth(s4, [\dur, ~f6/~icd3, \vol, vol6]);
-					~l6e1 = Synth(s5, [\dur, ~f6/~icd6,  \vol, vol6]);   ~l6f1 = Synth(s6, [\dur, ~f6/~icd6, \vol, vol6]);
-					~l7a1 = Synth(s1_7, [\dur, ~f7,    \vol, vol7]);       ~l7b1 = Synth(s2, [\dur, ~f7,   \vol, vol7]);
+					~l6e1 = Synth(s5_6, [\dur, ~f6/~icd6,  \vol, vol6]);   ~l6f1 = Synth(s6, [\dur, ~f6/~icd6, \vol, vol6]);
+					~l7a1 = Synth(s1, [\dur, ~f7,    \vol, vol7]);       ~l7b1 = Synth(s2, [\dur, ~f7,   \vol, vol7]);
 					~l7c1 = Synth(s3, [\dur, ~f7/~icd3,  \vol, vol7]);   ~l7d1 = Synth(s4, [\dur, ~f7/~icd3, \vol, vol7]);
-					~l7e1 = Synth(s5, [\dur, ~f7/~icd6,  \vol, vol7]);   ~l7f1 = Synth(s6, [\dur, ~f7/~icd6, \vol, vol7]);
-					~l8a1 = Synth(s1_8, [\dur, ~f8,    \vol, vol8]);  ~l8b1 = Synth(s2, [\dur, ~f8,   \vol, vol8]);
+					~l7e1 = Synth(s5_7, [\dur, ~f7/~icd6,  \vol, vol7]);   ~l7f1 = Synth(s6, [\dur, ~f7/~icd6, \vol, vol7]);
+					~l8a1 = Synth(s1, [\dur, ~f8,    \vol, vol8]);  ~l8b1 = Synth(s2, [\dur, ~f8,   \vol, vol8]);
 					~l8c1 = Synth(s3, [\dur, ~f8/~icd3,  \vol, vol8]);   ~l8d1 = Synth(s4, [\dur, ~f8/~icd3, \vol, vol8]);
-					~l8e1 = Synth(s5, [\dur, ~f8/~icd6,  \vol, vol8]);   ~l8f1 = Synth(s6, [\dur, ~f8/~icd6, \vol, vol8]);
+					~l8e1 = Synth(s5_8, [\dur, ~f8/~icd6,  \vol, vol8]);   ~l8f1 = Synth(s6, [\dur, ~f8/~icd6, \vol, vol8]);
 				});
 			});
 		);

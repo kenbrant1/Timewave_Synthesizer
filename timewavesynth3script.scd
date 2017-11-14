@@ -10,7 +10,7 @@ Press "Ctrl/Cmd - Period" to stop synth/free the sever.
 You can compose a piece, and find guides for doing so, inside the "//3 - TASK" function. */
 
 ((//3 - TASK
-	t = Task({/*trace*/ ~st = 0; ~trace = {("event-"++(~st = ~st + 1).asString).postln;}; 3.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(/*volume*/ 0.005)});
+	t = Task({/*trace*/ ~st = 0; ~trace = {("event-"++(~st = ~st + 1).asString).postln;}; 3.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(/*volume*/ 0.007)});
 		1.do({
 
 			//duration of each chord
@@ -32,7 +32,7 @@ You can compose a piece, and find guides for doing so, inside the "//3 - TASK" f
 
 			//stop everything
 			~synthfree.value; 2.wait; s.stopRecording;
-			3.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(0.005)});
+			3.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(0.007)});
 
 });}););
 t.play;
@@ -70,7 +70,7 @@ s.stopRecording; // STOP RECORDING
 				case
 				{~sendreplysynthdef_on == 0}{#s1_1,s1_2,s1_3 = \gsineicfld6!3;}
 				{~sendreplysynthdef_on == 1}{#s1_1,s1_2,s1_3 =
-					[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3];};
+					[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3]; ~sendreply_oscfunc_array.value;};
 				s.makeBundle(0, {
 					~l1a = Synth(s1_1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b = Synth(s2, [\dur, ~f1,    \vol, vol1]);
 					~l1c = Synth(s3, [\dur, ~f1/~icd3,  \vol, vol1]);   ~l1d = Synth(s4, [\dur, ~f1/~icd3,  \vol, vol1]);
@@ -114,7 +114,7 @@ s.stopRecording; // STOP RECORDING
 				case
 				{~sendreplysynthdef_on == 0}{#s1_1,s1_2,s1_3 = \gsineicfld6!3;}
 				{~sendreplysynthdef_on == 1}{#s1_1,s1_2,s1_3 =
-					[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3];};
+					[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3]; ~sendreply_oscfunc_array.value;};
 				s.makeBundle(0, {
 					~l1a1 = Synth(s1_1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b1 = Synth(s2, [\dur, ~f1,    \vol, vol1]);
 					~l1c1 = Synth(s3, [\dur, ~f1/~icd3,  \vol, vol1]);   ~l1d1 = Synth(s4, [\dur, ~f1/~icd3,  \vol, vol1]);

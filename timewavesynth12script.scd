@@ -10,7 +10,7 @@ Press "Ctrl/Cmd - Period" to stop synth/free the sever.
 You can compose a piece, and find guides for doing so, inside the "//3 - TASK" function. */
 
 ((//3 - TASK
-	t = Task({/*trace*/ ~st = 0; ~trace = {("event-"++(~st = ~st + 1).asString).postln;}; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(/*volume*/ 0.005)});
+	t = Task({/*trace*/ ~st = 0; ~trace = {("event-"++(~st = ~st + 1).asString).postln;}; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(/*volume*/ 0.007)});
 		1.do({
 
 			//duration of each chord
@@ -32,7 +32,7 @@ You can compose a piece, and find guides for doing so, inside the "//3 - TASK" f
 
 			//stop everything
 			~synthfree.value; 2.wait; s.stopRecording;
-			12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(0.005)});
+			12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(0.007)});
 
 });}););
 t.play;
@@ -97,7 +97,7 @@ s.stopRecording; // STOP RECORDING
 				case
 				{~sendreplysynthdef_on == 0}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8,s1_9,s1_10,s1_11,s1_12 = \gsineicfld6!12;}
 				{~sendreplysynthdef_on == 1}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8,s1_9,s1_10,s1_11,s1_12 =
-					[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3, \gsineicfld6_f4, \gsineicfld6_f5, \gsineicfld6_f6, \gsineicfld6_f7, \gsineicfld6_f8, \gsineicfld6_f9, \gsineicfld6_f10, \gsineicfld6_f11, \gsineicfld6_f12];};
+					[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3, \gsineicfld6_f4, \gsineicfld6_f5, \gsineicfld6_f6, \gsineicfld6_f7, \gsineicfld6_f8, \gsineicfld6_f9, \gsineicfld6_f10, \gsineicfld6_f11, \gsineicfld6_f12]; ~sendreply_oscfunc_array.value;};
 				s.makeBundle(0, {
 					~l1a = Synth(s1_1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b = Synth(s2, [\dur, ~f1,    \vol, vol1]);
 					~l1c = Synth(s3, [\dur, ~f1/~icd3,  \vol, vol1]);   ~l1d = Synth(s4, [\dur, ~f1/~icd3,  \vol, vol1]);
@@ -195,7 +195,7 @@ s.stopRecording; // STOP RECORDING
 				case
 				{~sendreplysynthdef_on == 0}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8,s1_9,s1_10,s1_11,s1_12 = \gsineicfld6!12;}
 				{~sendreplysynthdef_on == 1}{#s1_1,s1_2,s1_3,s1_4,s1_5,s1_6,s1_7,s1_8,s1_9,s1_10,s1_11,s1_12 =
-					[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3, \gsineicfld6_f4, \gsineicfld6_f5, \gsineicfld6_f6, \gsineicfld6_f7, \gsineicfld6_f8, \gsineicfld6_f9, \gsineicfld6_f10, \gsineicfld6_f11, \gsineicfld6_f12];};
+					[\gsineicfld6_f1, \gsineicfld6_f2, \gsineicfld6_f3, \gsineicfld6_f4, \gsineicfld6_f5, \gsineicfld6_f6, \gsineicfld6_f7, \gsineicfld6_f8, \gsineicfld6_f9, \gsineicfld6_f10, \gsineicfld6_f11, \gsineicfld6_f12]; ~sendreply_oscfunc_array.value;};
 				s.makeBundle(0, {
 					~l1a1 = Synth(s1_1, [\dur, ~f1,    \vol, vol1]).register;    ~l1b1 = Synth(s2, [\dur, ~f1,    \vol, vol1]);
 					~l1c1 = Synth(s3, [\dur, ~f1/~icd3,  \vol, vol1]);   ~l1d1 = Synth(s4, [\dur, ~f1/~icd3,  \vol, vol1]);
