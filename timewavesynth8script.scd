@@ -10,11 +10,11 @@ Press "Ctrl/Cmd - Period" to stop synth/free the sever.
 You can compose a piece, and find guides for doing so, inside the "//3 - TASK" function. */
 
 ((//3 - TASK
-	t = Task({/*trace*/ ~st = 0; ~trace = {("event-"++(~st = ~st + 1).asString).postln;}; 8.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(/*volume*/ 0.007)});
+	t = Task({/*trace*/ ~st = 0; ~trace = {("event-"++(~st = ~st + 1).asString).postln;}; 8.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(/*volume*/ ~vol)});
 		1.do({
 
 			//duration of each chord
-			a = 38.832815729998;
+			a = 12;
 
 			//copy and paste "saved" chords from the "copy" button inside the synthesizer program here:
 			//choose to change each duration individually by changing the "a" variable in the code below this line, as well as "synthopen/synthflow"
@@ -28,11 +28,11 @@ You can compose a piece, and find guides for doing so, inside the "//3 - TASK" f
 			[~f1=654.05453931384,~f2=879.03193048766,~f3=941.25430167146,~f4=521.10543213641,~f5=521.10543213641,~f6=521.10543213641,~f7=521.10543213641,~f8=521.10543213641]; ~synthflow.value; ~trace.value; (a).wait;
 
 			//fade out function
-			100.do({8.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(("vol"++x).asSymbol.envirGet - 0.00005)}); ~synthflow.value; 0.1.wait;});
+			100.do({8.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(("vol"++x).asSymbol.envirGet - (~vol/100))}); ~synthflow.value; 0.1.wait;});
 
 			//stop everything
 			~synthfree.value; 2.wait; s.stopRecording;
-			8.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(0.007)});
+			8.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
 
 });}););
 t.play;

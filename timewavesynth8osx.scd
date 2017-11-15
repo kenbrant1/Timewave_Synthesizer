@@ -61,9 +61,10 @@ s.waitForBoot({
 	//low-pass filter settings
 
 	if(~low_pass_filter_on == nil, {~low_pass_filter_on = 1}); //set starting low-pass filter on/off. 1 means on - switch to 0 for off.
-	~default_low_pass_filter_freq_limit = 1225.4350578653;
-	if(~low_pass_filter_set_value == nil, {~low_pass_filter_freq_limit = ~default_low_pass_filter_freq_limit; //frequency limit for low-pass filter in synthdefs. default is 1225.4350578653.
+	~default_low_pass_filter_freq_limit = 1468;
+	if(~low_pass_filter_set_value == nil, {~low_pass_filter_freq_limit = ~default_low_pass_filter_freq_limit; //frequency limit for low-pass filter in synthdefs. default is 1468.
 	});
+	~lpfilter_rq_ratio = 295.57086653808;
 
 
 	//default sendreply toggle
@@ -80,7 +81,8 @@ s.waitForBoot({
 
 	//volume
 
-	~vol = 0.007; //default 0.007
+	~vol_default = 0.012; //default 0.012
+	if(~vol == nil, {~vol = ~vol_default});
 	12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
 
 
@@ -335,7 +337,7 @@ s.waitForBoot({
 					{~kws_setting == 2}{~kws_setting_2_b.value;}
 					{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten, inf);
 			s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur),Demand.ar(Impulse.ar(dur), 0, dseq));
-			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit);}, {s1 = s1});
+			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -353,7 +355,7 @@ s.waitForBoot({
 					{~kws_setting == 2}{~kws_setting_2_b.value;}
 					{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten].flatten.reverse, inf);
 			s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur), Demand.ar(Impulse.ar(dur), 0, dseq));
-			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit);}, {s1 = s1});
+			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -371,7 +373,7 @@ s.waitForBoot({
 					{~kws_setting == 2}{~kws_setting_2_b.value;}
 					{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten, inf);
 			s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur),Demand.ar(Impulse.ar(dur), 0, dseq));
-			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit);}, {s1 = s1});
+			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -389,7 +391,7 @@ s.waitForBoot({
 					{~kws_setting == 2}{~kws_setting_2_b.value;}
 					{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten].flatten.reverse, inf);
 			s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur), Demand.ar(Impulse.ar(dur), 0, dseq));
-			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit);}, {s1 = s1});
+			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -407,7 +409,7 @@ s.waitForBoot({
 					{~kws_setting == 2}{~kws_setting_2_b.value;}
 					{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten, inf);
 			s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur),Demand.ar(Impulse.ar(dur), 0, dseq));
-			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit);}, {s1 = s1});
+			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -425,12 +427,11 @@ s.waitForBoot({
 					{~kws_setting == 2}{~kws_setting_2_b.value;}
 					{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten].flatten.reverse, inf);
 			s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur), Demand.ar(Impulse.ar(dur), 0, dseq));
-			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit);}, {s1 = s1});
+			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
 		if(~sendreplysynthdef_on == 1, {
-
 
 			8.do(~sendreply_x = 0; {
 
@@ -450,7 +451,7 @@ s.waitForBoot({
 							{~kws_setting == 2}{~kws_setting_2_b.value;}
 							{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten, inf);
 					s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur),Demand.ar(Impulse.ar(dur), 0, dseq));
-					if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit);}, {s1 = s1});
+					if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
 					OffsetOut.ar(0, s1.dup*vol);
 					SendReply.ar(PulseDivider.ar(Impulse.ar(dur), (~kws_setting_1_a.value.size*(~gsinenum*~first_harmonic))*2*~sendreply_period),
 						case
@@ -1824,9 +1825,9 @@ s.waitForBoot({
 		if(button.value == 1, {
 
 			({
-				arg  top = 0,width=150, revertwidth=75, height = 25,  heightbox = 25, lefttime = 0 , lefttimebox = width+5,  widthbox=165, leftdo = lefttimebox+widthbox+5, leftdobox = leftdo+57, inc=0, lw = 0,  uw = 0, numw = 40;
+				arg  top = 0,width=160, revertwidth=75, height = 25,  heightbox = 25, lefttime = 0 , lefttimebox = width+5,  widthbox=165, leftdo = lefttimebox+widthbox+5, leftdobox = leftdo+57, inc=0, lw = 0,  uw = 0, numw = 40;
 				var tall, stall, iall, siall, st1, st2, st3, st4, st5, st6, st7, st8, st9, st10, st11, st12, si1, si2, si3, si4, si5, si6, si7, si8, t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12;
-				~settingsview = View(w, Rect(20+60*2+15+25,Window.screenBounds.height-340,380,380/1.6180339887499)).front;
+				~settingsview = View(w, Rect(20+60*2+15+25,Window.screenBounds.height-370,380,420/1.6180339887499)).front;
 				/*w.view.decorator=FlowLayout(w.view.bounds);
 				w.view.decorator.gap=2@2;*/
 
@@ -1838,6 +1839,7 @@ s.waitForBoot({
 				t4 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height)).background_(Color.black).string_("lp filter limit(hz)").stringColor_(Color.white);
 				t5 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height)).background_(Color.black).string_("automate").stringColor_(Color.white);
 				t6 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("automate period").stringColor_(Color.white);
+				t7 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height+10)).background_(Color.black).string_("volume(use small intervals)").stringColor_(Color.white);
 
 
 				top = 0;
@@ -1924,7 +1926,7 @@ s.waitForBoot({
 
 					~low_pass_filter_set_value = ~freqsetvalue.value;
 
-					~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString;
+					~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString; ~low_pass_filter_set_value = ~low_pass_filter_set_value.asFloat;
 
 					if(~low_pass_filter_set_value != 0, {
 						if(~st != nil, {~st.close});
@@ -1976,7 +1978,7 @@ s.waitForBoot({
 
 					~sendreply_period = ~freqsetvalue.value;
 
-					~sendreplyperiodtextfield.string = ~sendreply_period.asString;
+					~sendreplyperiodtextfield.string = ~sendreply_period.asString; ~sendreply_period = ~sendreply_period.asFloat;
 
 					if(~st != nil, {~st.close});
 					~st = StaticText(~settingsview, Rect(lefttime, top, 240, 35)).background_(Color.black);
@@ -1986,9 +1988,37 @@ s.waitForBoot({
 				};
 
 
+				//set volume
+
+				~volumetextfield = TextField(~settingsview, Rect(lefttimebox , top=top+heightbox+5, widthbox, heightbox));
+				~volumetextfield.string = ~vol.asString;
+				~volumetextfield.background_(Color.black);
+				~volumetextfield.stringColor_(Color.white);
+				~volumetextfield.action = {arg value; ~freqsetvalue = value.value;
+
+					~volumetextfield.value; //this function is found after line 2900
+
+					~vol = ~freqsetvalue.value;
+
+					~volumetextfield.string = ~vol.asString; ~vol = ~vol.asFloat;
+
+					12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
+
+					if(~st != nil, {~st.close});
+					~st = StaticText(~settingsview, Rect(lefttime, top, 240, 35)).background_(Color.black);
+					~st.stringColor = Color.white;
+					~st.string = "volume selected";
+					AppClock.sched(~gm,{~st.close;});
+				};
+
+
 				//set button for all settings
 
 				~set1=Button(~settingsview,Rect(lefttimebox+widthbox-60, top=top+height+20, 60, 60/~gm)).states_([["set",Color.white,Color.black]]).mouseDownAction_({
+
+					~st1 = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
+					~st1.stringColor = Color.white;
+					~st1.string = "loading...";
 
 					~basefreq = ~basefreqmap.at(~bfreq.value;); ~bfreqval = ~bfreq.value;
 
@@ -2020,36 +2050,41 @@ s.waitForBoot({
 
 					//evaluate synthdefs(gsine)
 
-					case
-					{~menu2.value == 0}{~gsinenum = 1; ~gsine.value;}
-					{~menu2.value == 1}{~gsinenum = 2; ~gsine.value;}
-					{~menu2.value == 2}{~gsinenum = 3; ~gsine.value;}
-					{~menu2.value == 3}{~gsinenum = 4; ~gsine.value;}
-					{~menu2.value == 4}{~gsinenum = 5; ~gsine.value;}
-					{~menu2.value == 5}{~gsinenum = 6; ~gsine.value;}
-					{~menu2.value == 6}{~gsinenum = 7; ~gsine.value;}
-					{~menu2.value == 7}{~gsinenum = 8; ~gsine.value;}
-					{~menu2.value == 8}{~gsinenum = 9; ~gsine.value;}
-					{~menu2.value == 9}{~gsinenum = 10; ~gsine.value;}
-					{~menu2.value == 10}{~gsinenum = 11; ~gsine.value;}
-					{~menu2.value == 11}{~gsinenum = 12; ~gsine.value;}
-					{~menu2.value == 12}{~gsinenum = 13; ~gsine.value;}
-					{~menu2.value == 13}{~gsinenum = 14; ~gsine.value;}
-					{~menu2.value == 14}{~gsinenum = 15; ~gsine.value;}
-					{~menu2.value == 15}{~gsinenum = 16; ~gsine.value;}
-					{~menu2.value == 16}{~gsinenum = 17; ~gsine.value;}
-					{~menu2.value == 17}{~gsinenum = 18; ~gsine.value;}
-					{~menu2.value == 18}{~gsinenum = 19; ~gsine.value;}
-					{~menu2.value == 19}{~gsinenum = 20; ~gsine.value;}
-					{~menu2.value == 20}{~gsinenum = 21; ~gsine.value;}
-					{~menu2.value == 21}{~gsinenum = 22; ~gsine.value;}
-					{~menu2.value == 22}{~gsinenum = 23; ~gsine.value;}
-					{~menu2.value == 23}{~gsinenum = 24; ~gsine.value;};
+					AppClock.sched(~gm,{
+						case
+						{~menu2.value == 0}{~gsinenum = 1; ~gsine.value;}
+						{~menu2.value == 1}{~gsinenum = 2; ~gsine.value;}
+						{~menu2.value == 2}{~gsinenum = 3; ~gsine.value;}
+						{~menu2.value == 3}{~gsinenum = 4; ~gsine.value;}
+						{~menu2.value == 4}{~gsinenum = 5; ~gsine.value;}
+						{~menu2.value == 5}{~gsinenum = 6; ~gsine.value;}
+						{~menu2.value == 6}{~gsinenum = 7; ~gsine.value;}
+						{~menu2.value == 7}{~gsinenum = 8; ~gsine.value;}
+						{~menu2.value == 8}{~gsinenum = 9; ~gsine.value;}
+						{~menu2.value == 9}{~gsinenum = 10; ~gsine.value;}
+						{~menu2.value == 10}{~gsinenum = 11; ~gsine.value;}
+						{~menu2.value == 11}{~gsinenum = 12; ~gsine.value;}
+						{~menu2.value == 12}{~gsinenum = 13; ~gsine.value;}
+						{~menu2.value == 13}{~gsinenum = 14; ~gsine.value;}
+						{~menu2.value == 14}{~gsinenum = 15; ~gsine.value;}
+						{~menu2.value == 15}{~gsinenum = 16; ~gsine.value;}
+						{~menu2.value == 16}{~gsinenum = 17; ~gsine.value;}
+						{~menu2.value == 17}{~gsinenum = 18; ~gsine.value;}
+						{~menu2.value == 18}{~gsinenum = 19; ~gsine.value;}
+						{~menu2.value == 19}{~gsinenum = 20; ~gsine.value;}
+						{~menu2.value == 20}{~gsinenum = 21; ~gsine.value;}
+						{~menu2.value == 21}{~gsinenum = 22; ~gsine.value;}
+						{~menu2.value == 22}{~gsinenum = 23; ~gsine.value;}
+						{~menu2.value == 23}{~gsinenum = 24; ~gsine.value;};
 
-					~st_load = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
-					~st_load.stringColor = Color.white;
-					~st_load.string = "loaded.";
-					AppClock.sched(~gm,{if(~st != nil, {~st.close}); ~st_load.close;});
+						~st1.close;
+						~st_load = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
+						~st_load.stringColor = Color.white;
+						~st_load.string = "loaded.";
+						AppClock.sched(~gm,{if(~st != nil, {~st.close}); ~st_load.close;});
+					});
+
+
 
 				});
 
@@ -2653,7 +2688,7 @@ s.waitForBoot({
 			(item != "**") and:
 			(item != "%")
 		};
-		~freqsetvalue = ~freqsetvalue.join.asString.interpret;
+		~freqsetvalue = ~freqsetvalue.join.asString.interpret; ~freqsetvalue = ~freqsetvalue.asFloat;
 	};
 
 
@@ -4887,11 +4922,12 @@ s.waitForBoot({
 				"copy: copy frequency/note info"++"\n"++"\n"++
 				"settings button:"++"\n"++"\n"++
 				"     KWS number: change number of kw(King Wen) sequences in a timewave half-cycle (or amplitude x2). press set to load."++"\n"++"\n"++
-				"     base(lowest) freq(hz): set the base(lowest) frequency of timewave cycle. press set to load."++"\n"++"\n"++
+				"     base(lowest) freq(hz): set the base(lowest) frequency of timewave cycle. default is "++~base_frequency.asString++". press set to load."++"\n"++"\n"++
 				"     synthdef type: psine1-psine3 (based on phi, with low-pass filter), hsine1-hsine3 (based on 19.47:360, with low-pass filter), psineuf1-psineuf3 (based on phi, without low-pass filter),"++"\n"++"     hsineuf1-hsineuf3 (based on 19.47:360, without low-pass filter) - set synthdef type. press set to load."++"\n"++"\n"++
 				"     lp filter limit(hz): change the low-pass filter frequency limit. default is "++~default_low_pass_filter_freq_limit.asString++". press set to load."++"\n"++"\n"++
 				"     automate: setting for automated mid-timewave sequence events. press set to load."++"\n"++"\n"++
-				"     automate period: setting for determining when sendreply triggers for the automate function. 1 is in 1 full timewave cycle, 0.5 is in 1/2 timewave cycle, 1.5 is 1 1/2 cycles, 2 is in 2 cycles, etc."++"\n"++"\n"++
+				"     automate period: setting for determining when sendreply triggers for the automate function. 1 is in 1 full timewave cycle, 0.5 is in 1/2 timewave cycle, 1.5 is 1 1/2 cycles,"++"\n"++"     2 is in 2 cycles, etc. press set to load."++"\n"++"\n"++
+				"     volume: change volume, or more accurately amplitude. default is "++~vol_default.asString++". press set to load.""\n"++"\n"++
 				"s1-s8: set/save note positions"++"\n"++"\n"++
 				"g1-g8: groups of saved note positions"++"\n"++"\n"++
 				"uc-u8: undo changes to set note positions. press set to load"++"\n"++"\n"++
