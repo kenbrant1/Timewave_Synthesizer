@@ -11,6 +11,8 @@
 //by their rq's, and are used with the cutoff frequency by divinding the cutoff freq by itself - providing the rq. The variables correspond
 //with the low-pass filter settings.
 
+//You can mass edit sections of code by clicking on the "Edit" tab above, and clicking on "Replace".
+
 s.options.memSize = 2097152/2;
 MIDIIn.connectAll;
 
