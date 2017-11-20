@@ -1,5 +1,7 @@
 Timewave synth changelog
 
+Nov. 20, 2017 - Adjusted low-pass filter frequency limit settings, added to settings.
+
 Nov. 15, 2017 - Fixed bugs for automate functions, adjusted automate function period, and set tolerable low-pass filter frequency limit settings.
 
 Nov. 08 2017 - Added feature in synthdefs for mid-timewave sequence events such as randomization of frequencies during run-time. Also added invdividual frequency editor, and changed GUI layout for the added functions.
