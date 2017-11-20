@@ -61,10 +61,16 @@ s.waitForBoot({
 	//low-pass filter settings
 
 	if(~low_pass_filter_on == nil, {~low_pass_filter_on = 1}); //set starting low-pass filter on/off. 1 means on - switch to 0 for off.
-	~default_low_pass_filter_freq_limit = 1468;
-	if(~low_pass_filter_set_value == nil, {~low_pass_filter_freq_limit = ~default_low_pass_filter_freq_limit; //frequency limit for low-pass filter in synthdefs. default is 1468.
+	~default_low_pass_filter_freq_limit1 = 1364.0007331375;
+	~default_low_pass_filter_freq_limit2 = 4841.89;
+	if(~low_pass_filter_freq_limit1 == nil, {~low_pass_filter_freq_limit1 = 1364.0007331375;});
+	if(~low_pass_filter_freq_limit2 == nil, {~low_pass_filter_freq_limit2 = 4841.89;});
+	~lpfilter_rq_divider1 = 1364.0007331375/1.9277862498129;
+	~lpfilter_rq_divider2 = 4841.89/14.9714;
+	if(~lpfilter_rq_divider == nil, {~lpfilter_rq_divider = ~lpfilter_rq_divider1;});
+	if(~low_pass_filter_set_value == nil, {~low_pass_filter_freq_limit = ~default_low_pass_filter_freq_limit1; //frequency limit for low-pass filter in synthdefs. default is 1364.0007331375.
 	});
-	~lpfilter_rq_ratio = 295.57086653808;
+	if(~low_pass_filter_setting == nil, {~low_pass_filter_setting = 0;});
 
 
 	//default sendreply toggle
@@ -79,9 +85,9 @@ s.waitForBoot({
 	});
 
 
-	//volume
+	//volume (amplitude)
 
-	~vol_default = 0.012; //default 0.012
+	~vol_default = 0.0099; //default 0.0099
 	if(~vol == nil, {~vol = ~vol_default});
 	12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
 
@@ -180,6 +186,7 @@ s.waitForBoot({
 
 	~fth = 1.4142135623729; //default kws binary interval
 	~bi = ~fth; //~bi = "binary interval" - intverval of key change to a hexagram line's opposite in King Wen sequence
+
 	~stepratio = 1.0594630943593;
 	~nval = 1.0355417528;
 	~n9s = 1.86;
@@ -191,24 +198,25 @@ s.waitForBoot({
 	~n54 = 1.012918794725;
 	~n63 = 1.0110630844869;
 	~n72 = 1.0096735332285;
+
 	~gm = 1.6180339887499; //phi (golden mean), scaled on 1 key change per King Wen sequence
-	~gm2 = 1.2720196495141;
-	~gm6 = 1.0835058821738;
-	~ngm1 = 1.0549232131786; //phi (golden mean), scaled on 9 key changes per King Wen sequence
-	~ngm2 = 1.0270945492887;
-	~ngm6 = 1.0089511542031;
-	~nngm1 = 1.0075472729363; //phi (golden mean), scaled on 64 key changes per King Wen sequence
-	~nngm2 = 1.0037665430449;
-	~nngm6 = 1.0012539413222;
-	~h1 = 11.10101010101; //based on 19.47:360, scaled on 1 key change per King Wen sequence
-	~h2 = 4.2999982083345;
-	~h6 = 1.6261331058274;
-	~nh1 = 1.3828361607663; //based on 19.47:360, scaled on 9 key changes per King Wen sequence
-	~nh2 = 1.1759405430404;
-	~nh6 = 1.0555086286213;
-	~nnh1 = 1.0466365180627; //based on 19.47:360, scaled on 64 key changes per King Wen sequence
-	~nnh2 = 1.0230525490231;
-	~nnh6 = 1.0076258811195;
+	~gm2 = ~gm**(1/2);
+	~gm6 = ~gm**(1/6);
+	~ngm1 = ~gm**(1/9);    //phi (golden mean), scaled on 9 key changes per King Wen sequence
+	~ngm2 = ~ngm1**(1/2);
+	~ngm6 = ~ngm1**(1/6);
+	~nngm1 = ~gm**(1/64);  //phi (golden mean), scaled on 64 key changes per King Wen sequence
+	~nngm2 = ~nngm1**(1/2);
+	~nngm6 = ~nngm1**(1/6);
+	~h1 = 360/19.47;       //based on 19.47:360, scaled on 1 key change per King Wen sequence
+	~h2 = ~h1**(1/2);
+	~h6 = ~h1**(1/6);
+	~nh1 = ~h1**(1/9);     //based on 19.47:360, scaled on 9 key changes per King Wen sequence
+	~nh2 = ~nh1**(1/2);
+	~nh6 = ~nh1**(1/6);
+	~nnh1 = ~h1**(1/64);   //based on 19.47:360, scaled on 64 key changes per King Wen sequence
+	~nnh2 = ~nnh1**(1/2);
+	~nnh6 = ~nnh1**(1/6);
 
 
 	//edit SAVED s1-s8 frequencies/chords. Replace any "[ ~f1,~f2,~f3,~f4,~f5,~f6,~f7,~f8,~f9,~f10,~f11,~f12 ]" with desired frequencies.
@@ -300,16 +308,6 @@ s.waitForBoot({
 	if(96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"h"++(z=z+1)).asSymbol.envirGet; if(z>=12, {x= x+1; y = 0; z = 0;});}).collect.every({arg item; item == nil;}), {96.do(x = 1; y = (-1); z = 0; {("sg"++(x)++"a"++(z=z+1)).asSymbol.envirPut([~fp1,~fp2,~fp3,~fp4,~fp5,~fp6,~fp7,~fp8,~fp9,~fp10,~fp11,~fp12].at(y=y+1)); if(z>=12, {x= x+1; y = 0; z = 0;});});});
 	*/
 
-	//set n1-n9 ratio values
-
-	case
-	{~ratio_setting == "psine1";}{~n_value1 = ~gm;    ~n_value2 = ~gm2;   ~n_value6 = ~gm6;}
-	{~ratio_setting == "psine2";}{~n_value1 = ~ngm1;  ~n_value2 = ~ngm2;  ~n_value6 = ~ngm6;}
-	{~ratio_setting == "psine3";}{~n_value1 = ~nngm1; ~n_value2 = ~nngm2; ~n_value6 = ~nngm6;}
-	{~ratio_setting == "hsine1";}{~n_value1 = ~h1;    ~n_value2 = ~h2;    ~n_value6 = ~h6;}
-	{~ratio_setting == "hsine2";}{~n_value1 = ~nh1;   ~n_value2 = ~nh2;   ~n_value6 = ~nh6;}
-	{~ratio_setting == "hsine3";}{~n_value1 = ~nnh1;  ~n_value2 = ~nnh2;  ~n_value6 = ~nnh6;};
-
 
 	//King Wen sequence interpretation settings 1-3 for synthdefs
 
@@ -321,6 +319,20 @@ s.waitForBoot({
 
 	~kws_setting_3_a = {[/*1*/	#a,b,c,d,e,f=[ ~a,~b,~c,~d,~e,~f  ],/*2*/	[ a = a*~n1/~bi,    b = b*~n1/~bi,    c = c*~n1/~bi,    d = d*~n1/~bi,    e = e*~n1/~bi,    f = f*~n1/~bi    ],/*3*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*4*/	[ a = a*~n1*~bi,    b = b*~n1/~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1*~bi,    f = f*~n1/~bi    ],/*5*/	[ a = a*~n1/~bi,    b = b*~n1*~bi,    c = c*~n1,         d = d*~n1*~bi,    e = e*~n1,         f = f*~n1*~bi    ],/*6*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1,         f = f*~n1/~bi    ],/*7*/	[ a = a*~n1/~bi,    b = b*~n1/~bi,    c = c*~n1/~bi,    d = d*~n1,         e = e*~n1,         f = f*~n1         ],/*8*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1/~bi,    f = f*~n1         ],/*9*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1*~bi,    e = e*~n1*~bi,    f = f*~n1*~bi    ],/*10*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1,         f = f*~n1         ],/*11*/	[ a = a*~n1/~bi,    b = b*~n1/~bi,    c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1,         f = f*~n1         ],/*12*/	[ a = a*~n1*~bi,    b = b*~n1*~bi,    c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1/~bi,    f = f*~n1/~bi    ],/*13*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1,         d = d*~n1*~bi,    e = e*~n1,         f = f*~n1*~bi    ],/*14*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1*~bi,    f = f*~n1         ],/*15*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1/~bi,    d = d*~n1,         e = e*~n1/~bi,    f = f*~n1/~bi    ],/*16*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1,         f = f*~n1         ],/*17*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*18*/	[ a = a*~n1*~bi,    b = b*~n1/~bi,    c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1*~bi,    f = f*~n1/~bi    ],/*19*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1/~bi,    e = e*~n1,         f = f*~n1*~bi    ],/*20*/	[ a = a*~n1*~bi,    b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1/~bi,    f = f*~n1/~bi    ],/*21*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*22*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1,         f = f*~n1         ],/*23*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1,         d = d*~n1/~bi,    e = e*~n1,         f = f*~n1/~bi    ],/*24*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*25*/	[ a = a*~n1*~bi,    b = b*~n1*~bi,    c = c*~n1*~bi,    d = d*~n1,         e = e*~n1,         f = f*~n1         ],/*26*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1*~bi,    f = f*~n1         ],/*27*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1,         d = d*~n1/~bi,    e = e*~n1/~bi,    f = f*~n1         ],/*28*/	[ a = a*~n1/~bi,    b = b*~n1*~bi,    c = c*~n1*~bi,    d = d*~n1*~bi,    e = e*~n1*~bi,    f = f*~n1/~bi    ],/*29*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1/~bi,    d = d*~n1/~bi,    e = e*~n1,         f = f*~n1         ],/*30*/	[ a = a*~n1*~bi,    b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1*~bi,    e = e*~n1/~bi,    f = f*~n1*~bi    ],/*31*/	[ a = a*~n1/~bi,    b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1/~bi    ],/*32*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1*~bi,    f = f*~n1         ],/*33*/	[ a = a*~n1*~bi,    b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1/~bi,    f = f*~n1         ],/*34*/	[ a = a*~n1/~bi,    b = b*~n1/~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1*~bi,    f = f*~n1*~bi    ],/*35*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1/~bi,    e = e*~n1/~bi,    f = f*~n1/~bi    ],/*36*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1,         f = f*~n1*~bi    ],/*37*/	[ a = a*~n1*~bi,    b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1         ],/*38*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1*~bi,    f = f*~n1         ],/*39*/	[ a = a*~n1/~bi,    b = b*~n1*~bi,    c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1/~bi,    f = f*~n1/~bi    ],/*40*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1*~bi,    f = f*~n1         ],/*41*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1/~bi,    d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*42*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1/~bi,    f = f*~n1         ],/*43*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1*~bi,    d = d*~n1*~bi,    e = e*~n1*~bi,    f = f*~n1         ],/*44*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1/~bi    ],/*45*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1/~bi,    e = e*~n1/~bi,    f = f*~n1         ],/*46*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1*~bi,    f = f*~n1         ],/*47*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1,         f = f*~n1         ],/*48*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1,         f = f*~n1         ],/*49*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1*~bi,    d = d*~n1,         e = e*~n1/~bi,    f = f*~n1*~bi    ],/*50*/	[ a = a*~n1*~bi,    b = b*~n1/~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1*~bi,    f = f*~n1/~bi    ],/*51*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1/~bi,    e = e*~n1/~bi,    f = f*~n1*~bi    ],/*52*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1,         f = f*~n1/~bi    ],/*53*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1         ],/*54*/	[ a = a*~n1/~bi,    b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1*~bi,    f = f*~n1*~bi    ],/*55*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1,         d = d*~n1*~bi,    e = e*~n1/~bi,    f = f*~n1         ],/*56*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1/~bi    ],/*57*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1/~bi,    d = d*~n1,         e = e*~n1*~bi,    f = f*~n1         ],/*58*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1,         f = f*~n1*~bi    ],/*59*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1/~bi,    d = d*~n1,         e = e*~n1,         f = f*~n1/~bi    ],/*60*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*61*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1         ],/*62*/	[ a = a*~n1/~bi,    b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1*~bi,    e = e*~n1/~bi,    f = f*~n1/~bi    ],/*63*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1/~bi,    d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*64*/	[ a = a*~n1*~bi,    b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1*~bi,    f = f*~n1/~bi    ]]};
 	~kws_setting_3_b = {[/*1*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1,         d = d*~n1*~bi,    e = e*~n1,         f = f*~n1*~bi    ],/*2*/	[ a = a*~n1/~bi,    b = b*~n1/~bi,    c = c*~n1/~bi,    d = d*~n1/~bi,    e = e*~n1/~bi,    f = f*~n1/~bi    ],/*3*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*4*/	[ a = a*~n1*~bi,    b = b*~n1/~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1*~bi,    f = f*~n1/~bi    ],/*5*/	[ a = a*~n1/~bi,    b = b*~n1*~bi,    c = c*~n1,         d = d*~n1*~bi,    e = e*~n1,         f = f*~n1*~bi    ],/*6*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1,         f = f*~n1/~bi    ],/*7*/	[ a = a*~n1/~bi,    b = b*~n1/~bi,    c = c*~n1/~bi,    d = d*~n1,         e = e*~n1,         f = f*~n1         ],/*8*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1/~bi,    f = f*~n1         ],/*9*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1*~bi,    e = e*~n1*~bi,    f = f*~n1*~bi    ],/*10*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1,         f = f*~n1         ],/*11*/	[ a = a*~n1/~bi,    b = b*~n1/~bi,    c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1,         f = f*~n1         ],/*12*/	[ a = a*~n1*~bi,    b = b*~n1*~bi,    c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1/~bi,    f = f*~n1/~bi    ],/*13*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1,         d = d*~n1*~bi,    e = e*~n1,         f = f*~n1*~bi    ],/*14*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1*~bi,    f = f*~n1         ],/*15*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1/~bi,    d = d*~n1,         e = e*~n1/~bi,    f = f*~n1/~bi    ],/*16*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1,         f = f*~n1         ],/*17*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*18*/	[ a = a*~n1*~bi,    b = b*~n1/~bi,    c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1*~bi,    f = f*~n1/~bi    ],/*19*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1/~bi,    e = e*~n1,         f = f*~n1*~bi    ],/*20*/	[ a = a*~n1*~bi,    b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1/~bi,    f = f*~n1/~bi    ],/*21*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*22*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1,         f = f*~n1         ],/*23*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1,         d = d*~n1/~bi,    e = e*~n1,         f = f*~n1/~bi    ],/*24*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*25*/	[ a = a*~n1*~bi,    b = b*~n1*~bi,    c = c*~n1*~bi,    d = d*~n1,         e = e*~n1,         f = f*~n1         ],/*26*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1*~bi,    f = f*~n1         ],/*27*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1,         d = d*~n1/~bi,    e = e*~n1/~bi,    f = f*~n1         ],/*28*/	[ a = a*~n1/~bi,    b = b*~n1*~bi,    c = c*~n1*~bi,    d = d*~n1*~bi,    e = e*~n1*~bi,    f = f*~n1/~bi    ],/*29*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1/~bi,    d = d*~n1/~bi,    e = e*~n1,         f = f*~n1         ],/*30*/	[ a = a*~n1*~bi,    b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1*~bi,    e = e*~n1/~bi,    f = f*~n1*~bi    ],/*31*/	[ a = a*~n1/~bi,    b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1/~bi    ],/*32*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1*~bi,    f = f*~n1         ],/*33*/	[ a = a*~n1*~bi,    b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1/~bi,    f = f*~n1         ],/*34*/	[ a = a*~n1/~bi,    b = b*~n1/~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1*~bi,    f = f*~n1*~bi    ],/*35*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1/~bi,    e = e*~n1/~bi,    f = f*~n1/~bi    ],/*36*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1,         f = f*~n1*~bi    ],/*37*/	[ a = a*~n1*~bi,    b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1         ],/*38*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1*~bi,    f = f*~n1         ],/*39*/	[ a = a*~n1/~bi,    b = b*~n1*~bi,    c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1/~bi,    f = f*~n1/~bi    ],/*40*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1*~bi,    f = f*~n1         ],/*41*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1/~bi,    d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*42*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1/~bi,    f = f*~n1         ],/*43*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1*~bi,    d = d*~n1*~bi,    e = e*~n1*~bi,    f = f*~n1         ],/*44*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1/~bi    ],/*45*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1/~bi,    e = e*~n1/~bi,    f = f*~n1         ],/*46*/	[ a = a*~n1,         b = b*~n1/~bi,    c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1*~bi,    f = f*~n1         ],/*47*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1,         f = f*~n1         ],/*48*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1,         f = f*~n1         ],/*49*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1*~bi,    d = d*~n1,         e = e*~n1/~bi,    f = f*~n1*~bi    ],/*50*/	[ a = a*~n1*~bi,    b = b*~n1/~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1*~bi,    f = f*~n1/~bi    ],/*51*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1/~bi,    e = e*~n1/~bi,    f = f*~n1*~bi    ],/*52*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1/~bi,    d = d*~n1*~bi,    e = e*~n1,         f = f*~n1/~bi    ],/*53*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1         ],/*54*/	[ a = a*~n1/~bi,    b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1*~bi,    f = f*~n1*~bi    ],/*55*/	[ a = a*~n1,         b = b*~n1,         c = c*~n1,         d = d*~n1*~bi,    e = e*~n1/~bi,    f = f*~n1         ],/*56*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1/~bi    ],/*57*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1/~bi,    d = d*~n1,         e = e*~n1*~bi,    f = f*~n1         ],/*58*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1,         f = f*~n1*~bi    ],/*59*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1/~bi,    d = d*~n1,         e = e*~n1,         f = f*~n1/~bi    ],/*60*/	[ a = a*~n1/~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*61*/	[ a = a*~n1*~bi,    b = b*~n1,         c = c*~n1,         d = d*~n1,         e = e*~n1,         f = f*~n1         ],/*62*/	[ a = a*~n1/~bi,    b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1*~bi,    e = e*~n1/~bi,    f = f*~n1/~bi    ],/*63*/	[ a = a*~n1,         b = b*~n1*~bi,    c = c*~n1/~bi,    d = d*~n1,         e = e*~n1,         f = f*~n1*~bi    ],/*64*/	[ a = a*~n1*~bi,    b = b*~n1/~bi,    c = c*~n1*~bi,    d = d*~n1/~bi,    e = e*~n1*~bi,    f = f*~n1/~bi    ]]};
+
+	~hsine_ratio = (19.47/360);
+
+	~kws_setting_h_a = {[/*1*/	#a,b,c,d,e,f=[ ~a,~b,~c,~d,~e,~f  ],/*2*/	[ a = a+(a*~hsine_ratio)/~bi, b = b+(b*~hsine_ratio)/~bi, c = c+(c*~hsine_ratio)/~bi, d = d+(d*~hsine_ratio)/~bi, e = e+(e*~hsine_ratio)/~bi, f = f+(f*~hsine_ratio)/~bi ],/*3*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi  ],/*4*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio)/~bi  ],/*5*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*6*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi  ],/*7*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*8*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio) ],/*9*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio)*~bi ],/*10*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*11*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*12*/	[ a = a+(a*~hsine_ratio)*~bi, b = b+(b*~hsine_ratio)*~bi, c = c+(c*~hsine_ratio)*~bi, d = d+(d*~hsine_ratio)/~bi, e = e+(e*~hsine_ratio)/~bi, f = f+(f*~hsine_ratio)/~bi ],/*13*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*14*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio)],/*15*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio)/~bi ],/*16*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*17*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi],/*18*/	[ a = a+(a*~hsine_ratio)*~bi, b = b+(b*~hsine_ratio)/~bi, c = c+(c*~hsine_ratio)/~bi, d = d+(d*~hsine_ratio)*~bi, e = e+(e*~hsine_ratio)*~bi, f = f+(f*~hsine_ratio)/~bi ],/*19*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*20*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio)/~bi ],/*21*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*22*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*23*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi ],/*24*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*25*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*26*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*27*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio) ],/*28*/	[ a = a+(a*~hsine_ratio)/~bi, b = b+(b*~hsine_ratio)*~bi, c = c+(c*~hsine_ratio)*~bi, d = d+(d*~hsine_ratio)*~bi, e = e+(e*~hsine_ratio)*~bi, f = f+(f*~hsine_ratio)/~bi ],/*29*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*30*/	[ a = a+(a*~hsine_ratio)*~bi, b = b+(b*~hsine_ratio)/~bi, c = c+(c*~hsine_ratio)*~bi, d = d+(d*~hsine_ratio)*~bi, e = e+(e*~hsine_ratio)/~bi, f = f+(f*~hsine_ratio)*~bi ],/*31*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi ],/*32*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*33*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio) ],/*34*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio)*~bi ],/*35*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio)/~bi ],/*36*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*37*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*38*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*39*/	[ a = a+(a*~hsine_ratio)/~bi, b = b+(b*~hsine_ratio)*~bi, c = c+(c*~hsine_ratio)/~bi, d = d+(d*~hsine_ratio)*~bi, e = e+(e*~hsine_ratio)/~bi, f = f+(f*~hsine_ratio)/~bi ],/*40*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*41*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*42*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio) ],/*43*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*44*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi ],/*45*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio) ],/*46*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*47*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*48*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*49*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio)*~bi ],/*50*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio)/~bi ],/*51*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio)*~bi ],/*52*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi ],/*53*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*54*/	[ a = a+(a*~hsine_ratio)/~bi, b = b+(b*~hsine_ratio)/~bi, c = c+(c*~hsine_ratio)*~bi, d = d+(d*~hsine_ratio)/~bi, e = e+(e*~hsine_ratio)*~bi, f = f+(f*~hsine_ratio)*~bi ],/*55*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio) ],/*56*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi ],/*57*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*58*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*59*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi ],/*60*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*61*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*62*/	[ a = a+(a*~hsine_ratio)/~bi, b = b+(b*~hsine_ratio)/~bi, c = c+(c*~hsine_ratio)*~bi, d = d+(d*~hsine_ratio)*~bi, e = e+(e*~hsine_ratio)/~bi, f = f+(f*~hsine_ratio)/~bi ],/*63*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*64*/	[ a = a+(a*~hsine_ratio)*~bi, b = b+(b*~hsine_ratio)/~bi, c = c+(c*~hsine_ratio)*~bi, d = d+(d*~hsine_ratio)/~bi, e = e+(e*~hsine_ratio)*~bi, f = f+(f*~hsine_ratio)/~bi ]]};
+	~kws_setting_h_b = {[/*1*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*2*/	[ a = a+(a*~hsine_ratio)/~bi, b = b+(b*~hsine_ratio)/~bi, c = c+(c*~hsine_ratio)/~bi, d = d+(d*~hsine_ratio)/~bi, e = e+(e*~hsine_ratio)/~bi, f = f+(f*~hsine_ratio)/~bi ],/*3*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi  ],/*4*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio)/~bi  ],/*5*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*6*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi  ],/*7*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*8*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio) ],/*9*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio)*~bi ],/*10*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*11*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*12*/	[ a = a+(a*~hsine_ratio)*~bi, b = b+(b*~hsine_ratio)*~bi, c = c+(c*~hsine_ratio)*~bi, d = d+(d*~hsine_ratio)/~bi, e = e+(e*~hsine_ratio)/~bi, f = f+(f*~hsine_ratio)/~bi ],/*13*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*14*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio)],/*15*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio)/~bi ],/*16*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*17*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi],/*18*/	[ a = a+(a*~hsine_ratio)*~bi, b = b+(b*~hsine_ratio)/~bi, c = c+(c*~hsine_ratio)/~bi, d = d+(d*~hsine_ratio)*~bi, e = e+(e*~hsine_ratio)*~bi, f = f+(f*~hsine_ratio)/~bi ],/*19*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*20*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio)/~bi ],/*21*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*22*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*23*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi ],/*24*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*25*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*26*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*27*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio) ],/*28*/	[ a = a+(a*~hsine_ratio)/~bi, b = b+(b*~hsine_ratio)*~bi, c = c+(c*~hsine_ratio)*~bi, d = d+(d*~hsine_ratio)*~bi, e = e+(e*~hsine_ratio)*~bi, f = f+(f*~hsine_ratio)/~bi ],/*29*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*30*/	[ a = a+(a*~hsine_ratio)*~bi, b = b+(b*~hsine_ratio)/~bi, c = c+(c*~hsine_ratio)*~bi, d = d+(d*~hsine_ratio)*~bi, e = e+(e*~hsine_ratio)/~bi, f = f+(f*~hsine_ratio)*~bi ],/*31*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi ],/*32*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*33*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio) ],/*34*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio)*~bi ],/*35*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio)/~bi ],/*36*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*37*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*38*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*39*/	[ a = a+(a*~hsine_ratio)/~bi, b = b+(b*~hsine_ratio)*~bi, c = c+(c*~hsine_ratio)/~bi, d = d+(d*~hsine_ratio)*~bi, e = e+(e*~hsine_ratio)/~bi, f = f+(f*~hsine_ratio)/~bi ],/*40*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*41*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*42*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio) ],/*43*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*44*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi ],/*45*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio) ],/*46*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*47*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*48*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*49*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio)*~bi ],/*50*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio)/~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio)/~bi ],/*51*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio)*~bi ],/*52*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi ],/*53*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*54*/	[ a = a+(a*~hsine_ratio)/~bi, b = b+(b*~hsine_ratio)/~bi, c = c+(c*~hsine_ratio)*~bi, d = d+(d*~hsine_ratio)/~bi, e = e+(e*~hsine_ratio)*~bi, f = f+(f*~hsine_ratio)*~bi ],/*55*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio)*~bi,    e = e+(e*~hsine_ratio)/~bi,    f = f+(f*~hsine_ratio) ],/*56*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi ],/*57*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio)*~bi,    f = f+(f*~hsine_ratio) ],/*58*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)*~bi,    d = d+(d*~hsine_ratio)/~bi,    e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*59*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)/~bi ],/*60*/	[ a = a+(a*~hsine_ratio)/~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*61*/	[ a = a+(a*~hsine_ratio)*~bi,    b = b+(b*~hsine_ratio),         c = c+(c*~hsine_ratio),         d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio) ],/*62*/	[ a = a+(a*~hsine_ratio)/~bi, b = b+(b*~hsine_ratio)/~bi, c = c+(c*~hsine_ratio)*~bi, d = d+(d*~hsine_ratio)*~bi, e = e+(e*~hsine_ratio)/~bi, f = f+(f*~hsine_ratio)/~bi ],/*63*/	[ a = a+(a*~hsine_ratio),         b = b+(b*~hsine_ratio)*~bi,    c = c+(c*~hsine_ratio)/~bi,    d = d+(d*~hsine_ratio),         e = e+(e*~hsine_ratio),         f = f+(f*~hsine_ratio)*~bi ],/*64*/	[ a = a+(a*~hsine_ratio)*~bi, b = b+(b*~hsine_ratio)/~bi, c = c+(c*~hsine_ratio)*~bi, d = d+(d*~hsine_ratio)/~bi, e = e+(e*~hsine_ratio)*~bi, f = f+(f*~hsine_ratio)/~bi ]]};
+
+
+	//set n1-n9 ratio values
+
+	case
+	{~ratio_setting == "psine1";}{~n_value1 = ~gm;    ~n_value2 = ~gm2;   ~n_value6 = ~gm6;}
+	{~ratio_setting == "psine2";}{~n_value1 = ~ngm1;  ~n_value2 = ~ngm2;  ~n_value6 = ~ngm6;}
+	{~ratio_setting == "psine3";}{~n_value1 = ~nngm1; ~n_value2 = ~nngm2; ~n_value6 = ~nngm6;}
+	{~ratio_setting == "hsine1";}{~n_value1 = ~gm;    ~n_value2 = ~gm2;   ~n_value6 = ~gm6;};
 
 
 	//synthdefs
@@ -335,13 +347,19 @@ s.waitForBoot({
 				case
 				{~kws_setting == 1}{~kws_setting_1_a.value;}
 				{~kws_setting == 2}{~kws_setting_2_a.value;}
-				{~kws_setting == 3}{~kws_setting_3_a.value;} ++ Array.fill((~gsinenum*~first_harmonic -1), {
+				{~kws_setting == 3}{~kws_setting_3_a.value;}
+				{~kws_setting == 4}{~kws_setting_h_a.value;} ++ Array.fill((~gsinenum*~first_harmonic -1), {
 					case
 					{~kws_setting == 1}{~kws_setting_1_b.value;}
 					{~kws_setting == 2}{~kws_setting_2_b.value;}
-					{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten, inf);
+					{~kws_setting == 3}{~kws_setting_3_b.value;}
+					{~kws_setting == 4}{~kws_setting_h_b.value;}}).flatten, inf);
 			s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur),Demand.ar(Impulse.ar(dur), 0, dseq));
-			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
+			if(~low_pass_filter_on == 1, {
+				case
+				{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);}
+				{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);};
+			}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -353,13 +371,19 @@ s.waitForBoot({
 				case
 				{~kws_setting == 1}{~kws_setting_1_a.value;}
 				{~kws_setting == 2}{~kws_setting_2_a.value;}
-				{~kws_setting == 3}{~kws_setting_3_a.value;} ++ Array.fill((~gsinenum*~first_harmonic -1), {
+				{~kws_setting == 3}{~kws_setting_3_a.value;}
+				{~kws_setting == 4}{~kws_setting_h_a.value;} ++ Array.fill((~gsinenum*~first_harmonic -1), {
 					case
 					{~kws_setting == 1}{~kws_setting_1_b.value;}
 					{~kws_setting == 2}{~kws_setting_2_b.value;}
-					{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten].flatten.reverse, inf);
+					{~kws_setting == 3}{~kws_setting_3_b.value;}
+					{~kws_setting == 4}{~kws_setting_h_b.value;}}).flatten].flatten.reverse, inf);
 			s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur), Demand.ar(Impulse.ar(dur), 0, dseq));
-			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
+			if(~low_pass_filter_on == 1, {
+				case
+				{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);}
+				{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);};
+			}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -371,13 +395,19 @@ s.waitForBoot({
 				case
 				{~kws_setting == 1}{~kws_setting_1_a.value;}
 				{~kws_setting == 2}{~kws_setting_2_a.value;}
-				{~kws_setting == 3}{~kws_setting_3_a.value;} ++ Array.fill((~gsinenum*~second_harmonic -1), {
+				{~kws_setting == 3}{~kws_setting_3_a.value;}
+				{~kws_setting == 4}{~kws_setting_h_a.value;} ++ Array.fill((~gsinenum*~second_harmonic -1), {
 					case
 					{~kws_setting == 1}{~kws_setting_1_b.value;}
 					{~kws_setting == 2}{~kws_setting_2_b.value;}
-					{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten, inf);
+					{~kws_setting == 3}{~kws_setting_3_b.value;}
+					{~kws_setting == 4}{~kws_setting_h_b.value;}}).flatten, inf);
 			s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur),Demand.ar(Impulse.ar(dur), 0, dseq));
-			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
+			if(~low_pass_filter_on == 1, {
+				case
+				{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);}
+				{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);};
+			}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -389,13 +419,19 @@ s.waitForBoot({
 				case
 				{~kws_setting == 1}{~kws_setting_1_a.value;}
 				{~kws_setting == 2}{~kws_setting_2_a.value;}
-				{~kws_setting == 3}{~kws_setting_3_a.value;} ++ Array.fill((~gsinenum*~second_harmonic -1), {
+				{~kws_setting == 3}{~kws_setting_3_a.value;}
+				{~kws_setting == 4}{~kws_setting_h_a.value;} ++ Array.fill((~gsinenum*~second_harmonic -1), {
 					case
 					{~kws_setting == 1}{~kws_setting_1_b.value;}
 					{~kws_setting == 2}{~kws_setting_2_b.value;}
-					{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten].flatten.reverse, inf);
+					{~kws_setting == 3}{~kws_setting_3_b.value;}
+					{~kws_setting == 4}{~kws_setting_h_b.value;}}).flatten].flatten.reverse, inf);
 			s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur), Demand.ar(Impulse.ar(dur), 0, dseq));
-			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
+			if(~low_pass_filter_on == 1, {
+				case
+				{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);}
+				{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);};
+			}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -407,13 +443,19 @@ s.waitForBoot({
 				case
 				{~kws_setting == 1}{~kws_setting_1_a.value;}
 				{~kws_setting == 2}{~kws_setting_2_a.value;}
-				{~kws_setting == 3}{~kws_setting_3_a.value;} ++ Array.fill((~gsinenum*~third_harmonic -1), {
+				{~kws_setting == 3}{~kws_setting_3_a.value;}
+				{~kws_setting == 4}{~kws_setting_h_a.value;} ++ Array.fill((~gsinenum*~third_harmonic -1), {
 					case
 					{~kws_setting == 1}{~kws_setting_1_b.value;}
 					{~kws_setting == 2}{~kws_setting_2_b.value;}
-					{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten, inf);
+					{~kws_setting == 3}{~kws_setting_3_b.value;}
+					{~kws_setting == 4}{~kws_setting_h_b.value;}}).flatten, inf);
 			s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur),Demand.ar(Impulse.ar(dur), 0, dseq));
-			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
+			if(~low_pass_filter_on == 1, {
+				case
+				{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);}
+				{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);};
+			}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -425,13 +467,19 @@ s.waitForBoot({
 				case
 				{~kws_setting == 1}{~kws_setting_1_a.value;}
 				{~kws_setting == 2}{~kws_setting_2_a.value;}
-				{~kws_setting == 3}{~kws_setting_3_a.value;} ++ Array.fill((~gsinenum*~third_harmonic -1), {
+				{~kws_setting == 3}{~kws_setting_3_a.value;}
+				{~kws_setting == 4}{~kws_setting_h_a.value;} ++ Array.fill((~gsinenum*~third_harmonic -1), {
 					case
 					{~kws_setting == 1}{~kws_setting_1_b.value;}
 					{~kws_setting == 2}{~kws_setting_2_b.value;}
-					{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten].flatten.reverse, inf);
+					{~kws_setting == 3}{~kws_setting_3_b.value;}
+					{~kws_setting == 4}{~kws_setting_h_b.value;}}).flatten].flatten.reverse, inf);
 			s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur), Demand.ar(Impulse.ar(dur), 0, dseq));
-			if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
+			if(~low_pass_filter_on == 1, {
+				case
+				{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);}
+				{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);};
+			}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -449,13 +497,19 @@ s.waitForBoot({
 						case
 						{~kws_setting == 1}{~kws_setting_1_a.value;}
 						{~kws_setting == 2}{~kws_setting_2_a.value;}
-						{~kws_setting == 3}{~kws_setting_3_a.value;} ++ Array.fill((~gsinenum*~first_harmonic -1), {
+						{~kws_setting == 3}{~kws_setting_3_a.value;}
+						{~kws_setting == 4}{~kws_setting_h_a.value;} ++ Array.fill((~gsinenum*~first_harmonic -1), {
 							case
 							{~kws_setting == 1}{~kws_setting_1_b.value;}
 							{~kws_setting == 2}{~kws_setting_2_b.value;}
-							{~kws_setting == 3}{~kws_setting_3_b.value;}}).flatten, inf);
+							{~kws_setting == 3}{~kws_setting_3_b.value;}
+							{~kws_setting == 4}{~kws_setting_h_b.value;}}).flatten, inf);
 					s1 = GrainSin.ar(1, Impulse.ar(dur), 1/(dur),Demand.ar(Impulse.ar(dur), 0, dseq));
-					if(~low_pass_filter_on == 1, {s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_ratio);}, {s1 = s1});
+					if(~low_pass_filter_on == 1, {
+						case
+						{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);}
+						{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, ~low_pass_filter_freq_limit, ~low_pass_filter_freq_limit/~lpfilter_rq_divider);};
+					}, {s1 = s1});
 					OffsetOut.ar(0, s1.dup*vol);
 					SendReply.ar(PulseDivider.ar(Impulse.ar(dur), (~kws_setting_1_a.value.size*(~gsinenum*~first_harmonic))*2*~sendreply_period),
 						case
@@ -473,11 +527,11 @@ s.waitForBoot({
 
 	~sendreplyfunc_choose = 0;
 
-	~send_reply_random_func_western = {~freqmap.at(rrand(60, 91));};
-	~send_reply_random_func_eastern = {(rrand(~freqmap.at(60), ~freqmap.at(91);))};
+	~send_reply_random_func_western = {~freqmap.at(rrand(57, 91));};
+	~send_reply_random_func_eastern = {(rrand(~freqmap.at(57), ~freqmap.at(91);))};
 
-	if(~sendreply_gm_fth_y_1 == nil, {12.do(x = 0; {("sendreply_gm_fth_y_"++(x=x+1)).asSymbol.envirPut((-1);)});});
-	~sendreply_gm_fth_func_1 = {if((x <= 1539.4729849465) and: (x >= 256.86873684059), {
+	if(~sendreply_gm_fth_y_1 == nil, {8.do(x = 0; {("sendreply_gm_fth_y_"++(x=x+1)).asSymbol.envirPut((-1);)});});
+	~sendreply_gm_fth_func_1 = {if((x <= 1539.4729849465) and: (x >= 216), {
 		x = x*[[a = 1.6842135623729, a = 0.5937489296732].choose, [a = 1.4142135623729, a = 0.70710678118665].choose].at(y=y+1); if(y>=1, {y=(-1)});
 
 	}, {
@@ -492,7 +546,7 @@ s.waitForBoot({
 		});
 	});
 	};
-	~sendreply_gm_fth_func_2 = {if((x <= 1539.4729849465) and: (x >= 256.86873684059), {
+	~sendreply_gm_fth_func_2 = {if((x <= 1539.4729849465) and: (x >= 216), {
 		x = x*[a = 1.6842135623729, a = 0.5937489296732].choose;}, {
 		if(x > 1539.4729849465, {x = x/2; x = x*[1.6842135623729, 0.5937489296732].choose;}, {x = x*2; x = x*[1.6842135623729, 0.5937489296732].choose;});
 	});
@@ -2257,7 +2311,7 @@ s.waitForBoot({
 			({
 				arg  top = 0,width=160, revertwidth=75, height = 25,  heightbox = 25, lefttime = 0 , lefttimebox = width+5,  widthbox=165, leftdo = lefttimebox+widthbox+5, leftdobox = leftdo+57, inc=0, lw = 0,  uw = 0, numw = 40;
 				var tall, stall, iall, siall, st1, st2, st3, st4, st5, st6, st7, st8, st9, st10, st11, st12, si1, si2, si3, si4, si5, si6, si7, si8, t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12;
-				~settingsview = View(w, Rect(20+60*2+15+25,Window.screenBounds.height-370,380,420/1.6180339887499)).front;
+				~settingsview = View(w, Rect(20+60*2+15+25,Window.screenBounds.height-390,380,460/1.6180339887499)).front;
 				/*w.view.decorator=FlowLayout(w.view.bounds);
 				w.view.decorator.gap=2@2;*/
 
@@ -2267,9 +2321,10 @@ s.waitForBoot({
 				t2 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height)).background_(Color.black).string_("base(lowest) freq(hz)").stringColor_(Color.white);
 				t3 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height)).background_(Color.black).string_("synthdef type").stringColor_(Color.white);
 				t4 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height)).background_(Color.black).string_("lp filter limit(hz)").stringColor_(Color.white);
-				t5 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height)).background_(Color.black).string_("automate").stringColor_(Color.white);
-				t6 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("automate period").stringColor_(Color.white);
-				t7 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height+10)).background_(Color.black).string_("volume(use small intervals)").stringColor_(Color.white);
+				t5 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("lp filter type").stringColor_(Color.white);
+				t6 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height)).background_(Color.black).string_("automate").stringColor_(Color.white);
+				t7 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("automate period").stringColor_(Color.white);
+				t8 = StaticText(~settingsview, Rect(lefttime , top=top+height+5, width, height+10)).background_(Color.black).string_("amplitude(use small intervals like 0.001)").stringColor_(Color.white);
 
 
 				top = 0;
@@ -2278,6 +2333,8 @@ s.waitForBoot({
 				//number of KW(King Wen) sequences in a timewave half-cycle (or amplitude x2) pop-up menu
 
 				~menu2 = PopUpMenu(~settingsview,Rect(lefttimebox , top=top, widthbox, heightbox)).items_(x = 0; Array.fill(24, {(x=x+1).asString++" kws"});).background_(Color.black).stringColor_(Color.white).action_({arg button;
+
+
 
 					if(~st != nil, {~st.close});
 					~st = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
@@ -2305,20 +2362,17 @@ s.waitForBoot({
 
 				//synthdef pop-up menu
 
-				~gsinemenu = PopUpMenu(~settingsview, Rect(lefttimebox , top=top+heightbox+5, widthbox, heightbox)).items_(["psine1","psine2","psine3","hsine1","hsine2","hsine3","psineuf1","psineuf2","psineuf3","hsineuf1","hsineuf2","hsineuf3"]).background_(Color.black).stringColor_(Color.white).action_({arg button;
+				~gsinemenu = PopUpMenu(~settingsview, Rect(lefttimebox , top=top+heightbox+5, widthbox, heightbox)).items_(["psine1","psine2","psine3","hsine1","psineuf1 (unfiltered)","psineuf2 (unfiltered)","psineuf3 (unfiltered)","hsineuf1 (unfiltered)"]).background_(Color.black).stringColor_(Color.white).action_({arg button;
 
 					if(~gsinemenu.value == 0,  {~kws_setting = 1; ~ratio_setting = "psine1"; ~low_pass_filter_on = 1; ~gs = 0;});
 					if(~gsinemenu.value == 1,  {~kws_setting = 2; ~ratio_setting = "psine2"; ~low_pass_filter_on = 1; ~gs = 1;});
 					if(~gsinemenu.value == 2,  {~kws_setting = 3; ~ratio_setting = "psine3"; ~low_pass_filter_on = 1; ~gs = 2;});
-					if(~gsinemenu.value == 3,  {~kws_setting = 1; ~ratio_setting = "hsine1"; ~low_pass_filter_on = 1; ~gs = 3;});
-					if(~gsinemenu.value == 4,  {~kws_setting = 2; ~ratio_setting = "hsine2"; ~low_pass_filter_on = 1; ~gs = 4;});
-					if(~gsinemenu.value == 5,  {~kws_setting = 3; ~ratio_setting = "hsine3"; ~low_pass_filter_on = 1; ~gs = 5;});
-					if(~gsinemenu.value == 6,  {~kws_setting = 1; ~ratio_setting = "psine1"; ~low_pass_filter_on = 0; ~gs = 6;});
-					if(~gsinemenu.value == 7,  {~kws_setting = 2; ~ratio_setting = "psine2"; ~low_pass_filter_on = 0; ~gs = 7;});
-					if(~gsinemenu.value == 8,  {~kws_setting = 3; ~ratio_setting = "psine3"; ~low_pass_filter_on = 0; ~gs = 8;});
-					if(~gsinemenu.value == 9,  {~kws_setting = 1; ~ratio_setting = "hsine1"; ~low_pass_filter_on = 0; ~gs = 9;});
-					if(~gsinemenu.value == 10, {~kws_setting = 2; ~ratio_setting = "hsine2"; ~low_pass_filter_on = 0; ~gs = 10;});
-					if(~gsinemenu.value == 11, {~kws_setting = 3; ~ratio_setting = "hsine3"; ~low_pass_filter_on = 0; ~gs = 11;});
+					if(~gsinemenu.value == 3,  {~kws_setting = 4; ~ratio_setting = "hsine1"; ~low_pass_filter_on = 1; ~gs = 3;});
+					if(~gsinemenu.value == 4,  {~kws_setting = 1; ~ratio_setting = "psine1"; ~low_pass_filter_on = 0; ~gs = 4;});
+					if(~gsinemenu.value == 5,  {~kws_setting = 2; ~ratio_setting = "psine2"; ~low_pass_filter_on = 0; ~gs = 5;});
+					if(~gsinemenu.value == 6,  {~kws_setting = 3; ~ratio_setting = "psine3"; ~low_pass_filter_on = 0; ~gs = 6;});
+					if(~gsinemenu.value == 7,  {~kws_setting = 4; ~ratio_setting = "hsine1"; ~low_pass_filter_on = 0; ~gs = 7;});
+
 
 					if(~st != nil, {~st.close});
 					~st = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
@@ -2336,12 +2390,8 @@ s.waitForBoot({
 				{~gs == 3}{~gsinemenu.value = 3;}
 				{~gs == 4}{~gsinemenu.value = 4;}
 				{~gs == 5}{~gsinemenu.value = 5;}
-				{~gs == 0}{~gsinemenu.value = 6;}
-				{~gs == 1}{~gsinemenu.value = 7;}
-				{~gs == 2}{~gsinemenu.value = 8;}
-				{~gs == 3}{~gsinemenu.value = 9;}
-				{~gs == 4}{~gsinemenu.value = 10;}
-				{~gs == 5}{~gsinemenu.value = 11;};
+				{~gs == 6}{~gsinemenu.value = 6;}
+				{~gs == 7}{~gsinemenu.value = 7;};
 
 
 				//set low-pass filter frequency limit
@@ -2366,6 +2416,29 @@ s.waitForBoot({
 						AppClock.sched(~gm,{~st.close;});
 					}, {~low_pass_filter_set_value = ~low_pass_filter_freq_limit; ~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString;});
 				};
+
+
+				//set low-pass filter type
+
+				~lpfiltermenu = PopUpMenu(~settingsview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).items_(["12db/oct rolloff - 2nd order resonant Low Pass Filter", "24db/oct rolloff - 4th order resonant Low Pass Filter (bit more cpu)"]).background_(Color.black).stringColor_(Color.white).action_({arg button;
+
+					if(~lpfiltermenu.value == 0,  {~low_pass_filter_setting = 0; ~low_pass_filter_set_value = ~low_pass_filter_freq_limit1; ~lpfilter_rq_divider = ~lpfilter_rq_divider1; ~lpfiltermenuval = 0;});
+					if(~lpfiltermenu.value == 1,  {~low_pass_filter_setting = 1; ~low_pass_filter_set_value = ~low_pass_filter_freq_limit2; ~lpfilter_rq_divider = ~lpfilter_rq_divider2; ~lpfiltermenuval = 1;});
+
+					~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString;
+
+					if(~st != nil, {~st.close});
+					~st = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
+					~st.stringColor = Color.white;
+					~st.string = "lp-filter setting selected";
+					AppClock.sched(~gm,{~st.close;});
+				});
+
+				if(~lpfiltermenuval == nil, {~lpfiltermenuval = 0;});
+
+				case
+				{~lpfiltermenuval == 0}{~lpfiltermenu.value = 0;}
+				{~lpfiltermenuval == 1}{~lpfiltermenu.value = 1;};
 
 
 				//switch to sendreply functions
@@ -2424,6 +2497,7 @@ s.waitForBoot({
 				~volumetextfield.string = ~vol.asString;
 				~volumetextfield.background_(Color.black);
 				~volumetextfield.stringColor_(Color.white);
+				~vol_revert = ~vol;
 				~volumetextfield.action = {arg value; ~freqsetvalue = value.value;
 
 					~volumetextfield.value; //this function is found after line 2900
@@ -2432,7 +2506,9 @@ s.waitForBoot({
 
 					~volumetextfield.string = ~vol.asString; ~vol = ~vol.asFloat;
 
-					12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
+					if(~vol >= 0.02, {~vol = ~vol_revert; ~volumetextfield.string = ~vol.asString;});
+
+					12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~synthflow.value;
 
 					if(~st != nil, {~st.close});
 					~st = StaticText(~settingsview, Rect(lefttime, top, 240, 35)).background_(Color.black);
@@ -2463,9 +2539,7 @@ s.waitForBoot({
 					{~ratio_setting == "psine1";}{~n_value1 = ~gm;    ~n_value2 = ~gm2;   ~n_value6 = ~gm6;}
 					{~ratio_setting == "psine2";}{~n_value1 = ~ngm1;  ~n_value2 = ~ngm2;  ~n_value6 = ~ngm6;}
 					{~ratio_setting == "psine3";}{~n_value1 = ~nngm1; ~n_value2 = ~nngm2; ~n_value6 = ~nngm6;}
-					{~ratio_setting == "hsine1";}{~n_value1 = ~h1;    ~n_value2 = ~h2;    ~n_value6 = ~h6;}
-					{~ratio_setting == "hsine2";}{~n_value1 = ~nh1;   ~n_value2 = ~nh2;   ~n_value6 = ~nh6;}
-					{~ratio_setting == "hsine3";}{~n_value1 = ~nnh1;  ~n_value2 = ~nnh2;  ~n_value6 = ~nnh6;};
+					{~ratio_setting == "hsine1";}{~n_value1 = ~gm;    ~n_value2 = ~gm2;   ~n_value6 = ~gm6;};
 
 
 					//sendyreply values
@@ -2482,36 +2556,36 @@ s.waitForBoot({
 
 					AppClock.sched(~gm,{
 						case
-						{~menu2.value == 0}{~gsinenum = 1; ~gsine.value;}
-						{~menu2.value == 1}{~gsinenum = 2; ~gsine.value;}
-						{~menu2.value == 2}{~gsinenum = 3; ~gsine.value;}
-						{~menu2.value == 3}{~gsinenum = 4; ~gsine.value;}
-						{~menu2.value == 4}{~gsinenum = 5; ~gsine.value;}
-						{~menu2.value == 5}{~gsinenum = 6; ~gsine.value;}
-						{~menu2.value == 6}{~gsinenum = 7; ~gsine.value;}
-						{~menu2.value == 7}{~gsinenum = 8; ~gsine.value;}
-						{~menu2.value == 8}{~gsinenum = 9; ~gsine.value;}
-						{~menu2.value == 9}{~gsinenum = 10; ~gsine.value;}
-						{~menu2.value == 10}{~gsinenum = 11; ~gsine.value;}
-						{~menu2.value == 11}{~gsinenum = 12; ~gsine.value;}
-						{~menu2.value == 12}{~gsinenum = 13; ~gsine.value;}
-						{~menu2.value == 13}{~gsinenum = 14; ~gsine.value;}
-						{~menu2.value == 14}{~gsinenum = 15; ~gsine.value;}
-						{~menu2.value == 15}{~gsinenum = 16; ~gsine.value;}
-						{~menu2.value == 16}{~gsinenum = 17; ~gsine.value;}
-						{~menu2.value == 17}{~gsinenum = 18; ~gsine.value;}
-						{~menu2.value == 18}{~gsinenum = 19; ~gsine.value;}
-						{~menu2.value == 19}{~gsinenum = 20; ~gsine.value;}
-						{~menu2.value == 20}{~gsinenum = 21; ~gsine.value;}
-						{~menu2.value == 21}{~gsinenum = 22; ~gsine.value;}
-						{~menu2.value == 22}{~gsinenum = 23; ~gsine.value;}
-						{~menu2.value == 23}{~gsinenum = 24; ~gsine.value;};
+						{~menu2.value == 0}{~gsinenum = 1; ~gsine.value; ~vol = 0.005; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 1}{~gsinenum = 2; ~gsine.value; ~vol = 0.005; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 2}{~gsinenum = 3; ~gsine.value; ~vol = 0.005; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 3}{~gsinenum = 4; ~gsine.value; ~vol = 0.005; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 4}{~gsinenum = 5; ~gsine.value; ~vol = 0.005; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 5}{~gsinenum = 6; ~gsine.value; ~vol = 0.005; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 6}{~gsinenum = 7; ~gsine.value; ~vol = 0.006; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 7}{~gsinenum = 8; ~gsine.value; ~vol = 0.006; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 8}{~gsinenum = 9; ~gsine.value; ~vol = 0.008; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 9}{~gsinenum = 10; ~gsine.value; ~vol = 0.009; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 10}{~gsinenum = 11; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 11}{~gsinenum = 12; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 12}{~gsinenum = 13; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 13}{~gsinenum = 14; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 14}{~gsinenum = 15; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 15}{~gsinenum = 16; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 16}{~gsinenum = 17; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 17}{~gsinenum = 18; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 18}{~gsinenum = 19; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 19}{~gsinenum = 20; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 20}{~gsinenum = 21; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 21}{~gsinenum = 22; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 22}{~gsinenum = 23; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 23}{~gsinenum = 24; ~gsine.value; ~vol = 0.0099; 12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;};
 
 						~st1.close;
 						~st_load = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
-						~st_load.stringColor = Color.white;
+						~st_load.stringColor = Color.green;
 						~st_load.string = "loaded.";
-						AppClock.sched(~gm,{if(~st != nil, {~st.close}); ~st_load.close;});
+						AppClock.sched(~gm,{~st_load.close; if(~st != nil, {~st.close});});
 					});
 
 
@@ -5526,11 +5600,12 @@ s.waitForBoot({
 				"settings button:"++"\n"++"\n"++
 				"     KWS number: change number of kw(King Wen) sequences in a timewave half-cycle (or amplitude x2). press set to load."++"\n"++"\n"++
 				"     base(lowest) freq(hz): set the base(lowest) frequency of timewave cycle. default is "++~base_frequency.asString++". press set to load."++"\n"++"\n"++
-				"     synthdef type: psine1-psine3 (based on phi, with low-pass filter), hsine1-hsine3 (based on 19.47:360, with low-pass filter), psineuf1-psineuf3 (based on phi, without low-pass filter),"++"\n"++"     hsineuf1-hsineuf3 (based on 19.47:360, without low-pass filter) - set synthdef type. press set to load."++"\n"++"\n"++
-				"     lp filter limit(hz): change the low-pass filter frequency limit. default is "++~default_low_pass_filter_freq_limit.asString++". press set to load."++"\n"++"\n"++
+				"     synthdef type: psine1-psine3 (based on phi, with low-pass filter), hsine1 (based on 19.47:360, with low-pass filter), psineuf1-psineuf3 (based on phi, without low-pass filter),"++"\n"++"     hsineuf1 (based on 19.47:360, without low-pass filter) - set synthdef type. press set to load."++"\n"++"\n"++
+				"     lp filter limit(hz): change the low-pass filter frequency limit. default for '12db/oct rolloff' is "++~default_low_pass_filter_freq_limit1.asString++", and for '24db/oct rolloff' is "++~default_low_pass_filter_freq_limit2.asString++". press set to load."++"\n"++"\n"++
+				"     lp filter type: set low-pass filter type. press set to load."++"\n"++"\n"++
 				"     automate: setting for automated mid-timewave sequence events. press set to load."++"\n"++"\n"++
 				"     automate period: setting for determining when sendreply triggers for the automate function. 1 is in 1 full timewave cycle, 0.5 is in 1/2 timewave cycle, 1.5 is 1 1/2 cycles,"++"\n"++"     2 is in 2 cycles, etc. press set to load."++"\n"++"\n"++
-				"     volume: change volume, or more accurately amplitude. default is "++~vol_default.asString++". press set to load.""\n"++"\n"++
+				"     amplitude: change amplitude. default is "++~vol_default.asString++". press set to load.""\n"++"\n"++
 				"s1-s8: set/save note positions"++"\n"++"\n"++
 				"g1-g8: groups of saved note positions"++"\n"++"\n"++
 				"uc-u8: undo changes to set note positions. press set to load."++"\n"++"\n"++
