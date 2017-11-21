@@ -1,5 +1,7 @@
 Timewave synth changelog
 
+Nov. 21, 2017 - Enabled the option to choose the of number of synths playing at one time in the GUI or in the file, within one file.
+
 Nov. 20, 2017 - Adjusted low-pass filter frequency limit settings, added to settings.
 
 Nov. 15, 2017 - Fixed bugs for automate functions, adjusted automate function period, and set tolerable low-pass filter frequency limit settings.
