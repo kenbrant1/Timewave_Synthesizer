@@ -3,7 +3,7 @@ This synthesizer is derived from and based upon Terence McKenna's Timewave Zero 
 
 How to run:
 
-- Use the "timewavesynth.scd" file play the synth, and program/make pieces using the "timewavesynth_script.scd" file.
+- Use the "timewavesynth.scd" file to play the synth, and program/make pieces using the "timewavesynth_script.scd" file.
 
 - Evaluate the file in Supercollider IDE to run the synthesizer. Instructions can be found at the top of the file.
 
