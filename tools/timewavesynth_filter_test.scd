@@ -17,7 +17,7 @@
 //A helpful tool you can find to mass edit sections of code is by clicking on the "Edit" tab in the toolbar, clicking on "Replace", and
 //utilizing the "Replace All" function.
 
-//parameters:
+//parameters for all low-pass filters in this file:
 
 ~cutoff_minval = 700; //minimum value in monitoring for cutoff-frequency
 ~cutoff_maxval = 10000; //maximum value in monitoring for cutoff-frequency
@@ -77,6 +77,14 @@ MIDIIn.connectAll;
 	});
 
 
+	//volume (amplitude)
+
+	~vol_default = 0.0099; //default is 0.0099. For sensitivity reasons, changing this using smaller increments, like 0.001, is recommended. The "if" statement one line below returns anything >= 0.02 to 0.0099.
+	if(~vol_default >= 0.02, {~vol_default = 0.0099;});
+	if(~vol == nil, {~vol = ~vol_default});
+	12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
+
+
 	//low-pass filter settings
 
 	if(~low_pass_filter_on == nil, {~low_pass_filter_on = 1}); //set starting low-pass filter on/off. 1 means on - switch to 0 for off.
@@ -98,7 +106,7 @@ MIDIIn.connectAll;
 	if(~rq_set_value == nil, {~rq_set_value = ~default_lpfilter_rq_1});
 
 
-	//default sendreply toggle
+	//default synth "automation" toggle
 
 	if(~sendreplysynthdef_on == nil, {~sendreplysynthdef_on = 0; //switch for mid-timewave sequence events. 0 is off, 1 is on. default is 0
 	});
@@ -108,13 +116,6 @@ MIDIIn.connectAll;
 	});
 	if(~sendreply_period == nil, {~sendreply_period = 1; //default is 1. this determines when sendreply triggers for the "automate" function. 1 is in 1 full timewave cycle, 0.5 is in 1/2 timewave cycle, 1.5 is 1 1/2 cycles, 2 is in 2 cycles, etc.
 	});
-
-
-	//volume (amplitude)
-
-	~vol_default = 0.0099; //default 0.0099
-	if(~vol == nil, {~vol = ~vol_default});
-	12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
 
 
 	//Key codes for keyboard functions - either unicode or keycode. To find key codes, see below:
@@ -156,11 +157,11 @@ MIDIIn.connectAll;
 	~escape_unicode = 27; //escape function
 
 
-	//To find key codes in post window... Hightlight the function and its parenthesis in red below,
-	//and press "ctrl - enter" or "cmd - return" - then a small window called "test" will pop up...
+	//To find key codes in post window... Hightlight the function and its parenthesis (without the /* and */) in red below,
+	//and press "ctrl - enter" or "cmd - return" - then a small window called "test" will pop up in the taskbar...
 	//Press the "type" button inside of the window, then press anywhere on the keyboard to find
 	//the key codes in the right-hand side post window. Layout: [unicode, keycode, modifiers]. It is either a unicode
-	//or a keycode. Do not delete the /* and */ characters, or else the
+	//or a keycode. Do not permanently delete the /* and */ characters, or else the
 	//program will not run.
 
 	/*
@@ -178,9 +179,9 @@ MIDIIn.connectAll;
 	*/
 
 
-	//gui set frequency ranges - currently set at the lowest and highest notes on a 128 key range using 432 hz A tuning
-	//you can change the tuning near top
-	//to insert custom ranges, replace "~freqmap.at()" with a hz frequency
+	//set GUI frequency ranges - currently set at the lowest and highest notes on a 128 key range using 432 hz A tuning.
+	//You can change the tuning near top of page.
+	//To insert custom ranges, replace "~freqmap.at()" with a hz frequency.
 
 	~outmin1 = ~freqmap.at(0);       // 8.0271480262684 hz                       //base frequency of upper set
 	~outmax1 = ~freqmap.at(127);     // 12315.783879572 hz                       //high frequency of upper set
@@ -195,19 +196,19 @@ MIDIIn.connectAll;
 
 	//increase or decrease magnitude of second and third harmonics for synthdefs and synth functions (not recommend changing if uncertain of effects)
 
-	//synthdefs
+	//for synthdefs -
 
 	~first_harmonic = 1;  //1
 	~second_harmonic = 2; //2
 	~third_harmonic = 6;  //6
 
-	//synth functions
+	//for synth functions -
 
 	~icd3 = 3; //3
 	~icd6 = 6; //6
 
 
-	//ratio values
+	//ratio values for King Wen sequence interpretations, or other things
 
 	~fth = 1.4142135623729; //default kws binary interval
 	~bi = ~fth; //~bi = "binary interval" - intverval of key change to a hexagram line's opposite in King Wen sequence
@@ -249,11 +250,11 @@ MIDIIn.connectAll;
 	~nnh6 = ~nnh1**(1/6);
 
 
-	//edit SAVED s1-s8 frequencies/chords. Replace any empty braket ("[ ]") with desired arrays of frequencies.
+	//edit SAVED s1-s8 frequencies/chords. Replace any empty braket "[ ]" with desired arrays of frequencies.
 	//Example: [ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615 ]
 	//You can find frequencies in the "copy" section of GUI under "saved open/flow 1-8 frequencies:" or "saved slide 1-8 frequencies:".
 	//Remove both the "/*" and "*/" around the code to make evaluable. Put them back to make it unevaluable.
-	//The amount of values in the array should be >= "~number_of_synths".
+	//The amount of freqs in the array should be >= "~number_of_synths" upon evaluation. To find "~number_of_synths" value, highlight it, then press "ctrl/cmd-enter"; or refer to the top of page.
 
 	/*
 
@@ -269,11 +270,11 @@ MIDIIn.connectAll;
 	*/
 
 
-	//edit STARTING frequencies/chord (not saved s1-s8 frequencies/chords). Replace the empty braket ("[ ]") with an array of starting frequencies.
+	//edit STARTING frequencies/chord (not saved s1-s8 frequencies/chords). Replace the empty braket "[ ]" with an array of starting frequencies.
 	//Example: [ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615 ]
 	//You can find frequencies in the "copy" section of GUI under "current chord/frequencies".
 	//Remove both the "/*" and "*/" around the code to make evaluable. Put them back to make it unevaluable again.
-	////The amount of values in the array should be >= "~number_of_synths".
+	//The amount of freqs in the array should be >= "~number_of_synths" upon evaluation. To find "~number_of_synths" value, highlight it, then press "ctrl/cmd-enter".
 
 	/*
 
@@ -2126,7 +2127,7 @@ MIDIIn.connectAll;
 				t6 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("automate").stringColor_(Color.white);
 				t7 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("automate period").stringColor_(Color.white);
 				t8 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("# of synths").stringColor_(Color.white);
-				t9 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height+10)).background_(Color.black).string_("amplitude(use small intervals like 0.001)").stringColor_(Color.white);
+				t9 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height+10)).background_(Color.black).string_("amplitude(use small increments like 0.001)").stringColor_(Color.white);
 
 				top = 0;
 
