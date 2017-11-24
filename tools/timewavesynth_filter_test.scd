@@ -79,7 +79,7 @@ MIDIIn.connectAll;
 
 	//volume (amplitude)
 
-	~vol_default = 0.0099; //default is 0.0099. For sensitivity reasons, changing this using smaller increments, like 0.001, is recommended. The "if" statement one line below returns anything >= 0.02 to 0.0099.
+	~vol_default = 0.0099; //default is 0.0099. For sensitivity reasons, changing this using smaller increments, like 0.001, is recommended. The "if" statement one line below returns any value >= 0.02 to 0.0099.
 	if(~vol_default >= 0.02, {~vol_default = 0.0099;});
 	if(~vol == nil, {~vol = ~vol_default});
 	12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
