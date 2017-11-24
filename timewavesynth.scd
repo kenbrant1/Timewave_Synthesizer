@@ -1,19 +1,24 @@
 (
-//To run the synth, click anywhere within the parenthesis above and press "ctrl - enter" or "cmd - return".
-//A guide to using the instrument is available by clicking on the "i" button in the bottom right corner of the GUI.
+//To run this synth program, click anywhere within the parenthesis above and press "ctrl - enter" or "cmd - return".
+//A guide to using this instrument is available by clicking on the "i" button in the bottom right corner of the GUI.
 //Several lines down, where it says "//VARIABLES YOU MAY WISH TO CHANGE", are variables that you can change for various things,
 //including default synth settings and key codes for keyboard functions.
 
-//It is recommended to reboot the interpreter in the "Language" toolbar, or by hightlighting - (thisProcess.platform.recompile);
-//and pressing "ctrl - enter" or "cmd - return", before each server boot. Rebooting the interpreter is not needed to
-//evaluate the code below if the server is booted.
+//You can reboot the interpreter in the "Language" toolbar, or by hightlighting - (thisProcess.platform.recompile);
+//and pressing "ctrl - enter" or "cmd - return" for various reasons. Doing this beneficial as a restarting or "clean up" method.
 
-//You can program/make a song by using the "timewavesynth12script.scd" file
+//You can program/make a piece by using the "timewavesynth_script.scd" file.
 
-//You can also change the amount of synths playing a few lines below, or in the GUI. The limit at the present is 12.
+//You can also change the amount of synths playing at once a few lines below, or in the GUI. The limit at the present is 12.
 
-//This file is in the public domain. Anyone is able to use or edit it in any way or for any purpose.
+
+//This file, and any file that came with it or is used with it (besides the SuperCollider program, which is under the GPL
+//as of the time of this writing), is in the public domain. Anyone is able to use or edit them in any way, for any purpose.
+
 //A useful tool for editing this file is found by pressing "Edit" in the above toolbar and clicking "Replace".
+
+//e-mail: ken_brant@ymail.com
+
 
 s.options.memSize = 2097152/2;
 MIDIIn.connectAll;
@@ -32,11 +37,11 @@ MIDIIn.connectAll;
 
 	//default number of synths
 
-	~number_of_synths_default = 9; //default is 9
+	~number_of_synths_default = 9; //default is 9. limit currently is 12.
 
 	if(~number_of_synths == nil, {~number_of_synths = ~number_of_synths_default;});
 	~number_of_synths_limit = 12;
-	if(~number_of_synths > ~number_of_synths_limit, {~number_of_synths = 12});
+	if(~number_of_synths > ~number_of_synths_limit, {~number_of_synths = ~number_of_synths_limit});
 
 
 	//note A tuning frequency in hz
