@@ -12,8 +12,8 @@
 
 //You can also change the amount of synths playing a few lines below, or in the GUI. The limit at the present is 12.
 
-//Anyone is able to edit or use this file for any purpose they wish. A useful tool for editing this file is found by pressing
-//"Edit" in the above toolbar and clicking "Replace".
+//This file is in the Public Domain. Anyone is able to use or edit it for any purpose.
+//A useful tool for editing this file is found by pressing "Edit" in the above toolbar and clicking "Replace".
 
 s.options.memSize = 2097152/2;
 MIDIIn.connectAll;
