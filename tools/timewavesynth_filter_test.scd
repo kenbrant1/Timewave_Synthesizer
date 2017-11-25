@@ -41,11 +41,10 @@ MIDIIn.connectAll;
 
 	//default number of synths
 
-	~number_of_synths_default = 9; //default is 9
+	~number_of_synths_default = 7; //default is 7. limit currently is 12.
 
 	if(~number_of_synths == nil, {~number_of_synths = ~number_of_synths_default;});
-	~number_of_synths_limit = 12;
-	if(~number_of_synths > ~number_of_synths_limit, {~number_of_synths = 12});
+	~number_of_synths_limit = 12; if(~number_of_synths > ~number_of_synths_limit, {~number_of_synths = ~number_of_synths_limit});
 
 
 	//note A tuning frequency in hz
@@ -83,6 +82,7 @@ MIDIIn.connectAll;
 	if(~vol_default >= 0.02, {~vol_default = 0.0099;});
 	if(~vol == nil, {~vol = ~vol_default});
 	12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
+	~number_of_synths_limit.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
 
 
 	//low-pass filter settings
