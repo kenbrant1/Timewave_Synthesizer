@@ -37,7 +37,7 @@ MIDIIn.connectAll;
 
 	//default number of synths
 
-	~number_of_synths_default = 9; //default is 9. limit currently is 12.
+	~number_of_synths_default = 7; //default is 7. limit currently is 12.
 
 	if(~number_of_synths == nil, {~number_of_synths = ~number_of_synths_default;});
 	~number_of_synths_limit = 12;
