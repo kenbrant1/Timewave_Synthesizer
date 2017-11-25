@@ -12,7 +12,7 @@
 //You can also change the amount of synths playing at once a few lines below, or in the GUI. The limit at the present is 12.
 
 
-//This file, and any file that came with it or is used with it (besides the SuperCollider program, which is under the GPL
+//This file, and any file that came or is used with it (besides the SuperCollider program, which is under the GPL
 //as of the time of this writing), is in the public domain. Anyone is able to use or edit them in any way, for any purpose.
 
 //A useful tool for editing this file is found by pressing "Edit" in the above toolbar and clicking "Replace".
