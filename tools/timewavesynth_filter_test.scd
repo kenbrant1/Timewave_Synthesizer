@@ -87,11 +87,13 @@ MIDIIn.connectAll;
 
 	//low-pass filter settings
 
-	if(~low_pass_filter_on == nil, {~low_pass_filter_on = 1}); //set starting low-pass filter on/off. 1 means on - switch to 0 for off.
 	~default_low_pass_filter_freq_limit1 = 1364.0007331375; //default is 1364.0007331375
 	~default_low_pass_filter_freq_limit2 = 4841.89; //default is 4841.89
+
 	~default_lpfilter_rq_1 = 1.9277862498129; //default is 1.9277862498129
 	~default_lpfilter_rq_2 = 14.9714; //default is 14.9714
+
+	if(~low_pass_filter_on == nil, {~low_pass_filter_on = 1}); //set starting low-pass filter on/off. 1 means on - switch to 0 for off.
 	if(~low_pass_filter_freq_limit1 == nil, {~low_pass_filter_freq_limit1 = ~default_low_pass_filter_freq_limit1;});
 	if(~low_pass_filter_freq_limit2 == nil, {~low_pass_filter_freq_limit2 = ~default_low_pass_filter_freq_limit2;});
 	if(~lpfilter_rq_1 == nil, {~lpfilter_rq_1 = ~default_lpfilter_rq_1;});
