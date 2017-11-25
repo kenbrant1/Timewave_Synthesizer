@@ -93,13 +93,13 @@ MIDIIn.connectAll;
 	~default_lpfilter_rq_1 = 1.9277862498129; //default is 1.9277862498129
 	~default_lpfilter_rq_2 = 14.9714; //default is 14.9714
 
+	if(~lpfl == nil, {~lpfl = ~default_low_pass_filter_freq_limit1});
+	if(~lpf_rq == nil, {~lpf_rq = ~default_lpfilter_rq_1});
 	if(~low_pass_filter_on == nil, {~low_pass_filter_on = 1}); //set starting low-pass filter on/off. 1 means on - switch to 0 for off.
 	if(~low_pass_filter_freq_limit1 == nil, {~low_pass_filter_freq_limit1 = ~default_low_pass_filter_freq_limit1;});
 	if(~low_pass_filter_freq_limit2 == nil, {~low_pass_filter_freq_limit2 = ~default_low_pass_filter_freq_limit2;});
 	if(~lpfilter_rq_1 == nil, {~lpfilter_rq_1 = ~default_lpfilter_rq_1;});
 	if(~lpfilter_rq_2 == nil, {~lpfilter_rq_2 = ~default_lpfilter_rq_2;});
-	if(~lpfl == nil, {~lpfl = ~low_pass_filter_freq_limit1});
-	if(~lpf_rq == nil, {~lpf_rq = ~default_lpfilter_rq_1});
 	~lpfilter_rq_divider1 = 1364.0007331375/1.9277862498129;
 	~lpfilter_rq_divider2 = 4841.89/14.9714;
 	if(~low_pass_filter_set_value == nil, {~low_pass_filter_freq_limit = ~default_low_pass_filter_freq_limit1;
