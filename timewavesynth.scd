@@ -4,10 +4,12 @@
 //Several lines down, where it says "//VARIABLES YOU MAY WISH TO CHANGE", are variables that you can change for various things,
 //including default synth settings and key codes for keyboard functions.
 
-//You can reboot the interpreter in the "Language" toolbar, or by hightlighting - (thisProcess.platform.recompile);
-//and pressing "ctrl - enter" or "cmd - return" for various reasons. Doing this beneficial as a restarting or "clean up" method.
+//You can reboot the interpreter by pressing "Language" in the toolbar above and clicking on "Reboot Interpreter",
+//or by hightlighting (thisProcess.platform.recompile); and pressing "ctrl - enter" or "cmd - return". Doing this is
+//beneficial as a restarting or "clean up" method.
 
-//You can program/make a piece by using the "timewavesynth_script.scd" file.
+//You can compose a piece by using the composing script function in the "//Timewave synth composing script:" section at
+//the almost very bottom of this file. You can find instructions there.
 
 //You can also change the amount of synths playing at once a few lines below, or in the GUI. The limit at the present is 12.
 
@@ -2074,7 +2076,7 @@ MIDIIn.connectAll;
 	//start/stop synth button
 
 	if((~l1a == nil) or: (~l1a1 == nil), {
-	~l1a = Synth(\gsineicfld, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);~l1a = Synth(\gsineicfld, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);
+		~l1a = Synth(\gsineicfld, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);~l1a = Synth(\gsineicfld, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);
 	});
 
 	b3 = Button.new(w,Rect(Window.screenBounds.width*0+20,Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["synth0",Color.white,Color.black],["synth1",Color.white,Color.black]]).action_({arg synthbutton; synthbutton.value.postln}).action_({
@@ -6193,6 +6195,325 @@ MIDIIn.connectAll;
 s.boot;
 s.waitForBoot({~timewavesynthapp.value;});
 );
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//Timewave synth composing script:
+
+/*Order of execution to run script and record:
+1. Hit "Ctrl/Cmd - Enter" anywhere inside the "LOAD SYNTH FUNCTIONS" parenthesis about 50 lines down,
+2. Click on the same line as "START RECORDING" just above "LOAD SYNTH FUNCTIONS" and hit "Ctrl/Cmd - Enter",
+3. Hit "Ctrl/Cmd - Enter" anywhere inside the "Routine" parenthesis about 10 lines down...
+The record file location will be found in the post window upon evaluating "s.record;"...
+Leave out #2 to run the script without recording...
+Important Note: You must load the Timewave synthesizer program and run the synth by pressing the
+"synth0" button at least once before this script can run.
+You can press "Ctrl/Cmd - Period" to stop synth/free the sever.
+
+You can compose a piece, and find guides for doing so, inside the "//3 - Routine" function. */
+
+((//3 - Routine
+	r = Routine({/*trace*/ ~st = 0; ~trace = {("event-"++(~st = ~st + 1).asString).postln;}; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(/*volume*/ ~vol)});
+		1.do({
+
+			//duration of each chord
+			a = 8;
+
+			//Copy and paste "saved" chords from the "copy" button inside the Timewave synthesizer GUI here:
+			//Choose to change each duration individually by changing the "a" variable in the code below this line, as well as "synthopen/synthflow/synthslide".
+			//Also, the amount of frequency values in the arrays must be >= "~number_of_synths". Although, this is done
+			//automatically when using the generated code and values from the "copy" button in the GUI.
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615, 0, 0, 0, 0 ].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1316.2675385788, 1316.2675385788, 658.1337692894, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1051.0271787501, 1051.0271787501, 525.51358937505, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 937.1102649523, 937.1102649523, 937.1102649523, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 824.55305817848, 822.73593638317, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 1037.2062139187, 1037.2062139187, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 554.31101031015, 554.31101031015, 554.31101031015, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615, 0, 0, 0, 0 ].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1316.2675385788, 1316.2675385788, 658.1337692894, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1051.0271787501, 1051.0271787501, 525.51358937505, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 937.1102649523, 937.1102649523, 937.1102649523, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 824.55305817848, 822.73593638317, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 1037.2062139187, 1037.2062139187, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 554.31101031015, 554.31101031015, 554.31101031015, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+
+			//fade out function
+			100.do({~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(("vol"++x).asSymbol.envirGet - (~vol/100))}); ~synthflow.value; 0.1.wait;});
+
+			//stop everything
+			~synthfree.value; 2.wait; s.stopRecording;
+			~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
+
+});}););
+r.play;
+);
+
+s.record; //2 - START RECORDING
+s.stopRecording; // STOP RECORDING
+
+(//1 - LOAD SYNTH FUNCTIONS
+~synthopen = {
+	case
+	{((~l1a.isRunning == false) and: (~l1a1.isRunning == false)) or: ~l1a1.isRunning == true}{
+		if(~l1a1.isRunning == true, {
+			(1.do({
+				s.makeBundle(0, {
+					(~number_of_synths).do(x = 0; {
+						("l"++(x=x+1)++"a1").asSymbol.envirGet.do(_.set(\dur, 0));
+						("l"++(x)++"b1").asSymbol.envirGet.do(_.set(\dur, 0));
+						("l"++(x)++"c1").asSymbol.envirGet.do(_.set(\dur, 0));
+						("l"++(x)++"d1").asSymbol.envirGet.do(_.set(\dur, 0));
+						("l"++(x)++"e1").asSymbol.envirGet.do(_.set(\dur, 0));
+						("l"++(x)++"f1").asSymbol.envirGet.do(_.set(\dur, 0));
+					});
+				});
+			}););
+		});
+
+		(
+			1.do({
+				6.do(x = 0; {("s"++(x=x+1)).asSymbol.envirPut([\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1].at(x-1))});
+				case
+				{~sendreplysynthdef_on == 0}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1)});}
+				{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))});};
+				s.makeBundle(0, {
+					(~number_of_synths).do(x = 0; {
+						("l"++(x=x+1)++"a").asSymbol.envirPut(Synth(~s1,                        [\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]).register;);
+						("l"++(x)++"b").asSymbol.envirPut(Synth(~s2,                            [\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]););
+						("l"++(x)++"c").asSymbol.envirPut(Synth(~s3,                            [\dur, ("f"++(x)).asSymbol.envirGet/~icd3, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]););
+						("l"++(x)++"d").asSymbol.envirPut(Synth(~s4,                            [\dur, ("f"++(x)).asSymbol.envirGet/~icd3, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]););
+						("l"++(x)++"e").asSymbol.envirPut(Synth(("s5_"++(x)).asSymbol.envirGet, [\dur, ("f"++(x)).asSymbol.envirGet/~icd6, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]););
+						("l"++(x)++"f").asSymbol.envirPut(Synth(~s6,                            [\dur, ("f"++(x)).asSymbol.envirGet/~icd6, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]););
+					});
+				});
+			});
+		);
+
+		if(~l1a1.isRunning == true, {
+			AppClock.sched(0.161803398875, {
+				(x = 0; ((Array.fill(~number_of_synths, {[
+					("l"++(x=x+1)++"a1").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"b1").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"c1").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"d1").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"e1").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"f1").asSymbol.envirGet.do(_.free);
+				]}).flatten).do(_.free))); ~slideroutine.stop;
+			});
+		});
+	}
+	{~l1a.isRunning == true}{
+		(1.do({
+			s.makeBundle(0, {
+				(~number_of_synths).do(x = 0; {
+					("l"++(x=x+1)++"a").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"b").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"c").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"d").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"e").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"f").asSymbol.envirGet.do(_.set(\dur, 0));
+				});
+			});
+		}););
+
+		(
+			1.do({
+				6.do(x = 0; {("s"++(x=x+1)).asSymbol.envirPut([\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1].at(x-1))});
+				case
+				{~sendreplysynthdef_on == 0}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1)});}
+				{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))});};
+				s.makeBundle(0, {
+					(~number_of_synths).do(x = 0; {
+						("l"++(x=x+1)++"a1").asSymbol.envirPut(Synth(~s1,                        [\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]).register;);
+						("l"++(x)++"b1").asSymbol.envirPut(Synth(~s2,                            [\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]););
+						("l"++(x)++"c1").asSymbol.envirPut(Synth(~s3,                            [\dur, ("f"++(x)).asSymbol.envirGet/~icd3, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]););
+						("l"++(x)++"d1").asSymbol.envirPut(Synth(~s4,                            [\dur, ("f"++(x)).asSymbol.envirGet/~icd3, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]););
+						("l"++(x)++"e1").asSymbol.envirPut(Synth(("s5_"++(x)).asSymbol.envirGet, [\dur, ("f"++(x)).asSymbol.envirGet/~icd6, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]););
+						("l"++(x)++"f1").asSymbol.envirPut(Synth(~s6,                            [\dur, ("f"++(x)).asSymbol.envirGet/~icd6, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]););
+					});
+				});
+			});
+		);
+		AppClock.sched(0.161803398875, {
+			(x = 0; ((Array.fill(~number_of_synths, {[
+				("l"++(x=x+1)++"a").asSymbol.envirGet.do(_.free);
+				("l"++(x)++"b").asSymbol.envirGet.do(_.free);
+				("l"++(x)++"c").asSymbol.envirGet.do(_.free);
+				("l"++(x)++"d").asSymbol.envirGet.do(_.free);
+				("l"++(x)++"e").asSymbol.envirGet.do(_.free);
+				("l"++(x)++"f").asSymbol.envirGet.do(_.free);
+			]}).flatten).do(_.free))); ~slideroutine.stop;
+		});
+	};
+};
+
+~synthflow = {
+	case
+	{~l1a1.isRunning == true}{
+		(1.do({
+			s.makeBundle(0, {
+				(~number_of_synths).do(x = 0; {
+					("l"++(x=x+1)++"a1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+					("l"++(x)++"b1").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+					("l"++(x)++"c1").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd3, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+					("l"++(x)++"d1").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd3, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+					("l"++(x)++"e1").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd6, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+					("l"++(x)++"f1").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd6, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+				});
+			});
+		}););
+	}
+	{~l1a.isRunning == true} {
+		(1.do({
+			s.makeBundle(0, {
+				(~number_of_synths).do(x = 0; {
+					("l"++(x=x+1)++"a").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+					("l"++(x)++"b").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+					("l"++(x)++"c").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd3, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+					("l"++(x)++"d").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd3, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+					("l"++(x)++"e").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd6, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+					("l"++(x)++"f").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd6, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+				});
+			});
+		}););
+	};
+};
+
+~synthslide = {
+	case
+	{~l1a1.isRunning == true}{(
+		~slideroutine = Routine({1.do({
+			~slidedo.do({~slidecount=~slidecount-1;
+				(
+					~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(("f"++(x)).asSymbol.envirGet + ("sf"++(x)).asSymbol.envirGet)});
+					s.makeBundle(0, {
+						(~number_of_synths).do(x = 0; {
+							("l"++(x=x+1)++"a1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+							("l"++(x)++"b1").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+							("l"++(x)++"c1").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd3, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+							("l"++(x)++"d1").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd3, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+							("l"++(x)++"e1").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd6, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+							("l"++(x)++"f1").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd6, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+						});
+					});
+				);
+
+				(~slidetime/~slidedo).wait;});
+	});}).play;);}
+	{~l1a.isRunning == true} {(
+		~slideroutine = Routine({1.do({
+			~slidedo.do({~slidecount=~slidecount-1;
+				(
+					~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(("f"++(x)).asSymbol.envirGet + ("sf"++(x)).asSymbol.envirGet)});
+					s.makeBundle(0, {
+						(~number_of_synths).do(x = 0; {
+							("l"++(x=x+1)++"a").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+							("l"++(x)++"b").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+							("l"++(x)++"c").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd3, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+							("l"++(x)++"d").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd3, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+							("l"++(x)++"e").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd6, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+							("l"++(x)++"f").asSymbol.envirGet.do(_.set(\dur,     ("f"++(x)).asSymbol.envirGet/~icd6, \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet));
+						});
+					});
+
+				);
+
+				(~slidetime/~slidedo).wait;});
+	});}).play;);};
+};
+
+
+~synthpause = {(
+	case
+	{~l1a1.isRunning == true}{
+		(1.do({
+			s.makeBundle(0, {
+				(~number_of_synths).do(x = 0; {
+					("l"++(x=x+1)++"a1").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"b1").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"c1").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"d1").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"e1").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"f1").asSymbol.envirGet.do(_.set(\dur, 0));
+				});
+			});
+		}););
+	}
+	{~l1a.isRunning == true} {
+		(1.do({
+			s.makeBundle(0, {
+				(~number_of_synths).do(x = 0; {
+					("l"++(x=x+1)++"a").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"b").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"c").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"d").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"e").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"f").asSymbol.envirGet.do(_.set(\dur, 0));
+				});
+			});
+		}););
+	};
+);
+};
+
+~synthfree = {
+	(
+		case
+		{~l1a1.isRunning == true}{
+			(1.do({
+				(~number_of_synths).do(x = 0; {
+					("l"++(x=x+1)++"a1").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"b1").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"c1").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"d1").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"e1").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"f1").asSymbol.envirGet.do(_.set(\dur, 0));
+				});
+			}););
+			AppClock.sched(0.161803398875, {
+				(x = 0; ((Array.fill(~number_of_synths, {[
+					("l"++(x=x+1)++"a1").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"b1").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"c1").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"d1").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"e1").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"f1").asSymbol.envirGet.do(_.free);
+				]}).flatten).do(_.free))); ~slideroutine.stop;
+			});
+		}
+		{~l1a.isRunning == true}{
+			(1.do({
+				(~number_of_synths).do(x = 0; {
+					("l"++(x=x+1)++"a").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"b").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"c").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"d").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"e").asSymbol.envirGet.do(_.set(\dur, 0));
+					("l"++(x)++"f").asSymbol.envirGet.do(_.set(\dur, 0));
+				});
+			}););
+			AppClock.sched(0.161803398875, {
+				(x = 0; ((Array.fill(~number_of_synths, {[
+					("l"++(x=x+1)++"a").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"b").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"c").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"d").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"e").asSymbol.envirGet.do(_.free);
+					("l"++(x)++"f").asSymbol.envirGet.do(_.free);
+				]}).flatten).do(_.free))); ~slideroutine.stop;
+			});
+		};
+	);
+};
+);
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //Interpreted King Wen Sequences
