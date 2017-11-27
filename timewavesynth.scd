@@ -3136,15 +3136,15 @@ MIDIIn.connectAll;
 
 						top = 0;
 
-						stall=NumberBox(~slideview, Rect(lefttimebox , top=top, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetimeall).maxDecimals_(9);
-						st1=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime1).maxDecimals_(9);
-						st2=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime2).maxDecimals_(9);
-						st3=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime3).maxDecimals_(9);
-						st4=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime4).maxDecimals_(9);
-						st5=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime5).maxDecimals_(9);
-						st6=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime6).maxDecimals_(9);
-						st7=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime7).maxDecimals_(9);
-						st8=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime8).maxDecimals_(9);
+						stall=NumberBox(~slideview, Rect(lefttimebox , top=top, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetimeall);
+						st1=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime1);
+						st2=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime2);
+						st3=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime3);
+						st4=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime4);
+						st5=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime5);
+						st6=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime6);
+						st7=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime7);
+						st8=NumberBox(~slideview, Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).background_(Color.black).normalColor_(Color.white;).value_(~slidetime8);
 
 						top = 0;
 
@@ -5707,7 +5707,7 @@ MIDIIn.connectAll;
 				"f1-f8: flow transition to set/saved note positions"++"\n"++"\n"++
 				"s1-s8: slide transition to set/saved note positions"++"\n"++"\n"++
 				"m/u: mute/unmute all"++"\n"++"\n"++
-				"1-12: mute or unmute individual synth"++"\n"++"\n"++
+				"1-"++~number_of_synths++": mute or unmute individual synth"++"\n"++"\n"++
 				"cm: cpu percentage/number of ugens/number of synths display"++"\n"++"\n"++
 				"rw: random western scale"++"\n"++"\n"++
 				"re: random eastern scale"++"\n"++"\n"++
@@ -6202,14 +6202,15 @@ s.waitForBoot({~timewavesynthapp.value;});
 
 //Timewave synth composing script:
 
+//Important Note: You must load the Timewave synthesizer program and run the synth by pressing the
+//"synth0" button at least once before this script can run.
+
 /*Order of execution to run script and record:
-1. Hit "Ctrl/Cmd - Enter" anywhere inside the "LOAD SYNTH FUNCTIONS" parenthesis about 50 lines down,
-2. Click on the same line as "START RECORDING" just above "LOAD SYNTH FUNCTIONS" and hit "Ctrl/Cmd - Enter",
-3. Hit "Ctrl/Cmd - Enter" anywhere inside the "Routine" parenthesis about 10 lines down...
-The record file location will be found in the post window upon evaluating "s.record;"...
+1. Press "Ctrl/Cmd - Enter" anywhere inside the "LOAD SYNTH FUNCTIONS" parenthesis about 50 lines down,
+2. Click on the same line as "START RECORDING" just above "LOAD SYNTH FUNCTIONS" and press "Ctrl/Cmd - Enter",
+3. Press "Ctrl/Cmd - Enter" anywhere inside the "Routine" parenthesis about 10 lines down...
+The recording file location will be found in the post window upon evaluating "s.record;"...
 Leave out #2 to run the script without recording...
-Important Note: You must load the Timewave synthesizer program and run the synth by pressing the
-"synth0" button at least once before this script can run.
 You can press "Ctrl/Cmd - Period" to stop synth/free the sever.
 
 You can compose a piece, and find guides for doing so, inside the "//3 - Routine" function. */
@@ -6219,7 +6220,7 @@ You can compose a piece, and find guides for doing so, inside the "//3 - Routine
 		1.do({
 
 			//duration of each chord
-			a = 8;
+			a = 1;
 
 			//Copy and paste "saved" chords from the "copy" button inside the Timewave synthesizer GUI here:
 			//Choose to change each duration individually by changing the "a" variable in the code below this line, as well as "synthopen/synthflow/synthslide".
