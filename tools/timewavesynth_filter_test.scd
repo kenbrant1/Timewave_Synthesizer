@@ -1,7 +1,8 @@
 (
-//Although it is relatively easy to alter the low-pass filter parameters within the GUI, this file is for testing the synth's filters more
-//precisely. Evaluate this synth by pressing "ctrl/cmd - enter" within the parenthesis above. Then start the synth by pressing "synth0", and
-//minimize the GUI by clicking on the large "minimize" button or pressing "Esc".
+//Although it is relatively easy to alter the low-pass filter parameters within the normal Timewave synth
+//GUI, this file is for testing the synth's filters with more precision and customizability. Evaluate this synth by
+//pressing "ctrl/cmd - enter" within the parenthesis above. Then start the synth by pressing "synth0", and minimize the
+//GUI by clicking on the large "minimize" button or pressing "Esc".
 
 //Move the mouse horizontally (x-axis) to alter the cutoff frequency of the lp filter, and move the mouse vertically (y-axis) to alter the rq.
 //You can find the synthdefs in the "//synthdefs" section and change any parameters there, or change the primary ones around line 22.
@@ -28,6 +29,7 @@ s.options.memSize = 2097152/2;
 MIDIIn.connectAll;
 
 ~timewavesynthapp = {
+
 	var point, w, view, view2,
 	vol = 0.02,mute1,mute2,mute3,mute4,mute5,mute6,mute7,mute8,mute9,mute10,mute11,mute12,muteall,unmuteall,
 	g1,g2,g6,g8,g33,g48,g64,g72,g88,gm,ngm1,ngm2,ngm6,set1,set2,menu1,menu2,
@@ -181,9 +183,9 @@ MIDIIn.connectAll;
 	*/
 
 
-	//set GUI frequency ranges - currently set at the lowest and highest notes on a 128 key range using 432 hz A tuning.
-	//You can change the tuning near top of page.
-	//To insert custom ranges, replace "~freqmap.at()" with a hz frequency.
+	//gui set frequency ranges - currently set at the lowest and highest notes on a 128 key range using 432 hz A tuning
+	//you can change the tuning near top
+	//to insert custom ranges, replace "~freqmap.at()" with a hz frequency
 
 	~outmin1 = ~freqmap.at(0);       // 8.0271480262684 hz                       //base frequency of upper set
 	~outmax1 = ~freqmap.at(127);     // 12315.783879572 hz                       //high frequency of upper set
@@ -198,19 +200,19 @@ MIDIIn.connectAll;
 
 	//increase or decrease magnitude of second and third harmonics for synthdefs and synth functions (not recommend changing if uncertain of effects)
 
-	//for synthdefs -
+	//synthdefs
 
 	~first_harmonic = 1;  //1
 	~second_harmonic = 2; //2
 	~third_harmonic = 6;  //6
 
-	//for synth functions -
+	//synth functions
 
 	~icd3 = 3; //3
 	~icd6 = 6; //6
 
 
-	//ratio values for King Wen sequence interpretations, or other things
+	//ratio values
 
 	~fth = 1.4142135623729; //default kws binary interval
 	~bi = ~fth; //~bi = "binary interval" - intverval of key change to a hexagram line's opposite in King Wen sequence
@@ -256,7 +258,7 @@ MIDIIn.connectAll;
 	//Example: [ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615 ]
 	//You can find frequencies in the "copy" section of GUI under "saved open/flow 1-8 frequencies:" or "saved slide 1-8 frequencies:".
 	//Remove both the "/*" and "*/" around the code to make evaluable. Put them back to make it unevaluable.
-	//The amount of freqs in the array should be >= "~number_of_synths" upon evaluation. To find "~number_of_synths" value, highlight it, then press "ctrl/cmd-enter"; or refer to the top of page.
+	//The amount of freqs in the array should be >= "~number_of_synths" upon evaluation. To find "~number_of_synths" value, highlight it, then press "ctrl/cmd-enter".
 
 	/*
 
@@ -276,7 +278,7 @@ MIDIIn.connectAll;
 	//Example: [ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615 ]
 	//You can find frequencies in the "copy" section of GUI under "current chord/frequencies".
 	//Remove both the "/*" and "*/" around the code to make evaluable. Put them back to make it unevaluable again.
-	//The amount of freqs in the array should be >= "~number_of_synths" upon evaluation. To find "~number_of_synths" value, highlight it, then press "ctrl/cmd-enter".
+	//The amount of freqs in the array should be >= "~number_of_synths" upon evaluation. To find "~number_of_synths" value, highlight it, then press "ctrl/cmd-enter"; or refer to the top of page.
 
 	/*
 
@@ -2114,7 +2116,7 @@ MIDIIn.connectAll;
 			({
 				arg  top = 0,width=160, revertwidth=75, height = 25,  heightbox = 25, lefttime = 0 , lefttimebox = width+5,  widthbox=165, leftdo = lefttimebox+widthbox+5, leftdobox = leftdo+57, inc=0, lw = 0,  uw = 0, numw = 40;
 				var tall, stall, iall, siall, st1, st2, st3, st4, st5, st6, st7, st8, st9, st10, st11, st12, si1, si2, si3, si4, si5, si6, si7, si8, t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12;
-				~settingsview = View(w, Rect(20+60*2+15+25,Window.screenBounds.height-390,380,480/1.6180339887499)).front;
+				~settingsview = View(w, Rect(5,Window.screenBounds.height-390,375,480/1.6180339887499)).front;
 				/*w.view.decorator=FlowLayout(w.view.bounds);
 				w.view.decorator.gap=2@2;*/
 
@@ -2130,6 +2132,58 @@ MIDIIn.connectAll;
 				t7 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("automate period").stringColor_(Color.white);
 				t8 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height)).background_(Color.black).string_("# of synths").stringColor_(Color.white);
 				t9 = StaticText(~settingsview, Rect(lefttime , top=top+height, width, height+10)).background_(Color.black).string_("amplitude(use small increments like 0.001)").stringColor_(Color.white);
+
+
+				//reset to default filter settings
+
+				if(~lpfl_save == nil, {~lpfl_save = ~default_low_pass_filter_freq_limit1});
+				if(~lpf_rq_save == nil, {~lpf_rq_save = ~default_lpfilter_rq_1});
+
+				~resetfilter = Button(~settingsview,Rect(0, top=top+height+15, 100, 40/~gm)).states_([["reset filter",Color.white,Color.black],["unreset filter",Color.white,Color.black]]).mouseDownAction_({
+
+
+					if(~resetfilter.value == 0, {
+
+						~lpfl_save = ~lpfl;
+
+						~low_pass_filter_set_value = ~default_low_pass_filter_freq_limit1;
+
+						~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString; ~low_pass_filter_set_value = ~low_pass_filter_set_value.asFloat;
+
+						~lpfl = ~low_pass_filter_set_value;
+
+						case
+						{~low_pass_filter_setting == 0}{~low_pass_filter_freq_limit1 = ~low_pass_filter_set_value;}
+						{~low_pass_filter_setting == 1}{~low_pass_filter_freq_limit2 = ~low_pass_filter_set_value;};
+
+						~lpf_rq_save = ~lpf_rq;
+
+						~rq_set_value = ~default_lpfilter_rq_1;
+
+						~rq_textfield.string = ~rq_set_value.asString; ~rq_set_value = ~rq_set_value.asFloat;
+
+						~lpf_rq = ~rq_set_value; ~synthflow.value;
+					}, {
+
+						~low_pass_filter_set_value = ~lpfl_save;
+
+						~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString; ~low_pass_filter_set_value = ~low_pass_filter_set_value.asFloat;
+
+						~lpfl = ~low_pass_filter_set_value;
+
+						case
+						{~low_pass_filter_setting == 0}{~low_pass_filter_freq_limit1 = ~low_pass_filter_set_value;}
+						{~low_pass_filter_setting == 1}{~low_pass_filter_freq_limit2 = ~low_pass_filter_set_value;};
+
+						~rq_set_value = ~lpf_rq_save;
+
+						~rq_textfield.string = ~rq_set_value.asString; ~rq_set_value = ~rq_set_value.asFloat;
+
+						~lpf_rq = ~rq_set_value; ~synthflow.value;
+					});
+
+				});
+
 
 				top = 0;
 
@@ -2257,6 +2311,45 @@ MIDIIn.connectAll;
 					~st.string = "low-pass filter rq selected";
 					AppClock.sched(~gm,{~st.close;});
 				};
+
+
+				//2D slider for low-pass filter parameters
+
+				~sliderbutton = Button(~settingsview,Rect(lefttimebox*2+5, top, 36, heightbox*2)).states_([["slider",Color.white,Color.black],["slider",Color.white,Color.black]]).mouseDownAction_({arg button;
+
+					if(~filterslider_x == nil, {~filterslider_x = 0.33911368015414});
+					if(~filterslider_y == nil, {~filterslider_y = 0.091259640102828});
+					if(button.value == 0, {
+					a = ControlSpec(700, 5000, \exp);
+					b = ControlSpec(0.1, 20.0, \lin);
+					~filterslider = Slider2D(w, Rect(380,0,Window.screenBounds.width-380,Window.screenBounds.height-100))
+					        .x_(~filterslider_x)
+					        .y_(~filterslider_y)
+					        .action_({|sl|
+						            [\sliderX, x = a.map(sl.x), \sliderY, y = b.map(sl.y)]; ~filterslider_x = sl.x; ~filterslider_y = sl.y;
+
+						~low_pass_filter_set_value = x;
+
+						~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString; ~low_pass_filter_set_value = ~low_pass_filter_set_value.asFloat;
+
+						~lpfl = ~low_pass_filter_set_value;
+
+						case
+						{~low_pass_filter_setting == 0}{~low_pass_filter_freq_limit1 = ~low_pass_filter_set_value;}
+						{~low_pass_filter_setting == 1}{~low_pass_filter_freq_limit2 = ~low_pass_filter_set_value;};
+
+						~rq_set_value = y;
+
+						~rq_textfield.string = ~rq_set_value.asString; ~rq_set_value = ~rq_set_value.asFloat;
+
+						~lpf_rq = ~rq_set_value; ~synthflow.value;
+
+					        }).background_(Color.black);
+					~filterslider.front;
+					}, {~filterslider.close;});
+
+				});
+				~sliderbutton.font = Font(size: 10);
 
 
 				//set low-pass filter type
@@ -2493,7 +2586,7 @@ MIDIIn.connectAll;
 			}.value);
 
 			~settingsview.front;
-		}, {~settingsview.close});
+		}, {~settingsview.close; if(~filterslider.isClosed == false, {~filterslider.close;});});
 	});
 
 
@@ -4053,189 +4146,16 @@ MIDIIn.connectAll;
 
 	//keyboard number buttons to choose synth
 
-	keycodeb = Button.new(w,Rect(Window.screenBounds.width-20-16,~bpt+160,16,16/1.6180339887499)).states_([
-		["1",Color.white,Color.black],
-		["2",Color.white,Color.black],
-		["3",Color.white,Color.black],
-		["4",Color.white,Color.black],
-		["5",Color.white,Color.black],
-		["6",Color.white,Color.black],
-		["7",Color.white,Color.black],
-		["8",Color.white,Color.black],
-		["9",Color.white,Color.black],
-		["10",Color.white,Color.black],
-		["11",Color.white,Color.black],
-		["12",Color.white,Color.black]]).action_({arg button;
+	keycodeb = Button.new(w,Rect(Window.screenBounds.width-20-16,~bpt+160,16,16/1.6180339887499)).states_(
+		{x=0; Array.fill(~number_of_synths, {[(x=x+1).asString,Color.white,Color.black]}).value}.value;
+	).action_({arg button;
 
-		case
-		{button.value == 0}{
-			~z25.background = Color.green; ~z1.background = Color.green;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 1}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.green; ~z2.background = Color.green;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 2}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.green; ~z3.background = Color.green;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 3}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.green; ~z4.background = Color.green;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 4}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.green; ~z5.background = Color.green;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 5}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.green; ~z6.background = Color.green;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 6}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.green; ~z7.background = Color.green;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 7}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.green; ~z8.background = Color.green;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 8}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.green; ~z9.background = Color.green;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 9}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.green; ~z10.background = Color.green;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 10}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.green; ~z11.background = Color.green;
-			~z36.background = Color.white; ~z12.background = Color.white;
-		}
-		{button.value == 11}{
-			~z25.background = Color.white; ~z1.background = Color.white;
-			~z26.background = Color.white; ~z2.background = Color.white;
-			~z27.background = Color.white; ~z3.background = Color.white;
-			~z28.background = Color.white; ~z4.background = Color.white;
-			~z29.background = Color.white; ~z5.background = Color.white;
-			~z30.background = Color.white; ~z6.background = Color.white;
-			~z31.background = Color.white; ~z7.background = Color.white;
-			~z32.background = Color.white; ~z8.background = Color.white;
-			~z33.background = Color.white; ~z9.background = Color.white;
-			~z34.background = Color.white; ~z10.background = Color.white;
-			~z35.background = Color.white; ~z11.background = Color.white;
-			~z36.background = Color.green; ~z12.background = Color.green;
-		}
+		~number_of_synths.do(x = 24; y = 0; {if(y == button.value, {
+			("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+			("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+			("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+			("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+		);});
 
 	});
 
@@ -4334,845 +4254,805 @@ MIDIIn.connectAll;
 
 		//set synth frequency using left/right arrow keys or j/l keys
 
-		if((~f1 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 0) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval1 = ~f1.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l1a.set(\dur, ~f1 = ~freqmap.at(~freqmapval1 = ~freqmapval1.value+1));
-					~l1b.set(\dur, ~f1);
-					~l1c.set(\dur, ~f1/~icd3);
-					~l1d.set(\dur, ~f1/~icd3);
-					~l1e.set(\dur, ~f1/~icd6);
-					~l1f.set(\dur, ~f1/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l1a1.set(\dur, ~f1 = ~freqmap.at(~freqmapval1 = ~freqmapval1.value+1));
-					~l1b1.set(\dur, ~f1);
-					~l1c1.set(\dur, ~f1/~icd3);
-					~l1d1.set(\dur, ~f1/~icd3);
-					~l1e1.set(\dur, ~f1/~icd6);
-					~l1f1.set(\dur, ~f1/~icd6);
-				};
-				if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.green; ~z1.background = Color.green;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f1 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 0) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval1 = ~f1.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l1a.set(\dur, ~f1 = ~freqmap.at(~freqmapval1 = ~freqmapval1.value-1));
-					~l1b.set(\dur, ~f1);
-					~l1c.set(\dur, ~f1/~icd3);
-					~l1d.set(\dur, ~f1/~icd3);
-					~l1e.set(\dur, ~f1/~icd6);
-					~l1f.set(\dur, ~f1/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l1a1.set(\dur, ~f1 = ~freqmap.at(~freqmapval1 = ~freqmapval1.value-1));
-					~l1b1.set(\dur, ~f1);
-					~l1c1.set(\dur, ~f1/~icd3);
-					~l1d1.set(\dur, ~f1/~icd3);
-					~l1e1.set(\dur, ~f1/~icd6);
-					~l1f1.set(\dur, ~f1/~icd6);
-				};
-				if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+		/*x = 0;
 
-				~z25.background = Color.green; ~z1.background = Color.green;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
+		if((("f"++(x=x+1)).asSymbol.envirGet >= ~freqmap.at(127)), {~freqmap.at(127)},
+		{if((keycodeb.value == (x-1)) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+		("freqmapval"++(x)).asSymbol.envirPut(("f"++(x)).asSymbol.envirGet.cpsmidi.round;);
+		case
+		{~l1a.isRunning == true}{
+		("l"++(x)++"a").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirPut(~freqmap.at(("freqmapval"++(x)).asSymbol.envirPut(("freqmapval"++(x)).asSymbol.envirGet+1)))));
+		("l"++(x)++"b").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet));
+		("l"++(x)++"c").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd3));
+		("l"++(x)++"d").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd3));
+		("l"++(x)++"e").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd6));
+		("l"++(x)++"f").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd6));
+		}
+		{~l1a1.isRunning == true}{
+		("l"++(x)++"a1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirPut(~freqmap.at(("freqmapval"++(x)).asSymbol.envirPut(("freqmapval"++(x)).asSymbol.envirGet+1)))));
+		("l"++(x)++"b1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet));
+		("l"++(x)++"c1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd3));
+		("l"++(x)++"d1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd3));
+		("l"++(x)++"e1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd6));
+		("l"++(x)++"f1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd6));
+		};
+		~number_of_synths.do(v = 24; w = 0; {if(w == keycodeb.value, {
+		("z"++(v=v+1)).asSymbol.envirGet.do(_.background_(Color.green));
+		("z"++(w=w+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+		("z"++(v=v+1)).asSymbol.envirGet.do(_.background_(Color.white));
+		("z"++(w=w+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+		);});
+		});});
+		if((("f"++(x)).asSymbol.envirGet <= ~freqmap.at(0)), {~freqmap.at(0)},
+		{if((keycodeb.value == (x-1)) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+		("freqmapval"++(x)).asSymbol.envirPut(("f"++(x)).asSymbol.envirGet.cpsmidi.round;);
+		case
+		{~l1a.isRunning == true}{
+		("l"++(x)++"a").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirPut(~freqmap.at(("freqmapval"++(x)).asSymbol.envirPut(("freqmapval"++(x)).asSymbol.envirGet-1)))));
+		("l"++(x)++"b").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet));
+		("l"++(x)++"c").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd3));
+		("l"++(x)++"d").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd3));
+		("l"++(x)++"e").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd6));
+		("l"++(x)++"f").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd6));
+		}
+		{~l1a1.isRunning == true}{
+		("l"++(x)++"a1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirPut(~freqmap.at(("freqmapval"++(x)).asSymbol.envirPut(("freqmapval"++(x)).asSymbol.envirGet-1)))));
+		("l"++(x)++"b1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet));
+		("l"++(x)++"c1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd3));
+		("l"++(x)++"d1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd3));
+		("l"++(x)++"e1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd6));
+		("l"++(x)++"f1").asSymbol.envirGet.do(_.set(\dur, ("f"++(x)).asSymbol.envirGet/~icd6));
+		};
+		~number_of_synths.do(v = 24; w = 0; {if(w == keycodeb.value, {
+		("z"++(v=v+1)).asSymbol.envirGet.do(_.background_(Color.green));
+		("z"++(w=w+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+		("z"++(v=v+1)).asSymbol.envirGet.do(_.background_(Color.white));
+		("z"++(w=w+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+		);});
 		});});
 
-		if((~f2 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 1) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval2 = ~f2.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l2a.set(\dur, ~f2 = ~freqmap.at(~freqmapval2 = ~freqmapval2.value+1));
-					~l2b.set(\dur, ~f2);
-					~l2c.set(\dur, ~f2/~icd3);
-					~l2d.set(\dur, ~f2/~icd3);
-					~l2e.set(\dur, ~f2/~icd6);
-					~l2f.set(\dur, ~f2/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l2a1.set(\dur, ~f2 = ~freqmap.at(~freqmapval2 = ~freqmapval2.value+1));
-					~l2b1.set(\dur, ~f2);
-					~l2c1.set(\dur, ~f2/~icd3);
-					~l2d1.set(\dur, ~f2/~icd3);
-					~l2e1.set(\dur, ~f2/~icd6);
-					~l2f1.set(\dur, ~f2/~icd6);
-				};
-				if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.green; ~z2.background = Color.green;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f2 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 1) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval2 = ~f2.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l2a.set(\dur, ~f2 = ~freqmap.at(~freqmapval2 = ~freqmapval2.value-1));
-					~l2b.set(\dur, ~f2);
-					~l2c.set(\dur, ~f2/~icd3);
-					~l2d.set(\dur, ~f2/~icd3);
-					~l2e.set(\dur, ~f2/~icd6);
-					~l2f.set(\dur, ~f2/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l2a1.set(\dur, ~f2 = ~freqmap.at(~freqmapval2 = ~freqmapval2.value-1));
-					~l2b1.set(\dur, ~f2);
-					~l2c1.set(\dur, ~f2/~icd3);
-					~l2d1.set(\dur, ~f2/~icd3);
-					~l2e1.set(\dur, ~f2/~icd6);
-					~l2f1.set(\dur, ~f2/~icd6);
-				};
-				if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
+		(~number_of_synths).do(x = 0; y = 24; z = 10; {
+		if((("f"++(x=x+1)).asSymbol.envirGet > ~outmaxa) or: (("f"++(x)).asSymbol.envirGet < ~outmina), {
+		("z"++(y=y+1)).asSymbol.envirGet.do(_.close); ("z"++(x)).asSymbol.envirGet.do(_.close);
+		("z"++(y)).asSymbol.envirPut(View(w, Rect((("f"++(x)).asSymbol.envirGet.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+z, ~nw, 2)).background = Color.white;);}, {
+		("z"++(x)).asSymbol.envirGet.do(_.close);("z"++(y)).asSymbol.envirGet.do(_.close); ("z"++(x)).asSymbol.envirPut(View(w, Rect((("f"++(x)).asSymbol.envirGet.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+z, ~nw, 2)).background = Color.white;);
+		});
+		z=z+10;
+		});*/
 
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.green; ~z2.background = Color.green;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
 
-		if((~f3 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 2) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval3 = ~f3.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l3a.set(\dur, ~f3 = ~freqmap.at(~freqmapval3 = ~freqmapval3.value+1));
-					~l3b.set(\dur, ~f3);
-					~l3c.set(\dur, ~f3/~icd3);
-					~l3d.set(\dur, ~f3/~icd3);
-					~l3e.set(\dur, ~f3/~icd6);
-					~l3f.set(\dur, ~f3/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l3a1.set(\dur, ~f3 = ~freqmap.at(~freqmapval3 = ~freqmapval3.value+1));
-					~l3b1.set(\dur, ~f3);
-					~l3c1.set(\dur, ~f3/~icd3);
-					~l3d1.set(\dur, ~f3/~icd3);
-					~l3e1.set(\dur, ~f3/~icd6);
-					~l3f1.set(\dur, ~f3/~icd6);
-				};
-				if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.green; ~z3.background = Color.green;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f3 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 2) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval3 = ~f3.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l3a.set(\dur, ~f3 = ~freqmap.at(~freqmapval3 = ~freqmapval3.value-1));
-					~l3b.set(\dur, ~f3);
-					~l3c.set(\dur, ~f3/~icd3);
-					~l3d.set(\dur, ~f3/~icd3);
-					~l3e.set(\dur, ~f3/~icd6);
-					~l3f.set(\dur, ~f3/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l3a1.set(\dur, ~f3 = ~freqmap.at(~freqmapval3 = ~freqmapval3.value-1));
-					~l3b1.set(\dur, ~f3);
-					~l3c1.set(\dur, ~f3/~icd3);
-					~l3d1.set(\dur, ~f3/~icd3);
-					~l3e1.set(\dur, ~f3/~icd6);
-					~l3f1.set(\dur, ~f3/~icd6);
-				};
-				if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+		if(~number_of_synths > 0, {
+			if((~f1 >= ~freqmap.at(127)), {~freqmap.at(127)},
+				{if((keycodeb.value == 0) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+					~freqmapval1 = ~f1.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l1a.set(\dur, ~f1 = ~freqmap.at(~freqmapval1 = ~freqmapval1.value+1));
+						~l1b.set(\dur, ~f1);
+						~l1c.set(\dur, ~f1/~icd3);
+						~l1d.set(\dur, ~f1/~icd3);
+						~l1e.set(\dur, ~f1/~icd6);
+						~l1f.set(\dur, ~f1/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l1a1.set(\dur, ~f1 = ~freqmap.at(~freqmapval1 = ~freqmapval1.value+1));
+						~l1b1.set(\dur, ~f1);
+						~l1c1.set(\dur, ~f1/~icd3);
+						~l1d1.set(\dur, ~f1/~icd3);
+						~l1e1.set(\dur, ~f1/~icd6);
+						~l1f1.set(\dur, ~f1/~icd6);
+					};
+					if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
+					u = 0;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+			if((~f1 <= ~freqmap.at(0)), {~freqmap.at(0)},
+				{if((keycodeb.value == 0) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+					~freqmapval1 = ~f1.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l1a.set(\dur, ~f1 = ~freqmap.at(~freqmapval1 = ~freqmapval1.value-1));
+						~l1b.set(\dur, ~f1);
+						~l1c.set(\dur, ~f1/~icd3);
+						~l1d.set(\dur, ~f1/~icd3);
+						~l1e.set(\dur, ~f1/~icd6);
+						~l1f.set(\dur, ~f1/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l1a1.set(\dur, ~f1 = ~freqmap.at(~freqmapval1 = ~freqmapval1.value-1));
+						~l1b1.set(\dur, ~f1);
+						~l1c1.set(\dur, ~f1/~icd3);
+						~l1d1.set(\dur, ~f1/~icd3);
+						~l1e1.set(\dur, ~f1/~icd6);
+						~l1f1.set(\dur, ~f1/~icd6);
+					};
+					if((~f1 > ~outmaxa) or: (~f1 < ~outmina), {~z25.close;~z1.close;~z25 = (View(w, Rect((~f1.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+10, ~nw, 2)).background = Color.white;);}, {~z1.close;~z25.close;~z1 = (View(w, Rect((~f1.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+10, ~nw, 2)).background = Color.white;);});
 
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.green; ~z3.background = Color.green;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
+					u = 0;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+		});
+		if(~number_of_synths > 1, {
+			if((~f2 >= ~freqmap.at(127)), {~freqmap.at(127)},
+				{if((keycodeb.value == 1) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+					~freqmapval2 = ~f2.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l2a.set(\dur, ~f2 = ~freqmap.at(~freqmapval2 = ~freqmapval2.value+1));
+						~l2b.set(\dur, ~f2);
+						~l2c.set(\dur, ~f2/~icd3);
+						~l2d.set(\dur, ~f2/~icd3);
+						~l2e.set(\dur, ~f2/~icd6);
+						~l2f.set(\dur, ~f2/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l2a1.set(\dur, ~f2 = ~freqmap.at(~freqmapval2 = ~freqmapval2.value+1));
+						~l2b1.set(\dur, ~f2);
+						~l2c1.set(\dur, ~f2/~icd3);
+						~l2d1.set(\dur, ~f2/~icd3);
+						~l2e1.set(\dur, ~f2/~icd6);
+						~l2f1.set(\dur, ~f2/~icd6);
+					};
+					if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
+					u = 1;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+			if((~f2 <= ~freqmap.at(0)), {~freqmap.at(0)},
+				{if((keycodeb.value == 1) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+					~freqmapval2 = ~f2.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l2a.set(\dur, ~f2 = ~freqmap.at(~freqmapval2 = ~freqmapval2.value-1));
+						~l2b.set(\dur, ~f2);
+						~l2c.set(\dur, ~f2/~icd3);
+						~l2d.set(\dur, ~f2/~icd3);
+						~l2e.set(\dur, ~f2/~icd6);
+						~l2f.set(\dur, ~f2/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l2a1.set(\dur, ~f2 = ~freqmap.at(~freqmapval2 = ~freqmapval2.value-1));
+						~l2b1.set(\dur, ~f2);
+						~l2c1.set(\dur, ~f2/~icd3);
+						~l2d1.set(\dur, ~f2/~icd3);
+						~l2e1.set(\dur, ~f2/~icd6);
+						~l2f1.set(\dur, ~f2/~icd6);
+					};
+					if((~f2 > ~outmaxa) or: (~f2 < ~outmina), {~z26.close;~z2.close;~z26 = (View(w, Rect((~f2.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+20, ~nw, 2)).background = Color.white;);}, {~z2.close;~z26.close;~z2 = (View(w, Rect((~f2.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+20, ~nw, 2)).background = Color.white;);});
 
-		if((~f4 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 3) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval4 = ~f4.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l4a.set(\dur, ~f4 = ~freqmap.at(~freqmapval4 = ~freqmapval4.value+1));
-					~l4b.set(\dur, ~f4);
-					~l4c.set(\dur, ~f4/~icd3);
-					~l4d.set(\dur, ~f4/~icd3);
-					~l4e.set(\dur, ~f4/~icd6);
-					~l4f.set(\dur, ~f4/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l4a1.set(\dur, ~f4 = ~freqmap.at(~freqmapval4 = ~freqmapval4.value+1));
-					~l4b1.set(\dur, ~f4);
-					~l4c1.set(\dur, ~f4/~icd3);
-					~l4d1.set(\dur, ~f4/~icd3);
-					~l4e1.set(\dur, ~f4/~icd6);
-					~l4f1.set(\dur, ~f4/~icd6);
-				};
-				if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.green; ~z4.background = Color.green;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f4 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 3) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval4 = ~f4.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l4a.set(\dur, ~f4 = ~freqmap.at(~freqmapval4 = ~freqmapval4.value-1));
-					~l4b.set(\dur, ~f4);
-					~l4c.set(\dur, ~f4/~icd3);
-					~l4d.set(\dur, ~f4/~icd3);
-					~l4e.set(\dur, ~f4/~icd6);
-					~l4f.set(\dur, ~f4/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l4a1.set(\dur, ~f4 = ~freqmap.at(~freqmapval4 = ~freqmapval4.value-1));
-					~l4b1.set(\dur, ~f4);
-					~l4c1.set(\dur, ~f4/~icd3);
-					~l4d1.set(\dur, ~f4/~icd3);
-					~l4e1.set(\dur, ~f4/~icd6);
-					~l4f1.set(\dur, ~f4/~icd6);
-				};
-				if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
+					u = 1;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+		});
+		if(~number_of_synths > 2, {
+			if((~f3 >= ~freqmap.at(127)), {~freqmap.at(127)},
+				{if((keycodeb.value == 2) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+					~freqmapval3 = ~f3.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l3a.set(\dur, ~f3 = ~freqmap.at(~freqmapval3 = ~freqmapval3.value+1));
+						~l3b.set(\dur, ~f3);
+						~l3c.set(\dur, ~f3/~icd3);
+						~l3d.set(\dur, ~f3/~icd3);
+						~l3e.set(\dur, ~f3/~icd6);
+						~l3f.set(\dur, ~f3/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l3a1.set(\dur, ~f3 = ~freqmap.at(~freqmapval3 = ~freqmapval3.value+1));
+						~l3b1.set(\dur, ~f3);
+						~l3c1.set(\dur, ~f3/~icd3);
+						~l3d1.set(\dur, ~f3/~icd3);
+						~l3e1.set(\dur, ~f3/~icd6);
+						~l3f1.set(\dur, ~f3/~icd6);
+					};
+					if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
+					u = 2;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+			if((~f3 <= ~freqmap.at(0)), {~freqmap.at(0)},
+				{if((keycodeb.value == 2) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+					~freqmapval3 = ~f3.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l3a.set(\dur, ~f3 = ~freqmap.at(~freqmapval3 = ~freqmapval3.value-1));
+						~l3b.set(\dur, ~f3);
+						~l3c.set(\dur, ~f3/~icd3);
+						~l3d.set(\dur, ~f3/~icd3);
+						~l3e.set(\dur, ~f3/~icd6);
+						~l3f.set(\dur, ~f3/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l3a1.set(\dur, ~f3 = ~freqmap.at(~freqmapval3 = ~freqmapval3.value-1));
+						~l3b1.set(\dur, ~f3);
+						~l3c1.set(\dur, ~f3/~icd3);
+						~l3d1.set(\dur, ~f3/~icd3);
+						~l3e1.set(\dur, ~f3/~icd6);
+						~l3f1.set(\dur, ~f3/~icd6);
+					};
+					if((~f3 > ~outmaxa) or: (~f3 < ~outmina), {~z27.close;~z3.close;~z27 = (View(w, Rect((~f3.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+30, ~nw, 2)).background = Color.white;);}, {~z3.close;~z27.close;~z3 = (View(w, Rect((~f3.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+30, ~nw, 2)).background = Color.white;);});
 
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.green; ~z4.background = Color.green;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
+					u = 2;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+		});
+		if(~number_of_synths > 3, {
+			if((~f4 >= ~freqmap.at(127)), {~freqmap.at(127)},
+				{if((keycodeb.value == 3) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+					~freqmapval4 = ~f4.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l4a.set(\dur, ~f4 = ~freqmap.at(~freqmapval4 = ~freqmapval4.value+1));
+						~l4b.set(\dur, ~f4);
+						~l4c.set(\dur, ~f4/~icd3);
+						~l4d.set(\dur, ~f4/~icd3);
+						~l4e.set(\dur, ~f4/~icd6);
+						~l4f.set(\dur, ~f4/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l4a1.set(\dur, ~f4 = ~freqmap.at(~freqmapval4 = ~freqmapval4.value+1));
+						~l4b1.set(\dur, ~f4);
+						~l4c1.set(\dur, ~f4/~icd3);
+						~l4d1.set(\dur, ~f4/~icd3);
+						~l4e1.set(\dur, ~f4/~icd6);
+						~l4f1.set(\dur, ~f4/~icd6);
+					};
+					if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
+					u = 3;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+			if((~f4 <= ~freqmap.at(0)), {~freqmap.at(0)},
+				{if((keycodeb.value == 3) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+					~freqmapval4 = ~f4.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l4a.set(\dur, ~f4 = ~freqmap.at(~freqmapval4 = ~freqmapval4.value-1));
+						~l4b.set(\dur, ~f4);
+						~l4c.set(\dur, ~f4/~icd3);
+						~l4d.set(\dur, ~f4/~icd3);
+						~l4e.set(\dur, ~f4/~icd6);
+						~l4f.set(\dur, ~f4/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l4a1.set(\dur, ~f4 = ~freqmap.at(~freqmapval4 = ~freqmapval4.value-1));
+						~l4b1.set(\dur, ~f4);
+						~l4c1.set(\dur, ~f4/~icd3);
+						~l4d1.set(\dur, ~f4/~icd3);
+						~l4e1.set(\dur, ~f4/~icd6);
+						~l4f1.set(\dur, ~f4/~icd6);
+					};
+					if((~f4 > ~outmaxa) or: (~f4 < ~outmina), {~z28.close;~z4.close;~z28 = (View(w, Rect((~f4.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+40, ~nw, 2)).background = Color.white;);}, {~z4.close;~z28.close;~z4 = (View(w, Rect((~f4.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+40, ~nw, 2)).background = Color.white;);});
 
-		if((~f5 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 4) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval5 = ~f5.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l5a.set(\dur, ~f5 = ~freqmap.at(~freqmapval5 = ~freqmapval5.value+1));
-					~l5b.set(\dur, ~f5);
-					~l5c.set(\dur, ~f5/~icd3);
-					~l5d.set(\dur, ~f5/~icd3);
-					~l5e.set(\dur, ~f5/~icd6);
-					~l5f.set(\dur, ~f5/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l5a1.set(\dur, ~f5 = ~freqmap.at(~freqmapval5 = ~freqmapval5.value+1));
-					~l5b1.set(\dur, ~f5);
-					~l5c1.set(\dur, ~f5/~icd3);
-					~l5d1.set(\dur, ~f5/~icd3);
-					~l5e1.set(\dur, ~f5/~icd6);
-					~l5f1.set(\dur, ~f5/~icd6);
-				};
-				if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.green; ~z5.background = Color.green;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f5 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 4) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval5 = ~f5.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l5a.set(\dur, ~f5 = ~freqmap.at(~freqmapval5 = ~freqmapval5.value-1));
-					~l5b.set(\dur, ~f5);
-					~l5c.set(\dur, ~f5/~icd3);
-					~l5d.set(\dur, ~f5/~icd3);
-					~l5e.set(\dur, ~f5/~icd6);
-					~l5f.set(\dur, ~f5/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l5a1.set(\dur, ~f5 = ~freqmap.at(~freqmapval5 = ~freqmapval5.value-1));
-					~l5b1.set(\dur, ~f5);
-					~l5c1.set(\dur, ~f5/~icd3);
-					~l5d1.set(\dur, ~f5/~icd3);
-					~l5e1.set(\dur, ~f5/~icd6);
-					~l5f1.set(\dur, ~f5/~icd6);
-				};
-				if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
+					u = 3;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+		});
+		if(~number_of_synths > 4, {
+			if((~f5 >= ~freqmap.at(127)), {~freqmap.at(127)},
+				{if((keycodeb.value == 4) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+					~freqmapval5 = ~f5.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l5a.set(\dur, ~f5 = ~freqmap.at(~freqmapval5 = ~freqmapval5.value+1));
+						~l5b.set(\dur, ~f5);
+						~l5c.set(\dur, ~f5/~icd3);
+						~l5d.set(\dur, ~f5/~icd3);
+						~l5e.set(\dur, ~f5/~icd6);
+						~l5f.set(\dur, ~f5/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l5a1.set(\dur, ~f5 = ~freqmap.at(~freqmapval5 = ~freqmapval5.value+1));
+						~l5b1.set(\dur, ~f5);
+						~l5c1.set(\dur, ~f5/~icd3);
+						~l5d1.set(\dur, ~f5/~icd3);
+						~l5e1.set(\dur, ~f5/~icd6);
+						~l5f1.set(\dur, ~f5/~icd6);
+					};
+					if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
+					u = 4;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+			if((~f5 <= ~freqmap.at(0)), {~freqmap.at(0)},
+				{if((keycodeb.value == 4) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+					~freqmapval5 = ~f5.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l5a.set(\dur, ~f5 = ~freqmap.at(~freqmapval5 = ~freqmapval5.value-1));
+						~l5b.set(\dur, ~f5);
+						~l5c.set(\dur, ~f5/~icd3);
+						~l5d.set(\dur, ~f5/~icd3);
+						~l5e.set(\dur, ~f5/~icd6);
+						~l5f.set(\dur, ~f5/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l5a1.set(\dur, ~f5 = ~freqmap.at(~freqmapval5 = ~freqmapval5.value-1));
+						~l5b1.set(\dur, ~f5);
+						~l5c1.set(\dur, ~f5/~icd3);
+						~l5d1.set(\dur, ~f5/~icd3);
+						~l5e1.set(\dur, ~f5/~icd6);
+						~l5f1.set(\dur, ~f5/~icd6);
+					};
+					if((~f5 > ~outmaxa) or: (~f5 < ~outmina), {~z29.close;~z5.close;~z29 = (View(w, Rect((~f5.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+50, ~nw, 2)).background = Color.white;);}, {~z5.close;~z29.close;~z5 = (View(w, Rect((~f5.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+50, ~nw, 2)).background = Color.white;);});
 
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.green; ~z5.background = Color.green;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
+					u = 4;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+		});
+		if(~number_of_synths > 5, {
+			if((~f6 >= ~freqmap.at(127)), {~freqmap.at(127)},
+				{if((keycodeb.value == 5) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+					~freqmapval6 = ~f6.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l6a.set(\dur, ~f6 = ~freqmap.at(~freqmapval6 = ~freqmapval6.value+1));
+						~l6b.set(\dur, ~f6);
+						~l6c.set(\dur, ~f6/~icd3);
+						~l6d.set(\dur, ~f6/~icd3);
+						~l6e.set(\dur, ~f6/~icd6);
+						~l6f.set(\dur, ~f6/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l6a1.set(\dur, ~f6 = ~freqmap.at(~freqmapval6 = ~freqmapval6.value+1));
+						~l6b1.set(\dur, ~f6);
+						~l6c1.set(\dur, ~f6/~icd3);
+						~l6d1.set(\dur, ~f6/~icd3);
+						~l6e1.set(\dur, ~f6/~icd6);
+						~l6f1.set(\dur, ~f6/~icd6);
+					};
+					if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
+					u = 5;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+			if((~f6 <= ~freqmap.at(0)), {~freqmap.at(0)},
+				{if((keycodeb.value == 5) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+					~freqmapval6 = ~f6.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l6a.set(\dur, ~f6 = ~freqmap.at(~freqmapval6 = ~freqmapval6.value-1));
+						~l6b.set(\dur, ~f6);
+						~l6c.set(\dur, ~f6/~icd3);
+						~l6d.set(\dur, ~f6/~icd3);
+						~l6e.set(\dur, ~f6/~icd6);
+						~l6f.set(\dur, ~f6/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l6a1.set(\dur, ~f6 = ~freqmap.at(~freqmapval6 = ~freqmapval6.value-1));
+						~l6b1.set(\dur, ~f6);
+						~l6c1.set(\dur, ~f6/~icd3);
+						~l6d1.set(\dur, ~f6/~icd3);
+						~l6e1.set(\dur, ~f6/~icd6);
+						~l6f1.set(\dur, ~f6/~icd6);
+					};
+					if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
 
-		if((~f6 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 5) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval6 = ~f6.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l6a.set(\dur, ~f6 = ~freqmap.at(~freqmapval6 = ~freqmapval6.value+1));
-					~l6b.set(\dur, ~f6);
-					~l6c.set(\dur, ~f6/~icd3);
-					~l6d.set(\dur, ~f6/~icd3);
-					~l6e.set(\dur, ~f6/~icd6);
-					~l6f.set(\dur, ~f6/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l6a1.set(\dur, ~f6 = ~freqmap.at(~freqmapval6 = ~freqmapval6.value+1));
-					~l6b1.set(\dur, ~f6);
-					~l6c1.set(\dur, ~f6/~icd3);
-					~l6d1.set(\dur, ~f6/~icd3);
-					~l6e1.set(\dur, ~f6/~icd6);
-					~l6f1.set(\dur, ~f6/~icd6);
-				};
-				if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.green; ~z6.background = Color.green;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f6 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 5) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval6 = ~f6.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l6a.set(\dur, ~f6 = ~freqmap.at(~freqmapval6 = ~freqmapval6.value-1));
-					~l6b.set(\dur, ~f6);
-					~l6c.set(\dur, ~f6/~icd3);
-					~l6d.set(\dur, ~f6/~icd3);
-					~l6e.set(\dur, ~f6/~icd6);
-					~l6f.set(\dur, ~f6/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l6a1.set(\dur, ~f6 = ~freqmap.at(~freqmapval6 = ~freqmapval6.value-1));
-					~l6b1.set(\dur, ~f6);
-					~l6c1.set(\dur, ~f6/~icd3);
-					~l6d1.set(\dur, ~f6/~icd3);
-					~l6e1.set(\dur, ~f6/~icd6);
-					~l6f1.set(\dur, ~f6/~icd6);
-				};
-				if((~f6 > ~outmaxa) or: (~f6 < ~outmina), {~z30.close;~z6.close;~z30 = (View(w, Rect((~f6.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+60, ~nw, 2)).background = Color.white;);}, {~z6.close;~z30.close;~z6 = (View(w, Rect((~f6.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+60, ~nw, 2)).background = Color.white;);});
+					u = 5;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+		});
+		if(~number_of_synths > 6, {
+			if((~f7 >= ~freqmap.at(127)), {~freqmap.at(127)},
+				{if((keycodeb.value == 6) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+					~freqmapval7 = ~f7.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l7a.set(\dur, ~f7 = ~freqmap.at(~freqmapval7 = ~freqmapval7.value+1));
+						~l7b.set(\dur, ~f7);
+						~l7c.set(\dur, ~f7/~icd3);
+						~l7d.set(\dur, ~f7/~icd3);
+						~l7e.set(\dur, ~f7/~icd6);
+						~l7f.set(\dur, ~f7/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l7a1.set(\dur, ~f7 = ~freqmap.at(~freqmapval7 = ~freqmapval7.value+1));
+						~l7b1.set(\dur, ~f7);
+						~l7c1.set(\dur, ~f7/~icd3);
+						~l7d1.set(\dur, ~f7/~icd3);
+						~l7e1.set(\dur, ~f7/~icd6);
+						~l7f1.set(\dur, ~f7/~icd6);
+					};
+					if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+					u = 6;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+			if((~f7 <= ~freqmap.at(0)), {~freqmap.at(0)},
+				{if((keycodeb.value == 6) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+					~freqmapval7 = ~f7.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l7a.set(\dur, ~f7 = ~freqmap.at(~freqmapval7 = ~freqmapval7.value-1));
+						~l7b.set(\dur, ~f7);
+						~l7c.set(\dur, ~f7/~icd3);
+						~l7d.set(\dur, ~f7/~icd3);
+						~l7e.set(\dur, ~f7/~icd6);
+						~l7f.set(\dur, ~f7/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l7a1.set(\dur, ~f7 = ~freqmap.at(~freqmapval7 = ~freqmapval7.value-1));
+						~l7b1.set(\dur, ~f7);
+						~l7c1.set(\dur, ~f7/~icd3);
+						~l7d1.set(\dur, ~f7/~icd3);
+						~l7e1.set(\dur, ~f7/~icd6);
+						~l7f1.set(\dur, ~f7/~icd6);
+					};
+					if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
 
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.green; ~z6.background = Color.green;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
+					u = 6;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+		});
+		if(~number_of_synths > 7, {
+			if((~f8 >= ~freqmap.at(127)), {~freqmap.at(127)},
+				{if((keycodeb.value == 7) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+					~freqmapval8 = ~f8.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l8a.set(\dur, ~f8 = ~freqmap.at(~freqmapval8 = ~freqmapval8.value+1));
+						~l8b.set(\dur, ~f8);
+						~l8c.set(\dur, ~f8/~icd3);
+						~l8d.set(\dur, ~f8/~icd3);
+						~l8e.set(\dur, ~f8/~icd6);
+						~l8f.set(\dur, ~f8/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l8a1.set(\dur, ~f8 = ~freqmap.at(~freqmapval8 = ~freqmapval8.value+1));
+						~l8b1.set(\dur, ~f8);
+						~l8c1.set(\dur, ~f8/~icd3);
+						~l8d1.set(\dur, ~f8/~icd3);
+						~l8e1.set(\dur, ~f8/~icd6);
+						~l8f1.set(\dur, ~f8/~icd6);
+					};
+					if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
+					u = 7;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+			if((~f8 <= ~freqmap.at(0)), {~freqmap.at(0)},
+				{if((keycodeb.value == 7) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+					~freqmapval8 = ~f8.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l8a.set(\dur, ~f8 = ~freqmap.at(~freqmapval8 = ~freqmapval8.value-1));
+						~l8b.set(\dur, ~f8);
+						~l8c.set(\dur, ~f8/~icd3);
+						~l8d.set(\dur, ~f8/~icd3);
+						~l8e.set(\dur, ~f8/~icd6);
+						~l8f.set(\dur, ~f8/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l8a1.set(\dur, ~f8 = ~freqmap.at(~freqmapval8 = ~freqmapval8.value-1));
+						~l8b1.set(\dur, ~f8);
+						~l8c1.set(\dur, ~f8/~icd3);
+						~l8d1.set(\dur, ~f8/~icd3);
+						~l8e1.set(\dur, ~f8/~icd6);
+						~l8f1.set(\dur, ~f8/~icd6);
+					};
+					if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
 
-		if((~f7 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 6) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval7 = ~f7.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l7a.set(\dur, ~f7 = ~freqmap.at(~freqmapval7 = ~freqmapval7.value+1));
-					~l7b.set(\dur, ~f7);
-					~l7c.set(\dur, ~f7/~icd3);
-					~l7d.set(\dur, ~f7/~icd3);
-					~l7e.set(\dur, ~f7/~icd6);
-					~l7f.set(\dur, ~f7/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l7a1.set(\dur, ~f7 = ~freqmap.at(~freqmapval7 = ~freqmapval7.value+1));
-					~l7b1.set(\dur, ~f7);
-					~l7c1.set(\dur, ~f7/~icd3);
-					~l7d1.set(\dur, ~f7/~icd3);
-					~l7e1.set(\dur, ~f7/~icd6);
-					~l7f1.set(\dur, ~f7/~icd6);
-				};
-				if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.green; ~z7.background = Color.green;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f7 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 6) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval7 = ~f7.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l7a.set(\dur, ~f7 = ~freqmap.at(~freqmapval7 = ~freqmapval7.value-1));
-					~l7b.set(\dur, ~f7);
-					~l7c.set(\dur, ~f7/~icd3);
-					~l7d.set(\dur, ~f7/~icd3);
-					~l7e.set(\dur, ~f7/~icd6);
-					~l7f.set(\dur, ~f7/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l7a1.set(\dur, ~f7 = ~freqmap.at(~freqmapval7 = ~freqmapval7.value-1));
-					~l7b1.set(\dur, ~f7);
-					~l7c1.set(\dur, ~f7/~icd3);
-					~l7d1.set(\dur, ~f7/~icd3);
-					~l7e1.set(\dur, ~f7/~icd6);
-					~l7f1.set(\dur, ~f7/~icd6);
-				};
-				if((~f7 > ~outmaxa) or: (~f7 < ~outmina), {~z31.close;~z7.close;~z31 = (View(w, Rect((~f7.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+70, ~nw, 2)).background = Color.white;);}, {~z7.close;~z31.close;~z7 = (View(w, Rect((~f7.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+70, ~nw, 2)).background = Color.white;);});
+					u = 7;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+		});
+		if(~number_of_synths > 8, {
+			if((~f9 >= ~freqmap.at(127)), {~freqmap.at(127)},
+				{if((keycodeb.value == 8) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+					~freqmapval9 = ~f9.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l9a.set(\dur, ~f9 = ~freqmap.at(~freqmapval9 = ~freqmapval9.value+1));
+						~l9b.set(\dur, ~f9);
+						~l9c.set(\dur, ~f9/~icd3);
+						~l9d.set(\dur, ~f9/~icd3);
+						~l9e.set(\dur, ~f9/~icd6);
+						~l9f.set(\dur, ~f9/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l9a1.set(\dur, ~f9 = ~freqmap.at(~freqmapval9 = ~freqmapval9.value+1));
+						~l9b1.set(\dur, ~f9);
+						~l9c1.set(\dur, ~f9/~icd3);
+						~l9d1.set(\dur, ~f9/~icd3);
+						~l9e1.set(\dur, ~f9/~icd6);
+						~l9f1.set(\dur, ~f9/~icd6);
+					};
+					if((~f9 > ~outmaxa) or: (~f9 < ~outmina), {~z33.close;~z9.close;~z33 = (View(w, Rect((~f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (View(w, Rect((~f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
+					u = 8;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+			if((~f9 <= ~freqmap.at(0)), {~freqmap.at(0)},
+				{if((keycodeb.value == 8) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+					~freqmapval9 = ~f9.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l9a.set(\dur, ~f9 = ~freqmap.at(~freqmapval9 = ~freqmapval9.value-1));
+						~l9b.set(\dur, ~f9);
+						~l9c.set(\dur, ~f9/~icd3);
+						~l9d.set(\dur, ~f9/~icd3);
+						~l9e.set(\dur, ~f9/~icd6);
+						~l9f.set(\dur, ~f9/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l9a1.set(\dur, ~f9 = ~freqmap.at(~freqmapval9 = ~freqmapval9.value-1));
+						~l9b1.set(\dur, ~f9);
+						~l9c1.set(\dur, ~f9/~icd3);
+						~l9d1.set(\dur, ~f9/~icd3);
+						~l9e1.set(\dur, ~f9/~icd6);
+						~l9f1.set(\dur, ~f9/~icd6);
+					};
+					if((~f9 > ~outmaxa) or: (~f9 < ~outmina), {~z33.close;~z9.close;~z33 = (View(w, Rect((~f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (View(w, Rect((~f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
 
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.green; ~z7.background = Color.green;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
+					u = 8;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+		});
+		if(~number_of_synths > 9, {
+			if((~f10 >= ~freqmap.at(127)), {~freqmap.at(127)},
+				{if((keycodeb.value == 9) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+					~freqmapval10 = ~f10.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l10a.set(\dur, ~f10 = ~freqmap.at(~freqmapval10 = ~freqmapval10.value+1));
+						~l10b.set(\dur, ~f10);
+						~l10c.set(\dur, ~f10/~icd3);
+						~l10d.set(\dur, ~f10/~icd3);
+						~l10e.set(\dur, ~f10/~icd6);
+						~l10f.set(\dur, ~f10/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l10a1.set(\dur, ~f10 = ~freqmap.at(~freqmapval10 = ~freqmapval10.value+1));
+						~l10b1.set(\dur, ~f10);
+						~l10c1.set(\dur, ~f10/~icd3);
+						~l10d1.set(\dur, ~f10/~icd3);
+						~l10e1.set(\dur, ~f10/~icd6);
+						~l10f1.set(\dur, ~f10/~icd6);
+					};
+					if((~f10 > ~outmaxa) or: (~f10 < ~outmina), {~z34.close;~z10.close;~z34 = (View(w, Rect((~f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (View(w, Rect((~f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
+					u = 9;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+			if((~f10 <= ~freqmap.at(0)), {~freqmap.at(0)},
+				{if((keycodeb.value == 9) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+					~freqmapval10 = ~f10.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l10a.set(\dur, ~f10 = ~freqmap.at(~freqmapval10 = ~freqmapval10.value-1));
+						~l10b.set(\dur, ~f10);
+						~l10c.set(\dur, ~f10/~icd3);
+						~l10d.set(\dur, ~f10/~icd3);
+						~l10e.set(\dur, ~f10/~icd6);
+						~l10f.set(\dur, ~f10/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l10a1.set(\dur, ~f10 = ~freqmap.at(~freqmapval10 = ~freqmapval10.value-1));
+						~l10b1.set(\dur, ~f10);
+						~l10c1.set(\dur, ~f10/~icd3);
+						~l10d1.set(\dur, ~f10/~icd3);
+						~l10e1.set(\dur, ~f10/~icd6);
+						~l10f1.set(\dur, ~f10/~icd6);
+					};
+					if((~f10 > ~outmaxa) or: (~f10 < ~outmina), {~z34.close;~z10.close;~z34 = (View(w, Rect((~f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (View(w, Rect((~f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
 
-		if((~f8 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 7) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval8 = ~f8.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l8a.set(\dur, ~f8 = ~freqmap.at(~freqmapval8 = ~freqmapval8.value+1));
-					~l8b.set(\dur, ~f8);
-					~l8c.set(\dur, ~f8/~icd3);
-					~l8d.set(\dur, ~f8/~icd3);
-					~l8e.set(\dur, ~f8/~icd6);
-					~l8f.set(\dur, ~f8/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l8a1.set(\dur, ~f8 = ~freqmap.at(~freqmapval8 = ~freqmapval8.value+1));
-					~l8b1.set(\dur, ~f8);
-					~l8c1.set(\dur, ~f8/~icd3);
-					~l8d1.set(\dur, ~f8/~icd3);
-					~l8e1.set(\dur, ~f8/~icd6);
-					~l8f1.set(\dur, ~f8/~icd6);
-				};
-				if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.green; ~z8.background = Color.green;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f8 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 7) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval8 = ~f8.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l8a.set(\dur, ~f8 = ~freqmap.at(~freqmapval8 = ~freqmapval8.value-1));
-					~l8b.set(\dur, ~f8);
-					~l8c.set(\dur, ~f8/~icd3);
-					~l8d.set(\dur, ~f8/~icd3);
-					~l8e.set(\dur, ~f8/~icd6);
-					~l8f.set(\dur, ~f8/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l8a1.set(\dur, ~f8 = ~freqmap.at(~freqmapval8 = ~freqmapval8.value-1));
-					~l8b1.set(\dur, ~f8);
-					~l8c1.set(\dur, ~f8/~icd3);
-					~l8d1.set(\dur, ~f8/~icd3);
-					~l8e1.set(\dur, ~f8/~icd6);
-					~l8f1.set(\dur, ~f8/~icd6);
-				};
-				if((~f8 > ~outmaxa) or: (~f8 < ~outmina), {~z32.close;~z8.close;~z32 = (View(w, Rect((~f8.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+80, ~nw, 2)).background = Color.white;);}, {~z8.close;~z32.close;~z8 = (View(w, Rect((~f8.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+80, ~nw, 2)).background = Color.white;);});
+					u = 9;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+		});
+		if(~number_of_synths > 10, {
+			if((~f11 >= ~freqmap.at(127)), {~freqmap.at(127)},
+				{if((keycodeb.value == 10) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+					~freqmapval11 = ~f11.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l11a.set(\dur, ~f11 = ~freqmap.at(~freqmapval11 = ~freqmapval11.value+1));
+						~l11b.set(\dur, ~f11);
+						~l11c.set(\dur, ~f11/~icd3);
+						~l11d.set(\dur, ~f11/~icd3);
+						~l11e.set(\dur, ~f11/~icd6);
+						~l11f.set(\dur, ~f11/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l11a1.set(\dur, ~f11 = ~freqmap.at(~freqmapval11 = ~freqmapval11.value+1));
+						~l11b1.set(\dur, ~f11);
+						~l11c1.set(\dur, ~f11/~icd3);
+						~l11d1.set(\dur, ~f11/~icd3);
+						~l11e1.set(\dur, ~f11/~icd6);
+						~l11f1.set(\dur, ~f11/~icd6);
+					};
+					if((~f11 > ~outmaxa) or: (~f11 < ~outmina), {~z35.close;~z11.close;~z35 = (View(w, Rect((~f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (View(w, Rect((~f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+110, ~nw, 2)).background = Color.white;);});
+					u = 10;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+			if((~f11 <= ~freqmap.at(0)), {~freqmap.at(0)},
+				{if((keycodeb.value == 10) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+					~freqmapval11 = ~f11.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l11a.set(\dur, ~f11 = ~freqmap.at(~freqmapval11 = ~freqmapval11.value-1));
+						~l11b.set(\dur, ~f11);
+						~l11c.set(\dur, ~f11/~icd3);
+						~l11d.set(\dur, ~f11/~icd3);
+						~l11e.set(\dur, ~f11/~icd6);
+						~l11f.set(\dur, ~f11/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l11a1.set(\dur, ~f11 = ~freqmap.at(~freqmapval11 = ~freqmapval11.value-1));
+						~l11b1.set(\dur, ~f11);
+						~l11c1.set(\dur, ~f11/~icd3);
+						~l11d1.set(\dur, ~f11/~icd3);
+						~l11e1.set(\dur, ~f11/~icd6);
+						~l11f1.set(\dur, ~f11/~icd6);
+					};
+					if((~f11 > ~outmaxa) or: (~f11 < ~outmina), {~z35.close;~z11.close;~z35 = (View(w, Rect((~f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (View(w, Rect((~f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+110, ~nw, 2)).background = Color.white;);});
 
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.green; ~z8.background = Color.green;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
+					u = 10;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+		});
+		if(~number_of_synths > 11, {
+			if((~f12 >= ~freqmap.at(127)), {~freqmap.at(127)},
+				{if((keycodeb.value == 11) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
+					~freqmapval12 = ~f12.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l12a.set(\dur, ~f12 = ~freqmap.at(~freqmapval12 = ~freqmapval12.value+1));
+						~l12b.set(\dur, ~f12);
+						~l12c.set(\dur, ~f12/~icd3);
+						~l12d.set(\dur, ~f12/~icd3);
+						~l12e.set(\dur, ~f12/~icd6);
+						~l12f.set(\dur, ~f12/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l12a1.set(\dur, ~f12 = ~freqmap.at(~freqmapval12 = ~freqmapval12.value+1));
+						~l12b1.set(\dur, ~f12);
+						~l12c1.set(\dur, ~f12/~icd3);
+						~l12d1.set(\dur, ~f12/~icd3);
+						~l12e1.set(\dur, ~f12/~icd6);
+						~l12f1.set(\dur, ~f12/~icd6);
+					};
+					if((~f12 > ~outmaxa) or: (~f12 < ~outmina), {~z36.close;~z12.close;~z36 = (View(w, Rect((~f12.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+120, ~nw, 2)).background = Color.white;);}, {~z12.close;~z36.close;~z12 = (View(w, Rect((~f12.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+120, ~nw, 2)).background = Color.white;);});
+					u = 11;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+			if((~f12 <= ~freqmap.at(0)), {~freqmap.at(0)},
+				{if((keycodeb.value == 11) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
+					~freqmapval12 = ~f12.cpsmidi.round;
+					case
+					{~l1a.isRunning == true}{
+						~l12a.set(\dur, ~f12 = ~freqmap.at(~freqmapval12 = ~freqmapval12.value-1));
+						~l12b.set(\dur, ~f12);
+						~l12c.set(\dur, ~f12/~icd3);
+						~l12d.set(\dur, ~f12/~icd3);
+						~l12e.set(\dur, ~f12/~icd6);
+						~l12f.set(\dur, ~f12/~icd6);
+					}
+					{~l1a1.isRunning == true}{
+						~l12a1.set(\dur, ~f12 = ~freqmap.at(~freqmapval12 = ~freqmapval12.value-1));
+						~l12b1.set(\dur, ~f12);
+						~l12c1.set(\dur, ~f12/~icd3);
+						~l12d1.set(\dur, ~f12/~icd3);
+						~l12e1.set(\dur, ~f12/~icd6);
+						~l12f1.set(\dur, ~f12/~icd6);
+					};
+					if((~f12 > ~outmaxa) or: (~f12 < ~outmina), {~z36.close;~z12.close;~z36 = (View(w, Rect((~f12.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+120, ~nw, 2)).background = Color.white;);}, {~z12.close;~z36.close;~z12 = (View(w, Rect((~f12.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+120, ~nw, 2)).background = Color.white;);});
 
-		if((~f9 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 8) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval9 = ~f9.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l9a.set(\dur, ~f9 = ~freqmap.at(~freqmapval9 = ~freqmapval9.value+1));
-					~l9b.set(\dur, ~f9);
-					~l9c.set(\dur, ~f9/~icd3);
-					~l9d.set(\dur, ~f9/~icd3);
-					~l9e.set(\dur, ~f9/~icd6);
-					~l9f.set(\dur, ~f9/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l9a1.set(\dur, ~f9 = ~freqmap.at(~freqmapval9 = ~freqmapval9.value+1));
-					~l9b1.set(\dur, ~f9);
-					~l9c1.set(\dur, ~f9/~icd3);
-					~l9d1.set(\dur, ~f9/~icd3);
-					~l9e1.set(\dur, ~f9/~icd6);
-					~l9f1.set(\dur, ~f9/~icd6);
-				};
-				if((~f9 > ~outmaxa) or: (~f9 < ~outmina), {~z33.close;~z9.close;~z33 = (View(w, Rect((~f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (View(w, Rect((~f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.green; ~z9.background = Color.green;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f9 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 8) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval9 = ~f9.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l9a.set(\dur, ~f9 = ~freqmap.at(~freqmapval9 = ~freqmapval9.value-1));
-					~l9b.set(\dur, ~f9);
-					~l9c.set(\dur, ~f9/~icd3);
-					~l9d.set(\dur, ~f9/~icd3);
-					~l9e.set(\dur, ~f9/~icd6);
-					~l9f.set(\dur, ~f9/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l9a1.set(\dur, ~f9 = ~freqmap.at(~freqmapval9 = ~freqmapval9.value-1));
-					~l9b1.set(\dur, ~f9);
-					~l9c1.set(\dur, ~f9/~icd3);
-					~l9d1.set(\dur, ~f9/~icd3);
-					~l9e1.set(\dur, ~f9/~icd6);
-					~l9f1.set(\dur, ~f9/~icd6);
-				};
-				if((~f9 > ~outmaxa) or: (~f9 < ~outmina), {~z33.close;~z9.close;~z33 = (View(w, Rect((~f9.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+90, ~nw, 2)).background = Color.white;);}, {~z9.close;~z33.close;~z9 = (View(w, Rect((~f9.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+90, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.green; ~z9.background = Color.green;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-
-		if((~f10 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 9) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval10 = ~f10.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l10a.set(\dur, ~f10 = ~freqmap.at(~freqmapval10 = ~freqmapval10.value+1));
-					~l10b.set(\dur, ~f10);
-					~l10c.set(\dur, ~f10/~icd3);
-					~l10d.set(\dur, ~f10/~icd3);
-					~l10e.set(\dur, ~f10/~icd6);
-					~l10f.set(\dur, ~f10/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l10a1.set(\dur, ~f10 = ~freqmap.at(~freqmapval10 = ~freqmapval10.value+1));
-					~l10b1.set(\dur, ~f10);
-					~l10c1.set(\dur, ~f10/~icd3);
-					~l10d1.set(\dur, ~f10/~icd3);
-					~l10e1.set(\dur, ~f10/~icd6);
-					~l10f1.set(\dur, ~f10/~icd6);
-				};
-				if((~f10 > ~outmaxa) or: (~f10 < ~outmina), {~z34.close;~z10.close;~z34 = (View(w, Rect((~f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (View(w, Rect((~f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.green; ~z10.background = Color.green;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f10 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 9) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval10 = ~f10.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l10a.set(\dur, ~f10 = ~freqmap.at(~freqmapval10 = ~freqmapval10.value-1));
-					~l10b.set(\dur, ~f10);
-					~l10c.set(\dur, ~f10/~icd3);
-					~l10d.set(\dur, ~f10/~icd3);
-					~l10e.set(\dur, ~f10/~icd6);
-					~l10f.set(\dur, ~f10/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l10a1.set(\dur, ~f10 = ~freqmap.at(~freqmapval10 = ~freqmapval10.value-1));
-					~l10b1.set(\dur, ~f10);
-					~l10c1.set(\dur, ~f10/~icd3);
-					~l10d1.set(\dur, ~f10/~icd3);
-					~l10e1.set(\dur, ~f10/~icd6);
-					~l10f1.set(\dur, ~f10/~icd6);
-				};
-				if((~f10 > ~outmaxa) or: (~f10 < ~outmina), {~z34.close;~z10.close;~z34 = (View(w, Rect((~f10.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+100, ~nw, 2)).background = Color.white;);}, {~z10.close;~z34.close;~z10 = (View(w, Rect((~f10.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+100, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.green; ~z10.background = Color.green;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-
-		if((~f11 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 10) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval11 = ~f11.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l11a.set(\dur, ~f11 = ~freqmap.at(~freqmapval11 = ~freqmapval11.value+1));
-					~l11b.set(\dur, ~f11);
-					~l11c.set(\dur, ~f11/~icd3);
-					~l11d.set(\dur, ~f11/~icd3);
-					~l11e.set(\dur, ~f11/~icd6);
-					~l11f.set(\dur, ~f11/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l11a1.set(\dur, ~f11 = ~freqmap.at(~freqmapval11 = ~freqmapval11.value+1));
-					~l11b1.set(\dur, ~f11);
-					~l11c1.set(\dur, ~f11/~icd3);
-					~l11d1.set(\dur, ~f11/~icd3);
-					~l11e1.set(\dur, ~f11/~icd6);
-					~l11f1.set(\dur, ~f11/~icd6);
-				};
-				if((~f11 > ~outmaxa) or: (~f11 < ~outmina), {~z35.close;~z11.close;~z35 = (View(w, Rect((~f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (View(w, Rect((~f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+110, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.green; ~z11.background = Color.green;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-		if((~f11 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 10) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval11 = ~f11.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l11a.set(\dur, ~f11 = ~freqmap.at(~freqmapval11 = ~freqmapval11.value-1));
-					~l11b.set(\dur, ~f11);
-					~l11c.set(\dur, ~f11/~icd3);
-					~l11d.set(\dur, ~f11/~icd3);
-					~l11e.set(\dur, ~f11/~icd6);
-					~l11f.set(\dur, ~f11/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l11a1.set(\dur, ~f11 = ~freqmap.at(~freqmapval11 = ~freqmapval11.value-1));
-					~l11b1.set(\dur, ~f11);
-					~l11c1.set(\dur, ~f11/~icd3);
-					~l11d1.set(\dur, ~f11/~icd3);
-					~l11e1.set(\dur, ~f11/~icd6);
-					~l11f1.set(\dur, ~f11/~icd6);
-				};
-				if((~f11 > ~outmaxa) or: (~f11 < ~outmina), {~z35.close;~z11.close;~z35 = (View(w, Rect((~f11.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+110, ~nw, 2)).background = Color.white;);}, {~z11.close;~z35.close;~z11 = (View(w, Rect((~f11.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+110, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.green; ~z11.background = Color.green;
-				~z36.background = Color.white; ~z12.background = Color.white;
-		});});
-
-		if((~f12 >= ~freqmap.at(127)), {~freqmap.at(127)},
-			{if((keycodeb.value == 11) and: (((keycode == ~rightarrow_keycode) or: (keycode == ~rightarrow_keycode1)) or: (unicode == ~l_unicode)), {
-				~freqmapval12 = ~f12.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l12a.set(\dur, ~f12 = ~freqmap.at(~freqmapval12 = ~freqmapval12.value+1));
-					~l12b.set(\dur, ~f12);
-					~l12c.set(\dur, ~f12/~icd3);
-					~l12d.set(\dur, ~f12/~icd3);
-					~l12e.set(\dur, ~f12/~icd6);
-					~l12f.set(\dur, ~f12/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l12a1.set(\dur, ~f12 = ~freqmap.at(~freqmapval12 = ~freqmapval12.value+1));
-					~l12b1.set(\dur, ~f12);
-					~l12c1.set(\dur, ~f12/~icd3);
-					~l12d1.set(\dur, ~f12/~icd3);
-					~l12e1.set(\dur, ~f12/~icd6);
-					~l12f1.set(\dur, ~f12/~icd6);
-				};
-				if((~f12 > ~outmaxa) or: (~f12 < ~outmina), {~z36.close;~z12.close;~z36 = (View(w, Rect((~f12.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+120, ~nw, 2)).background = Color.white;);}, {~z12.close;~z36.close;~z12 = (View(w, Rect((~f12.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+120, ~nw, 2)).background = Color.white;);});
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.green; ~z12.background = Color.green;
-		});});
-		if((~f12 <= ~freqmap.at(0)), {~freqmap.at(0)},
-			{if((keycodeb.value == 11) and: (((keycode == ~leftarrow_keycode) or: (keycode == ~leftarrow_keycode1)) or: (unicode == ~j_unicode)), {
-				~freqmapval12 = ~f12.cpsmidi.round;
-				case
-				{~l1a.isRunning == true}{
-					~l12a.set(\dur, ~f12 = ~freqmap.at(~freqmapval12 = ~freqmapval12.value-1));
-					~l12b.set(\dur, ~f12);
-					~l12c.set(\dur, ~f12/~icd3);
-					~l12d.set(\dur, ~f12/~icd3);
-					~l12e.set(\dur, ~f12/~icd6);
-					~l12f.set(\dur, ~f12/~icd6);
-				}
-				{~l1a1.isRunning == true}{
-					~l12a1.set(\dur, ~f12 = ~freqmap.at(~freqmapval12 = ~freqmapval12.value-1));
-					~l12b1.set(\dur, ~f12);
-					~l12c1.set(\dur, ~f12/~icd3);
-					~l12d1.set(\dur, ~f12/~icd3);
-					~l12e1.set(\dur, ~f12/~icd6);
-					~l12f1.set(\dur, ~f12/~icd6);
-				};
-				if((~f12 > ~outmaxa) or: (~f12 < ~outmina), {~z36.close;~z12.close;~z36 = (View(w, Rect((~f12.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+120, ~nw, 2)).background = Color.white;);}, {~z12.close;~z36.close;~z12 = (View(w, Rect((~f12.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+120, ~nw, 2)).background = Color.white;);});
-
-				~z25.background = Color.white; ~z1.background = Color.white;
-				~z26.background = Color.white; ~z2.background = Color.white;
-				~z27.background = Color.white; ~z3.background = Color.white;
-				~z28.background = Color.white; ~z4.background = Color.white;
-				~z29.background = Color.white; ~z5.background = Color.white;
-				~z30.background = Color.white; ~z6.background = Color.white;
-				~z31.background = Color.white; ~z7.background = Color.white;
-				~z32.background = Color.white; ~z8.background = Color.white;
-				~z33.background = Color.white; ~z9.background = Color.white;
-				~z34.background = Color.white; ~z10.background = Color.white;
-				~z35.background = Color.white; ~z11.background = Color.white;
-				~z36.background = Color.green; ~z12.background = Color.green;
-		});});
+					u = 11;
+					~number_of_synths.do(x = 24; y = 0; {if(y == u, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.green));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.green));}, {
+						("z"++(x=x+1)).asSymbol.envirGet.do(_.background_(Color.white));
+						("z"++(y=y+1)).asSymbol.envirGet.do(_.background_(Color.white));}
+					);});
+			});});
+		});
 
 
 
@@ -5699,7 +5579,7 @@ MIDIIn.connectAll;
 				"     automate: setting for automated mid-timewave sequence events. press set to load."++"\n"++"\n"++
 				"     automate period: setting for determining when sendreply triggers for the automate function. 1 is in 1 full timewave cycle, 0.5 is in 1/2 timewave cycle, 1.5 is 1 1/2 cycles,"++"\n"++"     2 is in 2 cycles, etc. press set to load."++"\n"++"\n"++
 				"     # of synths: change the number of synths playing. the program will stop to restart - but everything can be resumed. default is "++~number_of_synths_default.asString++". press set to load.""\n"++"\n"++
-				"     amplitude: change amplitude. default is "++~vol_default.asString++". press enter to load.""\n"++"\n"++
+				"     amplitude: change amplitude (volume). default is "++~vol_default.asString++". press enter to load.""\n"++"\n"++
 				"s1-s8: set/save note positions"++"\n"++"\n"++
 				"g1-g8: groups of saved note positions"++"\n"++"\n"++
 				"uc-u8: undo changes to set note positions. press set to load."++"\n"++"\n"++
