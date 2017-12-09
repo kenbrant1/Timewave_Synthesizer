@@ -21,6 +21,9 @@
 
 //e-mail: ken_brant@ymail.com
 
+//Some version updates to SuperCollider *may* cause this file to have bugs in the future.
+//If this file doesn't run properly, you can try using older SuperCollider versions or debugging this file.
+
 
 s.options.memSize = 2097152/2;
 MIDIIn.connectAll;
