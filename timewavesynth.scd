@@ -25,6 +25,11 @@
 //If this file doesn't run properly, you can try using older SuperCollider versions or debugging this file.
 
 
+//show CPU monitor tip on boot
+if(~showcpumonitor == nil, {~showcpumonitor = 1; //change to 1 for on, 0 for off
+}, {~showcpumonitor = 0;});
+
+
 s.options.memSize = 2097152/2;
 MIDIIn.connectAll;
 
@@ -670,6 +675,18 @@ MIDIIn.connectAll;
 	view = UserView(w, Window.screenBounds);
 	view.clearOnRefresh = false;
 	view.background = Color.black;
+
+
+	//CPU monitor tip on boot
+
+	if(~showcpumonitor == 1, {
+		~showcpumonitorview = View(w, Rect(20,Window.screenBounds.height/2+120,290,170));
+		~showcpumonitortext = StaticText(~showcpumonitorview, Rect(0,0,290,150)).background_(Color.black).stringColor_(Color.white);
+		~showcpumonitortext.string = "Tip:"++"\n"++"You can monitor the avg CPU by clicking on the small"+"cm".quote+"button in the bottom right-corner. This message will close in 15 seconds.";
+		~showcpumonitor_button = Button.new(~showcpumonitorview,Rect(290/2-20,170/1.47,40,20)).states_([["close",Color.white,Color.black]]).action_({arg button; ~showcpumonitorview.close;});
+		AppClock.sched(15,{if(~showcpumonitorview.isClosed == false, {~showcpumonitorview.close;});});
+	});
+
 
 	//vertical grid (inactive)
 
