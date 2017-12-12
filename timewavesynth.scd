@@ -2536,7 +2536,7 @@ MIDIIn.connectAll;
 				~vol_sliderbutton = Button(~settingsview,Rect(lefttimebox*2+5, top, 36, heightbox)).states_([["slider",Color.white,Color.black],["slider",Color.white,Color.black]]).mouseDownAction_({arg button;
 
 					if(button.value == 0, {
-						b = ControlSpec(0, 0.02, \linear, 0.0001);
+						b = ControlSpec(0, 0.04, \linear, 0.0001);
 						if(~volslider_val == nil, {~volslider_val = 0.60112359550562});
 						~vol_slider = Slider(w, Rect(380,Window.screenBounds.height-390+top-(heightbox/2)-heightbox+2,300,heightbox))
 						.focusColor_(Color.white)
