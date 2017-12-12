@@ -25,6 +25,7 @@
 ~rq_minval = 0.1; //minimum value in monitoring for rq
 ~rq_maxval = 20.0; //maximum value in monitoring for rq
 
+
 s.options.memSize = 2097152/2;
 MIDIIn.connectAll;
 
@@ -43,7 +44,7 @@ MIDIIn.connectAll;
 
 	//default number of synths
 
-	~number_of_synths_default = 7; //default is 7. limit currently is 12.
+	~number_of_synths_default = 8; //default is 7. limit currently is 12.
 
 	if(~number_of_synths == nil, {~number_of_synths = ~number_of_synths_default;});
 	~number_of_synths_limit = 12; if(~number_of_synths > ~number_of_synths_limit, {~number_of_synths = ~number_of_synths_limit});
@@ -80,8 +81,8 @@ MIDIIn.connectAll;
 
 	//volume (amplitude)
 
-	~vol_default = 0.0099; //default is 0.0099. For sensitivity reasons, changing this using smaller increments, like 0.001, is recommended. The "if" statement one line below returns any value >= 0.02 to 0.0099.
-	if(~vol_default >= 0.02, {~vol_default = 0.0099;});
+	~vol_default = 0.012; //default is 0.012. For sensitivity reasons, changing this using smaller increments, like 0.001, is recommended. The "if" statement one line below returns any value > 0.02 to 0.012.
+	if(~vol_default >= 0.03, {~vol_default = 0.012;});
 	if(~vol == nil, {~vol = ~vol_default});
 	12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
 	~number_of_synths_limit.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
@@ -286,28 +287,31 @@ MIDIIn.connectAll;
 
 	*/
 
+
 	//^Imoprtant note: "edit STARTING frequencies/chord" must be placed after "edit SAVED frequencies/chords" in code in order for it to work correctly
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	~eastern_rand_func = {~rand_num = ~freqmap.at(91).linrand - ~freqmap.at(91) * (-1); while({~rand_num < ~freqmap.at(29)}, {~rand_num = ~freqmap.at(91).linrand - ~freqmap.at(91) * (-1);}); ~rand_num.value;};
+	~western_rand_func = {~rand_num = ~freqmap.at(91).linrand - ~freqmap.at(91) * (-1); while({~rand_num < ~freqmap.at(29)}, {~rand_num = ~freqmap.at(91).linrand - ~freqmap.at(91) * (-1);}); ~rand_num.value;};
 
 	//default starting notes
 
 	if(([f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]), {
 		#f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12 = [
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
-			(~freqmap.at(127)/8).rand,
+			~eastern_rand_func.value,
+			~eastern_rand_func.value,
+			~eastern_rand_func.value,
+			~eastern_rand_func.value,
+			~eastern_rand_func.value,
+			~eastern_rand_func.value,
+			~eastern_rand_func.value,
+			~eastern_rand_func.value,
+			~eastern_rand_func.value,
+			~eastern_rand_func.value,
+			~eastern_rand_func.value,
+			~eastern_rand_func.value
 		];
 	});
 
@@ -560,11 +564,12 @@ MIDIIn.connectAll;
 
 	~sendreplyfunc_choose = 0;
 
-	~send_reply_random_func_western = {~freqmap.at(rrand(57, 91));};
-	~send_reply_random_func_eastern = {(rrand(~freqmap.at(57), ~freqmap.at(91);))};
+	~send_reply_random_func_western = ~eastern_rand_func;
+	~send_reply_random_func_eastern = ~western_rand_func;
 
 	if(~sendreply_gm_fth_y_1 == nil, {~number_of_synths.do(x = 0; {("sendreply_gm_fth_y_"++(x=x+1)).asSymbol.envirPut((-1);)});});
-	~sendreply_gm_fth_func_1 = {if((x <= 1539.4729849465) and: (x >= 216), {
+
+	~sendreply_gm_fth_func_1 = {if((x <= 1539.4729849465) and: (x >= 324), {
 		x = x*[[a = 1.6842135623729, a = 0.5937489296732].choose, [a = 1.4142135623729, a = 0.70710678118665].choose].at(y=y+1); if(y>=1, {y=(-1)});
 
 	}, {
@@ -579,11 +584,13 @@ MIDIIn.connectAll;
 		});
 	});
 	};
-	~sendreply_gm_fth_func_2 = {if((x <= 1539.4729849465) and: (x >= 216), {
+
+	~sendreply_gm_fth_func_2 = {if((x <= 1539.4729849465) and: (x >= 324), {
 		x = x*[a = 1.6842135623729, a = 0.5937489296732].choose;}, {
 		if(x > 1539.4729849465, {x = x/2; x = x*[1.6842135623729, 0.5937489296732].choose;}, {x = x*2; x = x*[1.6842135623729, 0.5937489296732].choose;});
 	});
 	};
+
 	if(~sendreply_gm_fth_func == nil, {~sendreply_gm_fth_func = ~sendreply_gm_fth_func_1});
 
 	case
@@ -671,6 +678,18 @@ MIDIIn.connectAll;
 	view.clearOnRefresh = false;
 	view.background = Color.black;
 
+
+	//CPU monitor tip on boot
+
+	if(~showcpumonitor == 1, {
+		~showcpumonitorview = View(w, Rect(20,Window.screenBounds.height/2+120,290,170));
+		~showcpumonitortext = StaticText(~showcpumonitorview, Rect(0,0,290,150)).background_(Color.black).stringColor_(Color.white);
+		~showcpumonitortext.string = "Tip:"++"\n"++"You can monitor the avg CPU by clicking on the small"+"cm".quote+"button in the bottom right-corner. This message will close in 10 seconds.";
+		~showcpumonitor_button = Button.new(~showcpumonitorview,Rect(290/2-20,170/1.47,40,20)).states_([["close",Color.white,Color.black]]).action_({arg button; ~showcpumonitorview.close;});
+		AppClock.sched(10,{if(~showcpumonitorview.isClosed == false, {~showcpumonitorview.close;});});
+	});
+
+
 	//vertical grid (inactive)
 
 	/*~b1 = Window.screenBounds.width/(12*4) /*25.462962962963*/; ~btu = 31; ~btd = 375; ~bw = 0.5; ~bh = 120; ~bcolor = Color.grey;
@@ -754,7 +773,7 @@ MIDIIn.connectAll;
 					6.do(x = 0; {("s"++(x=x+1)).asSymbol.envirPut([\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1].at(x-1))});
 					case
 					{~sendreplysynthdef_on == 0}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1)});}
-					{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))});};
+					{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))}); ~sendreply_oscfunc_array.value;};
 					s.makeBundle(0, {
 						(~number_of_synths).do(x = 0; {
 							("l"++(x=x+1)++"a").asSymbol.envirPut(Synth(~s1,                        [\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]).register;);
@@ -800,7 +819,7 @@ MIDIIn.connectAll;
 					6.do(x = 0; {("s"++(x=x+1)).asSymbol.envirPut([\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1].at(x-1))});
 					case
 					{~sendreplysynthdef_on == 0}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1)});}
-					{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))});};
+					{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))}); ~sendreply_oscfunc_array.value;};
 					s.makeBundle(0, {
 						(~number_of_synths).do(x = 0; {
 							("l"++(x=x+1)++"a1").asSymbol.envirPut(Synth(~s1,                        [\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]).register;);
@@ -2080,7 +2099,7 @@ MIDIIn.connectAll;
 	//start/stop synth button
 
 	if((~l1a == nil) or: (~l1a1 == nil), {
-	~l1a = Synth(\gsineicfld, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);~l1a = Synth(\gsineicfld, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);
+		~l1a = Synth(\gsineicfld, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);~l1a = Synth(\gsineicfld, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);
 	});
 
 	b3 = Button.new(w,Rect(Window.screenBounds.width*0+20,Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["synth0",Color.white,Color.black],["synth1",Color.white,Color.black]]).action_({arg synthbutton; synthbutton.value.postln}).action_({
@@ -2088,6 +2107,7 @@ MIDIIn.connectAll;
 			~synthopen.value;
 			~numsynths.stop; ~numsynthsfunc.value;
 			if(~midifunc != nil, {~midifunc.value});
+			if(~showcpumonitorview != nil, {if(~showcpumonitorview.isClosed == false, {~showcpumonitorview.close;});});
 		},
 		{~synthfree.value; b4.value = 0;})
 	});
@@ -2320,32 +2340,32 @@ MIDIIn.connectAll;
 					if(~filterslider_x == nil, {~filterslider_x = 0.33911368015414});
 					if(~filterslider_y == nil, {~filterslider_y = 0.091259640102828});
 					if(button.value == 0, {
-					a = ControlSpec(700, 5000, \exp);
-					b = ControlSpec(0.1, 20.0, \lin);
-					~filterslider = Slider2D(w, Rect(380,0,Window.screenBounds.width-380,Window.screenBounds.height-100))
-					        .x_(~filterslider_x)
-					        .y_(~filterslider_y)
-					        .action_({|sl|
-						            [\sliderX, x = a.map(sl.x), \sliderY, y = b.map(sl.y)]; ~filterslider_x = sl.x; ~filterslider_y = sl.y;
+						a = ControlSpec(700, 5000, \exp);
+						b = ControlSpec(0.1, 20.0, \lin);
+						~filterslider = Slider2D(w, Rect(380,0,Window.screenBounds.width-380,Window.screenBounds.height-100))
+						.x_(~filterslider_x)
+						.y_(~filterslider_y)
+						.action_({|sl|
+							[\sliderX, x = a.map(sl.x), \sliderY, y = b.map(sl.y)]; ~filterslider_x = sl.x; ~filterslider_y = sl.y;
 
-						~low_pass_filter_set_value = x;
+							~low_pass_filter_set_value = x;
 
-						~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString; ~low_pass_filter_set_value = ~low_pass_filter_set_value.asFloat;
+							~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString; ~low_pass_filter_set_value = ~low_pass_filter_set_value.asFloat;
 
-						~lpfl = ~low_pass_filter_set_value;
+							~lpfl = ~low_pass_filter_set_value;
 
-						case
-						{~low_pass_filter_setting == 0}{~low_pass_filter_freq_limit1 = ~low_pass_filter_set_value;}
-						{~low_pass_filter_setting == 1}{~low_pass_filter_freq_limit2 = ~low_pass_filter_set_value;};
+							case
+							{~low_pass_filter_setting == 0}{~low_pass_filter_freq_limit1 = ~low_pass_filter_set_value;}
+							{~low_pass_filter_setting == 1}{~low_pass_filter_freq_limit2 = ~low_pass_filter_set_value;};
 
-						~rq_set_value = y;
+							~rq_set_value = y;
 
-						~rq_textfield.string = ~rq_set_value.asString; ~rq_set_value = ~rq_set_value.asFloat;
+							~rq_textfield.string = ~rq_set_value.asString; ~rq_set_value = ~rq_set_value.asFloat;
 
-						~lpf_rq = ~rq_set_value; ~synthflow.value;
+							~lpf_rq = ~rq_set_value; ~synthflow.value;
 
-					        }).background_(Color.black);
-					~filterslider.front;
+						}).background_(Color.black);
+						~filterslider.front;
 					}, {~filterslider.close;});
 
 				});
@@ -2491,7 +2511,7 @@ MIDIIn.connectAll;
 
 					~volumetextfield.string = ~vol.asString; ~vol = ~vol.asFloat;
 
-					if(~vol >= 0.02, {~vol = ~vol_revert; ~volumetextfield.string = ~vol.asString;});
+					if(~vol > 0.02, {~vol = ~vol_revert; ~volumetextfield.string = ~vol.asString;});
 
 					12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~synthflow.value;
 
@@ -2501,6 +2521,32 @@ MIDIIn.connectAll;
 					~st.string = "volume selected";
 					AppClock.sched(~gm,{~st.close;});
 				};
+
+
+				//slider for volume
+
+				~vol_sliderbutton = Button(~settingsview,Rect(lefttimebox*2+5, top, 36, heightbox)).states_([["slider",Color.white,Color.black],["slider",Color.white,Color.black]]).mouseDownAction_({arg button;
+
+					if(button.value == 0, {
+						b = ControlSpec(0, 0.02, \linear, 0.0001);
+						if(~volslider_val == nil, {~volslider_val = 0.60112359550562});
+						~vol_slider = Slider(w, Rect(380,Window.screenBounds.height-390+top-(heightbox/2)-heightbox+2,300,heightbox))
+						.focusColor_(Color.white)
+						.background_(Color.black)
+						.value_(~volslider_val)
+						.action_({
+							c = b.map(~vol_slider.value); ~volslider_val = ~vol_slider.value;
+							~vol = c.value;
+
+							~volumetextfield.string = ~vol.asString; ~vol = ~vol.asFloat;
+
+							if(~vol > 0.02, {~volumetextfield.string = ~vol.asString;});
+
+							12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~synthflow.value;
+						});
+					}, {~vol_slider.close;});
+				});
+				~vol_sliderbutton.font = Font(size: 10);
 
 
 				//set button for all settings
@@ -2539,30 +2585,30 @@ MIDIIn.connectAll;
 
 					AppClock.sched(~gm,{
 						case
-						{~menu2.value == 0}{~gsinenum = 1; ~gsine.value; ~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 1}{~gsinenum = 2; ~gsine.value; ~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 2}{~gsinenum = 3; ~gsine.value; ~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 3}{~gsinenum = 4; ~gsine.value; ~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 4}{~gsinenum = 5; ~gsine.value; ~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 5}{~gsinenum = 6; ~gsine.value; ~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 6}{~gsinenum = 7; ~gsine.value; ~vol = 0.006; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 7}{~gsinenum = 8; ~gsine.value; ~vol = 0.006; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 8}{~gsinenum = 9; ~gsine.value; ~vol = 0.008; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 9}{~gsinenum = 10; ~gsine.value; ~vol = 0.009; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 10}{~gsinenum = 11; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 11}{~gsinenum = 12; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 12}{~gsinenum = 13; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 13}{~gsinenum = 14; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 14}{~gsinenum = 15; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 15}{~gsinenum = 16; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 16}{~gsinenum = 17; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 17}{~gsinenum = 18; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 18}{~gsinenum = 19; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 19}{~gsinenum = 20; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 20}{~gsinenum = 21; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 21}{~gsinenum = 22; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 22}{~gsinenum = 23; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
-						{~menu2.value == 23}{~gsinenum = 24; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;};
+						{~menu2.value == 0}{~gsinenum = 1; ~gsine.value; if(~safe_vol == 1, {~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 1}{~gsinenum = 2; ~gsine.value; if(~safe_vol == 1, {~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 2}{~gsinenum = 3; ~gsine.value; if(~safe_vol == 1, {~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 3}{~gsinenum = 4; ~gsine.value; if(~safe_vol == 1, {~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 4}{~gsinenum = 5; ~gsine.value; if(~safe_vol == 1, {~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 5}{~gsinenum = 6; ~gsine.value; if(~safe_vol == 1, {~vol = 0.006; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 6}{~gsinenum = 7; ~gsine.value; if(~safe_vol == 1, {~vol = 0.008; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 7}{~gsinenum = 8; ~gsine.value; if(~safe_vol == 1, {~vol = 0.009; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 8}{~gsinenum = 9; ~gsine.value; if(~safe_vol == 1, {~vol = 0.009; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 9}{~gsinenum = 10; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 10}{~gsinenum = 11; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 11}{~gsinenum = 12; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 12}{~gsinenum = 13; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 13}{~gsinenum = 14; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 14}{~gsinenum = 15; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 15}{~gsinenum = 16; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 16}{~gsinenum = 17; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 17}{~gsinenum = 18; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 18}{~gsinenum = 19; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 19}{~gsinenum = 20; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 20}{~gsinenum = 21; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 21}{~gsinenum = 22; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 22}{~gsinenum = 23; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
+						{~menu2.value == 23}{~gsinenum = 24; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});};
 
 						~st1.close;
 						~st_load = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
@@ -2586,7 +2632,7 @@ MIDIIn.connectAll;
 			}.value);
 
 			~settingsview.front;
-		}, {~settingsview.close; if(~filterslider.isClosed == false, {~filterslider.close;});});
+		}, {~settingsview.close; if(~vol_slider != nil, {if(~vol_slider.isClosed == false, {~vol_slider.close;});}); if(~filterslider != nil, {if(~filterslider.isClosed == false, {~filterslider.close;});});});
 	});
 
 
@@ -5519,7 +5565,7 @@ MIDIIn.connectAll;
 	~cpumonitor.close;
 
 	~cpumonitorfunc = {
-		~cpumonitor.close;
+		if(~cpumonitor.isClosed == false, {~cpumonitor.close;});
 		~cpumonitor = StaticText(w, Rect(20,~bpt-100,800,124/1.6180339887499)).background_(Color.black).stringColor_(Color.white);
 		if(~settingsbutton.value == 1, {~cpumonitorbutton.valueAction = 0;});
 		~cpumonitor.string =
@@ -5623,7 +5669,7 @@ MIDIIn.connectAll;
 	~randombutton1 = Button.new(w,Rect(Window.screenBounds.width-20-20-20-20,~bpt+69+5-(20/~gm),20,20/1.6180339887499)).states_([["rw",Color.white,Color.black]]).action_({arg button;
 
 		if((~l1a.isRunning == true) or: (~l1a1.isRunning == true), {
-			12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~freqmap.at(rrand(36, 91));)});
+			12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~western_rand_func.value)});
 			~synthflow.value;
 		});
 	});
@@ -5634,7 +5680,7 @@ MIDIIn.connectAll;
 	~randombutton2 = Button.new(w,Rect(Window.screenBounds.width-20-20-20,~bpt+69+5-(20/~gm),20,20/1.6180339887499)).states_([["re",Color.white,Color.black]]).action_({arg button;
 
 		if((~l1a.isRunning == true) or: (~l1a1.isRunning == true), {
-			12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut((~freqmap.at(127)/8).rand;)});
+			12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~eastern_rand_func.value;)});
 			~synthflow.value;
 		});
 	});
