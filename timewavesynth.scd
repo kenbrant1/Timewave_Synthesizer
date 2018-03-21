@@ -24,6 +24,12 @@
 //Some version updates to SuperCollider *may* cause this file to have bugs in the future.
 //If this file doesn't run properly, you can try using older SuperCollider versions or debugging this file.
 
+/*
+THINGS TO DO:
+
+- Random tip: (signal * preamp).tanh / (preamp ** 0.6) roughly compensates for the increase in gain when cranking up the distortion. Not tested for extreme values of preamp -- +/- 20 dB or 0.1 .. 10 seems pretty much OK.
+- add silence function fo some notes, to add noise/silence thing... perhaps random
+*/
 
 //show CPU monitor tip on boot
 if(~showcpumonitor == nil, {~showcpumonitor = 1; //change to 1 for on, 0 for off
@@ -52,7 +58,7 @@ MIDIIn.connectAll;
 
 	//default number of synths
 
-	~number_of_synths_default = 7; //default is 7. limit currently is 12.
+	~number_of_synths_default = 8; //default is 7. limit currently is 12.
 
 	if(~number_of_synths == nil, {~number_of_synths = ~number_of_synths_default;});
 	~number_of_synths_limit = 12; if(~number_of_synths > ~number_of_synths_limit, {~number_of_synths = ~number_of_synths_limit});
@@ -407,7 +413,7 @@ MIDIIn.connectAll;
 			}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
-
+/*[s1, LeakDC.ar(s1, MouseX.kr(0.1, 1.0, \linear).poll)]*/
 		SynthDef(\gsineicrld1, {arg graindur = 0.04, dur = 2000, atk = 0.007, rel = 0.01, gate = 1, amp = 1, i = 1, vol = ~vol, rate = 20, tune = 0,dseqval,
 			a, b, c, d, e, f, pan=0, fc = 1, id = -1, lpfl = ~lpfl, lpf_rq = ~lpf_rq;
 			var s1, out, env1, s2, dseq;
@@ -477,6 +483,7 @@ MIDIIn.connectAll;
 				{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, lpfl, lpf_rq);}
 				{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, lpfl, lpf_rq);};
 			}, {s1 = s1});
+
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -501,6 +508,7 @@ MIDIIn.connectAll;
 				{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, lpfl, lpf_rq);}
 				{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, lpfl, lpf_rq);};
 			}, {s1 = s1});
+
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -525,6 +533,7 @@ MIDIIn.connectAll;
 				{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, lpfl, lpf_rq);}
 				{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, lpfl, lpf_rq);};
 			}, {s1 = s1});
+
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -555,6 +564,7 @@ MIDIIn.connectAll;
 						{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, lpfl, lpf_rq);}
 						{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, lpfl, lpf_rq);};
 					}, {s1 = s1});
+
 					OffsetOut.ar(0, s1.dup*vol);
 					SendReply.ar(PulseDivider.ar(Impulse.ar(dur), (~kws_setting_1_a.value.size*(~gsinenum*~first_harmonic))*2*~sendreply_period),
 						case
@@ -775,7 +785,8 @@ MIDIIn.connectAll;
 					});
 				}););
 			});
-
+			/*Synth(~s1,                        [\dur, 700,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ~vol]);
+			Synth(~s2,                        [\dur, 700,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ~vol]);*/
 			(
 				1.do({
 					6.do(x = 0; {("s"++(x=x+1)).asSymbol.envirPut([\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1].at(x-1))});
@@ -2548,7 +2559,7 @@ MIDIIn.connectAll;
 
 							~volumetextfield.string = ~vol.asString; ~vol = ~vol.asFloat;
 
-							if(~vol > 0.02, {~volumetextfield.string = ~vol.asString;});
+							/*if(~vol > 0.02, {~volumetextfield.string = ~vol.asString;});*/
 
 							12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~synthflow.value;
 						});
@@ -6156,29 +6167,36 @@ You can compose a piece, and find guides for doing so, inside the "//3 - Routine
 		1.do({
 
 			//duration of each chord
-			a = 8;
+			a = 7*60;
 
 			//Copy and paste "saved" chords from the "copy" button inside the Timewave synthesizer GUI here:
 			//Choose to change each duration individually by changing the "a" variable in the code below this line, as well as "synthopen/synthflow/synthslide".
 			//Also, the amount of frequency values in the arrays must be >= "~number_of_synths". Although, this is done
 			//automatically when using the generated code and values from the "copy" button in the GUI. "0"'s can be used to fill in empty spots.
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615, 0, 0, 0, 0 ].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1316.2675385788, 1316.2675385788, 658.1337692894, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1051.0271787501, 1051.0271787501, 525.51358937505, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 937.1102649523, 937.1102649523, 937.1102649523, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 824.55305817848, 822.73593638317, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 1037.2062139187, 1037.2062139187, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 554.31101031015, 554.31101031015, 554.31101031015, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615, 0, 0, 0, 0 ].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1316.2675385788, 1316.2675385788, 658.1337692894, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1051.0271787501, 1051.0271787501, 525.51358937505, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 937.1102649523, 937.1102649523, 937.1102649523, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 824.55305817848, 822.73593638317, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 1037.2062139187, 1037.2062139187, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 554.31101031015, 554.31101031015, 554.31101031015, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			/*~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([270.6189362671,216.41920166383,1120.0799528615,197.20562961958,723.05537621548,486.64870085678,218.85835908339,1439.1803227573,1375.9846554597,1023.9605236661,46.43997165998,457.12555493862].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;*/
 
+			/*[ 531.55579291696, 920.71576504688, 1055.6749724885, 788.96151238406, 1310.4724404821, 593.54797570189, 697.26843971369, 447.52157561482 ]
+			[ 557.99193705131, 695.73182340208, 964.37625369943, 875.16183864235, 1293.2397809671, 1067.3845760762, 359.71468858027, 423.50690121836 ]*/
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([~f1=407.75370307849,~f2=114.4220141908,~f3=1371.5145089005,~f4=1294.5373144215,~f5=1153.3016340029,~f6=1088.5717871092,~f7=1294.5373144215,~f8=1153.3016340029].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
+			/*~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 557.99193705131, 695.73182340208, 964.37625369943, 875.16183864235, 1293.2397809671, 1067.3845760762, 359.71468858027, 423.50690121836 ].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
+			*/
+			/*~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615, 0, 0, 0, 0 ].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1316.2675385788, 1316.2675385788, 658.1337692894, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1051.0271787501, 1051.0271787501, 525.51358937505, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 937.1102649523, 937.1102649523, 937.1102649523, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 824.55305817848, 822.73593638317, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 1037.2062139187, 1037.2062139187, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 554.31101031015, 554.31101031015, 554.31101031015, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615, 0, 0, 0, 0 ].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1316.2675385788, 1316.2675385788, 658.1337692894, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1051.0271787501, 1051.0271787501, 525.51358937505, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 937.1102649523, 937.1102649523, 937.1102649523, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 824.55305817848, 822.73593638317, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 1037.2062139187, 1037.2062139187, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 554.31101031015, 554.31101031015, 554.31101031015, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
+			*/
 			//fade out function
 			100.do({~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(("vol"++x).asSymbol.envirGet - (~vol/100))}); ~synthflow.value; 0.1.wait;});
 
