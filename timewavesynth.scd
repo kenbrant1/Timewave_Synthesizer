@@ -6197,14 +6197,18 @@ You can compose a piece, and find guides for doing so, inside the "//3 - Routine
 			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 554.31101031015, 554.31101031015, 554.31101031015, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
 			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
 			*/
-			//fade out function
-			100.do({~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(("vol"++x).asSymbol.envirGet - (~vol/100))}); ~synthflow.value; 0.1.wait;});
 
-			//stop everything
-			~synthfree.value; 2.wait; s.stopRecording;
-			~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
 
-});}););
+		});
+
+		//fade out function
+		100.do({~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(("vol"++x).asSymbol.envirGet - (~vol/100))}); ~synthflow.value; 0.1.wait;});
+
+		//stop everything
+		~synthfree.value; 2.wait; s.stopRecording;
+		~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
+
+}););
 r.play;
 );
 
