@@ -23,6 +23,7 @@
 
 //Some version updates to SuperCollider *may* cause this file to have bugs in the future.
 //If this file doesn't run properly, you can try using older SuperCollider versions or debugging this file.
+//This file is known to work up to SuperCollider version 3.9.1 as of this writing
 
 /*
 THINGS TO DO:
