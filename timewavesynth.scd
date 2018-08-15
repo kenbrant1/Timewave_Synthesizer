@@ -107,6 +107,12 @@ MIDIIn.connectAll;
 
 	//low-pass filter settings
 
+	/*
+	Possible:
+	2185.185258887873
+	6.4178663239075
+	*/
+
 	~default_low_pass_filter_freq_limit1 = 1364.0007331375; //default is 1364.0007331375
 	~default_low_pass_filter_freq_limit2 = 4841.89; //default is 4841.89
 
