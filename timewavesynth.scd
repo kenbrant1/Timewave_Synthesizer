@@ -28,6 +28,7 @@
 /*
 THINGS TO DO:
 
+- add way to change automate period.... so note change period doesn't have to be based on freq alone
 - Find a way to get feeling into music automate.... or find ways to make a computer like a person making music....| "Feeling" ex... Numerology automate..... for ex... input words like "jfk" "assassination" "1963" "dallas".... and sum up numerology for each word.. and do something with that
 - convert numerical spacing for ratio spacing... for ex... instead of 20... fullscreen height/20... etc
 - Random tip: (signal * preamp).tanh / (preamp ** 0.6) roughly compensates for the increase in gain when cranking up the distortion. Not tested for extreme values of preamp -- +/- 20 dB or 0.1 .. 10 seems pretty much OK.
