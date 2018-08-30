@@ -575,7 +575,8 @@ MIDIIn.connectAll;
 					}, {s1 = s1});
 
 					OffsetOut.ar(0, s1.dup*vol);
-					SendReply.ar(PulseDivider.ar(Impulse.ar(dur), (~kws_setting_1_a.value.size*(~gsinenum*~first_harmonic))*2*~sendreply_period),
+					SendReply.ar(PulseDivider.ar(Impulse.ar(dur),
+						(~kws_setting_1_a.value.size*(~gsinenum*~first_harmonic))*2*~sendreply_period), //add way to change this... so notes don't change based on freq if you want
 						case
 						{~sendreplyfunc_choose == 0}{("synthflow_gmf_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
 						{~sendreplyfunc_choose == 1}{("synthflow_random_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
