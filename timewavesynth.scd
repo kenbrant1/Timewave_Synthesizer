@@ -422,7 +422,7 @@ MIDIIn.connectAll;
 			}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
-/*[s1, LeakDC.ar(s1, MouseX.kr(0.1, 1.0, \linear).poll)]*/
+		/*[s1, LeakDC.ar(s1, MouseX.kr(0.1, 1.0, \linear).poll)]*/
 		SynthDef(\gsineicrld1, {arg graindur = 0.04, dur = 2000, atk = 0.007, rel = 0.01, gate = 1, amp = 1, i = 1, vol = ~vol, rate = 20, tune = 0,dseqval,
 			a, b, c, d, e, f, pan=0, fc = 1, id = -1, lpfl = ~lpfl, lpf_rq = ~lpf_rq;
 			var s1, out, env1, s2, dseq;
@@ -578,7 +578,8 @@ MIDIIn.connectAll;
 					SendReply.ar(PulseDivider.ar(Impulse.ar(dur), (~kws_setting_1_a.value.size*(~gsinenum*~first_harmonic))*2*~sendreply_period),
 						case
 						{~sendreplyfunc_choose == 0}{("synthflow_gmf_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
-						{~sendreplyfunc_choose == 1}{("synthflow_random_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;};
+						{~sendreplyfunc_choose == 1}{("synthflow_random_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
+						{~sendreplyfunc_choose == 2}{("synthflow_numer1_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;};
 					);
 				}, [\ir]).add;
 
@@ -620,6 +621,50 @@ MIDIIn.connectAll;
 
 	if(~sendreply_gm_fth_func == nil, {~sendreply_gm_fth_func = ~sendreply_gm_fth_func_1});
 
+
+	//NUMEROLOGY AUTOMATE
+
+	~numer_calc_function = {
+
+		//numerology caclulator function
+
+		//Counts the number of each letter (example: "~string_20_letter_22") in each numerology string ("~numer_string_20")
+		//result is "~string_1_letter_1", onwards
+
+		24.do(y=0; {
+			("numer_string_"++(y=y+1)++"_value").asSymbol.envirPut(0);
+			26.do(x = 0; {
+				("string_"++(y)++"_letter_"++(x=x+1)).asSymbol.envirPut(0);
+			});
+		});
+
+
+		24.do(y=0; {if(("numer_string_"++(y=y+1)).asSymbol.envirGet == nil, {("numer_string_"++(y)).asSymbol.envirPut("nil".asString.ascii;)});});
+		24.do(y = 1; {
+			26.do(x = 0; {("string_"++(y)++"_letter_"++(x=x+1)).asSymbol.envirPut(
+				("numer_string_"++(y)).asSymbol.envirGet.count({ arg item; (item == (97+(x-1))) or: (item == (65+(x-1)));});
+			)});
+			y=y+1;
+		});
+
+		//adds all letters in each string.... resulting in (ex: ~numer_string_16_value)
+
+		24.do(y=1; {
+			26.do(x = 0; {
+				("numer_string_"++(y)++"_value").asSymbol.envirPut(("numer_string_"++(y)++"_value").asSymbol.envirGet + ((x=x+1)*("string_"++(y)++"_letter_"++(x)).asSymbol.envirGet;));
+				/*~numer_string_1_value = ~numer_string_1_value + ((x=x+1)*~string_1_letter_1);*/
+			});
+			y=y+1;
+		});
+
+		//find digital root of all "~numer_string_x_value"'s
+
+		24.do(x = 0; {("numer_string_"++(x=x+1)++"_value").asSymbol.envirPut(1 + (("numer_string_"++(x)++"_value").asSymbol.envirGet - 1) % 9);});
+
+	};
+
+	~numer_calc_function.value;
+
 	case
 	{~sendreplyfuncswitch == 1;}{~send_reply_random_func = ~send_reply_random_func_western;}
 	{~sendreplyfuncswitch == 2;}{~send_reply_random_func = ~send_reply_random_func_eastern;};
@@ -652,6 +697,9 @@ MIDIIn.connectAll;
 
 	~sendreply_oscfunc_array = {
 
+		/*x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,
+		y1,y2,y3,y4,y5,y6,y7,y8,y9,y10,y11,y12;*/
+
 		OSCFunc({~f1 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f1');
 		OSCFunc({~f2 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f2');
 		OSCFunc({~f3 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f3');
@@ -677,6 +725,20 @@ MIDIIn.connectAll;
 		OSCFunc({x = ~f10; y = ~sendreply_gm_fth_y_10; ~sendreply_gm_fth_func.value; ~f10 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_10 = y;}, '/synthflow_gmf_sendreply_answer_f10');
 		OSCFunc({x = ~f11; y = ~sendreply_gm_fth_y_11; ~sendreply_gm_fth_func.value; ~f11 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_11 = y;}, '/synthflow_gmf_sendreply_answer_f11');
 		OSCFunc({x = ~f12; y = ~sendreply_gm_fth_y_12; ~sendreply_gm_fth_func.value; ~f12 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_12 = y;}, '/synthflow_gmf_sendreply_answer_f12');
+
+		OSCFunc({}, '/synthflow_numer1_sendreply_answer_f1');
+		OSCFunc({}, '/synthflow_numer2_sendreply_answer_f2');
+		OSCFunc({}, '/synthflow_numer3_sendreply_answer_f3');
+		OSCFunc({}, '/synthflow_numer4_sendreply_answer_f4');
+		OSCFunc({}, '/synthflow_numer5_sendreply_answer_f5');
+		OSCFunc({}, '/synthflow_numer6_sendreply_answer_f6');
+		OSCFunc({}, '/synthflow_numer7_sendreply_answer_f7');
+		OSCFunc({}, '/synthflow_numer8_sendreply_answer_f8');
+		OSCFunc({}, '/synthflow_numer9_sendreply_answer_f9');
+		OSCFunc({}, '/synthflow_numer10_sendreply_answer_f10');
+		OSCFunc({}, '/synthflow_numer11_sendreply_answer_f11');
+		OSCFunc({}, '/synthflow_numer12_sendreply_answer_f12');
+
 	};
 
 	~sendreply_oscfunc_array.value;
@@ -2127,7 +2189,7 @@ MIDIIn.connectAll;
 	//start/stop synth button
 
 	if((~l1a == nil) or: (~l1a1 == nil), {
-		~l1a = Synth(\gsineicfld, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);~l1a = Synth(\gsineicfld, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);
+		~l1a = Synth(\gsineicfld1, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld1, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);~l1a = Synth(\gsineicfld1, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld1, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);
 	});
 
 	b3 = Button.new(w,Rect(Window.screenBounds.width*0+20,Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["synth0",Color.white,Color.black],["synth1",Color.white,Color.black]]).action_({arg synthbutton; synthbutton.value.postln}).action_({
@@ -2433,14 +2495,15 @@ MIDIIn.connectAll;
 
 				//switch to sendreply functions
 
-				~sendreplymenu = PopUpMenu(~settingsview,Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).items_(["off","phi/fth trans","phi trans","western scale","eastern scale"]).background_(Color.black).stringColor_(Color.white).action_({arg button;
+				~sendreplymenu = PopUpMenu(~settingsview,Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).items_(["off","phi/fth trans","phi trans","western scale","eastern scale","numerology 1"]).background_(Color.black).stringColor_(Color.white).action_({arg button;
 
 					case
 					{button.value == 0;}{~sendreplymenu_value = 0;}
 					{button.value == 1;}{~sendreplymenu_value = 1;}
 					{button.value == 2;}{~sendreplymenu_value = 2;}
 					{button.value == 3;}{~sendreplymenu_value = 3;}
-					{button.value == 4;}{~sendreplymenu_value = 4;};
+					{button.value == 4;}{~sendreplymenu_value = 4;}
+					{button.value == 5;}{~sendreplymenu_value = 5;};
 
 					if(~st != nil, {~st.close});
 					~st = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
@@ -2456,7 +2519,8 @@ MIDIIn.connectAll;
 				{~sendreplymenu_value == 1}{~sendreplymenu.value = 1;}
 				{~sendreplymenu_value == 2}{~sendreplymenu.value = 2;}
 				{~sendreplymenu_value == 3}{~sendreplymenu.value = 3;}
-				{~sendreplymenu_value == 4}{~sendreplymenu.value = 4;};
+				{~sendreplymenu_value == 4}{~sendreplymenu.value = 4;}
+				{~sendreplymenu_value == 5}{~sendreplymenu.value = 5; ~numerology_text_func.value; ~settingsview.close;};
 
 
 				//set automate note-change period for sendreply
@@ -2606,7 +2670,8 @@ MIDIIn.connectAll;
 					{~sendreplymenu.value ==  1}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 0; ~sendreply_gm_fth_func = ~sendreply_gm_fth_func_1}
 					{~sendreplymenu.value ==  2}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 0; ~sendreply_gm_fth_func = ~sendreply_gm_fth_func_2}
 					{~sendreplymenu.value ==  3}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 1; ~send_reply_random_func = ~send_reply_random_func_western; ~sendreplyfuncswitch = 1;}
-					{~sendreplymenu.value ==  4}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 1; ~send_reply_random_func = ~send_reply_random_func_eastern; ~sendreplyfuncswitch = 2;};
+					{~sendreplymenu.value ==  4}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 1; ~send_reply_random_func = ~send_reply_random_func_eastern; ~sendreplyfuncswitch = 2;}
+					{~sendreplymenu.value ==  5}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 2;};
 
 
 					//evaluate synthdefs(gsine)
