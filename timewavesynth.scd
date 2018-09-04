@@ -579,10 +579,10 @@ MIDIIn.connectAll;
 					OffsetOut.ar(0, s1.dup*vol);
 					SendReply.ar(PulseDivider.ar(Impulse.ar(dur),
 						(~kws_setting_1_a.value.size*(~gsinenum*~first_harmonic))*2*~sendreply_period), //add way to change this... so notes don't change based on freq if you want
-						case
-						{~sendreplyfunc_choose == 0}{("synthflow_gmf_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
-						{~sendreplyfunc_choose == 1}{("synthflow_random_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
-						{~sendreplyfunc_choose == 2}{("synthflow_numer1_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;};
+					case
+					{~sendreplyfunc_choose == 0}{("synthflow_gmf_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
+					{~sendreplyfunc_choose == 1}{("synthflow_random_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
+					{~sendreplyfunc_choose == 2}{("synthflow_numer1_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;};
 					);
 				}, [\ir]).add;
 
@@ -627,6 +627,98 @@ MIDIIn.connectAll;
 
 	//NUMEROLOGY AUTOMATE
 
+	~numerology_text_func = {
+
+
+
+		arg  top = 0,width=88, revertwidth=75, height = 16,  heightbox = 16, lefttime = 0 , lefttimebox = 20,  widthbox=140, leftdo = lefttimebox+widthbox+5, leftdobox = leftdo+57, inc=0, lw = 0,  uw = 0, numw = 40;
+		var set1, description, st1, st2, st3, st4, st5, st6, st7, st8, st9, st10, st11, st12, t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19,t20,t21,t22,t23,t24;
+
+		~numertextview = View(w, Rect(5,Window.screenBounds.height-400,Window.screenBounds.width,200)).front;
+
+		~settingsbutton.valueAction = 0;
+
+		24.do(y=0; {if(("numer_string_"++(y=y+1)).asSymbol.envirGet == nil, {("numer_string_"++(y)).asSymbol.envirPut("".asString;)});});
+
+		top = 0;
+
+		description = StaticText(~numertextview, Rect(lefttimebox, top, Window.screenBounds.width, 20)).background_(Color.black);
+		description.stringColor = Color.white;
+		description.string = "Enter words or phrases into each box. Press "+"Enter".quote+" or "+"Return".quote+" after each entry. Then once finished click on the "+"Set".quote+" button.";
+
+		top = 28;
+
+		t1=TextField(~numertextview, Rect(lefttimebox , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_1);
+		t2=TextField(~numertextview, Rect(lefttimebox , top+(heightbox), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_2);
+		t3=TextField(~numertextview, Rect(lefttimebox , top+(heightbox*2), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_3);
+		t4=TextField(~numertextview, Rect(lefttimebox , top+(heightbox*3), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_4);
+		t5=TextField(~numertextview, Rect(lefttimebox+(widthbox)+4 , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_5);
+		t6=TextField(~numertextview, Rect(lefttimebox+(widthbox)+4 , top+(heightbox), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_6);
+		t7=TextField(~numertextview, Rect(lefttimebox+(widthbox)+4 , top+(heightbox*2), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_7);
+		t8=TextField(~numertextview, Rect(lefttimebox+(widthbox)+4 , top+(heightbox*3), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_8);
+		t9=TextField(~numertextview, Rect(lefttimebox+(widthbox*2)+4 , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_9);
+		t10=TextField(~numertextview, Rect(lefttimebox+(widthbox*2)+4 , top+(heightbox), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_10);
+		t11=TextField(~numertextview, Rect(lefttimebox+(widthbox*2)+4 , top+(heightbox*2), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_11);
+		t12=TextField(~numertextview, Rect(lefttimebox+(widthbox*2)+4 , top+(heightbox*3), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_12);
+		t13=TextField(~numertextview, Rect(lefttimebox+(widthbox*3)+4 , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_13);
+		t14=TextField(~numertextview, Rect(lefttimebox+(widthbox*3)+4 , top+(heightbox), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_14);
+		t15=TextField(~numertextview, Rect(lefttimebox+(widthbox*3)+4 , top+(heightbox*2), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_15);
+		t16=TextField(~numertextview, Rect(lefttimebox+(widthbox*3)+4 , top+(heightbox*3), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_16);
+		t17=TextField(~numertextview, Rect(lefttimebox+(widthbox*4)+4 , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_17);
+		t18=TextField(~numertextview, Rect(lefttimebox+(widthbox*4)+4 , top+(heightbox), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_18);
+		t19=TextField(~numertextview, Rect(lefttimebox+(widthbox*4)+4 , top+(heightbox*2), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_19);
+		t20=TextField(~numertextview, Rect(lefttimebox+(widthbox*4)+4 , top+(heightbox*3), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_20);
+		t21=TextField(~numertextview, Rect(lefttimebox+(widthbox*5)+4 , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_21);
+		t22=TextField(~numertextview, Rect(lefttimebox+(widthbox*5)+4 , top+(heightbox), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_22);
+		t23=TextField(~numertextview, Rect(lefttimebox+(widthbox*5)+4 , top+(heightbox*2), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_23);
+		t24=TextField(~numertextview, Rect(lefttimebox+(widthbox*5)+4 , top+(heightbox*3), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_24);
+
+		set1=Button(~numertextview,Rect(lefttimebox+(widthbox*3)+4 , top+(heightbox*5), 60, 60/~gm)).states_([["set",Color.white,Color.black]]).mouseDownAction_({
+
+			/*~numer_calc_function.value;*/
+			/*t24.valueAction = {arg value; ~numer_string_24 = value.value;}.value;*/
+
+			~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0};
+			~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;
+
+		});
+
+
+		t1.action = {arg value; ~numer_string_1 = value.value; ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;
+			/*~st_load = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
+						~st_load.stringColor = Color.green;
+						~st_load.string = "loaded.";
+						AppClock.sched(~gm,{~st_load.close; if(~st != nil, {~st.close});});*/
+
+		};
+		t2.action = {arg value; ~numer_string_2 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t3.action = {arg value; ~numer_string_3 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t4.action = {arg value; ~numer_string_4 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t5.action = {arg value; ~numer_string_5 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t6.action = {arg value; ~numer_string_6 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t7.action = {arg value; ~numer_string_7 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t8.action = {arg value; ~numer_string_8 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t9.action = {arg value; ~numer_string_9 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t10.action = {arg value; ~numer_string_10 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t11.action = {arg value; ~numer_string_11 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t12.action = {arg value; ~numer_string_12 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t13.action = {arg value; ~numer_string_13 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t14.action = {arg value; ~numer_string_14 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t15.action = {arg value; ~numer_string_15 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t16.action = {arg value; ~numer_string_16 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t17.action = {arg value; ~numer_string_17 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t18.action = {arg value; ~numer_string_18 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t19.action = {arg value; ~numer_string_19 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t20.action = {arg value; ~numer_string_20 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t21.action = {arg value; ~numer_string_21 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t22.action = {arg value; ~numer_string_22 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t23.action = {arg value; ~numer_string_23 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+		t24.action = {arg value; ~numer_string_24 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
+
+
+
+	};
+
 	~numer_calc_function = {
 
 		//numerology caclulator function
@@ -634,18 +726,25 @@ MIDIIn.connectAll;
 		//Counts the number of each letter (example: "~string_20_letter_22") in each numerology string ("~numer_string_20")
 		//result is "~string_1_letter_1", onwards
 
+		24.do(y=0; {("numer_string_"++(y=y+1)++"_ascii").asSymbol.envirPut(("numer_string_"++(y)).asSymbol.envirGet.asString.ascii;);});
+		24.do(y=0; {if(("numer_string_"++(y=y+1)).asSymbol.envirGet == nil, {("numer_string_"++(y)).asSymbol.envirPut("".asString;)});});
+		24.do(y=0; {if(("numer_string_"++(y=y+1)++"_ascii").asSymbol.envirGet == nil, {("numer_string_"++(y)++"_ascii").asSymbol.envirPut("".asString.ascii;)});});
 		24.do(y=0; {
 			("numer_string_"++(y=y+1)++"_value").asSymbol.envirPut(0);
 			26.do(x = 0; {
 				("string_"++(y)++"_letter_"++(x=x+1)).asSymbol.envirPut(0);
 			});
+			9.do(x = 0; {
+				("string_"++(y)++"_number_"++(x=x+1)).asSymbol.envirPut(0);
+			});
 		});
 
-
-		24.do(y=0; {if(("numer_string_"++(y=y+1)).asSymbol.envirGet == nil, {("numer_string_"++(y)).asSymbol.envirPut("nil".asString.ascii;)});});
 		24.do(y = 1; {
 			26.do(x = 0; {("string_"++(y)++"_letter_"++(x=x+1)).asSymbol.envirPut(
-				("numer_string_"++(y)).asSymbol.envirGet.count({ arg item; (item == (97+(x-1))) or: (item == (65+(x-1)));});
+				("numer_string_"++(y)++"_ascii").asSymbol.envirGet.count({ arg item; (item == (97+(x-1))) or: (item == (65+(x-1)));});
+			)});
+			9.do(x = 0; {("string_"++(y)++"_number_"++(x=x+1)).asSymbol.envirPut(
+				("numer_string_"++(y)++"_ascii").asSymbol.envirGet.count({ arg item; (item == (49+(x-1)));});
 			)});
 			y=y+1;
 		});
@@ -657,16 +756,44 @@ MIDIIn.connectAll;
 				("numer_string_"++(y)++"_value").asSymbol.envirPut(("numer_string_"++(y)++"_value").asSymbol.envirGet + ((x=x+1)*("string_"++(y)++"_letter_"++(x)).asSymbol.envirGet;));
 				/*~numer_string_1_value = ~numer_string_1_value + ((x=x+1)*~string_1_letter_1);*/
 			});
+			9.do(x = 0; {
+				("numer_string_"++(y)++"_value").asSymbol.envirPut(("numer_string_"++(y)++"_value").asSymbol.envirGet + ((x=x+1)*("string_"++(y)++"_number_"++(x)).asSymbol.envirGet;));
+				/*example.... ~numer_string_1_value = ~numer_string_1_value + ((x=x+1)*~string_1_number_1);*/
+			});
 			y=y+1;
 		});
 
 		//find digital root of all "~numer_string_x_value"'s
 
-		24.do(x = 0; {("numer_string_"++(x=x+1)++"_value").asSymbol.envirPut(1 + (("numer_string_"++(x)++"_value").asSymbol.envirGet - 1) % 9);});
+		24.do(x = 0; {if(("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet != 0, {("numer_string_"++(x)++"_value").asSymbol.envirPut(1 + ((("numer_string_"++(x)++"_value").asSymbol.envirGet - 1) % 9));});});
+
+
+		//replace numbers with ratios
+
+		24.do(y = 0; {
+			9.do(x = 0; {if(("numer_string_"++(y)++"_value").asSymbol.envirGet == (x=x+1), {
+				("numer_string_"++(y)++"_value").asSymbol.envirPut([ 1.0594630943593, 1.1224620483094, 1.1892071150027, 1.2599210498949, 1.3348398541701, 1.4142135623731, 1.4983070768767, 1.5874010519683, 1.6817928305075 ].at(x-1););
+
+			});
+			});
+			y=y+1
+		});
 
 	};
 
-	~numer_calc_function.value;
+
+	//numerology algorithm 1
+
+	~sendreply_numer_func_1 = {if((x <= 1539.4729849465) and: (x >= 324), {
+		[[x = x*((~numer_array.choose)*([1,1,1,1,2].choose));], [x = x/((~numer_array.choose)*([1,1,1,1,2].choose));]].choose
+
+	}, {
+		if(x > 1539.4729849465, {x=x/3; [[x = x*((~numer_array.choose)*([1,1,1,1,2].choose));], [x = x/((~numer_array.choose)*([1,1,1,1,2].choose));]].choose;}, {
+			x=x*3; [[x = x*((~numer_array.choose)*([1,1,1,1,2].choose));], [x = x/((~numer_array.choose)*([1,1,1,1,2].choose));]].choose;
+		});
+	});
+	};
+
 
 	case
 	{~sendreplyfuncswitch == 1;}{~send_reply_random_func = ~send_reply_random_func_western;}
@@ -729,18 +856,18 @@ MIDIIn.connectAll;
 		OSCFunc({x = ~f11; y = ~sendreply_gm_fth_y_11; ~sendreply_gm_fth_func.value; ~f11 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_11 = y;}, '/synthflow_gmf_sendreply_answer_f11');
 		OSCFunc({x = ~f12; y = ~sendreply_gm_fth_y_12; ~sendreply_gm_fth_func.value; ~f12 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_12 = y;}, '/synthflow_gmf_sendreply_answer_f12');
 
-		OSCFunc({}, '/synthflow_numer1_sendreply_answer_f1');
-		OSCFunc({}, '/synthflow_numer2_sendreply_answer_f2');
-		OSCFunc({}, '/synthflow_numer3_sendreply_answer_f3');
-		OSCFunc({}, '/synthflow_numer4_sendreply_answer_f4');
-		OSCFunc({}, '/synthflow_numer5_sendreply_answer_f5');
-		OSCFunc({}, '/synthflow_numer6_sendreply_answer_f6');
-		OSCFunc({}, '/synthflow_numer7_sendreply_answer_f7');
-		OSCFunc({}, '/synthflow_numer8_sendreply_answer_f8');
-		OSCFunc({}, '/synthflow_numer9_sendreply_answer_f9');
-		OSCFunc({}, '/synthflow_numer10_sendreply_answer_f10');
-		OSCFunc({}, '/synthflow_numer11_sendreply_answer_f11');
-		OSCFunc({}, '/synthflow_numer12_sendreply_answer_f12');
+		OSCFunc({x = ~f1; ~sendreply_numer_func_1.value; ~f1 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer1_sendreply_answer_f1');
+		OSCFunc({x = ~f2; ~sendreply_numer_func_1.value; ~f2 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer2_sendreply_answer_f2');
+		OSCFunc({x = ~f3; ~sendreply_numer_func_1.value; ~f3 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer3_sendreply_answer_f3');
+		OSCFunc({x = ~f4; ~sendreply_numer_func_1.value; ~f4 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer4_sendreply_answer_f4');
+		OSCFunc({x = ~f5; ~sendreply_numer_func_1.value; ~f5 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer5_sendreply_answer_f5');
+		OSCFunc({x = ~f6; ~sendreply_numer_func_1.value; ~f6 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer6_sendreply_answer_f6');
+		OSCFunc({x = ~f7; ~sendreply_numer_func_1.value; ~f7 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer7_sendreply_answer_f7');
+		OSCFunc({x = ~f8; ~sendreply_numer_func_1.value; ~f8 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer8_sendreply_answer_f8');
+		OSCFunc({x = ~f9; ~sendreply_numer_func_1.value; ~f9 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer9_sendreply_answer_f9');
+		OSCFunc({x = ~f10; ~sendreply_numer_func_1.value; ~f10 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer10_sendreply_answer_f10');
+		OSCFunc({x = ~f11; ~sendreply_numer_func_1.value; ~f11 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer11_sendreply_answer_f11');
+		OSCFunc({x = ~f12; ~sendreply_numer_func_1.value; ~f12 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer12_sendreply_answer_f12');
 
 	};
 
@@ -2506,7 +2633,7 @@ MIDIIn.connectAll;
 					{button.value == 2;}{~sendreplymenu_value = 2;}
 					{button.value == 3;}{~sendreplymenu_value = 3;}
 					{button.value == 4;}{~sendreplymenu_value = 4;}
-					{button.value == 5;}{~sendreplymenu_value = 5;};
+					{button.value == 5;}{~sendreplymenu_value = 5; ~numerology_text_func.value; ~settingsview.close;};
 
 					if(~st != nil, {~st.close});
 					~st = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
@@ -2523,7 +2650,7 @@ MIDIIn.connectAll;
 				{~sendreplymenu_value == 2}{~sendreplymenu.value = 2;}
 				{~sendreplymenu_value == 3}{~sendreplymenu.value = 3;}
 				{~sendreplymenu_value == 4}{~sendreplymenu.value = 4;}
-				{~sendreplymenu_value == 5}{~sendreplymenu.value = 5; ~numerology_text_func.value; ~settingsview.close;};
+				{~sendreplymenu_value == 5}{~sendreplymenu.value = 5;};
 
 
 				//set automate note-change period for sendreply
@@ -6254,7 +6381,7 @@ You can compose a piece, and find guides for doing so, inside the "//3 - Routine
 
 			/*[ 531.55579291696, 920.71576504688, 1055.6749724885, 788.96151238406, 1310.4724404821, 593.54797570189, 697.26843971369, 447.52157561482 ]
 			[ 557.99193705131, 695.73182340208, 964.37625369943, 875.16183864235, 1293.2397809671, 1067.3845760762, 359.71468858027, 423.50690121836 ]*/
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([~f1=407.75370307849,~f2=114.4220141908,~f3=1371.5145089005,~f4=1294.5373144215,~f5=1153.3016340029,~f6=1088.5717871092,~f7=1294.5373144215,~f8=1153.3016340029].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([~f1=432,~f2=769.73649247329,~f3=969.80720973936,~f4=1294.5373144215,~f5=1153.3016340029,~f6=1088.5717871092,~f7=1294.5373144215,~f8=1153.3016340029].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
 			/*~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 557.99193705131, 695.73182340208, 964.37625369943, 875.16183864235, 1293.2397809671, 1067.3845760762, 359.71468858027, 423.50690121836 ].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
 			*/
 			/*~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615, 0, 0, 0, 0 ].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
