@@ -785,15 +785,19 @@ MIDIIn.connectAll;
 	//numerology algorithm 1
 
 	~sendreply_numer_func_1 = {if((x <= 1539.4729849465) and: (x >= 324), {
-		[[x = x*((~numer_array.choose)*([1,1,1,1,2].choose));], [x = x/((~numer_array.choose)*([1,1,1,1,2].choose));]].choose
+		x = [x*((~numer_array.choose)*([1,1,1,1,2].choose)), x/((~numer_array.choose)*([1,1,1,1,2].choose));].choose;
 
 	}, {
-		if(x > 1539.4729849465, {x=x/3; [[x = x*((~numer_array.choose)*([1,1,1,1,2].choose));], [x = x/((~numer_array.choose)*([1,1,1,1,2].choose));]].choose;}, {
-			x=x*3; [[x = x*((~numer_array.choose)*([1,1,1,1,2].choose));], [x = x/((~numer_array.choose)*([1,1,1,1,2].choose));]].choose;
+		if(x > 1539.4729849465, {x=x/3; x = [x*((~numer_array.choose)*([1,1,1,1,2].choose)), x/((~numer_array.choose)*([1,1,1,1,2].choose));].choose;}, {
+			x=x*3; x = [x*((~numer_array.choose)*([1,1,1,1,2].choose)), x/((~numer_array.choose)*([1,1,1,1,2].choose));].choose;
 		});
 	});
 	};
+	/*x=432; ~numer_array=[1.3348398541701]*/
+	/*{x = [(x*~numer_array.choose), (x*~numer_array.choose)].choose;};*/
 
+	/*~sendreply_numer_func_1.value;
+*/
 
 	case
 	{~sendreplyfuncswitch == 1;}{~send_reply_random_func = ~send_reply_random_func_western;}
@@ -825,49 +829,62 @@ MIDIIn.connectAll;
 	~synthflow_gmf_sendreply_answer_f11 = '/synthflow_gmf_sendreply_answer_f11';
 	~synthflow_gmf_sendreply_answer_f12 = '/synthflow_gmf_sendreply_answer_f12';
 
+	~synthflow_numer1_sendreply_answer_f1 = '/synthflow_numer1_sendreply_answer_f1';
+	~synthflow_numer1_sendreply_answer_f2 = '/synthflow_numer1_sendreply_answer_f2';
+	~synthflow_numer1_sendreply_answer_f3 = '/synthflow_numer1_sendreply_answer_f3';
+	~synthflow_numer1_sendreply_answer_f4 = '/synthflow_numer1_sendreply_answer_f4';
+	~synthflow_numer1_sendreply_answer_f5 = '/synthflow_numer1_sendreply_answer_f5';
+	~synthflow_numer1_sendreply_answer_f6 = '/synthflow_numer1_sendreply_answer_f6';
+	~synthflow_numer1_sendreply_answer_f7 = '/synthflow_numer1_sendreply_answer_f7';
+	~synthflow_numer1_sendreply_answer_f8 = '/synthflow_numer1_sendreply_answer_f8';
+	~synthflow_numer1_sendreply_answer_f9 = '/synthflow_numer1_sendreply_answer_f9';
+	~synthflow_numer1_sendreply_answer_f10 = '/synthflow_numer1_sendreply_answer_f10';
+	~synthflow_numer1_sendreply_answer_f11 = '/synthflow_numer1_sendreply_answer_f11';
+	~synthflow_numer1_sendreply_answer_f12 = '/synthflow_numer1_sendreply_answer_f12';
+
 	~sendreply_oscfunc_array = {
 
 		/*x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,
 		y1,y2,y3,y4,y5,y6,y7,y8,y9,y10,y11,y12;*/
 
-		OSCFunc({~f1 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f1');
-		OSCFunc({~f2 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f2');
-		OSCFunc({~f3 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f3');
-		OSCFunc({~f4 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f4');
-		OSCFunc({~f5 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f5');
-		OSCFunc({~f6 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f6');
-		OSCFunc({~f7 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f7');
-		OSCFunc({~f8 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f8');
-		OSCFunc({~f9 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f9');
-		OSCFunc({~f10 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f10');
-		OSCFunc({~f11 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f11');
-		OSCFunc({~f12 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f12');
+		OSCFunc({AppClock.sched(0,{~f1 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f1');
+		OSCFunc({AppClock.sched(0,{~f2 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f2');
+		OSCFunc({AppClock.sched(0,{~f3 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f3');
+		OSCFunc({AppClock.sched(0,{~f4 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f4');
+		OSCFunc({AppClock.sched(0,{~f5 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f5');
+		OSCFunc({AppClock.sched(0,{~f6 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f6');
+		OSCFunc({AppClock.sched(0,{~f7 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f7');
+		OSCFunc({AppClock.sched(0,{~f8 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f8');
+		OSCFunc({AppClock.sched(0,{~f9 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f9');
+		OSCFunc({AppClock.sched(0,{~f10 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f10');
+		OSCFunc({AppClock.sched(0,{~f11 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f11');
+		OSCFunc({AppClock.sched(0,{~f12 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f12');
 
-		OSCFunc({x = ~f1; y = ~sendreply_gm_fth_y_1; ~sendreply_gm_fth_func.value; ~f1 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_1 = y;}, '/synthflow_gmf_sendreply_answer_f1');
-		OSCFunc({x = ~f2; y = ~sendreply_gm_fth_y_2; ~sendreply_gm_fth_func.value; ~f2 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_2 = y;}, '/synthflow_gmf_sendreply_answer_f2');
-		OSCFunc({x = ~f3; y = ~sendreply_gm_fth_y_3; ~sendreply_gm_fth_func.value; ~f3 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_3 = y;}, '/synthflow_gmf_sendreply_answer_f3');
-		OSCFunc({x = ~f4; y = ~sendreply_gm_fth_y_4; ~sendreply_gm_fth_func.value; ~f4 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_4 = y;}, '/synthflow_gmf_sendreply_answer_f4');
-		OSCFunc({x = ~f5; y = ~sendreply_gm_fth_y_5; ~sendreply_gm_fth_func.value; ~f5 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_5 = y;}, '/synthflow_gmf_sendreply_answer_f5');
-		OSCFunc({x = ~f6; y = ~sendreply_gm_fth_y_6; ~sendreply_gm_fth_func.value; ~f6 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_6 = y;}, '/synthflow_gmf_sendreply_answer_f6');
-		OSCFunc({x = ~f7; y = ~sendreply_gm_fth_y_7; ~sendreply_gm_fth_func.value; ~f7 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_7 = y;}, '/synthflow_gmf_sendreply_answer_f7');
-		OSCFunc({x = ~f8; y = ~sendreply_gm_fth_y_8; ~sendreply_gm_fth_func.value; ~f8 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_8 = y;}, '/synthflow_gmf_sendreply_answer_f8');
-		OSCFunc({x = ~f9; y = ~sendreply_gm_fth_y_9; ~sendreply_gm_fth_func.value; ~f9 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_9 = y;}, '/synthflow_gmf_sendreply_answer_f9');
-		OSCFunc({x = ~f10; y = ~sendreply_gm_fth_y_10; ~sendreply_gm_fth_func.value; ~f10 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_10 = y;}, '/synthflow_gmf_sendreply_answer_f10');
-		OSCFunc({x = ~f11; y = ~sendreply_gm_fth_y_11; ~sendreply_gm_fth_func.value; ~f11 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_11 = y;}, '/synthflow_gmf_sendreply_answer_f11');
-		OSCFunc({x = ~f12; y = ~sendreply_gm_fth_y_12; ~sendreply_gm_fth_func.value; ~f12 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_12 = y;}, '/synthflow_gmf_sendreply_answer_f12');
+		OSCFunc({AppClock.sched(0,{x = ~f1; y = ~sendreply_gm_fth_y_1; ~sendreply_gm_fth_func.value; ~f1 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_1 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f1');
+		OSCFunc({AppClock.sched(0,{x = ~f2; y = ~sendreply_gm_fth_y_2; ~sendreply_gm_fth_func.value; ~f2 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_2 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f2');
+		OSCFunc({AppClock.sched(0,{x = ~f3; y = ~sendreply_gm_fth_y_3; ~sendreply_gm_fth_func.value; ~f3 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_3 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f3');
+		OSCFunc({AppClock.sched(0,{x = ~f4; y = ~sendreply_gm_fth_y_4; ~sendreply_gm_fth_func.value; ~f4 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_4 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f4');
+		OSCFunc({AppClock.sched(0,{x = ~f5; y = ~sendreply_gm_fth_y_5; ~sendreply_gm_fth_func.value; ~f5 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_5 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f5');
+		OSCFunc({AppClock.sched(0,{x = ~f6; y = ~sendreply_gm_fth_y_6; ~sendreply_gm_fth_func.value; ~f6 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_6 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f6');
+		OSCFunc({AppClock.sched(0,{x = ~f7; y = ~sendreply_gm_fth_y_7; ~sendreply_gm_fth_func.value; ~f7 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_7 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f7');
+		OSCFunc({AppClock.sched(0,{x = ~f8; y = ~sendreply_gm_fth_y_8; ~sendreply_gm_fth_func.value; ~f8 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_8 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f8');
+		OSCFunc({AppClock.sched(0,{x = ~f9; y = ~sendreply_gm_fth_y_9; ~sendreply_gm_fth_func.value; ~f9 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_9 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f9');
+		OSCFunc({AppClock.sched(0,{x = ~f10; y = ~sendreply_gm_fth_y_10; ~sendreply_gm_fth_func.value; ~f10 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_10 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f10');
+		OSCFunc({AppClock.sched(0,{x = ~f11; y = ~sendreply_gm_fth_y_11; ~sendreply_gm_fth_func.value; ~f11 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_11 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f11');
+		OSCFunc({AppClock.sched(0,{x = ~f12; y = ~sendreply_gm_fth_y_12; ~sendreply_gm_fth_func.value; ~f12 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_12 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f12');
 
-		OSCFunc({x = ~f1; ~sendreply_numer_func_1.value; ~f1 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer1_sendreply_answer_f1');
-		OSCFunc({x = ~f2; ~sendreply_numer_func_1.value; ~f2 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer2_sendreply_answer_f2');
-		OSCFunc({x = ~f3; ~sendreply_numer_func_1.value; ~f3 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer3_sendreply_answer_f3');
-		OSCFunc({x = ~f4; ~sendreply_numer_func_1.value; ~f4 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer4_sendreply_answer_f4');
-		OSCFunc({x = ~f5; ~sendreply_numer_func_1.value; ~f5 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer5_sendreply_answer_f5');
-		OSCFunc({x = ~f6; ~sendreply_numer_func_1.value; ~f6 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer6_sendreply_answer_f6');
-		OSCFunc({x = ~f7; ~sendreply_numer_func_1.value; ~f7 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer7_sendreply_answer_f7');
-		OSCFunc({x = ~f8; ~sendreply_numer_func_1.value; ~f8 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer8_sendreply_answer_f8');
-		OSCFunc({x = ~f9; ~sendreply_numer_func_1.value; ~f9 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer9_sendreply_answer_f9');
-		OSCFunc({x = ~f10; ~sendreply_numer_func_1.value; ~f10 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer10_sendreply_answer_f10');
-		OSCFunc({x = ~f11; ~sendreply_numer_func_1.value; ~f11 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer11_sendreply_answer_f11');
-		OSCFunc({x = ~f12; ~sendreply_numer_func_1.value; ~f12 = x; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_numer12_sendreply_answer_f12');
+		OSCFunc({AppClock.sched(0,{x = ~f1; ~sendreply_numer_func_1.value; ~f1 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f1');
+		OSCFunc({AppClock.sched(0,{x = ~f2; ~sendreply_numer_func_1.value; ~f2 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f2');
+		OSCFunc({AppClock.sched(0,{x = ~f3; ~sendreply_numer_func_1.value; ~f3 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f3');
+		OSCFunc({AppClock.sched(0,{x = ~f4; ~sendreply_numer_func_1.value; ~f4 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f4');
+		OSCFunc({AppClock.sched(0,{x = ~f5; ~sendreply_numer_func_1.value; ~f5 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f5');
+		OSCFunc({AppClock.sched(0,{x = ~f6; ~sendreply_numer_func_1.value; ~f6 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f6');
+		OSCFunc({AppClock.sched(0,{x = ~f7; ~sendreply_numer_func_1.value; ~f7 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f7');
+		OSCFunc({AppClock.sched(0,{x = ~f8; ~sendreply_numer_func_1.value; ~f8 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f8');
+		OSCFunc({AppClock.sched(0,{x = ~f9; ~sendreply_numer_func_1.value; ~f9 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f9');
+		OSCFunc({AppClock.sched(0,{x = ~f10; ~sendreply_numer_func_1.value; ~f10 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f10');
+		OSCFunc({AppClock.sched(0,{x = ~f11; ~sendreply_numer_func_1.value; ~f11 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f11');
+		OSCFunc({AppClock.sched(0,{x = ~f12; ~sendreply_numer_func_1.value; ~f12 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f12');
 
 	};
 
