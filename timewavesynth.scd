@@ -36,6 +36,23 @@ THINGS TO DO:
 - add silence function for some notes, to add noise/silence thing... perhaps random
 */
 
+/*
+KEYS TO CREATE GOOD AI MUSIC
+
+- Always maintain a time signature (All notes to change within a time signature).... maybe make function to chose time signatures such as 8/8 or 4/4.. etc
+
+- utilize patterns..... like f-f-f-f-g-g-g-g-d-d-d-d.... e-e-d-a-a-b... etc.... a-e-b-(a-e-b)*1.34.... stuff like that
+
+- motifs or themes....... use modular.... like macro and micro motifs or themes of patterns, keys, etc........
+.... generate *some* rules before runtime... incoporate radomness too
+
+- possibly only use certain notes to fit a certain tonal theme.... maybe generate them beforehand.... can be random.... .
+... or.. generate different sets of notes... perhaps all sets being slightly varied.. to be used at different parts
+
+- expand as needed
+*/
+
+
 //show CPU monitor tip on boot
 if(~showcpumonitor == nil, {~showcpumonitor = 1; //change to 1 for on, 0 for off
 }, {~showcpumonitor = 0;});
