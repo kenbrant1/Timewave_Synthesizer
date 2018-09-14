@@ -50,6 +50,9 @@ KEYS TO CREATE GOOD AI MUSIC
 ... or.. generate different sets of notes... perhaps all sets being slightly varied.. to be used at different parts
 
 - expand as needed
+
+
+... AI music needs CONTEXT
 */
 
 
