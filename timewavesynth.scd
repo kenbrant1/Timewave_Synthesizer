@@ -910,6 +910,187 @@ MIDIIn.connectAll;
 
 	~sendreply_oscfunc_array.value;
 
+	//ai
+
+	~max_note_length = 4;
+	~number_of_notes = 8;
+	~min_note = ~freqmap.at(65);
+	~max_note = ~freqmap.at(65)*4;
+	~time_sig_array1 = [4, 3, 2, 1, 0.5, 0.25, 0.125]; /*{x = ~max_note_length; Array.fill(8, {x = (x/(1.333333333333))})}.value;*/
+	~time_sig_array2 = [4, 3, 2, 1];
+	~time_sig_array3 = [1, 0.5, 0.25, 0.125];
+	~time_sig_array4 = [0.125, 0.0625, 0.03125, 0.015625];
+	~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
+	/*if(~f_note_set == nil, {~f_note_set.value;});*/
+	~f_note_change_array = ~f_note_set.value;
+	~ratio_array = (x = 0; Array.fill(12, {1.0594630943593**(x=x+1)}));
+	/*~f_note_change_array = [ 726.53450277921, 363.2672513896, 815.50740615698, 576.65081700145, 1153.3016340029, 484.90360486965, 384.86824623663, 544.28589355459 ]*/
+
+	/*
+	~ai_play.value;
+
+	~ai_stop.value;
+
+
+	~ai_stop.value;
+	~ai_play.value;
+	*/
+
+	/*
+	To do:
+
+	- make so you can set note set in GUI via mouse
+	- PATTERNIZE
+	- more
+	*/
+
+	~ai1_task1_f1 = Task({
+		inf.do({[
+			[~f1 = ~f_note_change_array.choose; ~f1.postln; ~synthflow.value; (~time_sig_array3.choose).wait;],
+			[~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1; ([2,3,4,5,6].choose).do({[~f1 = ~f1*~f1_ratio, ~f1 = ~f1/~f1_ratio].choose; ~synthflow.value; (~time_sig_array4.choose).wait;});],
+			[~synthflow.value; (~time_sig_array3.choose).wait;]
+		].wchoose([0.7, 0.2, 0.1]);
+		});
+	});
+	~ai1_task1_f2 = Task({
+		inf.do({
+			~f2 = ~f_note_change_array.choose; ~f2.postln;
+			~synthflow.value;
+
+			(~time_sig_array2.choose).wait;
+		});
+	});
+	~ai1_task1_f3 = Task({
+		inf.do({
+			~f3 = ~f_note_change_array.choose; ~f3.postln;
+			~synthflow.value;
+
+			(~time_sig_array.choose).wait;
+		});
+	});
+	~ai1_task1_f4 = Task({
+		inf.do({
+			~f4 = ~f_note_change_array.choose; ~f4.postln;
+			~synthflow.value;
+
+			(~time_sig_array.choose).wait;
+		});
+	});
+	~ai1_task1_f5 = Task({
+		inf.do({
+			~f5 = ~f_note_change_array.choose; ~f5.postln;
+			~synthflow.value;
+
+			(~time_sig_array.choose).wait;
+		});
+	});
+	~ai1_task1_f6 = Task({
+		inf.do({
+			~f6 = ~f_note_change_array.choose; ~f6.postln;
+			~synthflow.value;
+
+			(~time_sig_array.choose).wait;
+		});
+	});
+	~ai1_task1_f7 = Task({
+		inf.do({
+			~f7 = ~f_note_change_array.choose; ~f7.postln;
+			~synthflow.value;
+
+			(~time_sig_array.choose).wait;
+		});
+	});
+	~ai1_task1_f8 = Task({
+		inf.do({
+			~f8 = ~f_note_change_array.choose; ~f8.postln;
+			~synthflow.value;
+
+			(~time_sig_array.choose).wait;
+		});
+	});
+	~ai1_task1_f9 = Task({
+		inf.do({
+			~f9 = ~f_note_change_array.choose; ~f9.postln;
+			~synthflow.value;
+
+			(~time_sig_array.choose).wait;
+		});
+	});
+	~ai1_task1_f10 = Task({
+		inf.do({
+			~f10 = ~f_note_change_array.choose; ~f10.postln;
+			~synthflow.value;
+
+			(~time_sig_array.choose).wait;
+		});
+	});
+	~ai1_task1_f11 = Task({
+		inf.do({
+			~f11 = ~f_note_change_array.choose; ~f11.postln;
+			~synthflow.value;
+
+			(~time_sig_array.choose).wait;
+		});
+	});
+	~ai1_task1_f12 = Task({
+		inf.do({
+			~f12 = ~f_note_change_array.choose; ~f12.postln;
+			~synthflow.value;
+
+			(~time_sig_array.choose).wait;
+		});
+	});
+
+	/*12.do(x=0; {("~ai1_task1_f"++(x=x+1)).asSymbol.envirPut(
+		Task({
+			inf.do({
+				("f"++(x)).asSymbol.envirPut = ~f_note_change_array.choose; ("f"++(x)).asSymbol.envirGet.postln;
+				~synthflow.value;
+
+				(~time_sig_array.choose).wait;
+			});
+		});
+	);});*/
+
+	~ai_play = {s.makeBundle(0, {
+		if(~number_of_synths > 0, {~ai1_task1_f1.play(SystemClock);});
+		if(~number_of_synths > 1, {~ai1_task1_f2.play(SystemClock);});
+		if(~number_of_synths > 2, {~ai1_task1_f3.play(SystemClock);});
+		if(~number_of_synths > 3, {~ai1_task1_f4.play(SystemClock);});
+		if(~number_of_synths > 4, {~ai1_task1_f5.play(SystemClock);});
+		if(~number_of_synths > 5, {~ai1_task1_f6.play(SystemClock);});
+		if(~number_of_synths > 6, {~ai1_task1_f7.play(SystemClock);});
+		if(~number_of_synths > 7, {~ai1_task1_f8.play(SystemClock);});
+		if(~number_of_synths > 8, {~ai1_task1_f9.play(SystemClock);});
+		if(~number_of_synths > 9, {~ai1_task1_f10.play(SystemClock);});
+		if(~number_of_synths > 10, {~ai1_task1_f11.play(SystemClock);});
+		if(~number_of_synths > 11, {~ai1_task1_f12.play(SystemClock);});
+
+	})};
+
+	~ai_stop = {s.makeBundle(0, {
+		if(~number_of_synths > 0, {~ai1_task1_f1.stop; ~ai1_task1_f1.reset;});
+		if(~number_of_synths > 1, {~ai1_task1_f2.stop; ~ai1_task1_f2.reset;});
+		if(~number_of_synths > 2, {~ai1_task1_f3.stop; ~ai1_task1_f3.reset;});
+		if(~number_of_synths > 3, {~ai1_task1_f4.stop; ~ai1_task1_f4.reset;});
+		if(~number_of_synths > 4, {~ai1_task1_f5.stop; ~ai1_task1_f5.reset;});
+		if(~number_of_synths > 5, {~ai1_task1_f6.stop; ~ai1_task1_f6.reset;});
+		if(~number_of_synths > 6, {~ai1_task1_f7.stop; ~ai1_task1_f7.reset;});
+		if(~number_of_synths > 7, {~ai1_task1_f8.stop; ~ai1_task1_f8.reset;});
+		if(~number_of_synths > 8, {~ai1_task1_f9.stop; ~ai1_task1_f9.reset;});
+		if(~number_of_synths > 9, {~ai1_task1_f10.stop; ~ai1_task1_f10.reset;});
+		if(~number_of_synths > 10, {~ai1_task1_f11.stop; ~ai1_task1_f11.reset;});
+		if(~number_of_synths > 11, {~ai1_task1_f12.stop; ~ai1_task1_f12.reset;});
+
+	})};
+
+	/*
+	~ai_play.value;
+
+	~ai_stop.value;
+	*/
+
+
 	//set base (lowest) frequencies, set starting values for synthdef, and load synthdef on server boot
 
 	if((~gsinenum == nil) or: (~synthdef != "gsineicld"), {
@@ -1144,13 +1325,14 @@ MIDIIn.connectAll;
 			}););
 		};
 
-		(~number_of_synths).do(x = 0; y = 24; z = 10; {
+		if(~ai1_task1_f1.isPlaying == false, {(~number_of_synths).do(x = 0; y = 24; z = 10; {
 			if((("f"++(x=x+1)).asSymbol.envirGet > ~outmaxa) or: (("f"++(x)).asSymbol.envirGet < ~outmina), {
 				("z"++(y=y+1)).asSymbol.envirGet.do(_.close); ("z"++(x)).asSymbol.envirGet.do(_.close);
 				("z"++(y)).asSymbol.envirPut(View(w, Rect((("f"++(x)).asSymbol.envirGet.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+z, ~nw, 2)).background = Color.white;);}, {
 				("z"++(x)).asSymbol.envirGet.do(_.close);("z"++(y)).asSymbol.envirGet.do(_.close); ("z"++(x)).asSymbol.envirPut(View(w, Rect((("f"++(x)).asSymbol.envirGet.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+z, ~nw, 2)).background = Color.white;);
 			});
 			z=z+10;
+		});
 		});
 	};
 
