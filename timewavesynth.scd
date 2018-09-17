@@ -920,6 +920,7 @@ MIDIIn.connectAll;
 	~time_sig_array2 = [4, 3, 2, 1];
 	~time_sig_array3 = [1, 0.5, 0.25, 0.125];
 	~time_sig_array4 = [0.125, 0.0625, 0.03125, 0.015625];
+	~time_sig_array5 = [4, 2, 1];
 	~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
 	/*if(~f_note_set == nil, {~f_note_set.value;});*/
 	~f_note_change_array = ~f_note_set.value;
@@ -1048,7 +1049,7 @@ MIDIIn.connectAll;
 			y.choose.do(x = (-1); {("f"++(a.at(x=x+1);)).asSymbol.envirPut(~f_note_change_array.choose);});
 			~synthflow.value;
 
-			(~time_sig_array2.choose*8).wait;
+			((~time_sig_array5*8).wchoose([0.4, 0.3, 0.3]);).wait;
 		});
 	});
 
