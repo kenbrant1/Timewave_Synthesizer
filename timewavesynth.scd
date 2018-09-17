@@ -1096,6 +1096,12 @@ MIDIIn.connectAll;
 
 	})};
 
+	/*
+	~ai_play.value;
+
+	~ai_stop.value;
+	*/
+
 
 	//set base (lowest) frequencies, set starting values for synthdef, and load synthdef on server boot
 
