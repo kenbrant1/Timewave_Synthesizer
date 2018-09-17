@@ -1043,9 +1043,9 @@ MIDIIn.connectAll;
 	});
 
 	~ai1_task1_fall = Task({
-		inf.do({var a;
+		inf.do({
 			y = (z = 0; Array.fill(~number_of_synths, {z=z+1}));
-			a = y.scramble;
+			y = y.scramble;
 			y.choose.do(x = (-1); {("f"++(a.at(x=x+1);)).asSymbol.envirPut(~f_note_change_array.choose);});
 			~synthflow.value;
 
