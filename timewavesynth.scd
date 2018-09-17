@@ -1041,6 +1041,16 @@ MIDIIn.connectAll;
 		});
 	});
 
+	~ai1_task1_fall = Task({
+		inf.do({
+			y = (z = 0; Array.fill(~number_of_synths, {z=z+1}));
+			y.choose.do({("f"++(y.choose)).asSymbol.envirPut(~f_note_change_array.choose);});
+			~synthflow.value;
+
+			(~time_sig_array2.choose*8).wait;
+		});
+	});
+
 	/*12.do(x=0; {("~ai1_task1_f"++(x=x+1)).asSymbol.envirPut(
 		Task({
 			inf.do({
@@ -1053,6 +1063,7 @@ MIDIIn.connectAll;
 	);});*/
 
 	~ai_play = {s.makeBundle(0, {
+		~ai1_task1_fall.play(SystemClock);
 		if(~number_of_synths > 0, {~ai1_task1_f1.play(SystemClock);});
 		if(~number_of_synths > 1, {~ai1_task1_f2.play(SystemClock);});
 		if(~number_of_synths > 2, {~ai1_task1_f3.play(SystemClock);});
@@ -1069,6 +1080,7 @@ MIDIIn.connectAll;
 	})};
 
 	~ai_stop = {s.makeBundle(0, {
+		~ai1_task1_fall.stop; ~ai1_task1_fall.reset;
 		if(~number_of_synths > 0, {~ai1_task1_f1.stop; ~ai1_task1_f1.reset;});
 		if(~number_of_synths > 1, {~ai1_task1_f2.stop; ~ai1_task1_f2.reset;});
 		if(~number_of_synths > 2, {~ai1_task1_f3.stop; ~ai1_task1_f3.reset;});
@@ -1083,12 +1095,6 @@ MIDIIn.connectAll;
 		if(~number_of_synths > 11, {~ai1_task1_f12.stop; ~ai1_task1_f12.reset;});
 
 	})};
-
-	/*
-	~ai_play.value;
-
-	~ai_stop.value;
-	*/
 
 
 	//set base (lowest) frequencies, set starting values for synthdef, and load synthdef on server boot
