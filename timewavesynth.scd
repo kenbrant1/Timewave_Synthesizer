@@ -913,7 +913,7 @@ MIDIIn.connectAll;
 	//ai
 
 	~max_note_length = 4;
-	~number_of_notes = 8;
+	~number_of_notes = 24;
 	~min_note = ~freqmap.at(65);
 	~max_note = ~freqmap.at(65)*4;
 	~time_sig_array1 = [2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]; /*{x = ~max_note_length; Array.fill(8, {x = (x/(1.333333333333))})}.value;*/
@@ -1160,6 +1160,7 @@ MIDIIn.connectAll;
 			~ytall = (z = 0; Array.fill(~number_of_synths, {z=z+1}));
 			~ytall = ~ytall.scramble;
 			~ytall.choose.do(x = (-1); {("f"++(a.at(x=x+1);)).asSymbol.envirPut(~f_note_change_array.choose);});
+			"f all".postln;
 			~synthflow.value;
 
 			((~time_sig_array5*8).wchoose([0.4, 0.3, 0.3]);).wait;
