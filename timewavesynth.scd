@@ -972,7 +972,7 @@ MIDIIn.connectAll;
 
 	~pattern_generator = {var x, y, z, w, v;
 		~sets_num_array = (4..8);
-		~notes_num_array = (2..8);
+		~notes_num_array = (2..16);
 
 		(~sets_num_array.choose).do(x = 0; {
 			w = [];
@@ -1015,7 +1015,7 @@ MIDIIn.connectAll;
 					time.wait;
 				});
 				(~task_1_p_array.size*(1..3).choose).do(~yt1 = (-1); {
-					~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
+					~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=(-1)});); (~f1+" one").postln;
 					~synthflow.value;
 					(~ai1_task1_f1_time_array.at(~yt1)).wait;
 				});
@@ -1051,7 +1051,7 @@ MIDIIn.connectAll;
 					time.wait;
 				});
 				(~task_2_p_array.size*(1..3).choose).do(~yt2 = (-1); {
-					~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});); (~f2+" two").postln;
+					~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=(-1)});); (~f2+" two").postln;
 					~synthflow.value;
 					(~ai1_task2_f2_time_array.at(~yt2)).wait;
 				});
@@ -1155,7 +1155,7 @@ MIDIIn.connectAll;
 		});
 	});
 
-	~ai1_task1_fall = Task({
+	/*~ai1_task1_fall = Task({
 		inf.do({
 			~ytall = (z = 0; Array.fill(~number_of_synths, {z=z+1}));
 			~ytall = ~ytall.scramble;
@@ -1165,7 +1165,7 @@ MIDIIn.connectAll;
 
 			((~time_sig_array5*8).wchoose([0.4, 0.3, 0.3]);).wait;
 		});
-	});
+	});*/
 
 	/*12.do(x=0; {("~ai1_task1_f"++(x=x+1)).asSymbol.envirPut(
 		Task({
