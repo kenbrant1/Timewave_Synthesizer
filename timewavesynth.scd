@@ -913,7 +913,7 @@ MIDIIn.connectAll;
 	//ai
 
 	~max_note_length = 4;
-	~number_of_notes = 24;
+	~number_of_notes = 16;
 	~min_note = ~freqmap.at(65);
 	~max_note = ~freqmap.at(65)*4;
 	~time_sig_array1 = [2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]; /*{x = ~max_note_length; Array.fill(8, {x = (x/(1.333333333333))})}.value;*/
@@ -1015,7 +1015,7 @@ MIDIIn.connectAll;
 					time.wait;
 				});
 				(~task_1_p_array.size*(1..3).choose).do(~yt1 = (-1); {
-					~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=(-1)});); (~f1+" one").postln;
+					~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
 					~synthflow.value;
 					(~ai1_task1_f1_time_array.at(~yt1)).wait;
 				});
@@ -1051,7 +1051,7 @@ MIDIIn.connectAll;
 					time.wait;
 				});
 				(~task_2_p_array.size*(1..3).choose).do(~yt2 = (-1); {
-					~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=(-1)});); (~f2+" two").postln;
+					~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});); (~f2+" two").postln;
 					~synthflow.value;
 					(~ai1_task2_f2_time_array.at(~yt2)).wait;
 				});
