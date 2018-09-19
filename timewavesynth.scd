@@ -1016,7 +1016,7 @@ MIDIIn.connectAll;
 					~ai1_task1_f1_time_array = ~ai1_task1_f1_time_array.add(time.value);
 					time.wait;
 				});
-				(~task_1_p_array.size*(1..3).choose).do(~yt1 = (-1); {
+				(~task_1_p_array.size*(0..3).choose).do(~yt1 = (-1); {
 					~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
 					~synthflow.value;
 					(~ai1_task1_f1_time_array.at(~yt1)).wait;
@@ -1052,7 +1052,7 @@ MIDIIn.connectAll;
 					~ai1_task2_f2_time_array = ~ai1_task2_f2_time_array.add(time.value);
 					time.wait;
 				});
-				(~task_2_p_array.size*(1..3).choose).do(~yt2 = (-1); {
+				(~task_2_p_array.size*(0..3).choose).do(~yt2 = (-1); {
 					~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});); (~f2+" two").postln;
 					~synthflow.value;
 					(~ai1_task2_f2_time_array.at(~yt2)).wait;
