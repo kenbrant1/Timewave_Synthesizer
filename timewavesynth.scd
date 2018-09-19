@@ -912,35 +912,36 @@ MIDIIn.connectAll;
 
 	//ai
 
-	~max_note_length = 4;
-	~number_of_notes = 16;
-	~min_note = ~freqmap.at(65);
-	~max_note = ~freqmap.at(65)*4;
-	~time_sig_array1 = [2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]; /*{x = ~max_note_length; Array.fill(8, {x = (x/(1.333333333333))})}.value;*/
-	~time_sig_array2 = [4, 3, 2, 1];
-	~time_sig_array3 = [1, 0.5, 0.25, 0.125];
-	~time_sig_array4 = [0.125, 0.0625, 0.03125, 0.015625];
-	~time_sig_array5 = [4, 2, 1];
-	~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
-	/*if(~f_note_set == nil, {~f_note_set.value;});*/
-	~f_note_change_array = ~f_note_set.value;
-	~ratio_array = (x = 0; Array.fill(12, {1.0594630943593**(x=x+1)}));
-	/*~f_note_change_array = [ 726.53450277921, 363.2672513896, 815.50740615698, 576.65081700145, 1153.3016340029, 484.90360486965, 384.86824623663, 544.28589355459 ]*/
+	(
+		~max_note_length = 4;
+		~number_of_notes = 16;
+		~min_note = ~freqmap.at(65);
+		~max_note = ~freqmap.at(65)*4;
+		~time_sig_array1 = [2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]; /*{x = ~max_note_length; Array.fill(8, {x = (x/(1.333333333333))})}.value;*/
+		~time_sig_array2 = [4, 3, 2, 1];
+		~time_sig_array3 = [1, 0.5, 0.25, 0.125];
+		~time_sig_array4 = [0.125, 0.0625, 0.03125, 0.015625];
+		~time_sig_array5 = [4, 2, 1];
+		~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
+		/*if(~f_note_set == nil, {~f_note_set.value;});*/
+		~f_note_change_array = ~f_note_set.value;
+		~ratio_array = (x = 0; Array.fill(12, {1.0594630943593**(x=x+1)}));
+		/*~f_note_change_array = [ 726.53450277921, 363.2672513896, 815.50740615698, 576.65081700145, 1153.3016340029, 484.90360486965, 384.86824623663, 544.28589355459 ]*/
 
-	/*
-	To do:
+		/*
+		To do:
 
-	- make so you can set note set in GUI via mouse
-	- PATTERNIZE
-	- store data... for instance.... store note progression for patterns
-	- more
-	*/
+		- make so you can set note set in GUI via mouse
+		- PATTERNIZE
+		- store data... for instance.... store note progression for patterns
+		- more
+		*/
 
-	/*
-	How to store patterns:
-	... Generate set of notes.... ("set1f1")....
+		/*
+		How to store patterns:
+		... Generate set of notes.... ("set1f1")....
 
-	~pattern_generator = {var x, y, z, w, v;
+		~pattern_generator = {var x, y, z, w, v;
 		~min_note_sets = 4; ~max_note_sets = 8;
 		~min_notes = 2; ~max_notes = 8;
 		~sets_num_array = (z = (~min_note_sets-1); Array.fill((~max_note_sets-~min_note_sets+1), {z=z+1}));
@@ -949,46 +950,47 @@ MIDIIn.connectAll;
 		~notes_num_array = ~notes_num_array.scramble;
 
 		(~sets_num_array.choose).do(x = 0; {
-			w = [];
-			x = x+1;
-			(z = ~notes_num_array.choose).do(y = 0; {("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);});
-			("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
-			1.do({("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;)});
+		w = [];
+		x = x+1;
+		(z = ~notes_num_array.choose).do(y = 0; {("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);});
+		("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
+		1.do({("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;)});
 		});
 		~sets_num = x.value;
 		~sf_pattern_array = [];
 		~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});
-	};
-	/*~pattern_generator.value;*/
-	~notes_num_save_7;
-	~s1f3;
-	~s1f_pattern;
+		};
+		/*~pattern_generator.value;*/
+		~notes_num_save_7;
+		~s1f3;
+		~s1f_pattern;
 
 
-	... how ever many different sets and notes you want...
+		... how ever many different sets and notes you want...
 
-	...
-	*/
+		...
+		*/
 
-	~pattern_generator = {var x, y, z, w, v;
-		~sets_num_array = (4..8);
-		~notes_num_array = (2..16);
+		~pattern_generator = {var x, y, z, w, v;
+			~sets_num_array = (4..8);
+			~notes_num_array = (2..16);
 
-		(~sets_num_array.choose).do(x = 0; {
-			w = [];
-			x = x+1;
-			(z = ~notes_num_array.choose).do(y = 0; {("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);});
-			("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
-			1.do({("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;)});
-		});
-		~sets_num = x.value;
-		~sf_pattern_array = [];
-		~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});
-	};
-	~pattern_generator.value;
-	/*~notes_num_save_7;
-	~s1f3;
-	~s1f_pattern;*/
+			(~sets_num_array.choose).do(x = 0; {
+				w = [];
+				x = x+1;
+				(z = ~notes_num_array.choose).do(y = 0; {("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);});
+				("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
+				1.do({("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;)});
+			});
+			~sets_num = x.value;
+			~sf_pattern_array = [];
+			~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});
+		};
+		~pattern_generator.value;
+		/*~notes_num_save_7;
+		~s1f3;
+		~s1f_pattern;*/
+	);
 
 
 	/*
@@ -1006,8 +1008,8 @@ MIDIIn.connectAll;
 		inf.do({[
 			[
 				~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];
-				(~task_1_p_array.size*1).do(~yt1 = 0; {var time;
-					~f1 = ~task_1_p_array.at(0); (~f1+" one").postln;
+				(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
+					~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
 					~synthflow.value;
 					/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
 					time = ~time_sig_array1.choose;
@@ -1042,8 +1044,8 @@ MIDIIn.connectAll;
 		inf.do({[
 			[
 				~task_2_p_array = ~sf_pattern_array.choose; ~ai1_task2_f2_time_array = [];
-				(~task_2_p_array.size*1).do(~yt2 = 0; {var time;
-					~f2 = ~task_2_p_array.at(0); (~f2+" two").postln;
+				(~task_2_p_array.size*1).do(~yt2 = (-1); {var time;
+					~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});); (~f2+" two").postln;
 					~synthflow.value;
 					/*("sf_note_"++(~yt2=~yt2+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array2.choose;);*/
 					time = ~time_sig_array2.choose;
