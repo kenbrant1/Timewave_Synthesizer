@@ -934,6 +934,7 @@ MIDIIn.connectAll;
 		- make so you can set note set in GUI via mouse
 		- PATTERNIZE
 		- store data... for instance.... store note progression for patterns
+		- make thing that does like... [a, c, f]... [a, c, f]*n.... maybe save the "n" value as well. yes
 		- more
 		*/
 
