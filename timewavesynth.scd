@@ -920,7 +920,7 @@ MIDIIn.connectAll;
 		~time_sig_array1 = [2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]; /*{x = ~max_note_length; Array.fill(8, {x = (x/(1.333333333333))})}.value;*/
 		~time_sig_array2 = [4, 3, 2, 1];
 		~time_sig_array3 = [1, 0.5, 0.25, 0.125];
-		~time_sig_array4 = [0.125, 0.0625, 0.03125, 0.015625];
+		~time_sig_array4 = [0.5, 0.25, 0.125, 0.0625];
 		~time_sig_array5 = [4, 2, 1];
 		~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
 		/*if(~f_note_set == nil, {~f_note_set.value;});*/
@@ -973,7 +973,7 @@ MIDIIn.connectAll;
 		*/
 
 		~pattern_generator = {var x, y, z, w, v;
-			~sets_num_array = (4..8);
+			~sets_num_array = (2..8);
 			~notes_num_array = (2..16);
 
 			(~sets_num_array.choose).do(x = 0; {
@@ -996,18 +996,12 @@ MIDIIn.connectAll;
 
 	/*
 	~ai_play.value;
-
 	~ai_stop.value;
-
-
-	~ai_stop.value;
-	~ai_play.value;
 	*/
 
-
 	~ai1_task1_f1 = Task({
-		inf.do({[
-			[
+		inf.do({var rs;
+			([0,1].wchoose([0.05,0.95])).do({
 				~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];
 				(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
 					~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
@@ -1017,66 +1011,103 @@ MIDIIn.connectAll;
 					~ai1_task1_f1_time_array = ~ai1_task1_f1_time_array.add(time.value);
 					time.wait;
 				});
-				(~task_1_p_array.size*(0..3).choose).do(~yt1 = (-1); {
-					~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
-					~synthflow.value;
-					(~ai1_task1_f1_time_array.at(~yt1)).wait;
+				rs = [0,1].wchoose([0.4,0.6]);
+				(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
+					if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
+					(~task_1_p_array.size).do(~yt1 = (-1); {
+						~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * r; (~f1+" one_1").postln;
+						~synthflow.value;
+						(~ai1_task1_f1_time_array.at(~yt1)).wait;
+					});
 				});
+			});
 
-			],
-			[
+			([0,1].wchoose([0.9,0.1])).do({
 				~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1;
 				((2..6).choose).do({
-					[~f1 = ~f1*~f1_ratio, ~f1 = ~f1/~f1_ratio].choose; (~f1+" one").postln;
+					~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" one_2").postln;
 					~synthflow.value;
 					(~time_sig_array4.choose).wait;
 
 				});
-			],
-			[
-				(~f1+" one").postln;
-				~synthflow.value;
-				(~time_sig_array3.choose).wait;
-			]
-		].wchoose([0.7, 0.2, 0.1]);
+			});
+
 		});
 	});
 	~ai1_task1_f2 = Task({
-		inf.do({[
-			[
-				~task_2_p_array = ~sf_pattern_array.choose; ~ai1_task2_f2_time_array = [];
+		inf.do({var rs;
+			([0,1].wchoose([0.05,0.95])).do({
+				~task_2_p_array = ~sf_pattern_array.choose; ~ai1_task1_f2_time_array = [];
 				(~task_2_p_array.size*1).do(~yt2 = (-1); {var time;
 					~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});); (~f2+" two").postln;
 					~synthflow.value;
-					/*("sf_note_"++(~yt2=~yt2+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array2.choose;);*/
+					/*("sf_note_"++(~yt2=~yt2+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
 					time = ~time_sig_array2.choose;
-					~ai1_task2_f2_time_array = ~ai1_task2_f2_time_array.add(time.value);
+					~ai1_task1_f2_time_array = ~ai1_task1_f2_time_array.add(time.value);
 					time.wait;
 				});
-				(~task_2_p_array.size*(0..3).choose).do(~yt2 = (-1); {
-					~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});); (~f2+" two").postln;
-					~synthflow.value;
-					(~ai1_task2_f2_time_array.at(~yt2)).wait;
+				rs = [0,1].wchoose([0.4,0.6]);
+				(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
+					if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
+					(~task_2_p_array.size).do(~yt2 = (-1); {
+						~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});) * r; (~f2+" two_1").postln;
+						~synthflow.value;
+						(~ai1_task1_f2_time_array.at(~yt2)).wait;
+					});
 				});
+			});
 
-			],
-			[
+			([0,1].wchoose([0.9,0.1])).do({
 				~f2_ratio = ~ratio_array.choose; ~f2_o = ~f2;
 				((2..6).choose).do({
-					[~f2 = ~f2*~f2_ratio, ~f2 = ~f2/~f2_ratio].choose; (~f2+" two").postln;
+					~f2 = [~f2*~f2_ratio, ~f2/~f2_ratio].choose; (~f2+" two_2").postln;
 					~synthflow.value;
 					(~time_sig_array2.choose).wait;
 
 				});
-			],
-			[
-				(~f2+" two").postln;
-				~synthflow.value;
-				(~time_sig_array2.choose).wait;
-			]
-		].wchoose([0.7, 0.2, 0.1]);
+			});
+
 		});
 	});
+
+	/*~ai1_task1_f1 = Task({
+		inf.do({var rs;
+			([0,1].wchoose([0.05,0.95])).do(
+				(~number_of_synths-1).do(~fchange = 1; {("f"++(~fchange=~fchange+1)).asSymbol.envirPut(~f_note_change_array.choose;);});
+				{
+					~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];
+					(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
+						~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
+						~synthflow.value;
+						/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
+						time = ~time_sig_array1.choose;
+						~ai1_task1_f1_time_array = ~ai1_task1_f1_time_array.add(time.value);
+						time.wait;
+					});
+					rs = [0,1].wchoose([0.4,0.6]);
+					(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
+						if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
+						(~task_1_p_array.size).do(~yt1 = (-1); {
+							~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * r; (~f1+" one_1").postln;
+							~synthflow.value;
+							(~ai1_task1_f1_time_array.at(~yt1)).wait;
+						});
+					});
+			});
+
+			([0,1].wchoose([0.9,0.1])).do({
+				~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1;
+				((2..6).choose).do({
+					~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" one_2").postln;
+					~synthflow.value;
+					(~time_sig_array4.choose).wait;
+
+				});
+			});
+
+		});
+	});*/
+
 	~ai1_task1_f3 = Task({
 		inf.do({
 			~f3 = ~f_note_change_array.choose; ~f3.postln;
@@ -1180,6 +1211,16 @@ MIDIIn.connectAll;
 			});
 		});
 	);});*/
+
+	/*~ai_play_u = {s.makeBundle(0, {
+		~ai1_task1_u.play(SystemClock);
+
+	})};
+
+	~ai_stop_u = {s.makeBundle(0, {
+		~ai1_task1_u.stop; ~ai1_task1_u.reset;
+
+	})};*/
 
 	~ai_play = {s.makeBundle(0, {
 		~ai1_task1_fall.play(SystemClock);
