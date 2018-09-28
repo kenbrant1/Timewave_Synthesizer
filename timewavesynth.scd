@@ -913,354 +913,375 @@ MIDIIn.connectAll;
 	//ai
 
 	(
-		~max_note_length = 4;
-		~number_of_notes = 16;
-		~min_note = ~freqmap.at(65);
-		~max_note = ~freqmap.at(65)*4;
-		~time_sig_array1 = [2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]; /*{x = ~max_note_length; Array.fill(8, {x = (x/(1.333333333333))})}.value;*/
-		~time_sig_array2 = [4, 3, 2, 1];
-		~time_sig_array3 = [1, 0.5, 0.25, 0.125];
-		~time_sig_array4 = [0.5, 0.25, 0.125, 0.0625];
-		~time_sig_array5 = [4, 2, 1];
-		~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
-		/*if(~f_note_set == nil, {~f_note_set.value;});*/
-		~f_note_change_array = ~f_note_set.value;
-		~ratio_array = (x = 0; Array.fill(12, {1.0594630943593**(x=x+1)}));
-		/*~f_note_change_array = [ 726.53450277921, 363.2672513896, 815.50740615698, 576.65081700145, 1153.3016340029, 484.90360486965, 384.86824623663, 544.28589355459 ]*/
+		(
+			~max_note_length = 4;
+			~number_of_notes = 16;
+			~min_note = ~freqmap.at(65);
+			~max_note = ~freqmap.at(65)*4;
+			~time_sig_array1 = [2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]; /*{x = ~max_note_length; Array.fill(8, {x = (x/(1.333333333333))})}.value;*/
+			~time_sig_array2 = [4, 3, 2, 1];
+			~time_sig_array3 = [1, 0.5, 0.25, 0.125];
+			~time_sig_array4 = [0.5, 0.25, 0.125, 0.0625];
+			~time_sig_array5 = [4, 2, 1];
+			~time_sig_array6 = [~gm,~gm/2,~gm/1.5,~gm/3,~gm/4];
+			~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
+			/*if(~f_note_set == nil, {~f_note_set.value;});*/
+			~f_note_change_array = ~f_note_set.value;
+			~ratio_array = (x = 0; Array.fill(12, {1.0594630943593**(x=x+1)}));
+			/*~f_note_change_array = [ 726.53450277921, 363.2672513896, 815.50740615698, 576.65081700145, 1153.3016340029, 484.90360486965, 384.86824623663, 544.28589355459 ]*/
 
-		/*
-		To do:
+			/*
+			To do:
 
-		- make so you can set note set in GUI via mouse
-		- PATTERNIZE
-		- store data... for instance.... store note progression for patterns
-		- make thing that does like... [a, c, f]... [a, c, f]*n.... maybe save the "n" value as well. yes
-		- more
-		*/
+			- make so you can set note set in GUI via mouse
+			- PATTERNIZE
+			- store data... for instance.... store note progression for patterns
+			- make thing that does like... [a, c, f]... [a, c, f]*n.... maybe save the "n" value as well. yes
+			- generate pattern of times, not just notes.... save the time patterns.... and asign time patterns with note patterns...
+			.... make sure assigned time patterns are same size as note patterns... maybe use if statements in algo
+			- more
+			*/
 
-		/*
-		How to store patterns:
-		... Generate set of notes.... ("set1f1")....
+			/*
+			How to store patterns:
+			... Generate set of notes.... ("set1f1")....
 
-		~pattern_generator = {var x, y, z, w, v;
-		~min_note_sets = 4; ~max_note_sets = 8;
-		~min_notes = 2; ~max_notes = 8;
-		~sets_num_array = (z = (~min_note_sets-1); Array.fill((~max_note_sets-~min_note_sets+1), {z=z+1}));
-		~sets_num_array = ~sets_num_array.scramble;
-		~notes_num_array = (z = (~min_notes-1); Array.fill((~max_notes-~min_notes+1), {z=z+1}));
-		~notes_num_array = ~notes_num_array.scramble;
-
-		(~sets_num_array.choose).do(x = 0; {
-		w = [];
-		x = x+1;
-		(z = ~notes_num_array.choose).do(y = 0; {("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);});
-		("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
-		1.do({("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;)});
-		});
-		~sets_num = x.value;
-		~sf_pattern_array = [];
-		~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});
-		};
-		/*~pattern_generator.value;*/
-		~notes_num_save_7;
-		~s1f3;
-		~s1f_pattern;
-
-
-		... how ever many different sets and notes you want...
-
-		...
-		*/
-
-		~pattern_generator = {var x, y, z, w, v;
-			~sets_num_array = (2..8);
-			~notes_num_array = (2..16);
+			~pattern_generator = {var x, y, z, w, v;
+			~min_note_sets = 4; ~max_note_sets = 8;
+			~min_notes = 2; ~max_notes = 8;
+			~sets_num_array = (z = (~min_note_sets-1); Array.fill((~max_note_sets-~min_note_sets+1), {z=z+1}));
+			~sets_num_array = ~sets_num_array.scramble;
+			~notes_num_array = (z = (~min_notes-1); Array.fill((~max_notes-~min_notes+1), {z=z+1}));
+			~notes_num_array = ~notes_num_array.scramble;
 
 			(~sets_num_array.choose).do(x = 0; {
-				w = [];
-				x = x+1;
-				(z = ~notes_num_array.choose).do(y = 0; {("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);});
-				("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
-				1.do({("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;)});
+			w = [];
+			x = x+1;
+			(z = ~notes_num_array.choose).do(y = 0; {("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);});
+			("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
+			1.do({("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;)});
 			});
 			~sets_num = x.value;
 			~sf_pattern_array = [];
 			~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});
-		};
-		~pattern_generator.value;
-		/*~notes_num_save_7;
-		~s1f3;
-		~s1f_pattern;*/
-	);
+			};
+			/*~pattern_generator.value;*/
+			~notes_num_save_7;
+			~s1f3;
+			~s1f_pattern;
 
 
-	/*
-	~ai_play.value;
-	~ai_stop.value;
-	*/
+			... how ever many different sets and notes you want...
 
-	~ai1_task1_f1 = Task({
-		inf.do({var rs;
-			([0,1].wchoose([0.05,0.95])).do({
-				~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];
-				(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
-					~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
-					~synthflow.value;
-					/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
-					time = ~time_sig_array1.choose;
-					~ai1_task1_f1_time_array = ~ai1_task1_f1_time_array.add(time.value);
-					time.wait;
+			...
+			*/
+
+			~pattern_generator = {var x, y, z, w, v;
+				~sets_num_array = (2..8);
+				~notes_num_array = (2..16);
+
+				(~sets_num_array.choose).do(x = 0; {
+					w = [];
+					x = x+1;
+					(z = ~notes_num_array.choose).do(y = 0; {("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);});
+					("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
+					1.do({("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;)});
 				});
-				rs = [0,1].wchoose([0.4,0.6]);
-				(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
-					if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
-					(~task_1_p_array.size).do(~yt1 = (-1); {
-						~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * r; (~f1+" one_1").postln;
-						~synthflow.value;
-						(~ai1_task1_f1_time_array.at(~yt1)).wait;
-					});
-				});
+				~sets_num = x.value;
+				~sf_pattern_array = [];
+				~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});
+			};
+			~pattern_generator.value;
+			/*~notes_num_save_7;
+			~s1f3;
+			~s1f_pattern;*/
+
+			/*~time_generator = {var x, y, z, w, v;
+			~sets_num_array = (2..8);
+			~notes_num_array = (2..16);
+
+			(~sets_num_array.choose).do(x = 0; {
+			w = [];
+			x = x+1;
+			(z = ~notes_num_array.choose).do(y = 0; {("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);});
+			("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
+			1.do({("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;)});
 			});
+			~sets_num = x.value;
+			~sf_pattern_array = [];
+			~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});
+			};
+			~pattern_generator.value;
+			/*~notes_num_save_7;
+			~s1f3;
+			~s1f_pattern;*/*/
+		);
 
-			([0,1].wchoose([0.9,0.1])).do({
-				~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1;
-				((2..6).choose).do({
-					~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" one_2").postln;
-					~synthflow.value;
-					(~time_sig_array4.choose).wait;
 
-				});
-			});
+		/*
+		~ai_play.value;
+		~ai_stop.value;
+		*/
 
-		});
-	});
-	~ai1_task1_f2 = Task({
-		inf.do({var rs;
-			([0,1].wchoose([0.05,0.95])).do({
-				~task_2_p_array = ~sf_pattern_array.choose; ~ai1_task1_f2_time_array = [];
-				(~task_2_p_array.size*1).do(~yt2 = (-1); {var time;
-					~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});); (~f2+" two").postln;
-					~synthflow.value;
-					/*("sf_note_"++(~yt2=~yt2+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
-					time = ~time_sig_array2.choose;
-					~ai1_task1_f2_time_array = ~ai1_task1_f2_time_array.add(time.value);
-					time.wait;
-				});
-				rs = [0,1].wchoose([0.4,0.6]);
-				(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
-					if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
-					(~task_2_p_array.size).do(~yt2 = (-1); {
-						~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});) * r; (~f2+" two_1").postln;
-						~synthflow.value;
-						(~ai1_task1_f2_time_array.at(~yt2)).wait;
-					});
-				});
-			});
-
-			([0,1].wchoose([0.9,0.1])).do({
-				~f2_ratio = ~ratio_array.choose; ~f2_o = ~f2;
-				((2..6).choose).do({
-					~f2 = [~f2*~f2_ratio, ~f2/~f2_ratio].choose; (~f2+" two_2").postln;
-					~synthflow.value;
-					(~time_sig_array2.choose).wait;
-
-				});
-			});
-
-		});
-	});
-
-	/*~ai1_task1_f1 = Task({
-		inf.do({var rs;
-			([0,1].wchoose([0.05,0.95])).do(
-				(~number_of_synths-1).do(~fchange = 1; {("f"++(~fchange=~fchange+1)).asSymbol.envirPut(~f_note_change_array.choose;);});
-				{
-					~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];
-					(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
-						~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
-						~synthflow.value;
-						/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
-						time = ~time_sig_array1.choose;
-						~ai1_task1_f1_time_array = ~ai1_task1_f1_time_array.add(time.value);
-						time.wait;
-					});
-					rs = [0,1].wchoose([0.4,0.6]);
-					(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
-						if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
-						(~task_1_p_array.size).do(~yt1 = (-1); {
-							~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * r; (~f1+" one_1").postln;
+		(
+			~ai1_task1_f1 = Task({
+				inf.do({var rs;
+					([0,1].wchoose([0.05,0.95])).do({
+						~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];
+						(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
+							~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
 							~synthflow.value;
-							(~ai1_task1_f1_time_array.at(~yt1)).wait;
+							/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
+							time = ~time_sig_array6/*~time_sig_array1*/.choose;
+							~ai1_task1_f1_time_array = ~ai1_task1_f1_time_array.add(time.value);
+							time.wait;
+						});
+						rs = [0,1].wchoose([0.4,0.6]);
+						(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
+							if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
+							(~task_1_p_array.size).do(~yt1 = (-1); {
+								~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * [r, r.reciprocal].choose; (~f1+" one_1").postln;
+								~synthflow.value;
+								(~ai1_task1_f1_time_array.at(~yt1)).wait;
+							});
 						});
 					});
-			});
 
-			([0,1].wchoose([0.9,0.1])).do({
-				~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1;
-				((2..6).choose).do({
-					~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" one_2").postln;
-					~synthflow.value;
-					(~time_sig_array4.choose).wait;
+					([0,1].wchoose([0.9,0.1])).do({
+						~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1;
+						((2..6).choose).do({
+							~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" one_2").postln;
+							~synthflow.value;
+							(~time_sig_array6/*~time_sig_array1*/.choose).wait;
+
+						});
+					});
 
 				});
 			});
+			~ai1_task1_f2 = Task({
+				inf.do({var rs;
+					([0,1].wchoose([0.05,0.95])).do({
+						~task_2_p_array = ~sf_pattern_array.choose; ~ai1_task1_f2_time_array = [];
+						(~task_2_p_array.size*1).do(~yt2 = (-1); {var time;
+							~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});); (~f2+" two").postln;
+							~synthflow.value;
+							/*("sf_note_"++(~yt2=~yt2+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
+							time = (~time_sig_array6*4)/*~time_sig_array2*/.choose;
+							~ai1_task1_f2_time_array = ~ai1_task1_f2_time_array.add(time.value);
+							time.wait;
+						});
+						rs = [0,1].wchoose([0.4,0.6]);
+						(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
+							if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
+							(~task_2_p_array.size).do(~yt2 = (-1); {
+								~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});) * [r, r.reciprocal].choose; (~f2+" two_1").postln;
+								~synthflow.value;
+								(~ai1_task1_f2_time_array.at(~yt2)).wait;
+							});
+						});
+					});
+
+					([0,1].wchoose([0.9,0.1])).do({
+						~f2_ratio = ~ratio_array.choose; ~f2_o = ~f2;
+						((2..6).choose).do({
+							~f2 = [~f2*~f2_ratio, ~f2/~f2_ratio].choose; (~f2+" two_2").postln;
+							~synthflow.value;
+							((~time_sig_array6*4)/*~time_sig_array2*/.choose).wait;
+
+						});
+					});
+
+				});
+			});
+		);
+
+		/*~ai1_task1_f1 = Task({
+		inf.do({var rs;
+		([0,1].wchoose([0.05,0.95])).do(
+		(~number_of_synths-1).do(~fchange = 1; {("f"++(~fchange=~fchange+1)).asSymbol.envirPut(~f_note_change_array.choose;);});
+		{
+		~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];
+		(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
+		~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
+		~synthflow.value;
+		/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
+		time = ~time_sig_array1.choose;
+		~ai1_task1_f1_time_array = ~ai1_task1_f1_time_array.add(time.value);
+		time.wait;
+		});
+		rs = [0,1].wchoose([0.4,0.6]);
+		(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
+		if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
+		(~task_1_p_array.size).do(~yt1 = (-1); {
+		~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * [r, r.reciprocal].choose; (~f1+" one_1").postln;
+		~synthflow.value;
+		(~ai1_task1_f1_time_array.at(~yt1)).wait;
+		});
+		});
+		});
+
+		([0,1].wchoose([0.9,0.1])).do({
+		~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1;
+		((2..6).choose).do({
+		~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" one_2").postln;
+		~synthflow.value;
+		(~time_sig_array4.choose).wait;
 
 		});
-	});*/
-
-	~ai1_task1_f3 = Task({
-		inf.do({
-			~f3 = ~f_note_change_array.choose; ~f3.postln;
-			~synthflow.value;
-
-			(~time_sig_array2.choose).wait;
 		});
-	});
-	~ai1_task1_f4 = Task({
-		inf.do({
-			~f4 = ~f_note_change_array.choose; ~f4.postln;
-			~synthflow.value;
 
-			(~time_sig_array.choose).wait;
 		});
-	});
-	~ai1_task1_f5 = Task({
-		inf.do({
-			~f5 = ~f_note_change_array.choose; ~f5.postln;
-			~synthflow.value;
+		});*/
 
-			(~time_sig_array.choose).wait;
-		});
-	});
-	~ai1_task1_f6 = Task({
-		inf.do({
-			~f6 = ~f_note_change_array.choose; ~f6.postln;
-			~synthflow.value;
-
-			(~time_sig_array.choose).wait;
-		});
-	});
-	~ai1_task1_f7 = Task({
-		inf.do({
-			~f7 = ~f_note_change_array.choose; ~f7.postln;
-			~synthflow.value;
-
-			(~time_sig_array.choose).wait;
-		});
-	});
-	~ai1_task1_f8 = Task({
-		inf.do({
-			~f8 = ~f_note_change_array.choose; ~f8.postln;
-			~synthflow.value;
-
-			(~time_sig_array.choose).wait;
-		});
-	});
-	~ai1_task1_f9 = Task({
-		inf.do({
-			~f9 = ~f_note_change_array.choose; ~f9.postln;
-			~synthflow.value;
-
-			(~time_sig_array.choose).wait;
-		});
-	});
-	~ai1_task1_f10 = Task({
-		inf.do({
-			~f10 = ~f_note_change_array.choose; ~f10.postln;
-			~synthflow.value;
-
-			(~time_sig_array.choose).wait;
-		});
-	});
-	~ai1_task1_f11 = Task({
-		inf.do({
-			~f11 = ~f_note_change_array.choose; ~f11.postln;
-			~synthflow.value;
-
-			(~time_sig_array.choose).wait;
-		});
-	});
-	~ai1_task1_f12 = Task({
-		inf.do({
-			~f12 = ~f_note_change_array.choose; ~f12.postln;
-			~synthflow.value;
-
-			(~time_sig_array.choose).wait;
-		});
-	});
-
-	/*~ai1_task1_fall = Task({
-		inf.do({
-			~ytall = (z = 0; Array.fill(~number_of_synths, {z=z+1}));
-			~ytall = ~ytall.scramble;
-			~ytall.choose.do(x = (-1); {("f"++(a.at(x=x+1);)).asSymbol.envirPut(~f_note_change_array.choose);});
-			"f all".postln;
-			~synthflow.value;
-
-			((~time_sig_array5*8).wchoose([0.4, 0.3, 0.3]);).wait;
-		});
-	});*/
-
-	/*12.do(x=0; {("~ai1_task1_f"++(x=x+1)).asSymbol.envirPut(
-		Task({
+		~ai1_task1_f3 = Task({
 			inf.do({
-				("f"++(x)).asSymbol.envirPut = ~f_note_change_array.choose; ("f"++(x)).asSymbol.envirGet.postln;
+				~f3 = ~f_note_change_array.choose; ~f3.postln;
+				~synthflow.value;
+
+				(~time_sig_array2.choose).wait;
+			});
+		});
+		~ai1_task1_f4 = Task({
+			inf.do({
+				~f4 = ~f_note_change_array.choose; ~f4.postln;
 				~synthflow.value;
 
 				(~time_sig_array.choose).wait;
 			});
 		});
-	);});*/
+		~ai1_task1_f5 = Task({
+			inf.do({
+				~f5 = ~f_note_change_array.choose; ~f5.postln;
+				~synthflow.value;
 
-	/*~ai_play_u = {s.makeBundle(0, {
+				(~time_sig_array.choose).wait;
+			});
+		});
+		~ai1_task1_f6 = Task({
+			inf.do({
+				~f6 = ~f_note_change_array.choose; ~f6.postln;
+				~synthflow.value;
+
+				(~time_sig_array.choose).wait;
+			});
+		});
+		~ai1_task1_f7 = Task({
+			inf.do({
+				~f7 = ~f_note_change_array.choose; ~f7.postln;
+				~synthflow.value;
+
+				(~time_sig_array.choose).wait;
+			});
+		});
+		~ai1_task1_f8 = Task({
+			inf.do({
+				~f8 = ~f_note_change_array.choose; ~f8.postln;
+				~synthflow.value;
+
+				(~time_sig_array.choose).wait;
+			});
+		});
+		~ai1_task1_f9 = Task({
+			inf.do({
+				~f9 = ~f_note_change_array.choose; ~f9.postln;
+				~synthflow.value;
+
+				(~time_sig_array.choose).wait;
+			});
+		});
+		~ai1_task1_f10 = Task({
+			inf.do({
+				~f10 = ~f_note_change_array.choose; ~f10.postln;
+				~synthflow.value;
+
+				(~time_sig_array.choose).wait;
+			});
+		});
+		~ai1_task1_f11 = Task({
+			inf.do({
+				~f11 = ~f_note_change_array.choose; ~f11.postln;
+				~synthflow.value;
+
+				(~time_sig_array.choose).wait;
+			});
+		});
+		~ai1_task1_f12 = Task({
+			inf.do({
+				~f12 = ~f_note_change_array.choose; ~f12.postln;
+				~synthflow.value;
+
+				(~time_sig_array.choose).wait;
+			});
+		});
+
+		/*~ai1_task1_fall = Task({
+		inf.do({
+		~ytall = (z = 0; Array.fill(~number_of_synths, {z=z+1}));
+		~ytall = ~ytall.scramble;
+		~ytall.choose.do(x = (-1); {("f"++(a.at(x=x+1);)).asSymbol.envirPut(~f_note_change_array.choose);});
+		"f all".postln;
+		~synthflow.value;
+
+		((~time_sig_array5*8).wchoose([0.4, 0.3, 0.3]);).wait;
+		});
+		});*/
+
+		/*12.do(x=0; {("~ai1_task1_f"++(x=x+1)).asSymbol.envirPut(
+		Task({
+		inf.do({
+		("f"++(x)).asSymbol.envirPut = ~f_note_change_array.choose; ("f"++(x)).asSymbol.envirGet.postln;
+		~synthflow.value;
+
+		(~time_sig_array.choose).wait;
+		});
+		});
+		);});*/
+
+		/*~ai_play_u = {s.makeBundle(0, {
 		~ai1_task1_u.play(SystemClock);
 
-	})};
+		})};
 
-	~ai_stop_u = {s.makeBundle(0, {
+		~ai_stop_u = {s.makeBundle(0, {
 		~ai1_task1_u.stop; ~ai1_task1_u.reset;
 
-	})};*/
+		})};*/
 
-	~ai_play = {s.makeBundle(0, {
-		~ai1_task1_fall.play(SystemClock);
-		if(~number_of_synths > 0, {~ai1_task1_f1.play(SystemClock);});
-		if(~number_of_synths > 1, {~ai1_task1_f2.play(SystemClock);});
-		if(~number_of_synths > 2, {~ai1_task1_f3.play(SystemClock);});
-		if(~number_of_synths > 3, {~ai1_task1_f4.play(SystemClock);});
-		if(~number_of_synths > 4, {~ai1_task1_f5.play(SystemClock);});
-		if(~number_of_synths > 5, {~ai1_task1_f6.play(SystemClock);});
-		if(~number_of_synths > 6, {~ai1_task1_f7.play(SystemClock);});
-		if(~number_of_synths > 7, {~ai1_task1_f8.play(SystemClock);});
-		if(~number_of_synths > 8, {~ai1_task1_f9.play(SystemClock);});
-		if(~number_of_synths > 9, {~ai1_task1_f10.play(SystemClock);});
-		if(~number_of_synths > 10, {~ai1_task1_f11.play(SystemClock);});
-		if(~number_of_synths > 11, {~ai1_task1_f12.play(SystemClock);});
+		~ai_play = {s.makeBundle(0, {
+			~ai1_task1_fall.play(SystemClock);
+			if(~number_of_synths > 0, {~ai1_task1_f1.play(SystemClock);});
+			if(~number_of_synths > 1, {~ai1_task1_f2.play(SystemClock);});
+			if(~number_of_synths > 2, {~ai1_task1_f3.play(SystemClock);});
+			if(~number_of_synths > 3, {~ai1_task1_f4.play(SystemClock);});
+			if(~number_of_synths > 4, {~ai1_task1_f5.play(SystemClock);});
+			if(~number_of_synths > 5, {~ai1_task1_f6.play(SystemClock);});
+			if(~number_of_synths > 6, {~ai1_task1_f7.play(SystemClock);});
+			if(~number_of_synths > 7, {~ai1_task1_f8.play(SystemClock);});
+			if(~number_of_synths > 8, {~ai1_task1_f9.play(SystemClock);});
+			if(~number_of_synths > 9, {~ai1_task1_f10.play(SystemClock);});
+			if(~number_of_synths > 10, {~ai1_task1_f11.play(SystemClock);});
+			if(~number_of_synths > 11, {~ai1_task1_f12.play(SystemClock);});
 
-	})};
+		})};
 
-	~ai_stop = {s.makeBundle(0, {
-		~ai1_task1_fall.stop; ~ai1_task1_fall.reset;
-		if(~number_of_synths > 0, {~ai1_task1_f1.stop; ~ai1_task1_f1.reset;});
-		if(~number_of_synths > 1, {~ai1_task1_f2.stop; ~ai1_task1_f2.reset;});
-		if(~number_of_synths > 2, {~ai1_task1_f3.stop; ~ai1_task1_f3.reset;});
-		if(~number_of_synths > 3, {~ai1_task1_f4.stop; ~ai1_task1_f4.reset;});
-		if(~number_of_synths > 4, {~ai1_task1_f5.stop; ~ai1_task1_f5.reset;});
-		if(~number_of_synths > 5, {~ai1_task1_f6.stop; ~ai1_task1_f6.reset;});
-		if(~number_of_synths > 6, {~ai1_task1_f7.stop; ~ai1_task1_f7.reset;});
-		if(~number_of_synths > 7, {~ai1_task1_f8.stop; ~ai1_task1_f8.reset;});
-		if(~number_of_synths > 8, {~ai1_task1_f9.stop; ~ai1_task1_f9.reset;});
-		if(~number_of_synths > 9, {~ai1_task1_f10.stop; ~ai1_task1_f10.reset;});
-		if(~number_of_synths > 10, {~ai1_task1_f11.stop; ~ai1_task1_f11.reset;});
-		if(~number_of_synths > 11, {~ai1_task1_f12.stop; ~ai1_task1_f12.reset;});
+		~ai_stop = {s.makeBundle(0, {
+			~ai1_task1_fall.stop; ~ai1_task1_fall.reset;
+			if(~number_of_synths > 0, {~ai1_task1_f1.stop; ~ai1_task1_f1.reset;});
+			if(~number_of_synths > 1, {~ai1_task1_f2.stop; ~ai1_task1_f2.reset;});
+			if(~number_of_synths > 2, {~ai1_task1_f3.stop; ~ai1_task1_f3.reset;});
+			if(~number_of_synths > 3, {~ai1_task1_f4.stop; ~ai1_task1_f4.reset;});
+			if(~number_of_synths > 4, {~ai1_task1_f5.stop; ~ai1_task1_f5.reset;});
+			if(~number_of_synths > 5, {~ai1_task1_f6.stop; ~ai1_task1_f6.reset;});
+			if(~number_of_synths > 6, {~ai1_task1_f7.stop; ~ai1_task1_f7.reset;});
+			if(~number_of_synths > 7, {~ai1_task1_f8.stop; ~ai1_task1_f8.reset;});
+			if(~number_of_synths > 8, {~ai1_task1_f9.stop; ~ai1_task1_f9.reset;});
+			if(~number_of_synths > 9, {~ai1_task1_f10.stop; ~ai1_task1_f10.reset;});
+			if(~number_of_synths > 10, {~ai1_task1_f11.stop; ~ai1_task1_f11.reset;});
+			if(~number_of_synths > 11, {~ai1_task1_f12.stop; ~ai1_task1_f12.reset;});
 
-	})};
-
-	/*
-	~ai_play.value;
-
-	~ai_stop.value;
-	*/
+		})};
+	);
 
 
 	//set base (lowest) frequencies, set starting values for synthdef, and load synthdef on server boot
