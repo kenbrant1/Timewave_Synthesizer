@@ -923,12 +923,19 @@ MIDIIn.connectAll;
 			~time_sig_array3 = [1, 0.5, 0.25, 0.125];
 			~time_sig_array4 = [0.5, 0.25, 0.125, 0.0625];
 			~time_sig_array5 = [4, 2, 1];
-			~time_sig_array6 = [~gm,~gm/2,~gm/1.5,~gm/3,~gm/4];
+			/*~time_sig_array6 = [~gm,~gm/2,~gm/1.5,~gm/3,~gm/4];*/
 			~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
 			/*if(~f_note_set == nil, {~f_note_set.value;});*/
 			~f_note_change_array = ~f_note_set.value;
 			~ratio_array = (x = 0; Array.fill(12, {1.0594630943593**(x=x+1)}));
-			/*~f_note_change_array = [ 726.53450277921, 363.2672513896, 815.50740615698, 576.65081700145, 1153.3016340029, 484.90360486965, 384.86824623663, 544.28589355459 ]*/
+			/*
+			~f_note_change_array = 3*[ 726.53450277921, 363.2672513896, 815.50740615698, 576.65081700145, 1153.3016340029, 484.90360486965, 384.86824623663, 544.28589355459 ]
+			~f_note_change_array = {x = ~number_of_notes; y = 288.32540850072; Array.fill(~number_of_notes, {y=y*1.4983070768767})}.value;
+			~f_note_change_array = {x = ~number_of_notes; y = 216; z = y = 216;
+			[216]++Array.fill(~number_of_notes/4, {y=y*1.5874010519683})++
+			Array.fill(~number_of_notes/4, {z=z*1.4983070768767});
+			}.value;
+			*/
 
 			/*
 			To do:
@@ -939,109 +946,91 @@ MIDIIn.connectAll;
 			- make thing that does like... [a, c, f]... [a, c, f]*n.... maybe save the "n" value as well. yes
 			- generate pattern of times, not just notes.... save the time patterns.... and asign time patterns with note patterns...
 			.... make sure assigned time patterns are same size as note patterns... maybe use if statements in algo
+			- figure out how to make two or more synths "make sense with each other"
+			- figure out how to make note *and* time patterns.... more pattern-esqe.... like [432,432,543,543] or [432,432,432,789,789,789].. and
+			... [1,0.5,0.25,0.5,0.25,0.5,1].. not sure about time patterns
 			- more
 			*/
 
-			/*
-			How to store patterns:
-			... Generate set of notes.... ("set1f1")....
-
 			~pattern_generator = {var x, y, z, w, v;
-			~min_note_sets = 4; ~max_note_sets = 8;
-			~min_notes = 2; ~max_notes = 8;
-			~sets_num_array = (z = (~min_note_sets-1); Array.fill((~max_note_sets-~min_note_sets+1), {z=z+1}));
-			~sets_num_array = ~sets_num_array.scramble;
-			~notes_num_array = (z = (~min_notes-1); Array.fill((~max_notes-~min_notes+1), {z=z+1}));
-			~notes_num_array = ~notes_num_array.scramble;
-
-			(~sets_num_array.choose).do(x = 0; {
-			w = [];
-			x = x+1;
-			(z = ~notes_num_array.choose).do(y = 0; {("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);});
-			("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
-			1.do({("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;)});
-			});
-			~sets_num = x.value;
-			~sf_pattern_array = [];
-			~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});
-			};
-			/*~pattern_generator.value;*/
-			~notes_num_save_7;
-			~s1f3;
-			~s1f_pattern;
-
-
-			... how ever many different sets and notes you want...
-
-			...
-			*/
-
-			~pattern_generator = {var x, y, z, w, v;
-				~sets_num_array = (2..8);
+				~sets_num_array = (4..12);
 				~notes_num_array = (2..16);
 
 				(~sets_num_array.choose).do(x = 0; {
 					w = [];
+					i = [];
 					x = x+1;
-					(z = ~notes_num_array.choose).do(y = 0; {("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);});
-					("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
-					1.do({("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;)});
+					(z = ~notes_num_array.choose).do(y = 0; {
+						("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);
+						("s"++(x)++"ft"++(y)).asSymbol.envirPut(o = ~time_sig_array1.choose;); i = i.add(o);
+
+					});
+				("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
+					1.do({
+						("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;);
+						("s"++(x)++"ft_pattern").asSymbol.envirPut(i.value;);
+					});
 				});
 				~sets_num = x.value;
-				~sf_pattern_array = [];
-				~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});
+				~sets_id_array = (x = 0; Array.fill(~sets_num, {x=x+1}));
+				/*~sf_pattern_array = [];*/
+				/*~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});*/
 			};
 			~pattern_generator.value;
 			/*~notes_num_save_7;
 			~s1f3;
-			~s1f_pattern;*/
-
-			/*~time_generator = {var x, y, z, w, v;
-			~sets_num_array = (2..8);
-			~notes_num_array = (2..16);
-
-			(~sets_num_array.choose).do(x = 0; {
-			w = [];
-			x = x+1;
-			(z = ~notes_num_array.choose).do(y = 0; {("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);});
-			("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
-			1.do({("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;)});
-			});
-			~sets_num = x.value;
-			~sf_pattern_array = [];
-			~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});
-			};
-			~pattern_generator.value;
-			/*~notes_num_save_7;
-			~s1f3;
-			~s1f_pattern;*/*/
+			~s6f_pattern;*/
 		);
 
+		/*
+		~time_sig_array1 = [0.2];
+		~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
+			/*if(~f_note_set == nil, {~f_note_set.value;});*/
+			~f_note_change_array = ~f_note_set.value;
+			~pattern_generator.value;
+		*/
+
+		/*Really cool song:
+
+		Used specific numerology interval to generate note array with really high frequencies....
+		...then generated patterns
+
+		... then played the first 2 AI tasks.... *along* with 6 other AI tasks which just played one note chosen at random the entire time and did not change*/
 
 		/*
+		~synthopen.value;
+
+		~ai1_task1_f1.play(SystemClock);
 		~ai_play.value;
 		~ai_stop.value;
+		~synthfree.value;
 		*/
 
 		(
 			~ai1_task1_f1 = Task({
 				inf.do({var rs;
-					([0,1].wchoose([0.05,0.95])).do({
-						~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];
+					([0,1].wchoose([0.05,0.95])).do({var setnum1;
+						setnum1 = ~sets_id_array.choose;
+						~task_1_p_array = ("s"++(setnum1)++"f_pattern").asSymbol.envirGet;
+						~ai1_task1_f1_time_array = ("s"++(setnum1)++"ft_pattern").asSymbol.envirGet;
+						/*~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];*/
 						(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
 							~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
-							~synthflow.value;
+							~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose].wchoose([0.5,0.5]);
+							s.makeBundle(s.latency, {~synthflow.value;});
 							/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
-							time = ~time_sig_array6/*~time_sig_array1*/.choose;
+							/*time = ~time_sig_array1.choose;
 							~ai1_task1_f1_time_array = ~ai1_task1_f1_time_array.add(time.value);
-							time.wait;
+							time.wait;*/
+							(~ai1_task1_f1_time_array.at(~yt1)).wait;
 						});
 						rs = [0,1].wchoose([0.4,0.6]);
 						(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
 							if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
 							(~task_1_p_array.size).do(~yt1 = (-1); {
 								~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * [r, r.reciprocal].choose; (~f1+" one_1").postln;
-								~synthflow.value;
+								~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose].wchoose([0.7,0.3]);
+								s.makeBundle(s.latency, {~synthflow.value;});
 								(~ai1_task1_f1_time_array.at(~yt1)).wait;
 							});
 						});
@@ -1051,8 +1040,9 @@ MIDIIn.connectAll;
 						~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1;
 						((2..6).choose).do({
 							~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" one_2").postln;
-							~synthflow.value;
-							(~time_sig_array6/*~time_sig_array1*/.choose).wait;
+							~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose].wchoose([0.5,0.5]);
+							s.makeBundle(s.latency, {~synthflow.value;});
+							(~ai1_task1_f1_time_array.choose).wait;
 
 						});
 					});
@@ -1061,23 +1051,27 @@ MIDIIn.connectAll;
 			});
 			~ai1_task1_f2 = Task({
 				inf.do({var rs;
-					([0,1].wchoose([0.05,0.95])).do({
-						~task_2_p_array = ~sf_pattern_array.choose; ~ai1_task1_f2_time_array = [];
+					([0,1].wchoose([0.05,0.95])).do({var setnum2;
+						setnum2 = ~sets_id_array.choose;
+						~task_2_p_array = ("s"++(setnum2)++"f_pattern").asSymbol.envirGet;
+						~ai1_task1_f2_time_array = ("s"++(setnum2)++"ft_pattern").asSymbol.envirGet;
+						/*~task_2_p_array = ~sf_pattern_array.choose; ~ai1_task1_f2_time_array = [];*/
 						(~task_2_p_array.size*1).do(~yt2 = (-1); {var time;
 							~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});); (~f2+" two").postln;
-							~synthflow.value;
+							s.makeBundle(s.latency, {~synthflow.value;});
 							/*("sf_note_"++(~yt2=~yt2+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
-							time = (~time_sig_array6*4)/*~time_sig_array2*/.choose;
+							/*time = ~time_sig_array2.choose;
 							~ai1_task1_f2_time_array = ~ai1_task1_f2_time_array.add(time.value);
-							time.wait;
+							time.wait;*/
+							(~ai1_task1_f2_time_array.at(~yt2)*2).wait;
 						});
 						rs = [0,1].wchoose([0.4,0.6]);
 						(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
 							if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
 							(~task_2_p_array.size).do(~yt2 = (-1); {
 								~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});) * [r, r.reciprocal].choose; (~f2+" two_1").postln;
-								~synthflow.value;
-								(~ai1_task1_f2_time_array.at(~yt2)).wait;
+								s.makeBundle(s.latency, {~synthflow.value;});
+								(~ai1_task1_f2_time_array.at(~yt2)*2).wait;
 							});
 						});
 					});
@@ -1086,8 +1080,8 @@ MIDIIn.connectAll;
 						~f2_ratio = ~ratio_array.choose; ~f2_o = ~f2;
 						((2..6).choose).do({
 							~f2 = [~f2*~f2_ratio, ~f2/~f2_ratio].choose; (~f2+" two_2").postln;
-							~synthflow.value;
-							((~time_sig_array6*4)/*~time_sig_array2*/.choose).wait;
+							s.makeBundle(s.latency, {~synthflow.value;});
+							(~ai1_task1_f2_time_array.choose*2).wait;
 
 						});
 					});
@@ -1104,7 +1098,7 @@ MIDIIn.connectAll;
 		~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];
 		(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
 		~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
-		~synthflow.value;
+		s.makeBundle(s.latency, {~synthflow.value;});
 		/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
 		time = ~time_sig_array1.choose;
 		~ai1_task1_f1_time_array = ~ai1_task1_f1_time_array.add(time.value);
@@ -1115,7 +1109,7 @@ MIDIIn.connectAll;
 		if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
 		(~task_1_p_array.size).do(~yt1 = (-1); {
 		~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * [r, r.reciprocal].choose; (~f1+" one_1").postln;
-		~synthflow.value;
+		s.makeBundle(s.latency, {~synthflow.value;});
 		(~ai1_task1_f1_time_array.at(~yt1)).wait;
 		});
 		});
@@ -1125,7 +1119,7 @@ MIDIIn.connectAll;
 		~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1;
 		((2..6).choose).do({
 		~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" one_2").postln;
-		~synthflow.value;
+		s.makeBundle(s.latency, {~synthflow.value;});
 		(~time_sig_array4.choose).wait;
 
 		});
@@ -1137,7 +1131,7 @@ MIDIIn.connectAll;
 		~ai1_task1_f3 = Task({
 			inf.do({
 				~f3 = ~f_note_change_array.choose; ~f3.postln;
-				~synthflow.value;
+				s.makeBundle(s.latency, {~synthflow.value;});
 
 				(~time_sig_array2.choose).wait;
 			});
@@ -1145,7 +1139,7 @@ MIDIIn.connectAll;
 		~ai1_task1_f4 = Task({
 			inf.do({
 				~f4 = ~f_note_change_array.choose; ~f4.postln;
-				~synthflow.value;
+				s.makeBundle(s.latency, {~synthflow.value;});
 
 				(~time_sig_array.choose).wait;
 			});
@@ -1153,7 +1147,7 @@ MIDIIn.connectAll;
 		~ai1_task1_f5 = Task({
 			inf.do({
 				~f5 = ~f_note_change_array.choose; ~f5.postln;
-				~synthflow.value;
+				s.makeBundle(s.latency, {~synthflow.value;});
 
 				(~time_sig_array.choose).wait;
 			});
@@ -1161,7 +1155,7 @@ MIDIIn.connectAll;
 		~ai1_task1_f6 = Task({
 			inf.do({
 				~f6 = ~f_note_change_array.choose; ~f6.postln;
-				~synthflow.value;
+				s.makeBundle(s.latency, {~synthflow.value;});
 
 				(~time_sig_array.choose).wait;
 			});
@@ -1169,7 +1163,7 @@ MIDIIn.connectAll;
 		~ai1_task1_f7 = Task({
 			inf.do({
 				~f7 = ~f_note_change_array.choose; ~f7.postln;
-				~synthflow.value;
+				s.makeBundle(s.latency, {~synthflow.value;});
 
 				(~time_sig_array.choose).wait;
 			});
@@ -1177,7 +1171,7 @@ MIDIIn.connectAll;
 		~ai1_task1_f8 = Task({
 			inf.do({
 				~f8 = ~f_note_change_array.choose; ~f8.postln;
-				~synthflow.value;
+				s.makeBundle(s.latency, {~synthflow.value;});
 
 				(~time_sig_array.choose).wait;
 			});
@@ -1185,7 +1179,7 @@ MIDIIn.connectAll;
 		~ai1_task1_f9 = Task({
 			inf.do({
 				~f9 = ~f_note_change_array.choose; ~f9.postln;
-				~synthflow.value;
+				s.makeBundle(s.latency, {~synthflow.value;});
 
 				(~time_sig_array.choose).wait;
 			});
@@ -1193,7 +1187,7 @@ MIDIIn.connectAll;
 		~ai1_task1_f10 = Task({
 			inf.do({
 				~f10 = ~f_note_change_array.choose; ~f10.postln;
-				~synthflow.value;
+				s.makeBundle(s.latency, {~synthflow.value;});
 
 				(~time_sig_array.choose).wait;
 			});
@@ -1201,7 +1195,7 @@ MIDIIn.connectAll;
 		~ai1_task1_f11 = Task({
 			inf.do({
 				~f11 = ~f_note_change_array.choose; ~f11.postln;
-				~synthflow.value;
+				s.makeBundle(s.latency, {~synthflow.value;});
 
 				(~time_sig_array.choose).wait;
 			});
@@ -1209,7 +1203,7 @@ MIDIIn.connectAll;
 		~ai1_task1_f12 = Task({
 			inf.do({
 				~f12 = ~f_note_change_array.choose; ~f12.postln;
-				~synthflow.value;
+				s.makeBundle(s.latency, {~synthflow.value;});
 
 				(~time_sig_array.choose).wait;
 			});
@@ -1221,7 +1215,7 @@ MIDIIn.connectAll;
 		~ytall = ~ytall.scramble;
 		~ytall.choose.do(x = (-1); {("f"++(a.at(x=x+1);)).asSymbol.envirPut(~f_note_change_array.choose);});
 		"f all".postln;
-		~synthflow.value;
+		s.makeBundle(s.latency, {~synthflow.value;});
 
 		((~time_sig_array5*8).wchoose([0.4, 0.3, 0.3]);).wait;
 		});
@@ -1231,7 +1225,7 @@ MIDIIn.connectAll;
 		Task({
 		inf.do({
 		("f"++(x)).asSymbol.envirPut = ~f_note_change_array.choose; ("f"++(x)).asSymbol.envirGet.postln;
-		~synthflow.value;
+		s.makeBundle(s.latency, {~synthflow.value;});
 
 		(~time_sig_array.choose).wait;
 		});
