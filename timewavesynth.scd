@@ -949,6 +949,8 @@ MIDIIn.connectAll;
 			- figure out how to make two or more synths "make sense with each other"
 			- figure out how to make note *and* time patterns.... more pattern-esqe.... like [432,432,543,543] or [432,432,432,789,789,789].. and
 			... [1,0.5,0.25,0.5,0.25,0.5,1].. not sure about time patterns
+			- make macro patterns.... maybe make arrays which save each pattern after each other.... and make a macro pattern
+			- utilize macro and micro patterns to see how music starts and ends? Not sure if I want it to end :P
 			- more
 			*/
 
@@ -1024,8 +1026,8 @@ MIDIIn.connectAll;
 							time.wait;*/
 							(~ai1_task1_f1_time_array.at(~yt1)).wait;
 						});
-						rs = [0,1].wchoose([0.4,0.6]);
-						(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
+						rs = [0,1].wchoose([0.4,0.6]); /*[0.05+0.35+0.05+0.35+0.025+0.1333+0.0167+0.025]*/
+						(0..7).wchoose([0.05,0.35,0.05,0.35,0.025,0.1333,0.0167,0.025]).do({var r;
 							if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
 							(~task_1_p_array.size).do(~yt1 = (-1); {
 								~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * [r, r.reciprocal].choose; (~f1+" one_1").postln;
@@ -1065,8 +1067,8 @@ MIDIIn.connectAll;
 							time.wait;*/
 							(~ai1_task1_f2_time_array.at(~yt2)*2).wait;
 						});
-						rs = [0,1].wchoose([0.4,0.6]);
-						(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
+						rs = [0,1].wchoose([0.4,0.6]); /*[0.05+0.35+0.05+0.35+0.025+0.1333+0.0167+0.025]*/
+						(0..7).wchoose([0.05,0.35,0.05,0.35,0.025,0.1333,0.0167,0.025]).do({var r;
 							if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
 							(~task_2_p_array.size).do(~yt2 = (-1); {
 								~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});) * [r, r.reciprocal].choose; (~f2+" two_1").postln;
