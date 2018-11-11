@@ -951,6 +951,9 @@ MIDIIn.connectAll;
 			... [1,0.5,0.25,0.5,0.25,0.5,1].. not sure about time patterns
 			- make macro patterns.... maybe make arrays which save each pattern after each other.... and make a macro pattern
 			- utilize macro and micro patterns to see how music starts and ends? Not sure if I want it to end :P
+			- make loudness and softness
+			- figure out how to make sections, or parts, of a running piece... different sections or parts... like.. adiago... presto etc... and even smaller
+			parts... just like... different parts or sections of a single piece
 			- more
 			*/
 
