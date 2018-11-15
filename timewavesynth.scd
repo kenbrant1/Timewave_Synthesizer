@@ -955,6 +955,7 @@ MIDIIn.connectAll;
 			- figure out how to make sections, or parts, of a running piece... different sections or parts... like.. adiago... presto etc... and even smaller
 			parts... just like... different parts or sections of a single piece
 			- make an ~f3 within task 1
+			- make chords possible
 			- more
 			*/
 
