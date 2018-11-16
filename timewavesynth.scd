@@ -956,6 +956,7 @@ MIDIIn.connectAll;
 			parts... just like... different parts or sections of a single piece
 			- make an ~f3 within task 1
 			- make chords possible
+			- create "branches".... like a tree.... so like... a root thing.... then it branches off..... then all other branches branche off.... and so on and so on... (side note: maybe related to souls?)
 			- more
 			*/
 
