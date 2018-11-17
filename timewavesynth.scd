@@ -914,6 +914,23 @@ MIDIIn.connectAll;
 
 	(
 		(
+			~random_seed_for_notes = 10000.rand;
+
+			if(~notes_seed_array == nil, {
+				~notes_seed_array = []; ~notes_seed_array = ~notes_seed_array.add(~random_seed_for_notes);
+			}, {
+				~notes_seed_array_backup = ~notes_seed_array; ~notes_seed_array = ~notes_seed_array.add(~random_seed_for_notes);
+			});
+
+			~freqmap2 = (i = ~freqmap.at(65)/*-0.0000000000024*/; ~stepratio = 1.0594630943593; Array.fill(24, { i = i*~stepratio;}));
+
+			(
+				~rseed_routine_notes = Routine({
+					loop({~freqmap2.choose.yield })
+				});
+				~rseed_routine_notes.randSeed = ~random_seed_for_notes;
+			);
+
 			~max_note_length = 4;
 			~number_of_notes = 16;
 			~min_note = ~freqmap.at(65);
@@ -924,8 +941,9 @@ MIDIIn.connectAll;
 			~time_sig_array4 = [0.5, 0.25, 0.125, 0.0625];
 			~time_sig_array5 = [4, 2, 1];
 			/*~time_sig_array6 = [~gm,~gm/2,~gm/1.5,~gm/3,~gm/4];*/
-			~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
-			/*if(~f_note_set == nil, {~f_note_set.value;});*/
+			~f_note_set = Array.fill(~number_of_notes, ~rseed_routine_notes);
+			/*~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
+			*//*if(~f_note_set == nil, {~f_note_set.value;});*/
 			~f_note_change_array = ~f_note_set.value;
 			~ratio_array = (x = 0; Array.fill(12, {1.0594630943593**(x=x+1)}));
 			/*
@@ -961,19 +979,54 @@ MIDIIn.connectAll;
 			- more
 			*/
 
+			~random_seed_for_note_patterns = 10000.rand;
+
+			if(~note_patterns_seed_array == nil, {
+				~note_patterns_seed_array = []; ~note_patterns_seed_array = ~note_patterns_seed_array.add(~random_seed_for_note_patterns);
+			}, {
+				~note_patterns_seed_array_backup = ~note_patterns_seed_array; ~note_patterns_seed_array = ~note_patterns_seed_array.add(~random_seed_for_note_patterns);
+			});
+
+			(
+				~rseed_routine_patterns = Routine({
+					loop({~f_note_change_array.choose.yield })
+				});
+				~rseed_routine_patterns.randSeed = ~random_seed_for_note_patterns;
+			);
+
+			~random_seed_for_note_times = 10000.rand;
+
+			if(~note_times_seed_array == nil, {
+				~note_times_seed_array = []; ~note_times_seed_array = ~note_times_seed_array.add(~random_seed_for_note_times);
+			}, {
+				~note_times_seed_array_backup = ~note_times_seed_array; ~note_times_seed_array = ~note_times_seed_array.add(~random_seed_for_note_times);
+			});
+
+			(
+				~rseed_routine_time = Routine({
+					loop({~time_sig_array1.choose.yield })
+				});
+				~rseed_routine_time.randSeed = ~random_seed_for_note_times;
+			);
+
+
 			~pattern_generator = {var x, y, z, w, v;
 				~sets_num_array = (4..12);
 				~notes_num_array = (2..16);
 
+
 				(~sets_num_array.choose).do(x = 0; {
-					w = [];
-					i = [];
+					/*w = [];
+					i = [];*/
 					x = x+1;
-					(z = ~notes_num_array.choose).do(y = 0; {
+					/*(z = ~notes_num_array.choose).do(y = 0; {
 						("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);
 						("s"++(x)++"ft"++(y)).asSymbol.envirPut(o = ~time_sig_array1.choose;); i = i.add(o);
 
-					});
+					});*/
+					z = ~notes_num_array.choose;
+					w = Array.fill(z, ~rseed_routine_patterns);
+					i = Array.fill(z, ~rseed_routine_time);
 				("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
 					1.do({
 						("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;);
@@ -988,7 +1041,7 @@ MIDIIn.connectAll;
 			~pattern_generator.value;
 			/*~notes_num_save_7;
 			~s1f3;
-			~s6f_pattern;*/
+			~s5f_pattern;*/
 		);
 
 		/*
@@ -1030,13 +1083,18 @@ MIDIIn.connectAll;
 								{l1 == 1}{[0.45,0.45,0.1]}
 								{l1 == 0}{[0.7,0.2,0.1]};
 								);
+							~f3 = [~f3, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
+								case
+								{l1 == 1}{[0.75,0.25,0.1]}
+								{l1 == 0}{[0.9,0.1,0.1]};
+								);
 							//add another layer of wchoose to the one above... so sometimes the weights change like..
 							s.makeBundle(s.latency, {~synthflow.value;});
 							/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
 							/*time = ~time_sig_array1.choose;
 							~ai1_task1_f1_time_array = ~ai1_task1_f1_time_array.add(time.value);
 							time.wait;*/
-							(~ai1_task1_f1_time_array.at(~yt1)).wait;
+							/*((0.25/2)*([1,0.25,0.5,1.5,2].wchoose([0.5,0.1,0.2,0.1,0.1])))*/(~ai1_task1_f1_time_array.at(~yt1)).wait;
 						});
 						rs = [0,1].wchoose([0.4,0.6]); /*[0.05+0.35+0.05+0.35+0.025+0.1333+0.0167+0.025]*/
 						(0..7).wchoose([0.05,0.35,0.05,0.35,0.025,0.1333,0.0167,0.025]).do({var r;
@@ -1049,7 +1107,7 @@ MIDIIn.connectAll;
 								{l1 == 0}{[0.7,0.2,0.1]};
 								);
 								s.makeBundle(s.latency, {~synthflow.value;});
-								(~ai1_task1_f1_time_array.at(~yt1)).wait;
+								/*((0.25/2)*([1,0.25,0.5,1.5,2].wchoose([0.5,0.1,0.2,0.1,0.1])))*/(~ai1_task1_f1_time_array.at(~yt1)).wait;
 							});
 						});
 					});
