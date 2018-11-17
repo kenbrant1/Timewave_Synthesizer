@@ -1012,6 +1012,32 @@ MIDIIn.connectAll;
 					~rseed_routine_time.randSeed = ~random_seed_for_note_times;
 				);
 
+/*~pattern_generator = {var x, y, z, w, v;
+				~sets_num_array = (4..12);
+				~notes_num_array = (2..16);
+
+				(~sets_num_array.choose).do(x = 0; {
+					w = [];
+					i = [];
+					x = x+1;
+					(z = ~notes_num_array.choose).do(y = 0; {
+						("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);
+						("s"++(x)++"ft"++(y)).asSymbol.envirPut(o = ~time_sig_array1.choose;); i = i.add(o);
+
+					});
+				("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
+					1.do({
+						("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;);
+						("s"++(x)++"ft_pattern").asSymbol.envirPut(i.value;);
+					});
+				});
+				~sets_num = x.value;
+				~sets_id_array = (x = 0; Array.fill(~sets_num, {x=x+1}));
+				/*~sf_pattern_array = [];*/
+				/*~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});*/
+			};
+			~pattern_generator.value;*/
+
 
 				~pattern_generator = {var x, y, z, w, v;
 					~sets_num_array = (4..12);
