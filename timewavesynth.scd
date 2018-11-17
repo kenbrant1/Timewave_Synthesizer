@@ -914,46 +914,6 @@ MIDIIn.connectAll;
 
 	(
 		(
-			~random_seed_for_notes = 10000.rand;
-
-			if(~notes_seed_array == nil, {
-				~notes_seed_array = []; ~notes_seed_array = ~notes_seed_array.add(~random_seed_for_notes);
-			}, {
-				~notes_seed_array_backup = ~notes_seed_array; ~notes_seed_array = ~notes_seed_array.add(~random_seed_for_notes);
-			});
-
-			~freqmap2 = (i = ~freqmap.at(65)/*-0.0000000000024*/; ~stepratio = 1.0594630943593; Array.fill(24, { i = i*~stepratio;}));
-
-			(
-				~rseed_routine_notes = Routine({
-					loop({~freqmap2.choose.yield })
-				});
-				~rseed_routine_notes.randSeed = ~random_seed_for_notes;
-			);
-
-			~max_note_length = 4;
-			~number_of_notes = 16;
-			~min_note = ~freqmap.at(65);
-			~max_note = ~freqmap.at(65)*4;
-			~time_sig_array1 = [2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]; /*{x = ~max_note_length; Array.fill(8, {x = (x/(1.333333333333))})}.value;*/
-			~time_sig_array2 = [4, 3, 2, 1];
-			~time_sig_array3 = [1, 0.5, 0.25, 0.125];
-			~time_sig_array4 = [0.5, 0.25, 0.125, 0.0625];
-			~time_sig_array5 = [4, 2, 1];
-			/*~time_sig_array6 = [~gm,~gm/2,~gm/1.5,~gm/3,~gm/4];*/
-			~f_note_set = Array.fill(~number_of_notes, ~rseed_routine_notes);
-			/*~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
-			*//*if(~f_note_set == nil, {~f_note_set.value;});*/
-			~f_note_change_array = ~f_note_set.value;
-			~ratio_array = (x = 0; Array.fill(12, {1.0594630943593**(x=x+1)}));
-			/*
-			~f_note_change_array = 3*[ 726.53450277921, 363.2672513896, 815.50740615698, 576.65081700145, 1153.3016340029, 484.90360486965, 384.86824623663, 544.28589355459 ]
-			~f_note_change_array = {x = ~number_of_notes; y = 288.32540850072; Array.fill(~number_of_notes, {y=y*1.4983070768767})}.value;
-			~f_note_change_array = {x = ~number_of_notes; y = 216; z = y = 216;
-			[216]++Array.fill(~number_of_notes/4, {y=y*1.5874010519683})++
-			Array.fill(~number_of_notes/4, {z=z*1.4983070768767});
-			}.value;
-			*/
 
 			/*
 			To do:
@@ -979,70 +939,118 @@ MIDIIn.connectAll;
 			- more
 			*/
 
-			~random_seed_for_note_patterns = 10000.rand;
-
-			if(~note_patterns_seed_array == nil, {
-				~note_patterns_seed_array = []; ~note_patterns_seed_array = ~note_patterns_seed_array.add(~random_seed_for_note_patterns);
-			}, {
-				~note_patterns_seed_array_backup = ~note_patterns_seed_array; ~note_patterns_seed_array = ~note_patterns_seed_array.add(~random_seed_for_note_patterns);
-			});
-
 			(
-				~rseed_routine_patterns = Routine({
-					loop({~f_note_change_array.choose.yield })
+
+				~random_seed_for_notes = 10000.rand;
+
+				if(~notes_seed_array == nil, {
+					~notes_seed_array = []; ~notes_seed_array = ~notes_seed_array.add(~random_seed_for_notes);
+				}, {
+					~notes_seed_array_backup = ~notes_seed_array; ~notes_seed_array = ~notes_seed_array.add(~random_seed_for_notes);
 				});
-				~rseed_routine_patterns.randSeed = ~random_seed_for_note_patterns;
-			);
 
-			~random_seed_for_note_times = 10000.rand;
+				~freqmap2 = (i = ~freqmap.at(65)/*-0.0000000000024*/; ~stepratio = 1.0594630943593; Array.fill(24, { i = i*~stepratio;}));
 
-			if(~note_times_seed_array == nil, {
-				~note_times_seed_array = []; ~note_times_seed_array = ~note_times_seed_array.add(~random_seed_for_note_times);
-			}, {
-				~note_times_seed_array_backup = ~note_times_seed_array; ~note_times_seed_array = ~note_times_seed_array.add(~random_seed_for_note_times);
-			});
+				(
+					~rseed_routine_notes = Routine({
+						loop({~freqmap2.choose.yield })
+					});
+					~rseed_routine_notes.randSeed = ~random_seed_for_notes;
+				);
 
-			(
-				~rseed_routine_time = Routine({
-					loop({~time_sig_array1.choose.yield })
+				~max_note_length = 4;
+				~number_of_notes = 16;
+				~min_note = ~freqmap.at(65);
+				~max_note = ~freqmap.at(65)*4;
+				~time_sig_array1 = [2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]; /*{x = ~max_note_length; Array.fill(8, {x = (x/(1.333333333333))})}.value;*/
+				~time_sig_array2 = [4, 3, 2, 1];
+				~time_sig_array3 = [1, 0.5, 0.25, 0.125];
+				~time_sig_array4 = [0.5, 0.25, 0.125, 0.0625];
+				~time_sig_array5 = [4, 2, 1];
+				/*~time_sig_array6 = [~gm,~gm/2,~gm/1.5,~gm/3,~gm/4];*/
+				~f_note_set = Array.fill(~number_of_notes, ~rseed_routine_notes);
+				/*~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
+				*//*if(~f_note_set == nil, {~f_note_set.value;});*/
+				~f_note_change_array = ~f_note_set.value;/*[ 688.09938797254, 822.73593638317, 1044.0938275831, 1197.1378839734, 514.25291680986, 408.81823647269, 1409.4396800244, 341.16370743965 ]*//*[300, 400, 500, 600, 700, 800, 900]*/;
+				~ratio_array = (x = 0; Array.fill(12, {1.0594630943593**(x=x+1)}));
+				/*
+				~f_note_change_array = 3*[ 726.53450277921, 363.2672513896, 815.50740615698, 576.65081700145, 1153.3016340029, 484.90360486965, 384.86824623663, 544.28589355459 ]
+				~f_note_change_array = {x = ~number_of_notes; y = 288.32540850072; Array.fill(~number_of_notes, {y=y*1.4983070768767})}.value;
+				~f_note_change_array = {x = ~number_of_notes; y = 216; z = y = 216;
+				[216]++Array.fill(~number_of_notes/4, {y=y*1.5874010519683})++
+				Array.fill(~number_of_notes/4, {z=z*1.4983070768767});
+				}.value;
+				*/
+
+				~random_seed_for_note_patterns = 10000.rand;
+
+				if(~note_patterns_seed_array == nil, {
+					~note_patterns_seed_array = []; ~note_patterns_seed_array = ~note_patterns_seed_array.add(~random_seed_for_note_patterns);
+				}, {
+					~note_patterns_seed_array_backup = ~note_patterns_seed_array; ~note_patterns_seed_array = ~note_patterns_seed_array.add(~random_seed_for_note_patterns);
 				});
-				~rseed_routine_time.randSeed = ~random_seed_for_note_times;
-			);
+
+				(
+					~rseed_routine_patterns = Routine({
+						loop({~f_note_change_array.choose.yield })
+					});
+					~rseed_routine_patterns.randSeed = ~random_seed_for_note_patterns;
+				);
+
+				~random_seed_for_note_times = 10000.rand;
+
+				if(~note_times_seed_array == nil, {
+					~note_times_seed_array = []; ~note_times_seed_array = ~note_times_seed_array.add(~random_seed_for_note_times);
+				}, {
+					~note_times_seed_array_backup = ~note_times_seed_array; ~note_times_seed_array = ~note_times_seed_array.add(~random_seed_for_note_times);
+				});
+
+				(
+					~rseed_routine_time = Routine({
+						loop({~time_sig_array1.choose.yield })
+					});
+					~rseed_routine_time.randSeed = ~random_seed_for_note_times;
+				);
 
 
-			~pattern_generator = {var x, y, z, w, v;
-				~sets_num_array = (4..12);
-				~notes_num_array = (2..16);
+				~pattern_generator = {var x, y, z, w, v;
+					~sets_num_array = (4..12);
+					~notes_num_array = (2..16);
 
 
-				(~sets_num_array.choose).do(x = 0; {
-					/*w = [];
-					i = [];*/
-					x = x+1;
-					/*(z = ~notes_num_array.choose).do(y = 0; {
+					(~sets_num_array.choose).do(x = 0; {
+						/*w = [];
+						i = [];*/
+						x = x+1;
+						/*(z = ~notes_num_array.choose).do(y = 0; {
 						("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);
 						("s"++(x)++"ft"++(y)).asSymbol.envirPut(o = ~time_sig_array1.choose;); i = i.add(o);
 
-					});*/
-					z = ~notes_num_array.choose;
-					w = Array.fill(z, ~rseed_routine_patterns);
-					i = Array.fill(z, ~rseed_routine_time);
-				("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
-					1.do({
-						("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;);
-						("s"++(x)++"ft_pattern").asSymbol.envirPut(i.value;);
+						});*/
+						z = ~notes_num_array.choose;
+						w = Array.fill(z, ~rseed_routine_patterns);
+						i = Array.fill(z, ~rseed_routine_time);
+						("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
+						1.do({
+							("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;);
+							("s"++(x)++"ft_pattern").asSymbol.envirPut(i.value;);
+						});
 					});
-				});
-				~sets_num = x.value;
-				~sets_id_array = (x = 0; Array.fill(~sets_num, {x=x+1}));
-				/*~sf_pattern_array = [];*/
-				/*~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});*/
-			};
-			~pattern_generator.value;
-			/*~notes_num_save_7;
-			~s1f3;
-			~s5f_pattern;*/
+					~sets_num = x.value;
+					~sets_id_array = (x = 0; Array.fill(~sets_num, {x=x+1}));
+					/*~sf_pattern_array = [];*/
+					/*~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});*/
+				};
+				~pattern_generator.value;
+				/*~notes_num_save_7;
+				~s1f3;
+				~s5f_pattern;*/
+			);
 		);
+
+		~notes_seed_array_backup;
+		~note_patterns_seed_array_backup;
+		~note_times_seed_array_backup;
 
 		/*
 		~time_sig_array1 = [0.2];
@@ -1060,10 +1068,11 @@ MIDIIn.connectAll;
 		... then played the first 2 AI tasks.... *along* with 6 other AI tasks which just played one note chosen at random the entire time and did not change*/
 
 		/*
+		~ai_stop.value;
+		~synthfree.value;
 		~synthopen.value;
-
 		~ai1_task1_f1.play(SystemClock);
-		~ai_play.value;
+
 		~ai_stop.value;
 		~synthfree.value;
 		*/
