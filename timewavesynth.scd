@@ -1017,15 +1017,20 @@ MIDIIn.connectAll;
 
 		(
 			~ai1_task1_f1 = Task({
-				inf.do({var rs;
-					([0,1].wchoose([0.05,0.95])).do({var setnum1;
+				inf.do({var rs, l1;
+					([l1 = 0,l1 = 1].wchoose([0.05,0.95])).do({var setnum1;
 						setnum1 = ~sets_id_array.choose;
 						~task_1_p_array = ("s"++(setnum1)++"f_pattern").asSymbol.envirGet;
 						~ai1_task1_f1_time_array = ("s"++(setnum1)++"ft_pattern").asSymbol.envirGet;
 						/*~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];*/
 						(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
 							~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
-							~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose].wchoose([0.5,0.5]);
+							~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
+								case
+								{l1 == 1}{[0.45,0.45,0.1]}
+								{l1 == 0}{[0.7,0.2,0.1]};
+								);
+							//add another layer of wchoose to the one above... so sometimes the weights change like..
 							s.makeBundle(s.latency, {~synthflow.value;});
 							/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
 							/*time = ~time_sig_array1.choose;
@@ -1038,7 +1043,11 @@ MIDIIn.connectAll;
 							if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
 							(~task_1_p_array.size).do(~yt1 = (-1); {
 								~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * [r, r.reciprocal].choose; (~f1+" one_1").postln;
-								~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose].wchoose([0.7,0.3]);
+								~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
+								case
+								{l1 == 1}{[0.45,0.45,0.1]}
+								{l1 == 0}{[0.7,0.2,0.1]};
+								);
 								s.makeBundle(s.latency, {~synthflow.value;});
 								(~ai1_task1_f1_time_array.at(~yt1)).wait;
 							});
