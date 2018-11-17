@@ -1106,6 +1106,11 @@ MIDIIn.connectAll;
 								{l1 == 1}{[0.45,0.45,0.1]}
 								{l1 == 0}{[0.7,0.2,0.1]};
 								);
+								~f3 = [~f3, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
+								case
+								{l1 == 1}{[0.75,0.25,0.1]}
+								{l1 == 0}{[0.9,0.1,0.1]};
+								);
 								s.makeBundle(s.latency, {~synthflow.value;});
 								/*((0.25/2)*([1,0.25,0.5,1.5,2].wchoose([0.5,0.1,0.2,0.1,0.1])))*/(~ai1_task1_f1_time_array.at(~yt1)).wait;
 							});
@@ -1116,7 +1121,16 @@ MIDIIn.connectAll;
 						~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1;
 						((2..6).choose).do({
 							~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" one_2").postln;
-							~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose].wchoose([0.5,0.5]);
+							~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
+								case
+								{l1 == 1}{[0.45,0.45,0.1]}
+								{l1 == 0}{[0.7,0.2,0.1]};
+								);
+							~f3 = [~f3, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
+								case
+								{l1 == 1}{[0.75,0.25,0.1]}
+								{l1 == 0}{[0.9,0.1,0.1]};
+								);
 							s.makeBundle(s.latency, {~synthflow.value;});
 							(~ai1_task1_f1_time_array.choose).wait;
 
