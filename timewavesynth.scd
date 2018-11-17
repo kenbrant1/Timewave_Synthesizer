@@ -957,6 +957,7 @@ MIDIIn.connectAll;
 			- make an ~f3 within task 1
 			- make chords possible
 			- create "branches".... like a tree.... so like... a root thing.... then it branches off..... then all other branches branche off.... and so on and so on... (side note: maybe related to souls?)
+			- Find way to save random seeds
 			- more
 			*/
 
