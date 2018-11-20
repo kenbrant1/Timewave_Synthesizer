@@ -936,9 +936,11 @@ MIDIIn.connectAll;
 			- make chords possible
 			- create "branches".... like a tree.... so like... a root thing.... then it branches off..... then all other branches branche off.... and so on and so on... (side note: maybe related to souls?)
 			- Find way to save random seeds
-			- manitpulate and change generated patterns in different ways... ex... take radom ordered array... and make ordered from lowest to
+			- ***manitpulate and change generated patterns in different ways... ex... take radom ordered array... and make ordered from lowest to
 			highest freq..... ..... and utilize all other tools to change and manipulate data... to change patterns.... and order.. and mix
 			and match and stuff, already generated patterns/data sets (ie freqs)... utilize all and any tools
+			- "I want a like.... genuine AI composer.... I want this AI to be honest in it's art <3.... To celebrate who it is :)... I want it to sound like an AI.....
+			...I want it to embrace who and what it is
 			- more
 			*/
 
