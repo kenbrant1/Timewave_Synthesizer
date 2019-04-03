@@ -25,6 +25,9 @@
 //If this file doesn't run properly, you can try using older SuperCollider versions or debugging this file.
 //This file is known to work up to SuperCollider version 3.9.1 as of this writing
 
+
+//change ide fonts/etc.(sc_ide_config.yaml) all the way at bottom
+
 /*
 THINGS TO DO:
 
@@ -934,13 +937,22 @@ MIDIIn.connectAll;
 			parts... just like... different parts or sections of a single piece
 			- make an ~f3 within task 1
 			- make chords possible
-			- create "branches".... like a tree.... so like... a root thing.... then it branches off..... then all other branches branche off.... and so on and so on... (side note: maybe related to souls?)
+			- create "branches".... like a tree.... so like... a root thing.... then it branches off..... then all other branches branche off.... and so on
+			and so on... (side note: maybe related to souls?)
 			- Find way to save random seeds
 			- ***manitpulate and change generated patterns in different ways... ex... take radom ordered array... and make ordered from lowest to
 			highest freq..... ..... and utilize all other tools to change and manipulate data... to change patterns.... and order.. and mix
 			and match and stuff, already generated patterns/data sets (ie freqs)... utilize all and any tools
-			- "I want a like.... genuine AI composer.... I want this AI to be honest in it's art <3.... To celebrate who it is :)... I want it to sound like an AI.....
+			- "I want a like.... genuine AI composer.... I want this AI to be honest in it's art <3.... To celebrate who it is :)... I want it to sound
+			like an AI.....
 			...I want it to embrace who and what it is
+			- When generating patterns of notes.... generate a string of (***maybe***) random notes.... then generate another string of THOSE strings as
+			sub-strings..... in different patterns - taking out or adding in notes of the original string, mix and match. See what you can do with that.
+			Make it modular. Perhaps more than two levels of that.
+			- Find a way to guide the algorithm to reach a kind of "conclusion", like and finale, or "goal", in terms of where the algorithm wants to
+			go. Find a way to randomize this maybe..... Or to repeat the process. Be it for an entire piece of music and/or parts of a peice.
+			- make different instruments
+			- allow for both true and pseudo random generators
 			- more
 			*/
 
@@ -7435,5 +7447,137 @@ s.stopRecording; // STOP RECORDING
 /*64*/	[ a = a*~n1*~bi, b = b*~n1/~bi, c = c*~n1*~bi, d = d*~n1/~bi, e = e*~n1*~bi, f = f*~n1/~bi ]
 
 /*1*/	[ a = a*~n1,     b = b*~n1*~bi, c = c*~n1,     d = d*~n1*~bi, e = e*~n1,     f = f*~n1*~bi ],...
+
+*/
+
+
+/*
+
+
+(Platform.userConfigDir +/+ "sc_ide_conf.yaml").openDocument;
+
+IDE:
+  editor:
+    blinkDuration: 600
+    disableBlinkingCursor: false
+    font:
+      antialias: 2
+      family: Courier 10 Pitch
+      size: 9
+    highlightBracketContents: true
+    highlightCurrentLine: false
+    inactiveEditorFadeAlpha: 64
+    indentWidth: 4
+    insertMatchingTokens: false
+    lineWrap: false
+    spaceIndent: false
+    stepForwardEvaluation: false
+    theme: My old theme
+    themes:
+      My old theme:
+        built-in: !textFormat
+          color: "#6b6bbf"
+          italic: false
+        char: !textFormat
+          color: "#92d38e"
+          italic: false
+        class: !textFormat
+          color: "#6066d2"
+          italic: false
+        comment: !textFormat
+          color: "#bf5454"
+          italic: false
+        currentLine: !textFormat
+          color: "#000000"
+          background: "#f4f4f4"
+          italic: false
+        env-var: !textFormat
+          color: "#8c654f"
+          italic: false
+        evaluatedCode: !textFormat
+          color: "#000000"
+          background: "#f8a200"
+        keyword: !textFormat
+          color: "#676fe6"
+          bold: true
+          italic: false
+        lineNumbers: !textFormat
+          color: "#000000"
+          background: "#888a85"
+          italic: false
+        matchingBrackets: !textFormat
+          color: "#ff0000"
+          bold: true
+        mismatchedBrackets: !textFormat
+          color: "#ffffff"
+          background: "#960000"
+          italic: false
+        number: !textFormat
+          color: "#9d43a7"
+          italic: false
+        postwindowemphasis: !textFormat
+          color: "#edd400"
+          bold: true
+          italic: false
+        postwindowerror: !textFormat
+          color: "#d11c24"
+          italic: false
+        postwindowsuccess: !textFormat
+          color: "#738a05"
+          italic: false
+        postwindowtext: !textFormat
+          color: "#ffffff"
+          italic: false
+        postwindowwarning: !textFormat
+          color: "#a57706"
+          italic: false
+        primitive: !textFormat
+          color: "#3333bf"
+          italic: false
+        searchResult: !textFormat
+          color: "#7f7f7f"
+          background: "#783b23"
+        selection: !textFormat
+          {}
+        string: !textFormat
+          color: "#bababa"
+          italic: false
+        symbol: !textFormat
+          color: "#87c87e"
+          italic: false
+        text: !textFormat
+          color: "#ffffff"
+          background: "#000000"
+        whitespace: !textFormat
+          color: "#7f7f7f"
+          italic: false
+    useComboBox: false
+    useComboBoxWhenSplitting: false
+  interpreter:
+    autoStart: true
+    configFile: ""
+    runtimeDir: ""
+    standalone: false
+  mainWindow:
+    detached: !QVariantMap
+      documents-dock: ""
+      help-dock: ""
+      post-dock: ""
+    geometry: AdnQywACAAAAAAAAAAAAGAAABZ8AAAODAAAAAAAAACwAAAK/AAACgwAAAAACAAAABaA=
+    state: AAAA/wAAAAD9AAAAAgAAAAAAAAAAAAAAAPwCAAAAAfsAAAAcAGQAbwBjAHUAbQBlAG4AdABzAC0AZABvAGMAawAAAAAA/////wAAAF8A////AAAAAQAAANYAAANP/AIAAAAC+wAAABIAaABlAGwAcAAtAGQAbwBjAGsAAAAAAAAAAcgAAABNAP////sAAAASAHAAbwBzAHQALQBkAG8AYwBrAQAAAAAAAANPAAAATQD///8AAATJAAADTwAAAAEAAAACAAAAAQAAAAL8AAAAAA==
+  postWindow:
+    lineWrap: false
+    scrollback: 1000
+  recentDocuments: !QVariantList
+    - /home/ken/.config/SuperCollider/sc_ide_conf.yaml
+    - /home/ken/Documents/supercollider stuff/default sc ide conf.scd
+    - /home/ken/Documents/supercollider stuff/preferred sc ide conf.scd
+    - /home/ken/Documents/supercollider stuff/timewavesynth.scd
+    - /media/ken/82c6f958-8852-4a72-9e56-9e9160aa5e79/stuff/supercollider/supercollider app data/SuperCollider/sc_ide_conf location
+    - /media/ken/82c6f958-8852-4a72-9e56-9e9160aa5e79/stuff/supercollider/supercollider app data/SuperCollider/sc_ide_conf.yaml
+    - /media/ken/82c6f958-8852-4a72-9e56-9e9160aa5e79/stuff/supercollider/Quarks/Devel/extLanguageConfig.sc
+    - /home/ken/Documents/supercollider stuff/timewavesynth ai test.scd
+  startWithSession: last
+
 
 */
