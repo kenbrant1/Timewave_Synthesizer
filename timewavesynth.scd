@@ -988,7 +988,7 @@ MIDIIn.connectAll;
 				~f_note_set = Array.fill(~number_of_notes, ~rseed_routine_notes);
 				/*~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
 				*//*if(~f_note_set == nil, {~f_note_set.value;});*/
-				~f_note_change_array = ~f_note_set.value;/*[ 688.09938797254, 822.73593638317, 1044.0938275831, 1197.1378839734, 514.25291680986, 408.81823647269, 1409.4396800244, 341.16370743965 ]*//*[300, 400, 500, 600, 700, 800, 900]*/;
+				~f_note_change_array = ~f_note_set.value;/*[ 688.09938797254, 822.73593638317, 1044.0938275831, 1197.1378839734, 514.25291680986, 408.81823647269, 1409.4396800244, 341.16370743965 ]*//*[300, 400, 500, 600, 700, 800, 900];*/
 				~ratio_array = (x = 0; Array.fill(12, {1.0594630943593**(x=x+1)}));
 				/*
 				~f_note_change_array = 3*[ 726.53450277921, 363.2672513896, 815.50740615698, 576.65081700145, 1153.3016340029, 484.90360486965, 384.86824623663, 544.28589355459 ]
@@ -1111,13 +1111,10 @@ MIDIIn.connectAll;
 		... then played the first 2 AI tasks.... *along* with 6 other AI tasks which just played one note chosen at random the entire time and did not change*/
 
 		/*
-		~ai_stop.value;
-		~synthfree.value;
-		~synthopen.value;
-		~ai1_task1_f1.play(SystemClock);
+		~ai_stop.value; ~synthfree.value;
+		~synthopen.value; ~ai1_task1_f1.play(SystemClock);
 
-		~ai_stop.value;
-		~synthfree.value;
+		~ai_stop.value; ~synthfree.value;
 		*/
 
 		(
@@ -1129,17 +1126,19 @@ MIDIIn.connectAll;
 						~ai1_task1_f1_time_array = ("s"++(setnum1)++"ft_pattern").asSymbol.envirGet;
 						/*~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];*/
 						(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
-							~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
+							~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" 1").postln;
 							~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
 								case
 								{l1 == 1}{[0.45,0.45,0.1]}
 								{l1 == 0}{[0.7,0.2,0.1]};
 								);
+							(~f2+" 2").postln;
 							~f3 = [~f3, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
 								case
 								{l1 == 1}{[0.75,0.25,0.1]}
 								{l1 == 0}{[0.9,0.1,0.1]};
 								);
+							(~f3+" 3").postln;
 							//add another layer of wchoose to the one above... so sometimes the weights change like..
 							s.makeBundle(s.latency, {~synthflow.value;});
 							/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
@@ -1152,17 +1151,19 @@ MIDIIn.connectAll;
 						(0..7).wchoose([0.05,0.35,0.05,0.35,0.025,0.1333,0.0167,0.025]).do({var r;
 							if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
 							(~task_1_p_array.size).do(~yt1 = (-1); {
-								~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * [r, r.reciprocal].choose; (~f1+" one_1").postln;
+								~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * [r, r.reciprocal].choose; (~f1+" 1_1").postln;
 								~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
 								case
 								{l1 == 1}{[0.45,0.45,0.1]}
 								{l1 == 0}{[0.7,0.2,0.1]};
 								);
+								(~f2+" 2_1").postln;
 								~f3 = [~f3, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
 								case
 								{l1 == 1}{[0.75,0.25,0.1]}
 								{l1 == 0}{[0.9,0.1,0.1]};
 								);
+								(~f3+" 3_1").postln;
 								s.makeBundle(s.latency, {~synthflow.value;});
 								/*((0.25/2)*([1,0.25,0.5,1.5,2].wchoose([0.5,0.1,0.2,0.1,0.1])))*/(~ai1_task1_f1_time_array.at(~yt1)).wait;
 							});
@@ -1172,17 +1173,19 @@ MIDIIn.connectAll;
 					([0,1].wchoose([0.9,0.1])).do({
 						~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1;
 						((2..6).choose).do({
-							~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" one_2").postln;
+							~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" 1_2").postln;
 							~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
 								case
 								{l1 == 1}{[0.45,0.45,0.1]}
 								{l1 == 0}{[0.7,0.2,0.1]};
-								);
+							);
+							(~f2+" 2_2").postln;
 							~f3 = [~f3, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
 								case
 								{l1 == 1}{[0.75,0.25,0.1]}
 								{l1 == 0}{[0.9,0.1,0.1]};
 								);
+							(~f3+" 3_2").postln;
 							s.makeBundle(s.latency, {~synthflow.value;});
 							(~ai1_task1_f1_time_array.choose).wait;
 
