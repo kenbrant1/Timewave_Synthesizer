@@ -8,7 +8,7 @@
 //or by hightlighting (thisProcess.platform.recompile); and pressing "ctrl - enter" or "cmd - return". Doing this is
 //beneficial as a restarting or "clean up" method.
 
-//You can compose a piece by using the "timewavesynth_script.scd" file, or by using the function in the "//Timewave synth composing script:" section at
+//You can compose a piece by using the composing script function in the "//Timewave synth composing script:" section at
 //the almost very bottom of this file. You can find instructions there.
 
 //You can also change the amount of synths playing at once a few lines below, or in the GUI. The limit at the present is 12.
@@ -19,53 +19,11 @@
 
 //A useful tool for editing this file is found by pressing "Edit" in the above toolbar and clicking "Replace".
 
+
+/////////This program has been tested to run on SuperCollider version 3.9.1. Feel free to test it and fix any bugs.
+
+
 //e-mail: ken_brant@ymail.com
-
-//Some version updates to SuperCollider *may* cause this file to have bugs in the future.
-//If this file doesn't run properly, you can try using older SuperCollider versions or debugging this file.
-//This file is known to work up to SuperCollider version 3.9.1 as of this writing
-
-
-//change ide fonts/etc.(sc_ide_config.yaml) all the way at bottom
-
-/*
-THINGS TO DO:
-
-- add way to change automate period.... so note change period doesn't have to be based on freq alone
-- ask scsynth forum about how to not have clicks/pops/etc at high volume levels
-- Find a way to get feeling into music automate.... or find ways to make a computer like a person making music....| "Feeling" ex... Numerology automate..... for ex... input words like "jfk" "assassination" "1963" "dallas".... and sum up numerology for each word.. and do something with that
-- convert numerical spacing for ratio spacing... for ex... instead of 20... fullscreen height/20... etc
-- Random tip: (signal * preamp).tanh / (preamp ** 0.6) roughly compensates for the increase in gain when cranking up the distortion. Not tested for extreme values of preamp -- +/- 20 dB or 0.1 .. 10 seems pretty much OK.
-- add silence function for some notes, to add noise/silence thing... perhaps random
-*/
-
-/*
-KEYS TO CREATE GOOD AI MUSIC
-
-- Always maintain a time signature (All notes to change within a time signature).... maybe make function to chose time signatures such as 8/8 or 4/4.. etc
-
-- utilize patterns..... like f-f-f-f-g-g-g-g-d-d-d-d.... e-e-d-a-a-b... etc.... a-e-b-(a-e-b)*1.34.... stuff like that
-
-- motifs or themes....... use modular.... like macro and micro motifs or themes of patterns, keys, etc........
-.... generate *some* rules before runtime... incoporate radomness too
-
-- possibly only use certain notes to fit a certain tonal theme.... maybe generate them beforehand.... can be random.... .
-... or.. generate different sets of notes... perhaps all sets being slightly varied.. to be used at different parts
-
-- expand as needed
-
-
-... AI music needs CONTEXT
-*/
-
-
-//show CPU monitor tip on boot
-if(~showcpumonitor == nil, {~showcpumonitor = 1; //change to 1 for on, 0 for off
-}, {~showcpumonitor = 0;});
-
-//setting to change volume (amplitude) to "safe" levels upon changing the "KWS Number" in GUI, code found in "//evaluate synthdefs(gsine)" section - under the "//settings function" section
-if(~safe_vol == nil, {~safe_vol = 1; //change to 1 for on, 0 for off
-}, {~safe_vol = 0;});
 
 
 s.options.memSize = 2097152/2;
@@ -86,7 +44,7 @@ MIDIIn.connectAll;
 
 	//default number of synths
 
-	~number_of_synths_default = 8; //default is 7. limit currently is 12.
+	~number_of_synths_default = 7; //default is 7. limit currently is 12.
 
 	if(~number_of_synths == nil, {~number_of_synths = ~number_of_synths_default;});
 	~number_of_synths_limit = 12; if(~number_of_synths > ~number_of_synths_limit, {~number_of_synths = ~number_of_synths_limit});
@@ -123,20 +81,14 @@ MIDIIn.connectAll;
 
 	//volume (amplitude)
 
-	~vol_default = 0.012; //default is 0.012. For sensitivity reasons, changing this using smaller increments, like 0.001, is recommended. The "if" statement one line below returns any value > 0.02 to 0.012.
-	if(~vol_default >= 0.03, {~vol_default = 0.012;});
+	~vol_default = 0.0099; //default is 0.0099. For sensitivity reasons, changing this using smaller increments, like 0.001, is recommended. The "if" statement one line below returns any value >= 0.02 to 0.0099.
+	if(~vol_default >= 0.02, {~vol_default = 0.0099;});
 	if(~vol == nil, {~vol = ~vol_default});
 	12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
 	~number_of_synths_limit.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
 
 
 	//low-pass filter settings
-
-	/*
-	Possible:
-	2185.185258887873
-	6.4178663239075
-	*/
 
 	~default_low_pass_filter_freq_limit1 = 1364.0007331375; //default is 1364.0007331375
 	~default_low_pass_filter_freq_limit2 = 4841.89; //default is 4841.89
@@ -335,31 +287,28 @@ MIDIIn.connectAll;
 
 	*/
 
-
 	//^Imoprtant note: "edit STARTING frequencies/chord" must be placed after "edit SAVED frequencies/chords" in code in order for it to work correctly
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	~eastern_rand_func = {~rand_num = ~freqmap.at(91).linrand - ~freqmap.at(91) * (-1); while({~rand_num < ~freqmap.at(29)}, {~rand_num = ~freqmap.at(91).linrand - ~freqmap.at(91) * (-1);}); ~rand_num.value;};
-	~western_rand_func = {~rand_num = ~freqmap.at(91).linrand - ~freqmap.at(91) * (-1); while({~rand_num < ~freqmap.at(29)}, {~rand_num = ~freqmap.at(91).linrand - ~freqmap.at(91) * (-1);}); ~rand_num.value;};
 
 	//default starting notes
 
 	if(([f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12] == [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]), {
 		#f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12 = [
-			~eastern_rand_func.value,
-			~eastern_rand_func.value,
-			~eastern_rand_func.value,
-			~eastern_rand_func.value,
-			~eastern_rand_func.value,
-			~eastern_rand_func.value,
-			~eastern_rand_func.value,
-			~eastern_rand_func.value,
-			~eastern_rand_func.value,
-			~eastern_rand_func.value,
-			~eastern_rand_func.value,
-			~eastern_rand_func.value
+			(~freqmap.at(127)/8).rand,
+			(~freqmap.at(127)/8).rand,
+			(~freqmap.at(127)/8).rand,
+			(~freqmap.at(127)/8).rand,
+			(~freqmap.at(127)/8).rand,
+			(~freqmap.at(127)/8).rand,
+			(~freqmap.at(127)/8).rand,
+			(~freqmap.at(127)/8).rand,
+			(~freqmap.at(127)/8).rand,
+			(~freqmap.at(127)/8).rand,
+			(~freqmap.at(127)/8).rand,
+			(~freqmap.at(127)/8).rand,
 		];
 	});
 
@@ -447,7 +396,7 @@ MIDIIn.connectAll;
 			}, {s1 = s1});
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
-		/*[s1, LeakDC.ar(s1, MouseX.kr(0.1, 1.0, \linear).poll)]*/
+
 		SynthDef(\gsineicrld1, {arg graindur = 0.04, dur = 2000, atk = 0.007, rel = 0.01, gate = 1, amp = 1, i = 1, vol = ~vol, rate = 20, tune = 0,dseqval,
 			a, b, c, d, e, f, pan=0, fc = 1, id = -1, lpfl = ~lpfl, lpf_rq = ~lpf_rq;
 			var s1, out, env1, s2, dseq;
@@ -517,7 +466,6 @@ MIDIIn.connectAll;
 				{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, lpfl, lpf_rq);}
 				{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, lpfl, lpf_rq);};
 			}, {s1 = s1});
-
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -542,7 +490,6 @@ MIDIIn.connectAll;
 				{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, lpfl, lpf_rq);}
 				{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, lpfl, lpf_rq);};
 			}, {s1 = s1});
-
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -567,7 +514,6 @@ MIDIIn.connectAll;
 				{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, lpfl, lpf_rq);}
 				{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, lpfl, lpf_rq);};
 			}, {s1 = s1});
-
 			OffsetOut.ar(0, s1.dup*vol);
 		}, [\ir]).add;
 
@@ -598,14 +544,11 @@ MIDIIn.connectAll;
 						{~low_pass_filter_setting == 0}{s1 = BLowPass.ar(s1, lpfl, lpf_rq);}
 						{~low_pass_filter_setting == 1}{s1 = BLowPass4.ar(s1, lpfl, lpf_rq);};
 					}, {s1 = s1});
-
 					OffsetOut.ar(0, s1.dup*vol);
-					SendReply.ar(PulseDivider.ar(Impulse.ar(dur),
-						(~kws_setting_1_a.value.size*(~gsinenum*~first_harmonic))*2*~sendreply_period), //add way to change this... so notes don't change based on freq if you want
-					case
-					{~sendreplyfunc_choose == 0}{("synthflow_gmf_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
-					{~sendreplyfunc_choose == 1}{("synthflow_random_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
-					{~sendreplyfunc_choose == 2}{("synthflow_numer1_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;};
+					SendReply.ar(PulseDivider.ar(Impulse.ar(dur), (~kws_setting_1_a.value.size*(~gsinenum*~first_harmonic))*2*~sendreply_period),
+						case
+						{~sendreplyfunc_choose == 0}{("synthflow_gmf_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;}
+						{~sendreplyfunc_choose == 1}{("synthflow_random_sendreply_answer_f"++(~sendreply_x)).asSymbol.envirGet;};
 					);
 				}, [\ir]).add;
 
@@ -618,12 +561,11 @@ MIDIIn.connectAll;
 
 	~sendreplyfunc_choose = 0;
 
-	~send_reply_random_func_western = ~eastern_rand_func;
-	~send_reply_random_func_eastern = ~western_rand_func;
+	~send_reply_random_func_western = {~freqmap.at(rrand(57, 91));};
+	~send_reply_random_func_eastern = {(rrand(~freqmap.at(57), ~freqmap.at(91);))};
 
 	if(~sendreply_gm_fth_y_1 == nil, {~number_of_synths.do(x = 0; {("sendreply_gm_fth_y_"++(x=x+1)).asSymbol.envirPut((-1);)});});
-
-	~sendreply_gm_fth_func_1 = {if((x <= 1539.4729849465) and: (x >= 324), {
+	~sendreply_gm_fth_func_1 = {if((x <= 1539.4729849465) and: (x >= 216), {
 		x = x*[[a = 1.6842135623729, a = 0.5937489296732].choose, [a = 1.4142135623729, a = 0.70710678118665].choose].at(y=y+1); if(y>=1, {y=(-1)});
 
 	}, {
@@ -638,189 +580,12 @@ MIDIIn.connectAll;
 		});
 	});
 	};
-
-	~sendreply_gm_fth_func_2 = {if((x <= 1539.4729849465) and: (x >= 324), {
+	~sendreply_gm_fth_func_2 = {if((x <= 1539.4729849465) and: (x >= 216), {
 		x = x*[a = 1.6842135623729, a = 0.5937489296732].choose;}, {
 		if(x > 1539.4729849465, {x = x/2; x = x*[1.6842135623729, 0.5937489296732].choose;}, {x = x*2; x = x*[1.6842135623729, 0.5937489296732].choose;});
 	});
 	};
-
 	if(~sendreply_gm_fth_func == nil, {~sendreply_gm_fth_func = ~sendreply_gm_fth_func_1});
-
-
-	//NUMEROLOGY AUTOMATE
-
-	~numerology_text_func = {
-
-
-
-		arg  top = 0,width=88, revertwidth=75, height = 16,  heightbox = 16, lefttime = 0 , lefttimebox = 20,  widthbox=140, leftdo = lefttimebox+widthbox+5, leftdobox = leftdo+57, inc=0, lw = 0,  uw = 0, numw = 40;
-		var set1, description, st1, st2, st3, st4, st5, st6, st7, st8, st9, st10, st11, st12, t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19,t20,t21,t22,t23,t24;
-
-		~numertextview = View(w, Rect(5,Window.screenBounds.height-400,Window.screenBounds.width,200)).front;
-
-		~settingsbutton.valueAction = 0;
-
-		24.do(y=0; {if(("numer_string_"++(y=y+1)).asSymbol.envirGet == nil, {("numer_string_"++(y)).asSymbol.envirPut("".asString;)});});
-
-		top = 0;
-
-		description = StaticText(~numertextview, Rect(lefttimebox, top, Window.screenBounds.width, 20)).background_(Color.black);
-		description.stringColor = Color.white;
-		description.string = "Enter words or phrases into each box. Press "+"Enter".quote+" or "+"Return".quote+" after each entry. Then once finished click on the "+"Set".quote+" button.";
-
-		top = 28;
-
-		t1=TextField(~numertextview, Rect(lefttimebox , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_1);
-		t2=TextField(~numertextview, Rect(lefttimebox , top+(heightbox), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_2);
-		t3=TextField(~numertextview, Rect(lefttimebox , top+(heightbox*2), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_3);
-		t4=TextField(~numertextview, Rect(lefttimebox , top+(heightbox*3), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_4);
-		t5=TextField(~numertextview, Rect(lefttimebox+(widthbox)+4 , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_5);
-		t6=TextField(~numertextview, Rect(lefttimebox+(widthbox)+4 , top+(heightbox), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_6);
-		t7=TextField(~numertextview, Rect(lefttimebox+(widthbox)+4 , top+(heightbox*2), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_7);
-		t8=TextField(~numertextview, Rect(lefttimebox+(widthbox)+4 , top+(heightbox*3), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_8);
-		t9=TextField(~numertextview, Rect(lefttimebox+(widthbox*2)+4 , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_9);
-		t10=TextField(~numertextview, Rect(lefttimebox+(widthbox*2)+4 , top+(heightbox), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_10);
-		t11=TextField(~numertextview, Rect(lefttimebox+(widthbox*2)+4 , top+(heightbox*2), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_11);
-		t12=TextField(~numertextview, Rect(lefttimebox+(widthbox*2)+4 , top+(heightbox*3), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_12);
-		t13=TextField(~numertextview, Rect(lefttimebox+(widthbox*3)+4 , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_13);
-		t14=TextField(~numertextview, Rect(lefttimebox+(widthbox*3)+4 , top+(heightbox), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_14);
-		t15=TextField(~numertextview, Rect(lefttimebox+(widthbox*3)+4 , top+(heightbox*2), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_15);
-		t16=TextField(~numertextview, Rect(lefttimebox+(widthbox*3)+4 , top+(heightbox*3), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_16);
-		t17=TextField(~numertextview, Rect(lefttimebox+(widthbox*4)+4 , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_17);
-		t18=TextField(~numertextview, Rect(lefttimebox+(widthbox*4)+4 , top+(heightbox), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_18);
-		t19=TextField(~numertextview, Rect(lefttimebox+(widthbox*4)+4 , top+(heightbox*2), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_19);
-		t20=TextField(~numertextview, Rect(lefttimebox+(widthbox*4)+4 , top+(heightbox*3), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_20);
-		t21=TextField(~numertextview, Rect(lefttimebox+(widthbox*5)+4 , top=top, widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_21);
-		t22=TextField(~numertextview, Rect(lefttimebox+(widthbox*5)+4 , top+(heightbox), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_22);
-		t23=TextField(~numertextview, Rect(lefttimebox+(widthbox*5)+4 , top+(heightbox*2), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_23);
-		t24=TextField(~numertextview, Rect(lefttimebox+(widthbox*5)+4 , top+(heightbox*3), widthbox, heightbox)).background_(Color.black).stringColor_(Color.white).value_(~numer_string_24);
-
-		set1=Button(~numertextview,Rect(lefttimebox+(widthbox*3)+4 , top+(heightbox*5), 60, 60/~gm)).states_([["set",Color.white,Color.black]]).mouseDownAction_({
-
-			/*~numer_calc_function.value;*/
-			/*t24.valueAction = {arg value; ~numer_string_24 = value.value;}.value;*/
-
-			~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0};
-			~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;
-
-		});
-
-
-		t1.action = {arg value; ~numer_string_1 = value.value; ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;
-			/*~st_load = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
-						~st_load.stringColor = Color.green;
-						~st_load.string = "loaded.";
-						AppClock.sched(~gm,{~st_load.close; if(~st != nil, {~st.close});});*/
-
-		};
-		t2.action = {arg value; ~numer_string_2 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t3.action = {arg value; ~numer_string_3 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t4.action = {arg value; ~numer_string_4 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t5.action = {arg value; ~numer_string_5 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t6.action = {arg value; ~numer_string_6 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t7.action = {arg value; ~numer_string_7 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t8.action = {arg value; ~numer_string_8 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t9.action = {arg value; ~numer_string_9 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t10.action = {arg value; ~numer_string_10 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t11.action = {arg value; ~numer_string_11 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t12.action = {arg value; ~numer_string_12 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t13.action = {arg value; ~numer_string_13 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t14.action = {arg value; ~numer_string_14 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t15.action = {arg value; ~numer_string_15 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t16.action = {arg value; ~numer_string_16 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t17.action = {arg value; ~numer_string_17 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t18.action = {arg value; ~numer_string_18 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t19.action = {arg value; ~numer_string_19 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t20.action = {arg value; ~numer_string_20 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t21.action = {arg value; ~numer_string_21 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t22.action = {arg value; ~numer_string_22 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t23.action = {arg value; ~numer_string_23 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-		t24.action = {arg value; ~numer_string_24 = value.value; ~phrases = StaticText(~numertextview, Rect(lefttimebox+(widthbox*1)+4 , top+(heightbox*8), Window.screenBounds.width, 20)).background_(Color.black); ~numer_calc_function.value; ~numer_array = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet})}.value.reject{arg item; item == 0}; ~phrases.stringColor = Color.white; ~phrases.string = {x=0; Array.fill(24, {("numer_string_"++(x=x+1)).asSymbol.envirGet});}.value;};
-
-
-
-	};
-
-	~numer_calc_function = {
-
-		//numerology caclulator function
-
-		//Counts the number of each letter (example: "~string_20_letter_22") in each numerology string ("~numer_string_20")
-		//result is "~string_1_letter_1", onwards
-
-		24.do(y=0; {("numer_string_"++(y=y+1)++"_ascii").asSymbol.envirPut(("numer_string_"++(y)).asSymbol.envirGet.asString.ascii;);});
-		24.do(y=0; {if(("numer_string_"++(y=y+1)).asSymbol.envirGet == nil, {("numer_string_"++(y)).asSymbol.envirPut("".asString;)});});
-		24.do(y=0; {if(("numer_string_"++(y=y+1)++"_ascii").asSymbol.envirGet == nil, {("numer_string_"++(y)++"_ascii").asSymbol.envirPut("".asString.ascii;)});});
-		24.do(y=0; {
-			("numer_string_"++(y=y+1)++"_value").asSymbol.envirPut(0);
-			26.do(x = 0; {
-				("string_"++(y)++"_letter_"++(x=x+1)).asSymbol.envirPut(0);
-			});
-			9.do(x = 0; {
-				("string_"++(y)++"_number_"++(x=x+1)).asSymbol.envirPut(0);
-			});
-		});
-
-		24.do(y = 1; {
-			26.do(x = 0; {("string_"++(y)++"_letter_"++(x=x+1)).asSymbol.envirPut(
-				("numer_string_"++(y)++"_ascii").asSymbol.envirGet.count({ arg item; (item == (97+(x-1))) or: (item == (65+(x-1)));});
-			)});
-			9.do(x = 0; {("string_"++(y)++"_number_"++(x=x+1)).asSymbol.envirPut(
-				("numer_string_"++(y)++"_ascii").asSymbol.envirGet.count({ arg item; (item == (49+(x-1)));});
-			)});
-			y=y+1;
-		});
-
-		//adds all letters in each string.... resulting in (ex: ~numer_string_16_value)
-
-		24.do(y=1; {
-			26.do(x = 0; {
-				("numer_string_"++(y)++"_value").asSymbol.envirPut(("numer_string_"++(y)++"_value").asSymbol.envirGet + ((x=x+1)*("string_"++(y)++"_letter_"++(x)).asSymbol.envirGet;));
-				/*~numer_string_1_value = ~numer_string_1_value + ((x=x+1)*~string_1_letter_1);*/
-			});
-			9.do(x = 0; {
-				("numer_string_"++(y)++"_value").asSymbol.envirPut(("numer_string_"++(y)++"_value").asSymbol.envirGet + ((x=x+1)*("string_"++(y)++"_number_"++(x)).asSymbol.envirGet;));
-				/*example.... ~numer_string_1_value = ~numer_string_1_value + ((x=x+1)*~string_1_number_1);*/
-			});
-			y=y+1;
-		});
-
-		//find digital root of all "~numer_string_x_value"'s
-
-		24.do(x = 0; {if(("numer_string_"++(x=x+1)++"_value").asSymbol.envirGet != 0, {("numer_string_"++(x)++"_value").asSymbol.envirPut(1 + ((("numer_string_"++(x)++"_value").asSymbol.envirGet - 1) % 9));});});
-
-
-		//replace numbers with ratios
-
-		24.do(y = 0; {
-			9.do(x = 0; {if(("numer_string_"++(y)++"_value").asSymbol.envirGet == (x=x+1), {
-				("numer_string_"++(y)++"_value").asSymbol.envirPut([ 1.0594630943593, 1.1224620483094, 1.1892071150027, 1.2599210498949, 1.3348398541701, 1.4142135623731, 1.4983070768767, 1.5874010519683, 1.6817928305075 ].at(x-1););
-
-			});
-			});
-			y=y+1
-		});
-
-	};
-
-
-	//numerology algorithm 1
-
-	~sendreply_numer_func_1 = {if((x <= 1539.4729849465) and: (x >= 324), {
-		x = [x*((~numer_array.choose)*([1,1,1,1,2].choose)), x/((~numer_array.choose)*([1,1,1,1,2].choose));].choose;
-
-	}, {
-		if(x > 1539.4729849465, {x=x/3; x = [x*((~numer_array.choose)*([1,1,1,1,2].choose)), x/((~numer_array.choose)*([1,1,1,1,2].choose));].choose;}, {
-			x=x*3; x = [x*((~numer_array.choose)*([1,1,1,1,2].choose)), x/((~numer_array.choose)*([1,1,1,1,2].choose));].choose;
-		});
-	});
-	};
-	/*x=432; ~numer_array=[1.3348398541701]*/
-	/*{x = [(x*~numer_array.choose), (x*~numer_array.choose)].choose;};*/
-
-	/*~sendreply_numer_func_1.value;
-*/
 
 	case
 	{~sendreplyfuncswitch == 1;}{~send_reply_random_func = ~send_reply_random_func_western;}
@@ -852,576 +617,36 @@ MIDIIn.connectAll;
 	~synthflow_gmf_sendreply_answer_f11 = '/synthflow_gmf_sendreply_answer_f11';
 	~synthflow_gmf_sendreply_answer_f12 = '/synthflow_gmf_sendreply_answer_f12';
 
-	~synthflow_numer1_sendreply_answer_f1 = '/synthflow_numer1_sendreply_answer_f1';
-	~synthflow_numer1_sendreply_answer_f2 = '/synthflow_numer1_sendreply_answer_f2';
-	~synthflow_numer1_sendreply_answer_f3 = '/synthflow_numer1_sendreply_answer_f3';
-	~synthflow_numer1_sendreply_answer_f4 = '/synthflow_numer1_sendreply_answer_f4';
-	~synthflow_numer1_sendreply_answer_f5 = '/synthflow_numer1_sendreply_answer_f5';
-	~synthflow_numer1_sendreply_answer_f6 = '/synthflow_numer1_sendreply_answer_f6';
-	~synthflow_numer1_sendreply_answer_f7 = '/synthflow_numer1_sendreply_answer_f7';
-	~synthflow_numer1_sendreply_answer_f8 = '/synthflow_numer1_sendreply_answer_f8';
-	~synthflow_numer1_sendreply_answer_f9 = '/synthflow_numer1_sendreply_answer_f9';
-	~synthflow_numer1_sendreply_answer_f10 = '/synthflow_numer1_sendreply_answer_f10';
-	~synthflow_numer1_sendreply_answer_f11 = '/synthflow_numer1_sendreply_answer_f11';
-	~synthflow_numer1_sendreply_answer_f12 = '/synthflow_numer1_sendreply_answer_f12';
-
 	~sendreply_oscfunc_array = {
 
-		/*x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,
-		y1,y2,y3,y4,y5,y6,y7,y8,y9,y10,y11,y12;*/
+		OSCFunc({~f1 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f1');
+		OSCFunc({~f2 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f2');
+		OSCFunc({~f3 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f3');
+		OSCFunc({~f4 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f4');
+		OSCFunc({~f5 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f5');
+		OSCFunc({~f6 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f6');
+		OSCFunc({~f7 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f7');
+		OSCFunc({~f8 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f8');
+		OSCFunc({~f9 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f9');
+		OSCFunc({~f10 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f10');
+		OSCFunc({~f11 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f11');
+		OSCFunc({~f12 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}, '/synthflow_random_sendreply_answer_f12');
 
-		OSCFunc({AppClock.sched(0,{~f1 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f1');
-		OSCFunc({AppClock.sched(0,{~f2 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f2');
-		OSCFunc({AppClock.sched(0,{~f3 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f3');
-		OSCFunc({AppClock.sched(0,{~f4 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f4');
-		OSCFunc({AppClock.sched(0,{~f5 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f5');
-		OSCFunc({AppClock.sched(0,{~f6 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f6');
-		OSCFunc({AppClock.sched(0,{~f7 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f7');
-		OSCFunc({AppClock.sched(0,{~f8 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f8');
-		OSCFunc({AppClock.sched(0,{~f9 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f9');
-		OSCFunc({AppClock.sched(0,{~f10 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f10');
-		OSCFunc({AppClock.sched(0,{~f11 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f11');
-		OSCFunc({AppClock.sched(0,{~f12 = ~send_reply_random_func.value; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_random_sendreply_answer_f12');
-
-		OSCFunc({AppClock.sched(0,{x = ~f1; y = ~sendreply_gm_fth_y_1; ~sendreply_gm_fth_func.value; ~f1 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_1 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f1');
-		OSCFunc({AppClock.sched(0,{x = ~f2; y = ~sendreply_gm_fth_y_2; ~sendreply_gm_fth_func.value; ~f2 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_2 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f2');
-		OSCFunc({AppClock.sched(0,{x = ~f3; y = ~sendreply_gm_fth_y_3; ~sendreply_gm_fth_func.value; ~f3 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_3 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f3');
-		OSCFunc({AppClock.sched(0,{x = ~f4; y = ~sendreply_gm_fth_y_4; ~sendreply_gm_fth_func.value; ~f4 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_4 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f4');
-		OSCFunc({AppClock.sched(0,{x = ~f5; y = ~sendreply_gm_fth_y_5; ~sendreply_gm_fth_func.value; ~f5 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_5 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f5');
-		OSCFunc({AppClock.sched(0,{x = ~f6; y = ~sendreply_gm_fth_y_6; ~sendreply_gm_fth_func.value; ~f6 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_6 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f6');
-		OSCFunc({AppClock.sched(0,{x = ~f7; y = ~sendreply_gm_fth_y_7; ~sendreply_gm_fth_func.value; ~f7 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_7 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f7');
-		OSCFunc({AppClock.sched(0,{x = ~f8; y = ~sendreply_gm_fth_y_8; ~sendreply_gm_fth_func.value; ~f8 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_8 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f8');
-		OSCFunc({AppClock.sched(0,{x = ~f9; y = ~sendreply_gm_fth_y_9; ~sendreply_gm_fth_func.value; ~f9 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_9 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f9');
-		OSCFunc({AppClock.sched(0,{x = ~f10; y = ~sendreply_gm_fth_y_10; ~sendreply_gm_fth_func.value; ~f10 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_10 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f10');
-		OSCFunc({AppClock.sched(0,{x = ~f11; y = ~sendreply_gm_fth_y_11; ~sendreply_gm_fth_func.value; ~f11 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_11 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f11');
-		OSCFunc({AppClock.sched(0,{x = ~f12; y = ~sendreply_gm_fth_y_12; ~sendreply_gm_fth_func.value; ~f12 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_12 = y;}).defer;}, '/synthflow_gmf_sendreply_answer_f12');
-
-		OSCFunc({AppClock.sched(0,{x = ~f1; ~sendreply_numer_func_1.value; ~f1 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f1');
-		OSCFunc({AppClock.sched(0,{x = ~f2; ~sendreply_numer_func_1.value; ~f2 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f2');
-		OSCFunc({AppClock.sched(0,{x = ~f3; ~sendreply_numer_func_1.value; ~f3 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f3');
-		OSCFunc({AppClock.sched(0,{x = ~f4; ~sendreply_numer_func_1.value; ~f4 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f4');
-		OSCFunc({AppClock.sched(0,{x = ~f5; ~sendreply_numer_func_1.value; ~f5 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f5');
-		OSCFunc({AppClock.sched(0,{x = ~f6; ~sendreply_numer_func_1.value; ~f6 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f6');
-		OSCFunc({AppClock.sched(0,{x = ~f7; ~sendreply_numer_func_1.value; ~f7 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f7');
-		OSCFunc({AppClock.sched(0,{x = ~f8; ~sendreply_numer_func_1.value; ~f8 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f8');
-		OSCFunc({AppClock.sched(0,{x = ~f9; ~sendreply_numer_func_1.value; ~f9 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f9');
-		OSCFunc({AppClock.sched(0,{x = ~f10; ~sendreply_numer_func_1.value; ~f10 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f10');
-		OSCFunc({AppClock.sched(0,{x = ~f11; ~sendreply_numer_func_1.value; ~f11 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f11');
-		OSCFunc({AppClock.sched(0,{x = ~f12; ~sendreply_numer_func_1.value; ~f12 = x; AppClock.sched(0,{~synthflow.value;});}).defer;}, '/synthflow_numer1_sendreply_answer_f12');
-
+		OSCFunc({x = ~f1; y = ~sendreply_gm_fth_y_1; ~sendreply_gm_fth_func.value; ~f1 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_1 = y;}, '/synthflow_gmf_sendreply_answer_f1');
+		OSCFunc({x = ~f2; y = ~sendreply_gm_fth_y_2; ~sendreply_gm_fth_func.value; ~f2 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_2 = y;}, '/synthflow_gmf_sendreply_answer_f2');
+		OSCFunc({x = ~f3; y = ~sendreply_gm_fth_y_3; ~sendreply_gm_fth_func.value; ~f3 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_3 = y;}, '/synthflow_gmf_sendreply_answer_f3');
+		OSCFunc({x = ~f4; y = ~sendreply_gm_fth_y_4; ~sendreply_gm_fth_func.value; ~f4 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_4 = y;}, '/synthflow_gmf_sendreply_answer_f4');
+		OSCFunc({x = ~f5; y = ~sendreply_gm_fth_y_5; ~sendreply_gm_fth_func.value; ~f5 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_5 = y;}, '/synthflow_gmf_sendreply_answer_f5');
+		OSCFunc({x = ~f6; y = ~sendreply_gm_fth_y_6; ~sendreply_gm_fth_func.value; ~f6 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_6 = y;}, '/synthflow_gmf_sendreply_answer_f6');
+		OSCFunc({x = ~f7; y = ~sendreply_gm_fth_y_7; ~sendreply_gm_fth_func.value; ~f7 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_7 = y;}, '/synthflow_gmf_sendreply_answer_f7');
+		OSCFunc({x = ~f8; y = ~sendreply_gm_fth_y_8; ~sendreply_gm_fth_func.value; ~f8 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_8 = y;}, '/synthflow_gmf_sendreply_answer_f8');
+		OSCFunc({x = ~f9; y = ~sendreply_gm_fth_y_9; ~sendreply_gm_fth_func.value; ~f9 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_9 = y;}, '/synthflow_gmf_sendreply_answer_f9');
+		OSCFunc({x = ~f10; y = ~sendreply_gm_fth_y_10; ~sendreply_gm_fth_func.value; ~f10 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_10 = y;}, '/synthflow_gmf_sendreply_answer_f10');
+		OSCFunc({x = ~f11; y = ~sendreply_gm_fth_y_11; ~sendreply_gm_fth_func.value; ~f11 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_11 = y;}, '/synthflow_gmf_sendreply_answer_f11');
+		OSCFunc({x = ~f12; y = ~sendreply_gm_fth_y_12; ~sendreply_gm_fth_func.value; ~f12 = x; AppClock.sched(0,{~synthflow.value;}); ~sendreply_gm_fth_y_12 = y;}, '/synthflow_gmf_sendreply_answer_f12');
 	};
 
 	~sendreply_oscfunc_array.value;
-
-	//ai
-
-	(
-		(
-
-			/*
-			To do:
-
-			- make so you can set note set in GUI via mouse
-			- PATTERNIZE
-			- store data... for instance.... store note progression for patterns
-			- make thing that does like... [a, c, f]... [a, c, f]*n.... maybe save the "n" value as well. yes
-			- generate pattern of times, not just notes.... save the time patterns.... and asign time patterns with note patterns...
-			.... make sure assigned time patterns are same size as note patterns... maybe use if statements in algo
-			- figure out how to make two or more synths "make sense with each other"
-			- figure out how to make note *and* time patterns.... more pattern-esqe.... like [432,432,543,543] or [432,432,432,789,789,789].. and
-			... [1,0.5,0.25,0.5,0.25,0.5,1].. not sure about time patterns
-			- make macro patterns.... maybe make arrays which save each pattern after each other.... and make a macro pattern
-			- utilize macro and micro patterns to see how music starts and ends? Not sure if I want it to end :P
-			- make loudness and softness
-			- figure out how to make sections, or parts, of a running piece... different sections or parts... like.. adiago... presto etc... and even smaller
-			parts... just like... different parts or sections of a single piece
-			- make an ~f3 within task 1
-			- make chords possible
-			- create "branches".... like a tree.... so like... a root thing.... then it branches off..... then all other branches branche off.... and so on
-			and so on... (side note: maybe related to souls?)
-			- Find way to save random seeds
-			- ***manitpulate and change generated patterns in different ways... ex... take radom ordered array... and make ordered from lowest to
-			highest freq..... ..... and utilize all other tools to change and manipulate data... to change patterns.... and order.. and mix
-			and match and stuff, already generated patterns/data sets (ie freqs)... utilize all and any tools
-			- "I want a like.... genuine AI composer.... I want this AI to be honest in it's art <3.... To celebrate who it is :)... I want it to sound
-			like an AI.....
-			...I want it to embrace who and what it is
-			- When generating patterns of notes.... generate a string of (***maybe***) random notes.... then generate another string of THOSE strings as
-			sub-strings..... in different patterns - taking out or adding in notes of the original string, mix and match. See what you can do with that.
-			Make it modular. Perhaps more than two levels of that.
-			- Find a way to guide the algorithm to reach a kind of "conclusion", like and finale, or "goal", in terms of where the algorithm wants to
-			go. Find a way to randomize this maybe..... Or to repeat the process. Be it for an entire piece of music and/or parts of a peice.
-			- make different instruments
-			- allow for both true and pseudo random generators
-			- more
-			*/
-
-			(
-
-				~random_seed_for_notes = 10000.rand;
-
-				if(~notes_seed_array == nil, {
-					~notes_seed_array = []; ~notes_seed_array = ~notes_seed_array.add(~random_seed_for_notes);
-				}, {
-					~notes_seed_array_backup = ~notes_seed_array; ~notes_seed_array = ~notes_seed_array.add(~random_seed_for_notes);
-				});
-
-				~freqmap2 = (i = ~freqmap.at(65)/*-0.0000000000024*/; ~stepratio = 1.0594630943593; Array.fill(24, { i = i*~stepratio;}));
-
-				(
-					~rseed_routine_notes = Routine({
-						loop({~freqmap2.choose.yield })
-					});
-					~rseed_routine_notes.randSeed = ~random_seed_for_notes;
-				);
-
-				~max_note_length = 4;
-				~number_of_notes = 16;
-				~min_note = ~freqmap.at(65);
-				~max_note = ~freqmap.at(65)*4;
-				~time_sig_array1 = [2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]; /*{x = ~max_note_length; Array.fill(8, {x = (x/(1.333333333333))})}.value;*/
-				~time_sig_array2 = [4, 3, 2, 1];
-				~time_sig_array3 = [1, 0.5, 0.25, 0.125];
-				~time_sig_array4 = [0.5, 0.25, 0.125, 0.0625];
-				~time_sig_array5 = [4, 2, 1];
-				/*~time_sig_array6 = [~gm,~gm/2,~gm/1.5,~gm/3,~gm/4];*/
-				~f_note_set = Array.fill(~number_of_notes, ~rseed_routine_notes);
-				/*~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
-				*//*if(~f_note_set == nil, {~f_note_set.value;});*/
-				~f_note_change_array = ~f_note_set.value;/*[ 688.09938797254, 822.73593638317, 1044.0938275831, 1197.1378839734, 514.25291680986, 408.81823647269, 1409.4396800244, 341.16370743965 ]*//*[300, 400, 500, 600, 700, 800, 900];*/
-				~ratio_array = (x = 0; Array.fill(12, {1.0594630943593**(x=x+1)}));
-				/*
-				~f_note_change_array = 3*[ 726.53450277921, 363.2672513896, 815.50740615698, 576.65081700145, 1153.3016340029, 484.90360486965, 384.86824623663, 544.28589355459 ]
-				~f_note_change_array = {x = ~number_of_notes; y = 288.32540850072; Array.fill(~number_of_notes, {y=y*1.4983070768767})}.value;
-				~f_note_change_array = {x = ~number_of_notes; y = 216; z = y = 216;
-				[216]++Array.fill(~number_of_notes/4, {y=y*1.5874010519683})++
-				Array.fill(~number_of_notes/4, {z=z*1.4983070768767});
-				}.value;
-				*/
-
-				~random_seed_for_note_patterns = 10000.rand;
-
-				if(~note_patterns_seed_array == nil, {
-					~note_patterns_seed_array = []; ~note_patterns_seed_array = ~note_patterns_seed_array.add(~random_seed_for_note_patterns);
-				}, {
-					~note_patterns_seed_array_backup = ~note_patterns_seed_array; ~note_patterns_seed_array = ~note_patterns_seed_array.add(~random_seed_for_note_patterns);
-				});
-
-				(
-					~rseed_routine_patterns = Routine({
-						loop({~f_note_change_array.choose.yield })
-					});
-					~rseed_routine_patterns.randSeed = ~random_seed_for_note_patterns;
-				);
-
-				~random_seed_for_note_times = 10000.rand;
-
-				if(~note_times_seed_array == nil, {
-					~note_times_seed_array = []; ~note_times_seed_array = ~note_times_seed_array.add(~random_seed_for_note_times);
-				}, {
-					~note_times_seed_array_backup = ~note_times_seed_array; ~note_times_seed_array = ~note_times_seed_array.add(~random_seed_for_note_times);
-				});
-
-				(
-					~rseed_routine_time = Routine({
-						loop({~time_sig_array1.choose.yield })
-					});
-					~rseed_routine_time.randSeed = ~random_seed_for_note_times;
-				);
-
-/*~pattern_generator = {var x, y, z, w, v;
-				~sets_num_array = (4..12);
-				~notes_num_array = (2..16);
-
-				(~sets_num_array.choose).do(x = 0; {
-					w = [];
-					i = [];
-					x = x+1;
-					(z = ~notes_num_array.choose).do(y = 0; {
-						("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);
-						("s"++(x)++"ft"++(y)).asSymbol.envirPut(o = ~time_sig_array1.choose;); i = i.add(o);
-
-					});
-				("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
-					1.do({
-						("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;);
-						("s"++(x)++"ft_pattern").asSymbol.envirPut(i.value;);
-					});
-				});
-				~sets_num = x.value;
-				~sets_id_array = (x = 0; Array.fill(~sets_num, {x=x+1}));
-				/*~sf_pattern_array = [];*/
-				/*~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});*/
-			};
-			~pattern_generator.value;*/
-
-
-				~pattern_generator = {var x, y, z, w, v;
-					~sets_num_array = (4..12);
-					~notes_num_array = (2..16);
-
-
-					(~sets_num_array.choose).do(x = 0; {
-						/*w = [];
-						i = [];*/
-						x = x+1;
-						/*(z = ~notes_num_array.choose).do(y = 0; {
-						("s"++(x)++"f"++(y=y+1)).asSymbol.envirPut(v = ~f_note_change_array.choose;); w = w.add(v);
-						("s"++(x)++"ft"++(y)).asSymbol.envirPut(o = ~time_sig_array1.choose;); i = i.add(o);
-
-						});*/
-						z = ~notes_num_array.choose;
-						w = Array.fill(z, ~rseed_routine_patterns);
-						i = Array.fill(z, ~rseed_routine_time);
-						("notes_num_save_"++(x)).asSymbol.envirPut(z.value;);
-						1.do({
-							("s"++(x)++"f_pattern").asSymbol.envirPut(w.value;);
-							("s"++(x)++"ft_pattern").asSymbol.envirPut(i.value;);
-						});
-					});
-					~sets_num = x.value;
-					~sets_id_array = (x = 0; Array.fill(~sets_num, {x=x+1}));
-					/*~sf_pattern_array = [];*/
-					/*~sets_num.do(y = 0; {~sf_pattern_array = ~sf_pattern_array.add(("s"++(y=y+1)++"f_pattern").asSymbol.envirGet;);});*/
-				};
-				~pattern_generator.value;
-				/*~notes_num_save_7;
-				~s1f3;
-				~s5f_pattern;*/
-			);
-		);
-
-		~notes_seed_array_backup;
-		~note_patterns_seed_array_backup;
-		~note_times_seed_array_backup;
-
-		/*
-		~time_sig_array1 = [0.2];
-		~f_note_set = {x = ~number_of_notes; Array.fill(~number_of_notes, {while({i = ~freqmap.choose; ((i > ~max_note) or: (i < ~min_note))}, {nil}); i.value;})};
-			/*if(~f_note_set == nil, {~f_note_set.value;});*/
-			~f_note_change_array = ~f_note_set.value;
-			~pattern_generator.value;
-		*/
-
-		/*Really cool song:
-
-		Used specific numerology interval to generate note array with really high frequencies....
-		...then generated patterns
-
-		... then played the first 2 AI tasks.... *along* with 6 other AI tasks which just played one note chosen at random the entire time and did not change*/
-
-		/*
-		~ai_stop.value; ~synthfree.value;
-		~synthopen.value; ~ai1_task1_f1.play(SystemClock);
-
-		~ai_stop.value; ~synthfree.value;
-		*/
-
-		(
-			~ai1_task1_f1 = Task({
-				inf.do({var rs, l1;
-					([l1 = 0,l1 = 1].wchoose([0.05,0.95])).do({var setnum1;
-						setnum1 = ~sets_id_array.choose;
-						~task_1_p_array = ("s"++(setnum1)++"f_pattern").asSymbol.envirGet;
-						~ai1_task1_f1_time_array = ("s"++(setnum1)++"ft_pattern").asSymbol.envirGet;
-						/*~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];*/
-						(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
-							~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" 1").postln;
-							~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
-								case
-								{l1 == 1}{[0.45,0.45,0.1]}
-								{l1 == 0}{[0.7,0.2,0.1]};
-								);
-							(~f2+" 2").postln;
-							~f3 = [~f3, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
-								case
-								{l1 == 1}{[0.75,0.25,0.1]}
-								{l1 == 0}{[0.9,0.1,0.1]};
-								);
-							(~f3+" 3").postln;
-							//add another layer of wchoose to the one above... so sometimes the weights change like..
-							s.makeBundle(s.latency, {~synthflow.value;});
-							/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
-							/*time = ~time_sig_array1.choose;
-							~ai1_task1_f1_time_array = ~ai1_task1_f1_time_array.add(time.value);
-							time.wait;*/
-							/*((0.25/2)*([1,0.25,0.5,1.5,2].wchoose([0.5,0.1,0.2,0.1,0.1])))*/(~ai1_task1_f1_time_array.at(~yt1)).wait;
-						});
-						rs = [0,1].wchoose([0.4,0.6]); /*[0.05+0.35+0.05+0.35+0.025+0.1333+0.0167+0.025]*/
-						(0..7).wchoose([0.05,0.35,0.05,0.35,0.025,0.1333,0.0167,0.025]).do({var r;
-							if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
-							(~task_1_p_array.size).do(~yt1 = (-1); {
-								~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * [r, r.reciprocal].choose; (~f1+" 1_1").postln;
-								~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
-								case
-								{l1 == 1}{[0.45,0.45,0.1]}
-								{l1 == 0}{[0.7,0.2,0.1]};
-								);
-								(~f2+" 2_1").postln;
-								~f3 = [~f3, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
-								case
-								{l1 == 1}{[0.75,0.25,0.1]}
-								{l1 == 0}{[0.9,0.1,0.1]};
-								);
-								(~f3+" 3_1").postln;
-								s.makeBundle(s.latency, {~synthflow.value;});
-								/*((0.25/2)*([1,0.25,0.5,1.5,2].wchoose([0.5,0.1,0.2,0.1,0.1])))*/(~ai1_task1_f1_time_array.at(~yt1)).wait;
-							});
-						});
-					});
-
-					([0,1].wchoose([0.9,0.1])).do({
-						~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1;
-						((2..6).choose).do({
-							~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" 1_2").postln;
-							~f2 = [~f2, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
-								case
-								{l1 == 1}{[0.45,0.45,0.1]}
-								{l1 == 0}{[0.7,0.2,0.1]};
-							);
-							(~f2+" 2_2").postln;
-							~f3 = [~f3, /*~f1*[~ratio_array.choose, ~ratio_array.choose.reciprocal].choose*/~f_note_change_array.choose, 0].wchoose(
-								case
-								{l1 == 1}{[0.75,0.25,0.1]}
-								{l1 == 0}{[0.9,0.1,0.1]};
-								);
-							(~f3+" 3_2").postln;
-							s.makeBundle(s.latency, {~synthflow.value;});
-							(~ai1_task1_f1_time_array.choose).wait;
-
-						});
-					});
-
-				});
-			});
-			~ai1_task1_f2 = Task({
-				inf.do({var rs;
-					([0,1].wchoose([0.05,0.95])).do({var setnum2;
-						setnum2 = ~sets_id_array.choose;
-						~task_2_p_array = ("s"++(setnum2)++"f_pattern").asSymbol.envirGet;
-						~ai1_task1_f2_time_array = ("s"++(setnum2)++"ft_pattern").asSymbol.envirGet;
-						/*~task_2_p_array = ~sf_pattern_array.choose; ~ai1_task1_f2_time_array = [];*/
-						(~task_2_p_array.size*1).do(~yt2 = (-1); {var time;
-							~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});); (~f2+" two").postln;
-							s.makeBundle(s.latency, {~synthflow.value;});
-							/*("sf_note_"++(~yt2=~yt2+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
-							/*time = ~time_sig_array2.choose;
-							~ai1_task1_f2_time_array = ~ai1_task1_f2_time_array.add(time.value);
-							time.wait;*/
-							(~ai1_task1_f2_time_array.at(~yt2)*2).wait;
-						});
-						rs = [0,1].wchoose([0.4,0.6]); /*[0.05+0.35+0.05+0.35+0.025+0.1333+0.0167+0.025]*/
-						(0..7).wchoose([0.05,0.35,0.05,0.35,0.025,0.1333,0.0167,0.025]).do({var r;
-							if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
-							(~task_2_p_array.size).do(~yt2 = (-1); {
-								~f2 = ~task_2_p_array.at(if(~yt2<(~task_2_p_array.size-1), {(~yt2=~yt2+1)}, {~yt2=0});) * [r, r.reciprocal].choose; (~f2+" two_1").postln;
-								s.makeBundle(s.latency, {~synthflow.value;});
-								(~ai1_task1_f2_time_array.at(~yt2)*2).wait;
-							});
-						});
-					});
-
-					([0,1].wchoose([0.9,0.1])).do({
-						~f2_ratio = ~ratio_array.choose; ~f2_o = ~f2;
-						((2..6).choose).do({
-							~f2 = [~f2*~f2_ratio, ~f2/~f2_ratio].choose; (~f2+" two_2").postln;
-							s.makeBundle(s.latency, {~synthflow.value;});
-							(~ai1_task1_f2_time_array.choose*2).wait;
-
-						});
-					});
-
-				});
-			});
-		);
-
-		/*~ai1_task1_f1 = Task({
-		inf.do({var rs;
-		([0,1].wchoose([0.05,0.95])).do(
-		(~number_of_synths-1).do(~fchange = 1; {("f"++(~fchange=~fchange+1)).asSymbol.envirPut(~f_note_change_array.choose;);});
-		{
-		~task_1_p_array = ~sf_pattern_array.choose; ~ai1_task1_f1_time_array = [];
-		(~task_1_p_array.size*1).do(~yt1 = (-1); {var time;
-		~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});); (~f1+" one").postln;
-		s.makeBundle(s.latency, {~synthflow.value;});
-		/*("sf_note_"++(~yt1=~yt1+1)++"_time").asSymbol.envirPut(~time = ~time_sig_array1.choose;);*/
-		time = ~time_sig_array1.choose;
-		~ai1_task1_f1_time_array = ~ai1_task1_f1_time_array.add(time.value);
-		time.wait;
-		});
-		rs = [0,1].wchoose([0.4,0.6]);
-		(0..7).wchoose([0.3,0.3,0.05,0.25,0.025,0.1333,0.0167,0.025]).do({var r;
-		if(rs == 0, {r = 1}, {r = ~ratio_array.choose});
-		(~task_1_p_array.size).do(~yt1 = (-1); {
-		~f1 = ~task_1_p_array.at(if(~yt1<(~task_1_p_array.size-1), {(~yt1=~yt1+1)}, {~yt1=0});) * [r, r.reciprocal].choose; (~f1+" one_1").postln;
-		s.makeBundle(s.latency, {~synthflow.value;});
-		(~ai1_task1_f1_time_array.at(~yt1)).wait;
-		});
-		});
-		});
-
-		([0,1].wchoose([0.9,0.1])).do({
-		~f1_ratio = ~ratio_array.choose; ~f1_o = ~f1;
-		((2..6).choose).do({
-		~f1 = [~f1*~f1_ratio, ~f1/~f1_ratio].choose; (~f1+" one_2").postln;
-		s.makeBundle(s.latency, {~synthflow.value;});
-		(~time_sig_array4.choose).wait;
-
-		});
-		});
-
-		});
-		});*/
-
-		~ai1_task1_f3 = Task({
-			inf.do({
-				~f3 = ~f_note_change_array.choose; ~f3.postln;
-				s.makeBundle(s.latency, {~synthflow.value;});
-
-				(~time_sig_array2.choose).wait;
-			});
-		});
-		~ai1_task1_f4 = Task({
-			inf.do({
-				~f4 = ~f_note_change_array.choose; ~f4.postln;
-				s.makeBundle(s.latency, {~synthflow.value;});
-
-				(~time_sig_array.choose).wait;
-			});
-		});
-		~ai1_task1_f5 = Task({
-			inf.do({
-				~f5 = ~f_note_change_array.choose; ~f5.postln;
-				s.makeBundle(s.latency, {~synthflow.value;});
-
-				(~time_sig_array.choose).wait;
-			});
-		});
-		~ai1_task1_f6 = Task({
-			inf.do({
-				~f6 = ~f_note_change_array.choose; ~f6.postln;
-				s.makeBundle(s.latency, {~synthflow.value;});
-
-				(~time_sig_array.choose).wait;
-			});
-		});
-		~ai1_task1_f7 = Task({
-			inf.do({
-				~f7 = ~f_note_change_array.choose; ~f7.postln;
-				s.makeBundle(s.latency, {~synthflow.value;});
-
-				(~time_sig_array.choose).wait;
-			});
-		});
-		~ai1_task1_f8 = Task({
-			inf.do({
-				~f8 = ~f_note_change_array.choose; ~f8.postln;
-				s.makeBundle(s.latency, {~synthflow.value;});
-
-				(~time_sig_array.choose).wait;
-			});
-		});
-		~ai1_task1_f9 = Task({
-			inf.do({
-				~f9 = ~f_note_change_array.choose; ~f9.postln;
-				s.makeBundle(s.latency, {~synthflow.value;});
-
-				(~time_sig_array.choose).wait;
-			});
-		});
-		~ai1_task1_f10 = Task({
-			inf.do({
-				~f10 = ~f_note_change_array.choose; ~f10.postln;
-				s.makeBundle(s.latency, {~synthflow.value;});
-
-				(~time_sig_array.choose).wait;
-			});
-		});
-		~ai1_task1_f11 = Task({
-			inf.do({
-				~f11 = ~f_note_change_array.choose; ~f11.postln;
-				s.makeBundle(s.latency, {~synthflow.value;});
-
-				(~time_sig_array.choose).wait;
-			});
-		});
-		~ai1_task1_f12 = Task({
-			inf.do({
-				~f12 = ~f_note_change_array.choose; ~f12.postln;
-				s.makeBundle(s.latency, {~synthflow.value;});
-
-				(~time_sig_array.choose).wait;
-			});
-		});
-
-		/*~ai1_task1_fall = Task({
-		inf.do({
-		~ytall = (z = 0; Array.fill(~number_of_synths, {z=z+1}));
-		~ytall = ~ytall.scramble;
-		~ytall.choose.do(x = (-1); {("f"++(a.at(x=x+1);)).asSymbol.envirPut(~f_note_change_array.choose);});
-		"f all".postln;
-		s.makeBundle(s.latency, {~synthflow.value;});
-
-		((~time_sig_array5*8).wchoose([0.4, 0.3, 0.3]);).wait;
-		});
-		});*/
-
-		/*12.do(x=0; {("~ai1_task1_f"++(x=x+1)).asSymbol.envirPut(
-		Task({
-		inf.do({
-		("f"++(x)).asSymbol.envirPut = ~f_note_change_array.choose; ("f"++(x)).asSymbol.envirGet.postln;
-		s.makeBundle(s.latency, {~synthflow.value;});
-
-		(~time_sig_array.choose).wait;
-		});
-		});
-		);});*/
-
-		/*~ai_play_u = {s.makeBundle(0, {
-		~ai1_task1_u.play(SystemClock);
-
-		})};
-
-		~ai_stop_u = {s.makeBundle(0, {
-		~ai1_task1_u.stop; ~ai1_task1_u.reset;
-
-		})};*/
-
-		~ai_play = {s.makeBundle(0, {
-			~ai1_task1_fall.play(SystemClock);
-			if(~number_of_synths > 0, {~ai1_task1_f1.play(SystemClock);});
-			if(~number_of_synths > 1, {~ai1_task1_f2.play(SystemClock);});
-			if(~number_of_synths > 2, {~ai1_task1_f3.play(SystemClock);});
-			if(~number_of_synths > 3, {~ai1_task1_f4.play(SystemClock);});
-			if(~number_of_synths > 4, {~ai1_task1_f5.play(SystemClock);});
-			if(~number_of_synths > 5, {~ai1_task1_f6.play(SystemClock);});
-			if(~number_of_synths > 6, {~ai1_task1_f7.play(SystemClock);});
-			if(~number_of_synths > 7, {~ai1_task1_f8.play(SystemClock);});
-			if(~number_of_synths > 8, {~ai1_task1_f9.play(SystemClock);});
-			if(~number_of_synths > 9, {~ai1_task1_f10.play(SystemClock);});
-			if(~number_of_synths > 10, {~ai1_task1_f11.play(SystemClock);});
-			if(~number_of_synths > 11, {~ai1_task1_f12.play(SystemClock);});
-
-		})};
-
-		~ai_stop = {s.makeBundle(0, {
-			~ai1_task1_fall.stop; ~ai1_task1_fall.reset;
-			if(~number_of_synths > 0, {~ai1_task1_f1.stop; ~ai1_task1_f1.reset;});
-			if(~number_of_synths > 1, {~ai1_task1_f2.stop; ~ai1_task1_f2.reset;});
-			if(~number_of_synths > 2, {~ai1_task1_f3.stop; ~ai1_task1_f3.reset;});
-			if(~number_of_synths > 3, {~ai1_task1_f4.stop; ~ai1_task1_f4.reset;});
-			if(~number_of_synths > 4, {~ai1_task1_f5.stop; ~ai1_task1_f5.reset;});
-			if(~number_of_synths > 5, {~ai1_task1_f6.stop; ~ai1_task1_f6.reset;});
-			if(~number_of_synths > 6, {~ai1_task1_f7.stop; ~ai1_task1_f7.reset;});
-			if(~number_of_synths > 7, {~ai1_task1_f8.stop; ~ai1_task1_f8.reset;});
-			if(~number_of_synths > 8, {~ai1_task1_f9.stop; ~ai1_task1_f9.reset;});
-			if(~number_of_synths > 9, {~ai1_task1_f10.stop; ~ai1_task1_f10.reset;});
-			if(~number_of_synths > 10, {~ai1_task1_f11.stop; ~ai1_task1_f11.reset;});
-			if(~number_of_synths > 11, {~ai1_task1_f12.stop; ~ai1_task1_f12.reset;});
-
-		})};
-	);
-
 
 	//set base (lowest) frequencies, set starting values for synthdef, and load synthdef on server boot
 
@@ -1446,18 +671,6 @@ MIDIIn.connectAll;
 	view = UserView(w, Window.screenBounds);
 	view.clearOnRefresh = false;
 	view.background = Color.black;
-
-
-	//CPU monitor tip on boot
-
-	if(~showcpumonitor == 1, {
-		~showcpumonitorview = View(w, Rect(20,Window.screenBounds.height/2+120,290,170));
-		~showcpumonitortext = StaticText(~showcpumonitorview, Rect(0,0,290,150)).background_(Color.black).stringColor_(Color.white);
-		~showcpumonitortext.string = "Tip:"++"\n"++"You can monitor the avg CPU by clicking on the small"+"cm".quote+"button in the bottom right-corner. This message will close in 10 seconds.";
-		~showcpumonitor_button = Button.new(~showcpumonitorview,Rect(290/2-20,170/1.47,40,20)).states_([["close",Color.white,Color.black]]).action_({arg button; ~showcpumonitorview.close;});
-		AppClock.sched(10,{if(~showcpumonitorview.isClosed == false, {~showcpumonitorview.close;});});
-	});
-
 
 	//vertical grid (inactive)
 
@@ -1536,14 +749,13 @@ MIDIIn.connectAll;
 					});
 				}););
 			});
-			/*Synth(~s1,                        [\dur, 700,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ~vol]);
-			Synth(~s2,                        [\dur, 700,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ~vol]);*/
+
 			(
 				1.do({
 					6.do(x = 0; {("s"++(x=x+1)).asSymbol.envirPut([\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1].at(x-1))});
 					case
 					{~sendreplysynthdef_on == 0}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1)});}
-					{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))}); ~sendreply_oscfunc_array.value;};
+					{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))});};
 					s.makeBundle(0, {
 						(~number_of_synths).do(x = 0; {
 							("l"++(x=x+1)++"a").asSymbol.envirPut(Synth(~s1,                        [\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]).register;);
@@ -1589,7 +801,7 @@ MIDIIn.connectAll;
 					6.do(x = 0; {("s"++(x=x+1)).asSymbol.envirPut([\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1].at(x-1))});
 					case
 					{~sendreplysynthdef_on == 0}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1)});}
-					{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))}); ~sendreply_oscfunc_array.value;};
+					{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))});};
 					s.makeBundle(0, {
 						(~number_of_synths).do(x = 0; {
 							("l"++(x=x+1)++"a1").asSymbol.envirPut(Synth(~s1,                        [\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]).register;);
@@ -1657,14 +869,13 @@ MIDIIn.connectAll;
 			}););
 		};
 
-		if(~ai1_task1_f1.isPlaying == false, {(~number_of_synths).do(x = 0; y = 24; z = 10; {
+		(~number_of_synths).do(x = 0; y = 24; z = 10; {
 			if((("f"++(x=x+1)).asSymbol.envirGet > ~outmaxa) or: (("f"++(x)).asSymbol.envirGet < ~outmina), {
 				("z"++(y=y+1)).asSymbol.envirGet.do(_.close); ("z"++(x)).asSymbol.envirGet.do(_.close);
 				("z"++(y)).asSymbol.envirPut(View(w, Rect((("f"++(x)).asSymbol.envirGet.explin(~outminb,~outmaxb,0,Window.screenBounds.width)), ~dc1+z, ~nw, 2)).background = Color.white;);}, {
 				("z"++(x)).asSymbol.envirGet.do(_.close);("z"++(y)).asSymbol.envirGet.do(_.close); ("z"++(x)).asSymbol.envirPut(View(w, Rect((("f"++(x)).asSymbol.envirGet.explin(~outmina,~outmaxa,0,Window.screenBounds.width)), ~dc2+z, ~nw, 2)).background = Color.white;);
 			});
 			z=z+10;
-		});
 		});
 	};
 
@@ -2870,7 +2081,7 @@ MIDIIn.connectAll;
 	//start/stop synth button
 
 	if((~l1a == nil) or: (~l1a1 == nil), {
-		~l1a = Synth(\gsineicfld1, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld1, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);~l1a = Synth(\gsineicfld1, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld1, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);
+		~l1a = Synth(\gsineicfld, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);~l1a = Synth(\gsineicfld, [\dur, 0]).register;~l1a1 = Synth(\gsineicfld, [\dur, 0]).register;[~l1a, ~l1a1].do(_.free);
 	});
 
 	b3 = Button.new(w,Rect(Window.screenBounds.width*0+20,Window.screenBounds.height-88,60,60/1.6180339887499)).states_([["synth0",Color.white,Color.black],["synth1",Color.white,Color.black]]).action_({arg synthbutton; synthbutton.value.postln}).action_({
@@ -2878,7 +2089,6 @@ MIDIIn.connectAll;
 			~synthopen.value;
 			~numsynths.stop; ~numsynthsfunc.value;
 			if(~midifunc != nil, {~midifunc.value});
-			if(~showcpumonitorview != nil, {if(~showcpumonitorview.isClosed == false, {~showcpumonitorview.close;});});
 		},
 		{~synthfree.value; b4.value = 0;})
 	});
@@ -3111,32 +2321,32 @@ MIDIIn.connectAll;
 					if(~filterslider_x == nil, {~filterslider_x = 0.33911368015414});
 					if(~filterslider_y == nil, {~filterslider_y = 0.091259640102828});
 					if(button.value == 0, {
-						a = ControlSpec(700, 5000, \exp);
-						b = ControlSpec(0.1, 20.0, \lin);
-						~filterslider = Slider2D(w, Rect(380,0,Window.screenBounds.width-380,Window.screenBounds.height-100))
-						.x_(~filterslider_x)
-						.y_(~filterslider_y)
-						.action_({|sl|
-							[\sliderX, x = a.map(sl.x), \sliderY, y = b.map(sl.y)]; ~filterslider_x = sl.x; ~filterslider_y = sl.y;
+					a = ControlSpec(700, 5000, \exp);
+					b = ControlSpec(0.1, 20.0, \lin);
+					~filterslider = Slider2D(w, Rect(380,0,Window.screenBounds.width-380,Window.screenBounds.height-100))
+					        .x_(~filterslider_x)
+					        .y_(~filterslider_y)
+					        .action_({|sl|
+						            [\sliderX, x = a.map(sl.x), \sliderY, y = b.map(sl.y)]; ~filterslider_x = sl.x; ~filterslider_y = sl.y;
 
-							~low_pass_filter_set_value = x;
+						~low_pass_filter_set_value = x;
 
-							~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString; ~low_pass_filter_set_value = ~low_pass_filter_set_value.asFloat;
+						~low_pass_filter_textfield.string = ~low_pass_filter_set_value.asString; ~low_pass_filter_set_value = ~low_pass_filter_set_value.asFloat;
 
-							~lpfl = ~low_pass_filter_set_value;
+						~lpfl = ~low_pass_filter_set_value;
 
-							case
-							{~low_pass_filter_setting == 0}{~low_pass_filter_freq_limit1 = ~low_pass_filter_set_value;}
-							{~low_pass_filter_setting == 1}{~low_pass_filter_freq_limit2 = ~low_pass_filter_set_value;};
+						case
+						{~low_pass_filter_setting == 0}{~low_pass_filter_freq_limit1 = ~low_pass_filter_set_value;}
+						{~low_pass_filter_setting == 1}{~low_pass_filter_freq_limit2 = ~low_pass_filter_set_value;};
 
-							~rq_set_value = y;
+						~rq_set_value = y;
 
-							~rq_textfield.string = ~rq_set_value.asString; ~rq_set_value = ~rq_set_value.asFloat;
+						~rq_textfield.string = ~rq_set_value.asString; ~rq_set_value = ~rq_set_value.asFloat;
 
-							~lpf_rq = ~rq_set_value; ~synthflow.value;
+						~lpf_rq = ~rq_set_value; ~synthflow.value;
 
-						}).background_(Color.black);
-						~filterslider.front;
+					        }).background_(Color.black);
+					~filterslider.front;
 					}, {~filterslider.close;});
 
 				});
@@ -3176,15 +2386,14 @@ MIDIIn.connectAll;
 
 				//switch to sendreply functions
 
-				~sendreplymenu = PopUpMenu(~settingsview,Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).items_(["off","phi/fth trans","phi trans","western scale","eastern scale","numerology 1"]).background_(Color.black).stringColor_(Color.white).action_({arg button;
+				~sendreplymenu = PopUpMenu(~settingsview,Rect(lefttimebox , top=top+heightbox, widthbox, heightbox)).items_(["off","phi/fth trans","phi trans","western scale","eastern scale"]).background_(Color.black).stringColor_(Color.white).action_({arg button;
 
 					case
 					{button.value == 0;}{~sendreplymenu_value = 0;}
 					{button.value == 1;}{~sendreplymenu_value = 1;}
 					{button.value == 2;}{~sendreplymenu_value = 2;}
 					{button.value == 3;}{~sendreplymenu_value = 3;}
-					{button.value == 4;}{~sendreplymenu_value = 4;}
-					{button.value == 5;}{~sendreplymenu_value = 5; ~numerology_text_func.value; ~settingsview.close;};
+					{button.value == 4;}{~sendreplymenu_value = 4;};
 
 					if(~st != nil, {~st.close});
 					~st = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
@@ -3200,8 +2409,7 @@ MIDIIn.connectAll;
 				{~sendreplymenu_value == 1}{~sendreplymenu.value = 1;}
 				{~sendreplymenu_value == 2}{~sendreplymenu.value = 2;}
 				{~sendreplymenu_value == 3}{~sendreplymenu.value = 3;}
-				{~sendreplymenu_value == 4}{~sendreplymenu.value = 4;}
-				{~sendreplymenu_value == 5}{~sendreplymenu.value = 5;};
+				{~sendreplymenu_value == 4}{~sendreplymenu.value = 4;};
 
 
 				//set automate note-change period for sendreply
@@ -3284,7 +2492,7 @@ MIDIIn.connectAll;
 
 					~volumetextfield.string = ~vol.asString; ~vol = ~vol.asFloat;
 
-					if(~vol > 0.02, {~vol = ~vol_revert; ~volumetextfield.string = ~vol.asString;});
+					if(~vol >= 0.02, {~vol = ~vol_revert; ~volumetextfield.string = ~vol.asString;});
 
 					12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~synthflow.value;
 
@@ -3294,32 +2502,6 @@ MIDIIn.connectAll;
 					~st.string = "volume selected";
 					AppClock.sched(~gm,{~st.close;});
 				};
-
-
-				//slider for volume
-
-				~vol_sliderbutton = Button(~settingsview,Rect(lefttimebox*2+5, top, 36, heightbox)).states_([["slider",Color.white,Color.black],["slider",Color.white,Color.black]]).mouseDownAction_({arg button;
-
-					if(button.value == 0, {
-						b = ControlSpec(0, 0.04, \linear, 0.0001);
-						if(~volslider_val == nil, {~volslider_val = 0.60112359550562});
-						~vol_slider = Slider(w, Rect(380,Window.screenBounds.height-390+top-(heightbox/2)-heightbox+2,300,heightbox))
-						.focusColor_(Color.white)
-						.background_(Color.black)
-						.value_(~volslider_val)
-						.action_({
-							c = b.map(~vol_slider.value); ~volslider_val = ~vol_slider.value;
-							~vol = c.value;
-
-							~volumetextfield.string = ~vol.asString; ~vol = ~vol.asFloat;
-
-							/*if(~vol > 0.02, {~volumetextfield.string = ~vol.asString;});*/
-
-							12.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~synthflow.value;
-						});
-					}, {~vol_slider.close;});
-				});
-				~vol_sliderbutton.font = Font(size: 10);
 
 
 				//set button for all settings
@@ -3351,38 +2533,37 @@ MIDIIn.connectAll;
 					{~sendreplymenu.value ==  1}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 0; ~sendreply_gm_fth_func = ~sendreply_gm_fth_func_1}
 					{~sendreplymenu.value ==  2}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 0; ~sendreply_gm_fth_func = ~sendreply_gm_fth_func_2}
 					{~sendreplymenu.value ==  3}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 1; ~send_reply_random_func = ~send_reply_random_func_western; ~sendreplyfuncswitch = 1;}
-					{~sendreplymenu.value ==  4}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 1; ~send_reply_random_func = ~send_reply_random_func_eastern; ~sendreplyfuncswitch = 2;}
-					{~sendreplymenu.value ==  5}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 2;};
+					{~sendreplymenu.value ==  4}{~sendreplysynthdef_on = 1; ~sendreplyfunc_choose = 1; ~send_reply_random_func = ~send_reply_random_func_eastern; ~sendreplyfuncswitch = 2;};
 
 
 					//evaluate synthdefs(gsine)
 
 					AppClock.sched(~gm,{
 						case
-						{~menu2.value == 0}{~gsinenum = 1; ~gsine.value; if(~safe_vol == 1, {~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 1}{~gsinenum = 2; ~gsine.value; if(~safe_vol == 1, {~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 2}{~gsinenum = 3; ~gsine.value; if(~safe_vol == 1, {~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 3}{~gsinenum = 4; ~gsine.value; if(~safe_vol == 1, {~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 4}{~gsinenum = 5; ~gsine.value; if(~safe_vol == 1, {~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 5}{~gsinenum = 6; ~gsine.value; if(~safe_vol == 1, {~vol = 0.006; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 6}{~gsinenum = 7; ~gsine.value; if(~safe_vol == 1, {~vol = 0.008; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 7}{~gsinenum = 8; ~gsine.value; if(~safe_vol == 1, {~vol = 0.009; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 8}{~gsinenum = 9; ~gsine.value; if(~safe_vol == 1, {~vol = 0.009; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 9}{~gsinenum = 10; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 10}{~gsinenum = 11; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 11}{~gsinenum = 12; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 12}{~gsinenum = 13; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 13}{~gsinenum = 14; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 14}{~gsinenum = 15; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 15}{~gsinenum = 16; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 16}{~gsinenum = 17; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 17}{~gsinenum = 18; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 18}{~gsinenum = 19; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 19}{~gsinenum = 20; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 20}{~gsinenum = 21; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 21}{~gsinenum = 22; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 22}{~gsinenum = 23; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});}
-						{~menu2.value == 23}{~gsinenum = 24; ~gsine.value; if(~safe_vol == 1, {~vol = ~vol_default; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;});};
+						{~menu2.value == 0}{~gsinenum = 1; ~gsine.value; ~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 1}{~gsinenum = 2; ~gsine.value; ~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 2}{~gsinenum = 3; ~gsine.value; ~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 3}{~gsinenum = 4; ~gsine.value; ~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 4}{~gsinenum = 5; ~gsine.value; ~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 5}{~gsinenum = 6; ~gsine.value; ~vol = 0.005; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 6}{~gsinenum = 7; ~gsine.value; ~vol = 0.006; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 7}{~gsinenum = 8; ~gsine.value; ~vol = 0.006; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 8}{~gsinenum = 9; ~gsine.value; ~vol = 0.008; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 9}{~gsinenum = 10; ~gsine.value; ~vol = 0.009; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 10}{~gsinenum = 11; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 11}{~gsinenum = 12; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 12}{~gsinenum = 13; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 13}{~gsinenum = 14; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 14}{~gsinenum = 15; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 15}{~gsinenum = 16; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 16}{~gsinenum = 17; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 17}{~gsinenum = 18; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 18}{~gsinenum = 19; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 19}{~gsinenum = 20; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 20}{~gsinenum = 21; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 21}{~gsinenum = 22; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 22}{~gsinenum = 23; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;}
+						{~menu2.value == 23}{~gsinenum = 24; ~gsine.value; ~vol = 0.0099; ~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)}); ~volumetextfield.string = ~vol.asString;};
 
 						~st1.close;
 						~st_load = StaticText(~settingsview, Rect(lefttime, top, 200, 20)).background_(Color.black);
@@ -3406,7 +2587,7 @@ MIDIIn.connectAll;
 			}.value);
 
 			~settingsview.front;
-		}, {~settingsview.close; if(~vol_slider != nil, {if(~vol_slider.isClosed == false, {~vol_slider.close;});}); if(~filterslider != nil, {if(~filterslider.isClosed == false, {~filterslider.close;});});});
+		}, {~settingsview.close; if(~filterslider.isClosed == false, {~filterslider.close;});});
 	});
 
 
@@ -6339,7 +5520,7 @@ MIDIIn.connectAll;
 	~cpumonitor.close;
 
 	~cpumonitorfunc = {
-		if(~cpumonitor.isClosed == false, {~cpumonitor.close;});
+		~cpumonitor.close;
 		~cpumonitor = StaticText(w, Rect(20,~bpt-100,800,124/1.6180339887499)).background_(Color.black).stringColor_(Color.white);
 		if(~settingsbutton.value == 1, {~cpumonitorbutton.valueAction = 0;});
 		~cpumonitor.string =
@@ -6443,7 +5624,7 @@ MIDIIn.connectAll;
 	~randombutton1 = Button.new(w,Rect(Window.screenBounds.width-20-20-20-20,~bpt+69+5-(20/~gm),20,20/1.6180339887499)).states_([["rw",Color.white,Color.black]]).action_({arg button;
 
 		if((~l1a.isRunning == true) or: (~l1a1.isRunning == true), {
-			12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~western_rand_func.value)});
+			12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~freqmap.at(rrand(36, 91));)});
 			~synthflow.value;
 		});
 	});
@@ -6454,7 +5635,7 @@ MIDIIn.connectAll;
 	~randombutton2 = Button.new(w,Rect(Window.screenBounds.width-20-20-20,~bpt+69+5-(20/~gm),20,20/1.6180339887499)).states_([["re",Color.white,Color.black]]).action_({arg button;
 
 		if((~l1a.isRunning == true) or: (~l1a1.isRunning == true), {
-			12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut(~eastern_rand_func.value;)});
+			12.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut((~freqmap.at(127)/8).rand;)});
 			~synthflow.value;
 		});
 	});
@@ -6908,9 +6089,9 @@ s.waitForBoot({~timewavesynthapp.value;});
 //"synth0" button at least once before this script can run.
 
 /*Order of execution to run script and record:
-1. Press "Ctrl/Cmd - Enter" anywhere inside the "//1 - LOAD SYNTH FUNCTIONS" parenthesis about 50 lines down,
-2. Click on the same line as "//2 - START RECORDING" just above "//1 - LOAD SYNTH FUNCTIONS" and press "Ctrl/Cmd - Enter",
-3. Press "Ctrl/Cmd - Enter" anywhere inside the "//3 - Routine" parenthesis about 10 lines down...
+1. Press "Ctrl/Cmd - Enter" anywhere inside the "LOAD SYNTH FUNCTIONS" parenthesis about 50 lines down,
+2. Click on the same line as "START RECORDING" just above "LOAD SYNTH FUNCTIONS" and press "Ctrl/Cmd - Enter",
+3. Press "Ctrl/Cmd - Enter" anywhere inside the "Routine" parenthesis about 10 lines down...
 The recording file location will be found in the post window upon evaluating "s.record;"...
 Leave out #2 to run the script without recording...
 You can press "Ctrl/Cmd - Period" to stop synth/free the sever.
@@ -6922,20 +6103,13 @@ You can compose a piece, and find guides for doing so, inside the "//3 - Routine
 		1.do({
 
 			//duration of each chord
-			a = 7*60;
+			a = 8;
 
 			//Copy and paste "saved" chords from the "copy" button inside the Timewave synthesizer GUI here:
 			//Choose to change each duration individually by changing the "a" variable in the code below this line, as well as "synthopen/synthflow/synthslide".
 			//Also, the amount of frequency values in the arrays must be >= "~number_of_synths". Although, this is done
 			//automatically when using the generated code and values from the "copy" button in the GUI. "0"'s can be used to fill in empty spots.
-			/*~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([270.6189362671,216.41920166383,1120.0799528615,197.20562961958,723.05537621548,486.64870085678,218.85835908339,1439.1803227573,1375.9846554597,1023.9605236661,46.43997165998,457.12555493862].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;*/
-
-			/*[ 531.55579291696, 920.71576504688, 1055.6749724885, 788.96151238406, 1310.4724404821, 593.54797570189, 697.26843971369, 447.52157561482 ]
-			[ 557.99193705131, 695.73182340208, 964.37625369943, 875.16183864235, 1293.2397809671, 1067.3845760762, 359.71468858027, 423.50690121836 ]*/
-			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([~f1=432,~f2=769.73649247329,~f3=969.80720973936,~f4=1294.5373144215,~f5=1153.3016340029,~f6=1088.5717871092,~f7=1294.5373144215,~f8=1153.3016340029].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
-			/*~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 557.99193705131, 695.73182340208, 964.37625369943, 875.16183864235, 1293.2397809671, 1067.3845760762, 359.71468858027, 423.50690121836 ].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
-			*/
-			/*~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615, 0, 0, 0, 0 ].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
+			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 525.7244292648, 646.87931910571, 882.91913643716, 1181.3955692862, 706.55967076687, 711.25161146077, 977.22674582697, 662.50413564615, 0, 0, 0, 0 ].at(x-1))}); ~synthopen.value; ~trace.value; (a).wait;
 			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1316.2675385788, 1316.2675385788, 658.1337692894, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
 			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 1051.0271787501, 1051.0271787501, 525.51358937505, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
 			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 937.1102649523, 937.1102649523, 937.1102649523, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
@@ -6951,19 +6125,15 @@ You can compose a piece, and find guides for doing so, inside the "//3 - Routine
 			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 824.55305817848, 1037.2062139187, 1037.2062139187, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
 			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 1100.8670554563, 1316.2675385788, 554.31101031015, 554.31101031015, 554.31101031015, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
 			~number_of_synths.do(x = 0; {("f"++(x=x+1)).asSymbol.envirPut([ 654.05453931384, 879.03193048766, 941.25430167146, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 521.10543213641, 0, 0, 0, 0 ].at(x-1))}); ~synthflow.value; ~trace.value; (a).wait;
-			*/
 
+			//fade out function
+			100.do({~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(("vol"++x).asSymbol.envirGet - (~vol/100))}); ~synthflow.value; 0.1.wait;});
 
-		});
+			//stop everything
+			~synthfree.value; 2.wait; s.stopRecording;
+			~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
 
-		//fade out function
-		100.do({~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(("vol"++x).asSymbol.envirGet - (~vol/100))}); ~synthflow.value; 0.1.wait;});
-
-		//stop everything
-		~synthfree.value; 2.wait; s.stopRecording;
-		~number_of_synths.do(x = 0; {("vol"++(x=x+1)).asSymbol.envirPut(~vol)});
-
-}););
+});}););
 r.play;
 );
 
@@ -6994,7 +6164,7 @@ s.stopRecording; // STOP RECORDING
 				6.do(x = 0; {("s"++(x=x+1)).asSymbol.envirPut([\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1].at(x-1))});
 				case
 				{~sendreplysynthdef_on == 0}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1)});}
-				{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))}); ~sendreply_oscfunc_array.value;};
+				{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))});};
 				s.makeBundle(0, {
 					(~number_of_synths).do(x = 0; {
 						("l"++(x=x+1)++"a").asSymbol.envirPut(Synth(~s1,                        [\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]).register;);
@@ -7040,7 +6210,7 @@ s.stopRecording; // STOP RECORDING
 				6.do(x = 0; {("s"++(x=x+1)).asSymbol.envirPut([\gsineicfld6, \gsineicrld6, \gsineicfld2, \gsineicrld2, \gsineicfld1, \gsineicrld1].at(x-1))});
 				case
 				{~sendreplysynthdef_on == 0}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1)});}
-				{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))}); ~sendreply_oscfunc_array.value;};
+				{~sendreplysynthdef_on == 1}{~number_of_synths.do(x = 0; {("s5_"++(x=x+1)).asSymbol.envirPut(\gsineicfld1_f++(x))});};
 				s.makeBundle(0, {
 					(~number_of_synths).do(x = 0; {
 						("l"++(x=x+1)++"a1").asSymbol.envirPut(Synth(~s1,                        [\dur, ("f"++(x)).asSymbol.envirGet,       \lpfl, ~lpfl, \lpf_rq, ~lpf_rq, \vol, ("vol"++(x)).asSymbol.envirGet]).register;);
@@ -7450,137 +6620,5 @@ s.stopRecording; // STOP RECORDING
 /*64*/	[ a = a*~n1*~bi, b = b*~n1/~bi, c = c*~n1*~bi, d = d*~n1/~bi, e = e*~n1*~bi, f = f*~n1/~bi ]
 
 /*1*/	[ a = a*~n1,     b = b*~n1*~bi, c = c*~n1,     d = d*~n1*~bi, e = e*~n1,     f = f*~n1*~bi ],...
-
-*/
-
-
-/*
-
-
-(Platform.userConfigDir +/+ "sc_ide_conf.yaml").openDocument;
-
-IDE:
-  editor:
-    blinkDuration: 600
-    disableBlinkingCursor: false
-    font:
-      antialias: 2
-      family: Courier 10 Pitch
-      size: 9
-    highlightBracketContents: true
-    highlightCurrentLine: false
-    inactiveEditorFadeAlpha: 64
-    indentWidth: 4
-    insertMatchingTokens: false
-    lineWrap: false
-    spaceIndent: false
-    stepForwardEvaluation: false
-    theme: My old theme
-    themes:
-      My old theme:
-        built-in: !textFormat
-          color: "#6b6bbf"
-          italic: false
-        char: !textFormat
-          color: "#92d38e"
-          italic: false
-        class: !textFormat
-          color: "#6066d2"
-          italic: false
-        comment: !textFormat
-          color: "#bf5454"
-          italic: false
-        currentLine: !textFormat
-          color: "#000000"
-          background: "#f4f4f4"
-          italic: false
-        env-var: !textFormat
-          color: "#8c654f"
-          italic: false
-        evaluatedCode: !textFormat
-          color: "#000000"
-          background: "#f8a200"
-        keyword: !textFormat
-          color: "#676fe6"
-          bold: true
-          italic: false
-        lineNumbers: !textFormat
-          color: "#000000"
-          background: "#888a85"
-          italic: false
-        matchingBrackets: !textFormat
-          color: "#ff0000"
-          bold: true
-        mismatchedBrackets: !textFormat
-          color: "#ffffff"
-          background: "#960000"
-          italic: false
-        number: !textFormat
-          color: "#9d43a7"
-          italic: false
-        postwindowemphasis: !textFormat
-          color: "#edd400"
-          bold: true
-          italic: false
-        postwindowerror: !textFormat
-          color: "#d11c24"
-          italic: false
-        postwindowsuccess: !textFormat
-          color: "#738a05"
-          italic: false
-        postwindowtext: !textFormat
-          color: "#ffffff"
-          italic: false
-        postwindowwarning: !textFormat
-          color: "#a57706"
-          italic: false
-        primitive: !textFormat
-          color: "#3333bf"
-          italic: false
-        searchResult: !textFormat
-          color: "#7f7f7f"
-          background: "#783b23"
-        selection: !textFormat
-          {}
-        string: !textFormat
-          color: "#bababa"
-          italic: false
-        symbol: !textFormat
-          color: "#87c87e"
-          italic: false
-        text: !textFormat
-          color: "#ffffff"
-          background: "#000000"
-        whitespace: !textFormat
-          color: "#7f7f7f"
-          italic: false
-    useComboBox: false
-    useComboBoxWhenSplitting: false
-  interpreter:
-    autoStart: true
-    configFile: ""
-    runtimeDir: ""
-    standalone: false
-  mainWindow:
-    detached: !QVariantMap
-      documents-dock: ""
-      help-dock: ""
-      post-dock: ""
-    geometry: AdnQywACAAAAAAAAAAAAGAAABZ8AAAODAAAAAAAAACwAAAK/AAACgwAAAAACAAAABaA=
-    state: AAAA/wAAAAD9AAAAAgAAAAAAAAAAAAAAAPwCAAAAAfsAAAAcAGQAbwBjAHUAbQBlAG4AdABzAC0AZABvAGMAawAAAAAA/////wAAAF8A////AAAAAQAAANYAAANP/AIAAAAC+wAAABIAaABlAGwAcAAtAGQAbwBjAGsAAAAAAAAAAcgAAABNAP////sAAAASAHAAbwBzAHQALQBkAG8AYwBrAQAAAAAAAANPAAAATQD///8AAATJAAADTwAAAAEAAAACAAAAAQAAAAL8AAAAAA==
-  postWindow:
-    lineWrap: false
-    scrollback: 1000
-  recentDocuments: !QVariantList
-    - /home/ken/.config/SuperCollider/sc_ide_conf.yaml
-    - /home/ken/Documents/supercollider stuff/default sc ide conf.scd
-    - /home/ken/Documents/supercollider stuff/preferred sc ide conf.scd
-    - /home/ken/Documents/supercollider stuff/timewavesynth.scd
-    - /media/ken/82c6f958-8852-4a72-9e56-9e9160aa5e79/stuff/supercollider/supercollider app data/SuperCollider/sc_ide_conf location
-    - /media/ken/82c6f958-8852-4a72-9e56-9e9160aa5e79/stuff/supercollider/supercollider app data/SuperCollider/sc_ide_conf.yaml
-    - /media/ken/82c6f958-8852-4a72-9e56-9e9160aa5e79/stuff/supercollider/Quarks/Devel/extLanguageConfig.sc
-    - /home/ken/Documents/supercollider stuff/timewavesynth ai test.scd
-  startWithSession: last
-
 
 */
